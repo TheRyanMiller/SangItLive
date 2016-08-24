@@ -1,5 +1,8 @@
 package com.rtmillerprojects.sangitlive;
 
+/**
+ * Created by Ryan on 8/23/2016.
+ */
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -10,10 +13,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
-
-/**
- * Created by Ryan on 8/2/2016.
- */
 
 public class ItemTypeAdapterFactory implements TypeAdapterFactory {
 
@@ -33,7 +32,7 @@ public class ItemTypeAdapterFactory implements TypeAdapterFactory {
                 JsonElement jsonElement = elementAdapter.read(in);
                 if (jsonElement.isJsonObject()) {
                     JsonObject jsonObject = jsonElement.getAsJsonObject();
-                    if (jsonObject.has("data") && jsonObject.get("data").isJsonObject()) {
+                    if (jsonObject.has("books") && jsonObject.get("books").isJsonObject()) {
                         jsonElement = jsonObject.get("data");
                     }
                 }

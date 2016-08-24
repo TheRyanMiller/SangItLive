@@ -13,11 +13,14 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSerializer;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -29,6 +32,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -43,10 +47,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView responseText;
     private TextView titleText;
     private Button searchButton;
-    Response responseObj;
+    SetlistsByArtists responseObj;
     String url = "http://api.setlist.fm/rest/0.1/artist/69d9c5ba-7bba-4cb7-ab32-8ccc48ad4f97/setlists.json";
     Gson gson;
-    CustomAdapter adapter;
     AsyncHttpClient client;
     ListView listView;
     private static final int CONNECTION_TIMEOUT = 150000;
@@ -69,17 +72,66 @@ public class MainActivity extends AppCompatActivity {
         searchButton = (Button) findViewById(R.id.searchButton);
         final Context context = this;
 
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context,"clicked button",Toast.LENGTH_SHORT).show();
-                requestWebService(url);
+                //requestWebService(url);
                 String abc = "3";
             }
         });
+
+        GsonBuilder gsonBuilder = new GsonBuilder()
+                .registerTypeAdapterFactory(new ItemTypeAdapterFactory())
+                .registerTypeAdapter(SetlistsByArtists.SetlistsBean.SetlistBean.SetsBean.SetBean.SongBean.class, new JsonDeserializer<SetlistsByArtists.SetlistsBean.SetlistBean.SetsBean.SetBean.SongBean>(){
+                    @Override
+                    public SetlistsByArtists.SetlistsBean.SetlistBean.SetsBean.SetBean.SongBean deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                        JsonObject myJson = json.getAsJsonObject();
+                        Gson gson = new Gson();
+                        JsonArray songs = null;
+                        try {
+                            songs = myJson.get("song").getAsJsonArray();
+                        } catch (Exception e) {
+                            JsonObject song = myJson.get("song").getAsJsonObject();
+                            songs = new JsonArray();
+                            songs.add(song);
+
+                        }
+                        SetlistsByArtists.SetlistsBean.SetlistBean.SetsBean.SetBean.SongBean response = gson.fromJson(songs, SetlistsByArtists.SetlistsBean.SetlistBean.SetsBean.SetBean.SongBean.class);
+                        return response;
+                    }
+                })
+                .registerTypeAdapter(SetlistsByArtists.class, new JsonDeserializer<SetlistsByArtists>(){
+                    @Override
+                    public SetlistsByArtists deserialize(JsonElement arg0, Type arg1, JsonDeserializationContext arg2) throws JsonParseException {
+                        JsonObject setsObject = arg0.getAsJsonObject();
+                        Gson gson = new Gson();
+                        SetlistsByArtists response = gson.fromJson(arg0, SetlistsByArtists.class);
+                        //SetlistsByArtists.SetlistsBean.SetlistBean.SetsBean sets;
+                        int sets;
+                        try {
+                            sets = setsObject.get("test").getAsInt();
+                        } catch (Exception e) {
+                            sets = 0;
+                        }
+                        //movie.setMovieRuntime(runtime);
+                        return response;
+                    }
+                });
+
+        Gson gson = gsonBuilder.create();
+
+
+        InputStream is = this.getResources().openRawResource(R.raw.samplesetlistjson);
+        Reader reader1 = new InputStreamReader(is);
+
+        SetlistsByArtists setlistsByArtists = gson.fromJson(reader1, SetlistsByArtists.class);
+        responseText.setText(setlistsByArtists.getSetlists().getSetlist().get(0).getSets().getSet().get(0).getSong().get(0).getName().toString());
     }
 
-    public static Response requestWebService(String serviceUrl) {
+    /*
+    public static SetlistsByArtists requestWebService(String serviceUrl) {
         disableConnectionReuseIfNecessary();
 
         HttpURLConnection urlConnection = null;
@@ -107,31 +159,15 @@ public class MainActivity extends AppCompatActivity {
             while ((line = bufferedReader.readLine()) != null) {
                 result.append(line);
             }
-            Gson gson = new Gson();
-            Gson gsonBuilder = new GsonBuilder()
-                    .registerTypeAdapterFactory(new ItemTypeAdapterFactory())
-                    /*
-                    SetList.fm returns an object when there's a valid value for sets, but they
-                    return an empty string when the value is null.  Because they return different
-                    JSON primitive types we have to create a custom TypeAdapter for our Result.class.
-                    */
-                    .registerTypeAdapter(Response.class, new JsonDeserializer<Response>(){
-                        @Override
-                        public Response deserialize(JsonElement arg0, Type arg1, JsonDeserializationContext arg2) throws JsonParseException {
-                            JsonObject setsObject = arg0.getAsJsonObject();
-                            Gson gson = new Gson();
-                            Response response = gson.fromJson(arg0, Response.class);
-                            Response.SetlistsBean.SetlistBean.SetsBean sets;
-                            try {
-                                sets = response..get("runtime").getAsInt();
-                            } catch (Exception e) {
-                                sets = 0;
-                            }
-                            movie.setMovieRuntime(runtime);
-                            return movie;
-                    })
-            return gson.fromJson(result.toString(),Response.class);
 
+            //
+
+
+
+
+
+
+            //return gson.fromJson(result.toString(),Response.class);
         } catch (MalformedURLException e) {
             // URL is invalid
         } catch (SocketTimeoutException e) {
@@ -149,12 +185,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+
         return null;
     }
 
     /**
      * required in order to prevent issues in earlier Android version.
      */
+    /*
     private static void disableConnectionReuseIfNecessary() {
         // see HttpURLConnection API doc
         if (Integer.parseInt(Build.VERSION.SDK)
@@ -168,4 +206,5 @@ public class MainActivity extends AppCompatActivity {
         // http://weblogs.java.net/blog/pat/archive/2004/10/stupid_scanner_1.html
         return new Scanner(inStream).useDelimiter("\\A").next();
     }
+    */
 }
