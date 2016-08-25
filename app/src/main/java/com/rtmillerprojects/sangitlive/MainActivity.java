@@ -1,12 +1,16 @@
 package com.rtmillerprojects.sangitlive;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,7 +52,12 @@ public class MainActivity extends AppCompatActivity {
     private TextView responseText;
     private TextView titleText;
     private Button searchButton;
+    private SongInstanceAdapter siAdapter;
+    private LinearLayoutManager layoutManager;
+    private RecyclerView recyclerView;
+    private EditText songString;
     SetlistsByArtists responseObj;
+    private Button btnChooseArtist;
     String url = "http://api.setlist.fm/rest/0.1/artist/69d9c5ba-7bba-4cb7-ab32-8ccc48ad4f97/setlists.json";
     Gson gson;
     AsyncHttpClient client;
@@ -61,25 +70,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listView = (ListView) findViewById(R.id.songlist);
+        recyclerView = (RecyclerView) findViewById(R.id.songlist);
+        btnChooseArtist = (Button) findViewById(R.id.btn_choose_artist);
 
-        if (android.os.Build.VERSION.SDK_INT > 9)
-        {
+        if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
 
-        responseText = (TextView) findViewById(R.id.response);
+        songString = (EditText) findViewById(R.id.songSearch);
         searchButton = (Button) findViewById(R.id.searchButton);
         final Context context = this;
 
+        btnChooseArtist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchArtist();
+            }
+        });
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"clicked button",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "clicked button", Toast.LENGTH_SHORT).show();
                 //requestWebService(url);
-                String abc = "3";
+                doSearch(songString.getText().toString());
             }
         });
 
@@ -124,27 +139,32 @@ public class MainActivity extends AppCompatActivity {
                 */;
 
         Gson gson = gsonBuilder.create();
+    }
 
 
-        InputStream is = this.getResources().openRawResource(R.raw.samplesetlistjson);
-        Reader reader1 = new InputStreamReader(is);
 
-        String songName = "Burn the Witch";
+
+    public void doSearch(String songString) {
+        String songName = songString;
 
         ArrayList<SongPlayedInfo> songInfo = new ArrayList<>();
-
+        InputStream is = this.getResources().openRawResource(R.raw.samplesetlistjson);
+        Reader reader1 = new InputStreamReader(is);
+        GsonBuilder gsonBuilder = new GsonBuilder()
+                .registerTypeAdapterFactory(new ItemTypeAdapterFactory());
+        Gson gson = gsonBuilder.create();
         SetlistsByArtists setlistsByArtists = gson.fromJson(reader1, SetlistsByArtists.class);
         SetlistsByArtists.SetlistsBean.SetlistBean.SetsBean.SetBean set;
         SetlistsByArtists.SetlistsBean.SetlistBean.SetsBean.SetBean.SongBean song;
-        for(SetlistsByArtists.SetlistsBean.SetlistBean sl : setlistsByArtists.getSetlists().getSetlist()){
-            for (int i = 0; i <sl.getSets().getSet().size(); i++) {
+        for (SetlistsByArtists.SetlistsBean.SetlistBean sl : setlistsByArtists.getSetlists().getSetlist()) {
+            for (int i = 0; i < sl.getSets().getSet().size(); i++) {
                 set = sl.getSets().getSet().get(i);
                 for (int k = 0; k < set.getSong().size(); k++) {
                     song = set.getSong().get(k);
-                    if(songName.toLowerCase().matches(song.getName().toString().toLowerCase())){
+                    if (songName.toLowerCase().matches(song.getName().toString().toLowerCase())) {
                         int instanceCounter = songInfo.size();
                         SongPlayedInfo spi = new SongPlayedInfo();
-                        spi.setCity(sl.getVenue().getCity().getName());
+                        spi.setCity(sl.getVenue().getCity().getName()+", "+sl.getVenue().getCity().getCountry().getName());
                         spi.setDate(sl.getEventDate());
                         spi.setSongName(song.getName());
                         spi.setVenue(sl.getVenue().getName());
@@ -155,8 +175,19 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        responseText.setText(setlistsByArtists.getSetlists().getSetlist().get(0).getSets().getSet().get(0).getSong().get(0).getName().toString());
+        siAdapter = new SongInstanceAdapter(songInfo, this);
+        layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setAdapter(siAdapter);
+        recyclerView.setLayoutManager(layoutManager);
     }
+
+    public void searchArtist(){
+        Intent intent = new Intent(this, ArtistSearchActivity.class);
+        //EditText editText = (EditText) findViewById(R.id.edit_message);
+        startActivity(intent);
+    }
+}
 
     /*
     public static SetlistsByArtists requestWebService(String serviceUrl) {
@@ -235,4 +266,4 @@ public class MainActivity extends AppCompatActivity {
         return new Scanner(inStream).useDelimiter("\\A").next();
     }
     */
-}
+
