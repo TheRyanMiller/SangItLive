@@ -38,6 +38,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import cz.msebera.android.httpclient.Header;
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         GsonBuilder gsonBuilder = new GsonBuilder()
                 .registerTypeAdapterFactory(new ItemTypeAdapterFactory())
+                /*
                 .registerTypeAdapter(SetlistsByArtists.SetlistsBean.SetlistBean.SetsBean.SetBean.SongBean.class, new JsonDeserializer<SetlistsByArtists.SetlistsBean.SetlistBean.SetsBean.SetBean.SongBean>(){
                     @Override
                     public SetlistsByArtists.SetlistsBean.SetlistBean.SetsBean.SetBean.SongBean deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -118,7 +120,8 @@ public class MainActivity extends AppCompatActivity {
                         //movie.setMovieRuntime(runtime);
                         return response;
                     }
-                });
+                })
+                */;
 
         Gson gson = gsonBuilder.create();
 
@@ -126,7 +129,32 @@ public class MainActivity extends AppCompatActivity {
         InputStream is = this.getResources().openRawResource(R.raw.samplesetlistjson);
         Reader reader1 = new InputStreamReader(is);
 
+        String songName = "Burn the Witch";
+
+        ArrayList<SongPlayedInfo> songInfo = new ArrayList<>();
+
         SetlistsByArtists setlistsByArtists = gson.fromJson(reader1, SetlistsByArtists.class);
+        SetlistsByArtists.SetlistsBean.SetlistBean.SetsBean.SetBean set;
+        SetlistsByArtists.SetlistsBean.SetlistBean.SetsBean.SetBean.SongBean song;
+        for(SetlistsByArtists.SetlistsBean.SetlistBean sl : setlistsByArtists.getSetlists().getSetlist()){
+            for (int i = 0; i <sl.getSets().getSet().size(); i++) {
+                set = sl.getSets().getSet().get(i);
+                for (int k = 0; k < set.getSong().size(); k++) {
+                    song = set.getSong().get(k);
+                    if(songName.toLowerCase().matches(song.getName().toString().toLowerCase())){
+                        int instanceCounter = songInfo.size();
+                        SongPlayedInfo spi = new SongPlayedInfo();
+                        spi.setCity(sl.getVenue().getCity().getName());
+                        spi.setDate(sl.getEventDate());
+                        spi.setSongName(song.getName());
+                        spi.setVenue(sl.getVenue().getName());
+                        spi.setTourName(sl.getTour());
+                        songInfo.add(spi);
+                    }
+                }
+            }
+        }
+
         responseText.setText(setlistsByArtists.getSetlists().getSetlist().get(0).getSets().getSet().get(0).getSong().get(0).getName().toString());
     }
 
