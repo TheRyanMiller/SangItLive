@@ -1,15 +1,38 @@
 package com.rtmillerprojects.sangitlive;
 
+import java.util.ArrayList;
+
 /**
  * Created by Ryan on 8/25/2016.
  */
-public class SongPlayedInfo {
+public class SetInfo {
     private String songName;
     private String venue;
     private String city;
     private String state;
     private String date;
     private String tourName;
+    private boolean wasPlayed;
+    private ArrayList<String> songs;
+
+    public void setWasPlayed(boolean wasPlayed) {
+        this.wasPlayed = wasPlayed;
+    }
+
+    public void setSongs(ArrayList<String> songs) {
+        this.songs = songs;
+    }
+
+    public boolean isWasPlayed() {
+
+        return wasPlayed;
+    }
+
+    public ArrayList<String> getSongs() {
+        return songs;
+    }
+
+
 
     public String getTourName() {
         return tourName;

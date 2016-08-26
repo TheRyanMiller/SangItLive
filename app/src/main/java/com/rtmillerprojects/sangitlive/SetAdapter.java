@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
@@ -14,14 +13,14 @@ import java.util.ArrayList;
 /**
  * Created by Ryan on 8/25/2016.
  */
-public class SongInstanceAdapter extends RecyclerView.Adapter<SongInstanceAdapter.SongInstanceViewHolder> {
+public class SetAdapter extends RecyclerView.Adapter<SetAdapter.SongInstanceViewHolder> {
 
-    private ArrayList<SongPlayedInfo> songInstances;
+    private ArrayList<SetInfo> setInstances;
     private Context context;
 
     //Constructor
-    public SongInstanceAdapter (ArrayList<SongPlayedInfo> songInstances, Context context){
-        this.songInstances = songInstances;
+    public SetAdapter(ArrayList<SetInfo> setInstances, Context context){
+        this.setInstances = setInstances;
         this.context = context;
     };
 
@@ -34,17 +33,21 @@ public class SongInstanceAdapter extends RecyclerView.Adapter<SongInstanceAdapte
 
     @Override
     public void onBindViewHolder(SongInstanceViewHolder holder, int position) {
-        SongPlayedInfo spi = songInstances.get(position);
+        SetInfo si = setInstances.get(position);
+        holder.view.setBackgroundColor(0xFFFF8A80);
+        if(si.isWasPlayed()){
+            holder.view.setBackgroundColor(0xFFD8FFA9);
+        }
         holder.resultNumber.setText(++position +"");
-        holder.name.setText(spi.getSongName());
-        holder.city.setText(spi.getCity());
-        holder.date.setText(spi.getDate());
-        holder.venue.setText(spi.getVenue());
+        holder.name.setText(si.getSongName());
+        holder.city.setText(si.getCity());
+        holder.date.setText(si.getDate());
+        holder.venue.setText(si.getVenue());
     }
 
     @Override
     public int getItemCount() {
-        return songInstances.size();
+        return setInstances.size();
     }
 
 
@@ -55,6 +58,7 @@ public class SongInstanceAdapter extends RecyclerView.Adapter<SongInstanceAdapte
         TextView venue;
         TextView resultNumber;
         ImageView profPic;
+        View view;
 
         public SongInstanceViewHolder(View v) {
             super(v);
@@ -63,6 +67,7 @@ public class SongInstanceAdapter extends RecyclerView.Adapter<SongInstanceAdapte
             name = (TextView) v.findViewById(R.id.songname);
             venue = (TextView) v.findViewById(R.id.venue);
             resultNumber = (TextView) v.findViewById(R.id.resultnumber);
+            view = v;
         }
     }
 }

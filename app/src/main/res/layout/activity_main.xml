@@ -30,7 +30,7 @@
         android:layout_height="60dp"
         android:layout_gravity="center">
         <EditText
-            android:layout_width="250dp"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:hint="Song Name"
             android:id="@+id/songSearch" />
@@ -42,6 +42,13 @@
             android:layout_toRightOf="@id/songSearch"
             android:text="Search" />
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Search Results: "
+        android:id="@+id/results_detail" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
