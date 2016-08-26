@@ -1,12 +1,15 @@
 package com.rtmillerprojects.sangitlive;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,6 +23,9 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVi
 
     //Constructor
     public ArtistsAdapter (ArrayList<ArtistDetails> artistDetails, Context context){
+        if(artistDetails==null){
+            artistDetails = new ArrayList<ArtistDetails>();
+        }
         this.artistDetails = artistDetails;
         this.context = context;
     };
@@ -27,7 +33,7 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVi
     @Override
     public ArtistViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.artist_list_item, parent, false);
-        ArtistViewHolder vh = new ArtistViewHolder(v);
+        ArtistViewHolder vh = new ArtistViewHolder(v,context);
         return vh;
     }
 
@@ -45,16 +51,29 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVi
     }
 
 
-    public static class ArtistViewHolder extends RecyclerView.ViewHolder {
+    public static class ArtistViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView artistName;
         TextView mbid;
         TextView resultNumber;
+        AppCompatActivity ACA;
 
-        public ArtistViewHolder(View v) {
+        public ArtistViewHolder(View v, Context context) {
             super(v);
             mbid = (TextView) v.findViewById(R.id.mbid);
             artistName = (TextView) v.findViewById(R.id.artist_name);
             resultNumber = (TextView) v.findViewById(R.id.resultnumber);
+            this.ACA = (AppCompatActivity) context;
+            v.setOnClickListener(this);
+        }
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            Toast.makeText(ACA.getApplicationContext(),"Position: "+position,Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(ACA, MainActivity.class);
+            intent.putExtra("mbid",mbid.getText().toString());
+            intent.putExtra("artistName",artistName.getText().toString());
+            ACA.startActivity(intent);
         }
     }
+
 }

@@ -70,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = getIntent();
+        String artistName = intent.getStringExtra("artistName");
+        String mbid = intent.getStringExtra("mbid");
+
         recyclerView = (RecyclerView) findViewById(R.id.songlist);
         btnChooseArtist = (Button) findViewById(R.id.btn_choose_artist);
 
@@ -81,7 +85,12 @@ public class MainActivity extends AppCompatActivity {
         songString = (EditText) findViewById(R.id.songSearch);
         searchButton = (Button) findViewById(R.id.searchButton);
         final Context context = this;
-
+        if(artistName!=null) {
+            btnChooseArtist.setText(artistName);
+        }
+        else{
+            btnChooseArtist.setText("Choose an artist");
+        }
         btnChooseArtist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ArtistSearchActivity.class);
         //EditText editText = (EditText) findViewById(R.id.edit_message);
         startActivity(intent);
+        //startActivityForResult(intent,ARTIST_SEARCH_CODE);
     }
 }
 
