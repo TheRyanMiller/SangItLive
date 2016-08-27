@@ -33,6 +33,21 @@ public class ItemTypeAdapterFactory implements TypeAdapterFactory {
                 JsonElement jsonElement = elementAdapter.read(in);
                 if (jsonElement.isJsonObject()) {
                     JsonObject jsonObject = jsonElement.getAsJsonObject();
+                    if(jsonObject.has("set")){
+                        JsonArray sets = new JsonArray();
+                        try {
+                            sets = jsonObject.get("set").getAsJsonArray();
+                        }
+                        catch (Exception e) {
+                            JsonObject set = jsonObject.get("set").getAsJsonObject();
+                            jsonObject.remove("set");
+                            sets.add(set);
+                            jsonObject.add("set", sets);
+                        }
+                        jsonElement = jsonObject;
+                        //return delegate.fromJsonTree(jsonElement);
+                    }
+
                     if(jsonObject.has("song")){
                         JsonArray songs = new JsonArray();
                         try {
@@ -46,6 +61,7 @@ public class ItemTypeAdapterFactory implements TypeAdapterFactory {
                         }
                         jsonElement = jsonObject;
                     }
+
                 }
 
                 return delegate.fromJsonTree(jsonElement);
