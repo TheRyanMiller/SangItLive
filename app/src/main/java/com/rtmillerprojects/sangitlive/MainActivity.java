@@ -2,9 +2,6 @@ package com.rtmillerprojects.sangitlive;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,21 +18,19 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.loopj.android.http.AsyncHttpClient;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayoutManager layoutManager;
     private RecyclerView recyclerView;
     private EditText songString;
+    private String urlQuery;
     private TextView resultsMsg;
+    private SetlistService setlistService;
     private SetlistsByArtists responseObj;
     private Context context;
     private Button btnChooseArtist;
@@ -55,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private String url = "http://api.setlist.fm/rest/0.1/artist/69d9c5ba-7bba-4cb7-ab32-8ccc48ad4f97/setlists.json";
     private Gson gson;
     private String mbid;
+    private Bus mBus;
     private AsyncHttpClient client;
     private boolean loading = true;
     private int pastVisiblesItems, visibleItemCount, totalItemCount;
@@ -70,17 +68,20 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String artistName = intent.getStringExtra("artistName");
         mbid = intent.getStringExtra("mbid");
-        page=1;
+
         if(mbid!=null){
-            setlistsByArtists = getJsonFromRest(mbid, page);
+            getJsonFromRest(mbid, page);
+
         }
         else{
             /* Testing */
             artistName = "Radiohead";
             mbid = "a74b1b7f-71a5-4011-9441-d0b5e4122711";
+            getJsonFromRest(mbid, page);
         }
-        setlistsByArtists = getJsonFromRest(mbid, page);
         page++;
+
+
 
         recyclerView = (RecyclerView) findViewById(R.id.songlist);
         btnChooseArtist = (Button) findViewById(R.id.btn_choose_artist);
@@ -101,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
                 searchArtist();
             }
         });
+
+
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,25 +131,20 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = gsonBuilder.create();
     }
 
-    public SetlistsByArtists getJsonFromRest(String mbid, int page){
-
-        String urlQuery = null;
+    public void getJsonFromRest(String mbid, int page){
         try {
+
             urlQuery = "http://api.setlist.fm/rest/0.1/search/setlists.json?artistMbid=" + URLEncoder.encode(mbid, "UTF-8");
             urlQuery+="&p="+ page;
-            NewConnection cxn = new NewConnection();
-            cxn.execute(urlQuery);
-            setlistsByArtists = cxn.getSetlistsByArtists();
-            return setlistsByArtists;
+            //setlistService = new SetlistService(urlQuery, mBus);
+            if(mBus==null){mBus=getBus();}
+            SetlistService setlistService = new SetlistService(urlQuery,mBus);
+            mBus.register(setlistService);
+            mBus.post(new DoRestEvent(urlQuery));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            if(setlistsByArtists==null) {
-                return null;
-            }
-            else{return setlistsByArtists;}
         }
     }
-
 
     public void doSearch(String songString, final SetlistsByArtists setlistsByArtists) {
         String songName = songString;
@@ -194,6 +192,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(slAdapter);
         recyclerView.setLayoutManager(layoutManager);
         final Context context = this;
+        mBus = getBus();
+        mBus.register(this);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy)
@@ -212,21 +212,13 @@ public class MainActivity extends AppCompatActivity {
                             Log.v("...", "Last Item Wow !");
                             //Do pagination.. i.e. fetch new data
                             Toast.makeText(context,"KEEP SCROLLING BABY!",Toast.LENGTH_SHORT).show();
-                            SetlistsByArtists rSetlistsByArtists = getJsonFromRest(mbid, page);
+                            //-UNCOMMENT THIS LINE SetlistsByArtists rSetlistsByArtists = getJsonFromRest(mbid, page);
                             page++;
-                            List<SetlistsByArtists.SetlistsBean.SetlistBean> slb = setlistsByArtists.getSetlists().getSetlist();
-                            for(SetlistsByArtists.SetlistsBean.SetlistBean item : rSetlistsByArtists.getSetlists().getSetlist()){
-                                slb.add(item);
-                            }
-                            SetlistsByArtists.SetlistsBean sb = setlistsByArtists.getSetlists();
-                            sb.setSetlist(slb);
-                            setlistsByArtists.setSetlists(sb);
+                            // -UNCOMMENT THIS LINE setlistsByArtists.setSetlists(combineSetlistResults(setlistsByArtists, rSetlistsByArtists));
                             recyclerView.getAdapter().notifyDataSetChanged();
-                            //slAdapter.notifyDataSetChanged();
-                            slAdapter.notifyItemRangeChanged(0,sb.getSetlist().size());
+                            slAdapter.notifyItemRangeChanged(0,setlistsByArtists.getSetlists().getSetlist().size());
                             slAdapter.notifyDataSetChanged();
-                            //ADD NEW RESULTS
-                            // setlistsByArtists.getSetlists().set
+
                         }
                     }
                 }
@@ -253,82 +245,46 @@ public class MainActivity extends AppCompatActivity {
         return localSetlistsByArtists;
     }
 
-    public class NewConnection extends AsyncTask<String, Void, String> {
-        private int responseHttp = 0;
-        StringBuilder result = new StringBuilder();
-        private String flag = "false";
-        private HttpURLConnection urlConnection = null;
-        private String pMbid = mbid +"&p="+ page;
-        private SetlistsByArtists setlistsByArtists;
-        public SetlistsByArtists getSetlistsByArtists() {
-            return setlistsByArtists;
+    public SetlistsByArtists.SetlistsBean combineSetlistResults(SetlistsByArtists sl1, SetlistsByArtists sl2){
+        List<SetlistsByArtists.SetlistsBean.SetlistBean> slb = sl1.getSetlists().getSetlist();
+        for(SetlistsByArtists.SetlistsBean.SetlistBean item : sl2.getSetlists().getSetlist()){
+            slb.add(item);
         }
-
-
-        @Override
-        protected String doInBackground(String... urlString) {
-            // TODO Auto-generated method stub
-            try {
-                URL urlToRequest = new URL(urlString[0]);
-                urlConnection = (HttpURLConnection) urlToRequest.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
-
-                // handle issues
-                int statusCode = urlConnection.getResponseCode();
-                if (statusCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
-                    // handle unauthorized (if service requires user login)
-                } else if (statusCode != HttpURLConnection.HTTP_OK) {
-                    // handle any other errors, like 404, 500,..
-                }
-
-                // create JSON object from content
-                InputStream stream = urlConnection.getInputStream();
-                InputStreamReader reader = new InputStreamReader(stream);
-                BufferedReader bufferedReader = new BufferedReader(reader);
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    result.append(line);
-                }
-                /* STOCK CODE FROM SO
-                URL url = new URL(urlString[0]);
-                URLConnection connection = url.openConnection();
-                connection.setConnectTimeout(2000);
-                HttpURLConnection httpConnection = (HttpURLConnection) connection;
-                responseHttp = httpConnection.getResponseCode();
-                if (responseHttp == HttpURLConnection.HTTP_OK) {
-                    flag = "true";
-                } else {
-                    flag = "false";
-                }
-                */
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if(result!=null && result.toString()!=""){
-                String resultString = result.toString();
-                GsonBuilder gsonBuilder = new GsonBuilder()
-                        .registerTypeAdapterFactory(new ItemTypeAdapterFactory());
-                Gson gson = gsonBuilder.create();
-                setlistsByArtists = gson.fromJson(resultString, SetlistsByArtists.class);
-                page++;
-
-            }
-            else{
-                setlistsByArtists = null;
-            }
-
-            return flag;
-        }
-        @Override
-        protected void onPostExecute(String receive) {
-            if(receive.equalsIgnoreCase("true")){
-                //doTimerTask();
-            }else
-            if(receive.equalsIgnoreCase("false")){
-                //showAlert
-            }
-        }
+        SetlistsByArtists.SetlistsBean sb = new SetlistsByArtists.SetlistsBean();
+        sb.setSetlist(slb);
+        return sb;
     }
+
+
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        getBus().unregister(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mBus = getBus();
+        getBus().register(this);
+    }
+
+    public Bus getBus(){
+        if (mBus == null) {
+            mBus = EventBus.getBus();
+        }
+        return mBus;
+    }
+    public void setBus(Bus bus) {
+        mBus = bus;
+    }
+
+    @Subscribe
+    public void onEvent(LoadSetlistsEvent event){
+        Log.d("Ryan TESTING", "EVENT FIRED");
+        Toast.makeText(this, "RETURNED FROM BUS", Toast.LENGTH_LONG).show();
+    }
+
 }
 
