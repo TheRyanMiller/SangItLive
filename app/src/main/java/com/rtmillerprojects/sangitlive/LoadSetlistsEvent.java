@@ -6,7 +6,16 @@ package com.rtmillerprojects.sangitlive;
 public class LoadSetlistsEvent {
     private SetlistsByArtists setlists;
 
+    //Constructor
     public LoadSetlistsEvent(SetlistsByArtists setlists) {
         this.setlists = setlists;
     }
+
+    public SetlistsByArtists getSetlists() {
+        return setlists;
+    }
+    public void setSetlists(SetlistsByArtists setlists) {
+        this.setlists = setlists;
+    }
+
 }

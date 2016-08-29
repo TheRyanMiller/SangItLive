@@ -4,7 +4,8 @@ import android.os.Looper;
 
 import com.squareup.otto.Bus;
 
-import java.util.logging.Handler;
+import android.os.Handler;
+import android.os.Looper;
 import java.util.logging.LogRecord;
 
 /**
@@ -14,6 +15,7 @@ public class EventBus {
 
     private static EventBus mInstance;
     private static Bus mBus = new Bus();
+    private static final Handler mainThread = new Handler(Looper.getMainLooper());
 
     public static Bus getBus() {
         return mBus;
@@ -45,6 +47,20 @@ public class EventBus {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void post(final Object event) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            getInstance().mBus.post(event);
+        } else {
+            mainThread.post(new Runnable() {
+                @Override
+                public void run() {
+                    post(event);
+                }
+            });
+        }
+
     }
 
 }

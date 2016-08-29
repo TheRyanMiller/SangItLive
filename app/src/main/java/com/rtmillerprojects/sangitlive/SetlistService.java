@@ -1,18 +1,13 @@
 package com.rtmillerprojects.sangitlive;
 
+import android.app.Application;
+import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Set;
 
 import retrofit2.Call;
@@ -25,37 +20,38 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Ryan on 8/27/2016.
  */
 public class SetlistService {
-    private Bus mBus;
-    int page;
-    String urlQuery;
     private SetlistsByArtists setlistsByArtists;
-    StringBuilder result = new StringBuilder();
-    private HttpURLConnection urlConnection = null;
+    private ArtistResults artistResults;
+    private Context context;
 
-    public SetlistService(String urlQuery, Bus bus) {
-        this.urlQuery = urlQuery;
-        mBus = getBus();
+    public SetlistService(Application context){
+        this.context = context;
+        /* Some Examplesettings to use in future
+        mApplicationSettingsLocalStorageHandler = new AppSettingsLocalStorageHandler(context);
+        isRetrofitLoggingEnabled = Boolean.valueOf(context.getString(R.string.retrofit_logging_enabled));
+        appSettingsUrl = context.getString(R.string.application_settings_url);
+        rottenTomatoesUrl = context.getString(R.string.movies_url);
+        rottenTomatoesApiKey = context.getString(R.string.rotten_tomatoes_api_key); /// Look in res/values/secret.xml
+        if (rottenTomatoesApiKey.equals("REPLACE WITH YOUR KEY")) {
+            Toast.makeText(context, context.getString(R.string.error_replace_api_key), Toast.LENGTH_LONG).show();
+        }
+        */
     }
 
-
-    public void makeRestCall() {
-
-        //Load setlists api call
-
-
-    }
 
     @Subscribe
-    public void getJsonFromRest(final DoRestEvent event) {
-        /**
-         * x_api_key is stored in a strings resource file named secret.xml and
-         * located in res/values, but secret.xml has been added to .gitignore so my key doesn't
-         * end up in source control.
-         *
-         * simply create your own res/values/secret.xml file with your own Rotten Tomatoes API
-         * key and the app will run as expected.
-         */
-//SETLIST FM URL http://api.setlist.fm/rest/0.1/artist/69d9c5ba-7bba-4cb7-ab32-8ccc48ad4f97/setlists.json
+    public void receiveRest(DoRestEvent event) {
+        if(event.getArtistMbid()!=null){
+            //invoke setlist REST
+            getSetlists(event.getArtistMbid(), event.getPage());
+        }
+        else if(event.getArtistSearchString()!=null){
+            //invoke artistSearch REST
+            getArtists(event.getArtistSearchString(), event.getPage());
+        }
+    }
+
+    private void getSetlists(String mbid, int page){
         Gson gson = new GsonBuilder()
                 .registerTypeAdapterFactory(new ItemTypeAdapterFactory())
                 .create();
@@ -66,16 +62,15 @@ public class SetlistService {
 
         // prepare call in Retrofit 2.0
         ApiService setlistApi = retrofit.create(ApiService.class);
-        String radioheadKey = "859d0860-d480-4efd-970c-c05d5f1776b8";
-        int page = 1;
-        Call<SetlistsByArtists> call = setlistApi.getSetlists(radioheadKey, page);
+        //String radioheadKey = "a74b1b7f-71a5-4011-9441-d0b5e4122711";
+        Call<SetlistsByArtists> call = setlistApi.getSetlists(mbid, page);
         //asynchronous call
         call.enqueue(new Callback<SetlistsByArtists>() {
             @Override
             public void onResponse(Call<SetlistsByArtists> call, Response<SetlistsByArtists> response) {
                 setlistsByArtists = response.body();
-                Log.d("RYAN TEST","RESPONSE SUCCESS");
-                getBus().post(new LoadSetlistsEvent(setlistsByArtists));
+                Log.d("RYAN TEST","SETLIST RESPONSE SUCCESS");
+                EventBus.post(new LoadSetlistsEvent(setlistsByArtists));
             }
 
             @Override
@@ -83,53 +78,53 @@ public class SetlistService {
                 //EventBus.post(new APIErrorEvent(RetrofitError.unexpectedError(response.getUrl(), new HttpException("Empty Body")), event.getCallNumber()));
             }
         });
-
     }
 
-    /* OLD VERSION OF REST REQUEST BELOW. DOES NOT INCLUDE RETROFIT
-    */
-    /*
-        try {
-            String urlString = event.getUrl();
-            URL urlToRequest = new URL(urlString);
-            urlConnection = (HttpURLConnection) urlToRequest.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.connect();
+    private void getArtists(String artistSearchString, int page){
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapterFactory(new ItemTypeAdapterFactory())
+                .create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApiService.BASEURL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
 
-            // handle issues
-            int statusCode = urlConnection.getResponseCode();
-            if (statusCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
-                // handle unauthorized (if service requires user login)
-            } else if (statusCode != HttpURLConnection.HTTP_OK) {
-                // handle any other errors, like 404, 500,..
+
+
+        ApiService setlistApi = retrofit.create(ApiService.class);
+        Call<ArtistResults> call = setlistApi.getArtists(artistSearchString, page);
+        //asynchronous call
+        call.enqueue(new Callback<ArtistResults>() {
+            @Override
+            public void onResponse(Call<ArtistResults> call, Response<ArtistResults> response) {
+                artistResults = response.body();
+                Log.d("RYAN TEST","ARTISTS RESPONSE SUCCESS");
+                EventBus.post(new LoadArtistEvent(artistResults));
             }
 
-            // create JSON object from content
-            InputStream stream = urlConnection.getInputStream();
-            InputStreamReader reader = new InputStreamReader(stream);
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                result.append(line);
+            @Override
+            public void onFailure(Call<ArtistResults> call, Throwable t) {
+                //EventBus.post(new APIErrorEvent(RetrofitError.unexpectedError(response.getUrl(), new HttpException("Empty Body")), event.getCallNumber()));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (result != null && result.toString() != "") {
-            String resultString = result.toString();
-            GsonBuilder gsonBuilder = new GsonBuilder()
-                    .registerTypeAdapterFactory(new ItemTypeAdapterFactory());
-            Gson gson = gsonBuilder.create();
-            setlistsByArtists = gson.fromJson(resultString, SetlistsByArtists.class);
-        } else {
-            setlistsByArtists = null;
-        }
-        mBus.post(new LoadSetlistsEvent(setlistsByArtists));
-    */
+        });
+    }
+
 
     private Bus getBus(){
         return EventBus.getBus();
     }
-
-
 }
+
+/* FROM FILE
+public SetlistsByArtists getJsonFromFile(String mbid, int page) {
+
+        GsonBuilder gsonBuilder = new GsonBuilder()
+                .registerTypeAdapterFactory(new ItemTypeAdapterFactory());
+        Gson gson = gsonBuilder.create();
+        InputStream is = this.getResources().openRawResource(R.raw.samplesetlistjson);
+        Reader reader = new InputStreamReader(is);
+        SetlistsByArtists localSetlistsByArtists = gson.fromJson(reader, SetlistsByArtists.class);
+
+        return localSetlistsByArtists;
+    }
+ */

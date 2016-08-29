@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.EventLog;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -34,62 +35,49 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView responseText;
-    private TextView titleText;
     private int page = 1;
     private Button searchButton;
     private SetAdapter slAdapter;
     private LinearLayoutManager layoutManager;
     private RecyclerView recyclerView;
     private EditText songString;
-    private String urlQuery;
     private TextView resultsMsg;
     private SetlistService setlistService;
-    private SetlistsByArtists responseObj;
-    private Context context;
     private Button btnChooseArtist;
     private SetlistsByArtists setlistsByArtists;
-    private String url = "http://api.setlist.fm/rest/0.1/artist/69d9c5ba-7bba-4cb7-ab32-8ccc48ad4f97/setlists.json";
-    private Gson gson;
     private String mbid;
     private Bus mBus;
-    private AsyncHttpClient client;
     private boolean loading = true;
     private int pastVisiblesItems, visibleItemCount, totalItemCount;
-    private ListView listView;
-    private static final int CONNECTION_TIMEOUT = 150000;
-    private static final int DATARETRIEVAL_TIMEOUT = 150000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //SetlistService.getInstance();
+        recyclerView = (RecyclerView) findViewById(R.id.songlist);
+        btnChooseArtist = (Button) findViewById(R.id.btn_choose_artist);
+        resultsMsg = (TextView) findViewById(R.id.results_detail);
+        songString = (EditText) findViewById(R.id.songSearch);
+        searchButton = (Button) findViewById(R.id.searchButton);
+        final Context context = this;
+        EventBus.register(new SetlistService(this.getApplication()));
 
         Intent intent = getIntent();
         String artistName = intent.getStringExtra("artistName");
         mbid = intent.getStringExtra("mbid");
 
         if(mbid!=null){
-            getJsonFromRest(mbid, page);
-
+            getSetlistsFromBus(mbid, page);
         }
         else{
             /* Testing */
             artistName = "Radiohead";
             mbid = "a74b1b7f-71a5-4011-9441-d0b5e4122711";
-            getJsonFromRest(mbid, page);
+            getSetlistsFromBus(mbid, page);
         }
         page++;
 
-
-
-        recyclerView = (RecyclerView) findViewById(R.id.songlist);
-        btnChooseArtist = (Button) findViewById(R.id.btn_choose_artist);
-        resultsMsg = (TextView) findViewById(R.id.results_detail);
-
-        songString = (EditText) findViewById(R.id.songSearch);
-        searchButton = (Button) findViewById(R.id.searchButton);
-        final Context context = this;
         if(artistName!=null) {
             btnChooseArtist.setText(artistName);
         }
@@ -108,12 +96,11 @@ public class MainActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //requestWebService(url);
                 if(setlistsByArtists!=null) {
                     doSearch(songString.getText().toString(), setlistsByArtists);
                 }
                 else{
-                    Toast.makeText(context,"No results found for this artist",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context,"No results found for this artist",Toast.LENGTH_SHORT).show();
                 }
 
                 try  {
@@ -125,34 +112,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
-        GsonBuilder gsonBuilder = new GsonBuilder()
-                .registerTypeAdapterFactory(new ItemTypeAdapterFactory());
-        Gson gson = gsonBuilder.create();
     }
 
-    public void getJsonFromRest(String mbid, int page){
-        try {
-
-            urlQuery = "http://api.setlist.fm/rest/0.1/search/setlists.json?artistMbid=" + URLEncoder.encode(mbid, "UTF-8");
-            urlQuery+="&p="+ page;
-            //setlistService = new SetlistService(urlQuery, mBus);
-            if(mBus==null){mBus=getBus();}
-            SetlistService setlistService = new SetlistService(urlQuery,mBus);
-            mBus.register(setlistService);
-            mBus.post(new DoRestEvent(urlQuery));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void doSearch(String songString, final SetlistsByArtists setlistsByArtists) {
+    public void doSearch(String songString, SetlistsByArtists setlistsByArtists) {
         String songName = songString;
-
         ArrayList<SetInfo> setInfo = new ArrayList<>();
-
         SetlistsByArtists.SetlistsBean.SetlistBean.SetsBean.SetBean set;
-        //SetlistsByArtists.SetlistsBean.SetlistBean.SetsBean.SetBean.SongBean song;
         String song;
         ArrayList<String> songs = new ArrayList<>();
         int instanceCounter = 0;
@@ -193,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         final Context context = this;
         mBus = getBus();
-        mBus.register(this);
+        /* SCROLL LISTENER
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy)
@@ -224,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        */
     }
 
     public void searchArtist(){
@@ -231,18 +197,6 @@ public class MainActivity extends AppCompatActivity {
         //EditText editText = (EditText) findViewById(R.id.edit_message);
         startActivity(intent);
         //startActivityForResult(intent,ARTIST_SEARCH_CODE);
-    }
-
-    public SetlistsByArtists getJsonFromFile(String mbid, int page) {
-
-        GsonBuilder gsonBuilder = new GsonBuilder()
-                .registerTypeAdapterFactory(new ItemTypeAdapterFactory());
-        Gson gson = gsonBuilder.create();
-        InputStream is = this.getResources().openRawResource(R.raw.samplesetlistjson);
-        Reader reader = new InputStreamReader(is);
-        SetlistsByArtists localSetlistsByArtists = gson.fromJson(reader, SetlistsByArtists.class);
-
-        return localSetlistsByArtists;
     }
 
     public SetlistsByArtists.SetlistsBean combineSetlistResults(SetlistsByArtists sl1, SetlistsByArtists sl2){
@@ -260,14 +214,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onPause(){
         super.onPause();
-        getBus().unregister(this);
+            EventBus.unregister(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         mBus = getBus();
-        getBus().register(this);
+        EventBus.register(this);
     }
 
     public Bus getBus(){
@@ -280,8 +234,18 @@ public class MainActivity extends AppCompatActivity {
         mBus = bus;
     }
 
+    public void getSetlistsFromBus(String mbid, int page){
+        getBus().post(new DoRestEvent(mbid, null, page));
+    }
     @Subscribe
     public void onEvent(LoadSetlistsEvent event){
+        setlistsByArtists = event.getSetlists();
+        if(slAdapter==null){
+            RecyclerView reyclerView = (RecyclerView) findViewById(R.id.songlist);
+            //recyclerView.setAdapter(new SetAdapter());
+            recyclerView.setLayoutManager(layoutManager);
+
+        }
         Log.d("Ryan TESTING", "EVENT FIRED");
         Toast.makeText(this, "RETURNED FROM BUS", Toast.LENGTH_LONG).show();
     }

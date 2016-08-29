@@ -14,11 +14,14 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,6 +47,8 @@ public class ArtistSearchActivity extends AppCompatActivity {
     ArtistsAdapter artistAdapter;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerView;
+    Bus mBus;
+    SetlistService setlistService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +66,7 @@ public class ArtistSearchActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String searchString = String.valueOf(s);
                 if(!TextUtils.isEmpty(searchString) && searchString.substring(searchString.length()-1).equals(" ")) {
-                    artistSearch();
+                    getArtists(searchString);
                 }
             }
 
@@ -84,14 +89,16 @@ public class ArtistSearchActivity extends AppCompatActivity {
                 } catch (Exception e) {
 
                 }
-                artistSearch();
+                getArtists(searchString.getText().toString());
             }
         });
 
     }
 
-    private void artistSearch() {
-        ArtistResults aResults = requestWebService(searchString.getText().toString());
+    @Subscribe
+    public void receiveArtistResults(LoadArtistEvent loadArtistEvent) {
+        Toast.makeText(this,"ARTIST IS RETURNED",Toast.LENGTH_SHORT).show();
+        ArtistResults aResults = loadArtistEvent.getArtistResults();
         if(aResults==null){
             //do something if null
             artistAdapter = new ArtistsAdapter(null, this);
@@ -114,76 +121,23 @@ public class ArtistSearchActivity extends AppCompatActivity {
         }
     }
 
-    public static ArtistResults requestWebService(String artistString) {
-
-        disableConnectionReuseIfNecessary();
-        ArtistResults artistResults;
-        StringBuilder result = new StringBuilder();
-
-        HttpURLConnection urlConnection = null;
-        try {
-            // create connection
-            String urlQuery = "http://api.setlist.fm/rest/0.1/search/artists.json?artistName=" + URLEncoder.encode(artistString, "UTF-8");
-            URL urlToRequest = new URL(urlQuery);
-            urlConnection = (HttpURLConnection) urlToRequest.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.connect();
-
-            // handle issues
-            int statusCode = urlConnection.getResponseCode();
-            if (statusCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
-                // handle unauthorized (if service requires user login)
-            } else if (statusCode != HttpURLConnection.HTTP_OK) {
-                // handle any other errors, like 404, 500,..
-            }
-
-            // create JSON object from content
-            InputStream stream = urlConnection.getInputStream();
-            InputStreamReader reader = new InputStreamReader(stream);
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                result.append(line);
-            }
-
-            //return gson.fromJson(result.toString(),Response.class);
-        } catch (MalformedURLException e) {
-            // URL is invalid
-        } catch (SocketTimeoutException e) {
-            // data retrieval or connection timed out
-        } catch (IOException e) {
-            // could not read response body
-            // (could not create input stream)
-        }
-        //catch (GsonEx e) {
-        // response body is no valid JSON string
-        //}
-        finally {
-            if (urlConnection != null) {
-                urlConnection.disconnect();
-            }
-        }
-        if(result!=null && result.toString()!=""){
-            GsonBuilder gsonBuilder = new GsonBuilder();
-                    //.registerTypeAdapterFactory(new ItemTypeAdapterFactory());
-            Gson gson = gsonBuilder.create();
-            String resultString = result.toString();
-            artistResults = gson.fromJson(new JsonParser().parse(resultString).getAsJsonObject(), ArtistResults.class);
-            return artistResults;
-        }
-        else{
-            return null;
-        }
+    private void getArtists(String artistSearchString){
+        getBus().post(new DoRestEvent(null, artistSearchString, 1));
+    }
+    private Bus getBus(){
+        return EventBus.getBus();
     }
 
-    /**
-     * required in order to prevent issues in earlier Android version.
-     */
-    private static void disableConnectionReuseIfNecessary() {
-        // see HttpURLConnection API doc
-        if (Integer.parseInt(Build.VERSION.SDK)
-                < Build.VERSION_CODES.FROYO) {
-            System.setProperty("http.keepAlive", "false");
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        EventBus.register(this);
+        mBus = getBus();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.unregister(this);
     }
 }

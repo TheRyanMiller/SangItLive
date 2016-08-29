@@ -18,5 +18,9 @@ public interface ApiService {
     // Setlists
     @GET(SETLISTSENDPOINT)
     Call<SetlistsByArtists> getSetlists(@Query("artistMbid") String artistKey, @Query("p") int page);
+
+    // Artists
+    @GET(ARTISTENDPOINT)
+    Call<ArtistResults> getArtists(@Query("artistName") String artistName, @Query("p") int page);
     //http://api.setlist.fm/rest/0.1/search/setlists.json?artistMbid=859d0860-d480-4efd-970c-c05d5f1776b8&p=1
 }
