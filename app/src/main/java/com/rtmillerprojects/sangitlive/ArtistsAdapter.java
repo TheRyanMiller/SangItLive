@@ -42,7 +42,7 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVi
         ArtistDetails aDetails = artistDetails.get(position);
         holder.resultNumber.setText(++position +"");
         holder.artistName.setText(aDetails.getName());
-        holder.mbid.setText(aDetails.getMbid());
+        holder.mbid = aDetails.getMbid();
     }
 
     @Override
@@ -53,13 +53,12 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVi
 
     public static class ArtistViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView artistName;
-        TextView mbid;
+        public String mbid;
         TextView resultNumber;
         AppCompatActivity ACA;
 
         public ArtistViewHolder(View v, Context context) {
             super(v);
-            mbid = (TextView) v.findViewById(R.id.mbid);
             artistName = (TextView) v.findViewById(R.id.artist_name);
             resultNumber = (TextView) v.findViewById(R.id.resultnumber);
             this.ACA = (AppCompatActivity) context;
@@ -70,7 +69,7 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVi
             int position = getAdapterPosition();
             Toast.makeText(ACA.getApplicationContext(),"Position: "+position,Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(ACA, MainActivity.class);
-            intent.putExtra("mbid",mbid.getText().toString());
+            intent.putExtra("mbid",mbid);
             intent.putExtra("artistName",artistName.getText().toString());
             ACA.startActivity(intent);
         }

@@ -122,17 +122,13 @@ public class ArtistSearchActivity extends AppCompatActivity {
     }
 
     private void getArtists(String artistSearchString){
-        getBus().post(new DoRestEvent(null, artistSearchString, 1));
-    }
-    private Bus getBus(){
-        return EventBus.getBus();
+        EventBus.post(new DoRestEvent(null, artistSearchString, 1));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         EventBus.register(this);
-        mBus = getBus();
     }
 
     @Override

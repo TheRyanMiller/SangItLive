@@ -2,6 +2,7 @@ package com.rtmillerprojects.sangitlive;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -40,13 +41,14 @@ public class MainActivity extends AppCompatActivity {
     private SetAdapter slAdapter;
     private LinearLayoutManager layoutManager;
     private RecyclerView recyclerView;
-    private EditText songString;
+    private TextInputLayout songString;
+    //private EditText songString;
     private TextView resultsMsg;
     private SetlistService setlistService;
     private Button btnChooseArtist;
     private SetlistsByArtists setlistsByArtists;
     private String mbid;
-    private Bus mBus;
+    private Context context;
     private boolean loading = true;
     private int pastVisiblesItems, visibleItemCount, totalItemCount;
 
@@ -54,19 +56,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //SetlistService.getInstance();
         recyclerView = (RecyclerView) findViewById(R.id.songlist);
         btnChooseArtist = (Button) findViewById(R.id.btn_choose_artist);
         resultsMsg = (TextView) findViewById(R.id.results_detail);
-        songString = (EditText) findViewById(R.id.songSearch);
+        songString = (TextInputLayout) findViewById(R.id.songSearch);
         searchButton = (Button) findViewById(R.id.searchButton);
         final Context context = this;
+
+        EventBus.register(this);
         EventBus.register(new SetlistService(this.getApplication()));
 
         Intent intent = getIntent();
         String artistName = intent.getStringExtra("artistName");
         mbid = intent.getStringExtra("mbid");
-
         if(mbid!=null){
             getSetlistsFromBus(mbid, page);
         }
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(setlistsByArtists!=null) {
-                    doSearch(songString.getText().toString(), setlistsByArtists);
+                    doSearch(songString.getEditText().getText().toString(), setlistsByArtists);
                 }
                 else{
                     //Toast.makeText(context,"No results found for this artist",Toast.LENGTH_SHORT).show();
@@ -157,8 +159,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(slAdapter);
         recyclerView.setLayoutManager(layoutManager);
         final Context context = this;
-        mBus = getBus();
-        /* SCROLL LISTENER
+        /* SCROLL LISTENER*/
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy)
@@ -177,28 +178,28 @@ public class MainActivity extends AppCompatActivity {
                             Log.v("...", "Last Item Wow !");
                             //Do pagination.. i.e. fetch new data
                             Toast.makeText(context,"KEEP SCROLLING BABY!",Toast.LENGTH_SHORT).show();
-                            //-UNCOMMENT THIS LINE SetlistsByArtists rSetlistsByArtists = getJsonFromRest(mbid, page);
+                            /* MAKE REST CALL AND UPDATE ADAPTER
+                            SetlistsByArtists rSetlistsByArtists = getJsonFromRest(mbid, page);
                             page++;
-                            // -UNCOMMENT THIS LINE setlistsByArtists.setSetlists(combineSetlistResults(setlistsByArtists, rSetlistsByArtists));
+                            setlistsByArtists.setSetlists(combineSetlistResults(setlistsByArtists, rSetlistsByArtists));
                             recyclerView.getAdapter().notifyDataSetChanged();
                             slAdapter.notifyItemRangeChanged(0,setlistsByArtists.getSetlists().getSetlist().size());
                             slAdapter.notifyDataSetChanged();
-
+                            */
                         }
                     }
                 }
             }
         });
-        */
+
     }
 
     public void searchArtist(){
         Intent intent = new Intent(this, ArtistSearchActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.edit_message);
         startActivity(intent);
-        //startActivityForResult(intent,ARTIST_SEARCH_CODE);
     }
 
+    //Feed two SLBA objects and receive single combined object
     public SetlistsByArtists.SetlistsBean combineSetlistResults(SetlistsByArtists sl1, SetlistsByArtists sl2){
         List<SetlistsByArtists.SetlistsBean.SetlistBean> slb = sl1.getSetlists().getSetlist();
         for(SetlistsByArtists.SetlistsBean.SetlistBean item : sl2.getSetlists().getSetlist()){
@@ -214,40 +215,38 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onPause(){
         super.onPause();
-            EventBus.unregister(this);
+            //EventBus.unregister(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mBus = getBus();
-        EventBus.register(this);
-    }
 
-    public Bus getBus(){
-        if (mBus == null) {
-            mBus = EventBus.getBus();
-        }
-        return mBus;
-    }
-    public void setBus(Bus bus) {
-        mBus = bus;
     }
 
     public void getSetlistsFromBus(String mbid, int page){
-        getBus().post(new DoRestEvent(mbid, null, page));
+        EventBus.post(new DoRestEvent(mbid, null, page));
     }
     @Subscribe
-    public void onEvent(LoadSetlistsEvent event){
+    public void onReceiveSetlists(LoadSetlistsEvent event){
         setlistsByArtists = event.getSetlists();
         if(slAdapter==null){
-            RecyclerView reyclerView = (RecyclerView) findViewById(R.id.songlist);
-            //recyclerView.setAdapter(new SetAdapter());
+            //RecyclerView reyclerView = (RecyclerView) findViewById(R.id.songlist);
+            //slAdapter.notifyDataSetChanged();
+            //doSearch(String songString, SetlistsByArtists setlistsByArtists)
+            setlistsByArtists = event.getSetlists();
+                    /*
+            slAdapter = new SetAdapter(event.getSetlists(), context);
+            layoutManager = new LinearLayoutManager(this);
+            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setAdapter(slAdapter);
             recyclerView.setLayoutManager(layoutManager);
+            //recyclerView.setAdapter(new SetAdapter());
+            //recyclerView.setLayoutManager(layoutManager);
+            */
 
         }
         Log.d("Ryan TESTING", "EVENT FIRED");
-        Toast.makeText(this, "RETURNED FROM BUS", Toast.LENGTH_LONG).show();
     }
 
 }

@@ -27,6 +27,8 @@ public class SetlistService {
     public SetlistService(Application context){
         this.context = context;
         /* Some Examplesettings to use in future
+            Look in NowPlayingApplication.java:
+            --https://github.com/androidfu/Now-Playing/blob/master/app/src/main/java/com/androidfu/nowplaying/app/NowPlayingApplication.java
         mApplicationSettingsLocalStorageHandler = new AppSettingsLocalStorageHandler(context);
         isRetrofitLoggingEnabled = Boolean.valueOf(context.getString(R.string.retrofit_logging_enabled));
         appSettingsUrl = context.getString(R.string.application_settings_url);
@@ -107,11 +109,6 @@ public class SetlistService {
                 //EventBus.post(new APIErrorEvent(RetrofitError.unexpectedError(response.getUrl(), new HttpException("Empty Body")), event.getCallNumber()));
             }
         });
-    }
-
-
-    private Bus getBus(){
-        return EventBus.getBus();
     }
 }
 

@@ -13,14 +13,9 @@ import java.util.logging.LogRecord;
  */
 public class EventBus {
 
-    private static EventBus mInstance;
-    private static Bus mBus = new Bus();
     private static final Handler mainThread = new Handler(Looper.getMainLooper());
-
-    public static Bus getBus() {
-        return mBus;
-    }
-
+    private static EventBus mInstance;
+    private final Bus mBus;
 
     private EventBus() {
         // Don't let this class get instantiated directly.
@@ -33,20 +28,6 @@ public class EventBus {
             mInstance = new EventBus();
         }
         return mInstance;
-    }
-
-
-
-    public static void register(Object subscriber) {
-        getInstance().mBus.register(subscriber);
-    }
-
-    public static void unregister(Object subscriber) {
-        try {
-            getInstance().mBus.unregister(subscriber);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public static void post(final Object event) {
@@ -63,4 +44,15 @@ public class EventBus {
 
     }
 
+    public static void register(Object subscriber) {
+        getInstance().mBus.register(subscriber);
+    }
+
+    public static void unregister(Object subscriber) {
+        try {
+            getInstance().mBus.unregister(subscriber);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
