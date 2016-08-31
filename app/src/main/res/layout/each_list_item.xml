@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="110dp">
 
     <TextView
         android:layout_width="40dp"
@@ -18,6 +18,7 @@
         android:layout_height="110dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
+        android:layout_weight="1"
         android:id="@+id/linearLayout">
         <TextView
             android:id="@+id/songname"
@@ -62,5 +63,14 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="110dp"
+        android:ems="10"
+        android:src="@mipmap/greenlight"
+        android:gravity="center"
+        android:id="@+id/indicator"
+        />
 
-</RelativeLayout>
+
+</LinearLayout>

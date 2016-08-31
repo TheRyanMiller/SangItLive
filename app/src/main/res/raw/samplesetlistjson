@@ -1,4693 +1,1830 @@
 {
  "setlists":{
-  "@itemsPerPage":"20",
-  "@page":"1",
-  "@total":"491",
+  "itemsPerPage":"20",
+  "page":"1",
+  "total":"657",
   "setlist":[
    {
-    "@eventDate":"03-08-2016",
-    "@id":"3fcb133",
-    "@lastUpdated":"2016-08-20T20:19:31.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"73aae69d",
+    "eventDate":"21-08-2016",
+    "id":"6bfc2672",
+    "lastUpdated":"2016-08-25T02:13:42.000+0000",
+    "versionId":"3aa252b",
     "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
     },
     "venue":{
-     "@id":"13d4f1a5",
-     "@name":"Estadio Olímpico de Montjuïc",
+     "id":"53d773f9",
+     "name":"Helluva Lounge",
      "city":{
-      "@id":"3128760",
-      "@name":"Barcelona",
-      "@state":"Catalonia",
-      "@stateCode":"56",
+      "id":"1859172",
+      "name":"Kobe",
+      "state":"Nagasaki",
+      "stateCode":"27",
       "coords":{
-       "@lat":"41.3887868890716",
-       "@long":"2.15898513793945"
+       "lat":"32.8666667",
+       "long":"129.0166667"
       },
       "country":{
-       "@code":"ES",
-       "@name":"Spain"
+       "code":"JP",
+       "name":"Japan"
       }
      },
-     "url":"http:\/\/www.setlist.fm\/venue\/estadio-olimpico-de-montjuic-barcelona-spain-13d4f1a5.html"
+     "url":"http:\/\/www.setlist.fm\/venue\/helluva-lounge-kobe-japan-53d773f9.html"
     },
     "sets":{
      "set":[
       {
-       "@name":"Act 1",
        "song":[
         {
-         "@name":"",
-         "@tape":"true",
-         "info":"with samples of \"No Angel\" and \"Formation\""
+         "name":"It's Different For Girls"
         },
         {
-         "@name":"Formation"
+         "name":"Gallery Piece"
         },
         {
-         "@name":"Sorry"
+         "name":"Let's Relate"
         },
         {
-         "@name":"Irreemplazable",
-         "info":"Acapella"
+         "name":"Wraith Pinned to the Mist (and Other Games)"
         },
         {
-         "@name":"Bow Down",
-         "info":"with \"Tom Ford\" outro"
+         "name":"A Sport and a Pastime"
         },
         {
-         "@name":"Run the World (Girls)"
+         "name":"Labyrinthian Pomp"
+        },
+        {
+         "name":"My Fair Lady"
+        },
+        {
+         "name":"Knight Rider"
+        },
+        {
+         "name":"Our Riotous Defects"
+        },
+        {
+         "name":"Trashed Exes"
+        },
+        {
+         "name":"Nonpareil of Favor"
+        },
+        {
+         "name":"Ambassador Bridge"
+        },
+        {
+         "name":"The Party's Crashing Us"
+        },
+        {
+         "name":"Women's Studies Victims"
+        },
+        {
+         "name":"Wicked Wisdom"
+        },
+        {
+         "name":"Famine Affair"
+        },
+        {
+         "name":"For Our Elegant Caste"
+        },
+        {
+         "name":"Id Engager"
+        },
+        {
+         "name":"An Eluardian Instance"
+        },
+        {
+         "name":"Gronlandic Edit"
+        },
+        {
+         "name":"Bassem Sabry"
+        },
+        {
+         "name":"A Sentence of Sorts in Kongsvinger"
+        },
+        {
+         "name":"It's Different For Girls",
+         "info":"reprise"
         }
        ]
       },
       {
-       "@name":"Act 2",
+       "encore":"1",
        "song":[
         {
-         "@name":"Superpower",
-         "@tape":"true",
-         "info":"Interlude"
+         "name":"Heimdalsgate Like a Promethean Curse"
         },
         {
-         "@name":"Mine"
-        },
-        {
-         "@name":"Baby Boy",
-         "info":"with samples of \"Standing on the Sun\", \"Freaks\" and \"Bam Bam\""
-        },
-        {
-         "@name":"Hold Up"
-        },
-        {
-         "@name":"Countdown",
-         "info":"with samples of \"Pop My Trunk\""
-        },
-        {
-         "@name":"Me, Myself and I"
-        },
-        {
-         "@name":"Runnin' (Lose It All)",
-         "cover":{
-          "@disambiguation":"British songwriter, record producer, musician and rapper",
-          "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-          "@name":"Naughty Boy",
-          "@sortName":"Naughty Boy",
-          "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-         }
-        },
-        {
-         "@name":"All Night"
-        }
-       ]
-      },
-      {
-       "@name":"Act 3",
-       "song":[
-        {
-         "@name":"I Care \/ Ghost",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Don't Hurt Yourself"
-        },
-        {
-         "@name":"Ring the Alarm",
-         "info":"with samples of \"Independent Women Part I\", \"Lost Yo Mind\", \"Naughty Girl\" and \"Diva\""
-        },
-        {
-         "@name":"Diva"
-        },
-        {
-         "@name":"***Flawless",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"***Flawless",
-         "info":"Remix"
-        },
-        {
-         "@name":"Feeling Myself",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-          "@name":"Nicki Minaj",
-          "@sortName":"Minaj, Nicki",
-          "@tmid":"1432250",
-          "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-         }
-        },
-        {
-         "@name":"Yoncé"
-        },
-        {
-         "@name":"Drunk in Love"
-        },
-        {
-         "@name":"Rocket"
-        },
-        {
-         "@name":"Partition"
-        }
-       ]
-      },
-      {
-       "@name":"Act 4",
-       "song":[
-        {
-         "@name":"Hip Hop Star \/ Freakum Dress",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Daddy Lessons"
-        },
-        {
-         "@name":"Love on Top",
-         "info":"Acapella"
-        },
-        {
-         "@name":"1+1"
-        }
-       ]
-      },
-      {
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Purple Rain",
-         "@tape":"true",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         },
-         "info":"Interlude"
-        },
-        {
-         "@name":"Crazy in Love",
-         "info":"With \"Bootylicious\" sample"
-        },
-        {
-         "@name":"Naughty Girl"
-        },
-        {
-         "@name":"Party",
-         "info":"With sample of \"La Di Da Di\""
-        }
-       ]
-      },
-      {
-       "@encore":"1",
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Die with You \/ Blue",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Freedom"
-        },
-        {
-         "@name":"Survivor",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-          "@name":"Destiny’s Child",
-          "@sortName":"Destiny’s Child",
-          "@tmid":"798067",
-          "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-         }
-        },
-        {
-         "@name":"End of Time",
-         "info":"with \"Grown Woman\" sample"
-        }
-       ]
-      },
-      {
-       "@encore":"2",
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Halo"
-        },
-        {
-         "@name":"Schoolin' Life",
-         "@tape":"true",
-         "info":"Outro"
+         "name":"She's a Rejecter"
         }
        ]
       }
      ]
     },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/estadio-olimpico-de-montjuic-barcelona-spain-3fcb133.html"
-   },
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2016\/helluva-lounge-kobe-japan-6bfc2672.html"
+   }
+  ]
+ }
+}
+
+   ,
    {
-    "@eventDate":"31-07-2016",
-    "@id":"23ff4867",
-    "@lastUpdated":"2016-08-04T22:55:31.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"4badcfda",
+    "eventDate":"20-08-2016",
+    "id":"4bfc2786",
+    "lastUpdated":"2016-08-24T19:57:30.000+0000",
+    "versionId":"2baa2862",
     "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
     },
     "venue":{
-     "@id":"bd70da2",
-     "@name":"Stade Roi-Baudouin",
+     "id":"2bd520ca",
+     "name":"Sanda Athletic",
      "city":{
-      "@id":"2800866",
-      "@name":"Brussels",
-      "@state":"Région de Bruxelles-Capitale",
-      "@stateCode":"BRU",
+      "id":"1853008",
+      "name":"Sanda",
+      "state":"Hyōgo",
+      "stateCode":"13",
       "coords":{
-       "@lat":"50.8465974826927",
-       "@long":"4.35277462005615"
+       "lat":"34.8833333",
+       "long":"135.2333333"
       },
       "country":{
-       "@code":"BE",
-       "@name":"Belgium"
+       "code":"JP",
+       "name":"Japan"
       }
      },
-     "url":"http:\/\/www.setlist.fm\/venue\/stade-roi-baudouin-brussels-belgium-bd70da2.html"
-    },
-    "sets":{
-     "set":[
-      {
-       "@name":"Act 1",
-       "song":[
-        {
-         "@name":"",
-         "@tape":"true",
-         "info":"with samples of \"No Angel\" and \"Formation\""
-        },
-        {
-         "@name":"Formation"
-        },
-        {
-         "@name":"Sorry"
-        },
-        {
-         "@name":"Irreplaceable",
-         "info":"Acapella"
-        },
-        {
-         "@name":"Bow Down",
-         "info":"with \"Tom Ford\" outro"
-        },
-        {
-         "@name":"Run the World (Girls)"
-        }
-       ]
-      },
-      {
-       "@name":"Act 2",
-       "song":[
-        {
-         "@name":"Superpower",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Mine"
-        },
-        {
-         "@name":"Baby Boy",
-         "info":"with samples of \"Standing on the Sun\", \"Freaks\" and \"Bam Bam\""
-        },
-        {
-         "@name":"Hold Up"
-        },
-        {
-         "@name":"Countdown",
-         "info":"with samples of \"Pop My Trunk\""
-        },
-        {
-         "@name":"Me, Myself and I"
-        },
-        {
-         "@name":"Runnin' (Lose It All)",
-         "cover":{
-          "@disambiguation":"British songwriter, record producer, musician and rapper",
-          "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-          "@name":"Naughty Boy",
-          "@sortName":"Naughty Boy",
-          "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-         }
-        },
-        {
-         "@name":"All Night"
-        }
-       ]
-      },
-      {
-       "@name":"Act 3",
-       "song":[
-        {
-         "@name":"I Care \/ 6 Inch",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Don't Hurt Yourself"
-        },
-        {
-         "@name":"Ring the Alarm",
-         "info":"with samples of \"Independent Women Part I\", \"Lost Yo Mind\", \"Naughty Girl\" and \"Diva\""
-        },
-        {
-         "@name":"Diva"
-        },
-        {
-         "@name":"***Flawless",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"***Flawless",
-         "info":"Remix"
-        },
-        {
-         "@name":"Feeling Myself",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-          "@name":"Nicki Minaj",
-          "@sortName":"Minaj, Nicki",
-          "@tmid":"1432250",
-          "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-         }
-        },
-        {
-         "@name":"Yoncé"
-        },
-        {
-         "@name":"Drunk in Love"
-        },
-        {
-         "@name":"Rocket"
-        },
-        {
-         "@name":"Partition"
-        }
-       ]
-      },
-      {
-       "@name":"Act 4",
-       "song":[
-        {
-         "@name":"Hip Hop Star \/ Freakum Dress",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Daddy Lessons"
-        },
-        {
-         "@name":"Love on Top",
-         "info":"Acapella"
-        },
-        {
-         "@name":"1+1"
-        }
-       ]
-      },
-      {
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Purple Rain",
-         "@tape":"true",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         },
-         "info":"Interlude"
-        },
-        {
-         "@name":"Crazy in Love",
-         "info":"First half is the 2014 remix. With \"Bootylicious\" sample"
-        },
-        {
-         "@name":"Naughty Girl"
-        },
-        {
-         "@name":"Party",
-         "info":"With sample of \"La Di Da Di\""
-        }
-       ]
-      },
-      {
-       "@encore":"1",
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Die with You \/ Blue",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Freedom"
-        },
-        {
-         "@name":"Survivor",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-          "@name":"Destiny’s Child",
-          "@sortName":"Destiny’s Child",
-          "@tmid":"798067",
-          "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-         }
-        },
-        {
-         "@name":"End of Time",
-         "info":"with \"Grown Woman\" sample"
-        },
-        {
-         "@name":"Halo"
-        },
-        {
-         "@name":"Schoolin' Life",
-         "@tape":"true",
-         "info":"Outro"
-        }
-       ]
-      }
-     ]
-    },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/stade-roi-baudouin-brussels-belgium-23ff4867.html"
-   },
-   {
-    "@eventDate":"29-07-2016",
-    "@id":"bff555e",
-    "@lastUpdated":"2016-08-05T07:06:58.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"33adc469",
-    "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
-    },
-    "venue":{
-     "@id":"4bd63796",
-     "@name":"Commerzbank-Arena",
-     "city":{
-      "@id":"2925533",
-      "@name":"Frankfurt",
-      "@state":"Hesse",
-      "@stateCode":"05",
-      "coords":{
-       "@lat":"50.1166667",
-       "@long":"8.6833333"
-      },
-      "country":{
-       "@code":"DE",
-       "@name":"Germany"
-      }
-     },
-     "url":"http:\/\/www.setlist.fm\/venue\/commerzbank-arena-frankfurt-germany-4bd63796.html"
-    },
-    "sets":{
-     "set":[
-      {
-       "@name":"Act 1",
-       "song":[
-        {
-         "@name":"",
-         "@tape":"true",
-         "info":"with samples of \"No Angel\" and \"Formation\""
-        },
-        {
-         "@name":"Formation"
-        },
-        {
-         "@name":"Sorry"
-        },
-        {
-         "@name":"Irreplaceable",
-         "info":"Acapella"
-        },
-        {
-         "@name":"Bow Down",
-         "info":"with \"Tom Ford\" outro"
-        },
-        {
-         "@name":"Run the World (Girls)"
-        }
-       ]
-      },
-      {
-       "@name":"Act 2",
-       "song":[
-        {
-         "@name":"Superpower",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Mine"
-        },
-        {
-         "@name":"Baby Boy",
-         "info":"with samples of \"Standing on the Sun\", \"Freaks\" and \"Bam Bam\""
-        },
-        {
-         "@name":"Hold Up"
-        },
-        {
-         "@name":"Countdown",
-         "info":"with samples of \"Pop My Trunk\""
-        },
-        {
-         "@name":"Me, Myself and I"
-        },
-        {
-         "@name":"Runnin' (Lose It All)",
-         "cover":{
-          "@disambiguation":"British songwriter, record producer, musician and rapper",
-          "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-          "@name":"Naughty Boy",
-          "@sortName":"Naughty Boy",
-          "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-         }
-        },
-        {
-         "@name":"All Night"
-        }
-       ]
-      },
-      {
-       "@name":"Act 3",
-       "song":[
-        {
-         "@name":"I Care \/ 6 Inch",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Don't Hurt Yourself"
-        },
-        {
-         "@name":"Ring the Alarm",
-         "info":"with samples of \"Independent Women Part I\", \"Lost Yo Mind\", \"Naughty Girl\" and \"Diva\""
-        },
-        {
-         "@name":"Diva"
-        },
-        {
-         "@name":"***Flawless",
-         "info":"Remix"
-        },
-        {
-         "@name":"Feeling Myself",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-          "@name":"Nicki Minaj",
-          "@sortName":"Minaj, Nicki",
-          "@tmid":"1432250",
-          "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-         }
-        },
-        {
-         "@name":"Yoncé"
-        },
-        {
-         "@name":"Drunk in Love"
-        },
-        {
-         "@name":"Rocket",
-         "info":"including \"How Does it Feel\" samples"
-        },
-        {
-         "@name":"Partition"
-        }
-       ]
-      },
-      {
-       "@name":"Act 4",
-       "song":[
-        {
-         "@name":"Hip Hop Star \/ Freakum Dress",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Daddy Lessons"
-        },
-        {
-         "@name":"Love on Top",
-         "info":"Acapella"
-        },
-        {
-         "@name":"1+1"
-        },
-        {
-         "@name":"The Beautiful Ones",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         }
-        }
-       ]
-      },
-      {
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Purple Rain",
-         "@tape":"true",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         },
-         "info":"Interlude"
-        },
-        {
-         "@name":"Crazy in Love",
-         "info":"First half is the 2014 remix. With \"Bootylicious\" sample"
-        },
-        {
-         "@name":"Naughty Girl"
-        },
-        {
-         "@name":"Party",
-         "info":"With sample of \"La Di Da Di\""
-        }
-       ]
-      },
-      {
-       "@name":"Act 6:",
-       "song":[
-        {
-         "@name":"Die with You \/ Blue",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Freedom"
-        },
-        {
-         "@name":"Survivor",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-          "@name":"Destiny’s Child",
-          "@sortName":"Destiny’s Child",
-          "@tmid":"798067",
-          "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-         }
-        },
-        {
-         "@name":"End of Time",
-         "info":"with \"Grown Woman\" sample"
-        },
-        {
-         "@name":"Halo"
-        },
-        {
-         "@name":"Schoolin' Life",
-         "@tape":"true",
-         "info":"Outro"
-        }
-       ]
-      }
-     ]
-    },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/commerzbank-arena-frankfurt-germany-bff555e.html"
-   },
-   {
-    "@eventDate":"26-07-2016",
-    "@id":"73ff5e59",
-    "@lastUpdated":"2016-07-30T12:01:36.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"2badb4e2",
-    "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
-    },
-    "venue":{
-     "@id":"73d4b2d5",
-     "@name":"Friends Arena",
-     "city":{
-      "@id":"2675397",
-      "@name":"Solna",
-      "@state":"Stockholm County",
-      "@stateCode":"26",
-      "coords":{
-       "@lat":"59.3600363042203",
-       "@long":"18.0008625984192"
-      },
-      "country":{
-       "@code":"SE",
-       "@name":"Sweden"
-      }
-     },
-     "url":"http:\/\/www.setlist.fm\/venue\/friends-arena-solna-sweden-73d4b2d5.html"
-    },
-    "sets":{
-     "set":[
-      {
-       "@name":"Act 1",
-       "song":[
-        {
-         "@name":"",
-         "@tape":"true",
-         "info":"with samples of \"No Angel\" and \"Formation\""
-        },
-        {
-         "@name":"Formation"
-        },
-        {
-         "@name":"Sorry"
-        },
-        {
-         "@name":"Irreplaceable",
-         "info":"Acapella"
-        },
-        {
-         "@name":"Bow Down",
-         "info":"with \"Tom Ford\" outro"
-        },
-        {
-         "@name":"Run the World (Girls)"
-        }
-       ]
-      },
-      {
-       "@name":"Act 2",
-       "song":[
-        {
-         "@name":"Superpower",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Mine"
-        },
-        {
-         "@name":"Baby Boy",
-         "info":"with samples of \"Standing on the Sun\", \"Freaks\" and \"Bam Bam\""
-        },
-        {
-         "@name":"Hold Up"
-        },
-        {
-         "@name":"Countdown",
-         "info":"with samples of \"Pop My Trunk\""
-        },
-        {
-         "@name":"Me, Myself and I"
-        },
-        {
-         "@name":"Runnin' (Lose It All)",
-         "cover":{
-          "@disambiguation":"British songwriter, record producer, musician and rapper",
-          "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-          "@name":"Naughty Boy",
-          "@sortName":"Naughty Boy",
-          "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-         }
-        },
-        {
-         "@name":"All Night"
-        }
-       ]
-      },
-      {
-       "@name":"Act 3",
-       "song":[
-        {
-         "@name":"I Care \/ 6 Inch",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Don't Hurt Yourself"
-        },
-        {
-         "@name":"Ring the Alarm",
-         "info":"with samples of \"Independent Women Part I\", \"Lost Yo Mind\", \"Naughty Girl\" and \"Diva\""
-        },
-        {
-         "@name":"Diva"
-        },
-        {
-         "@name":"***Flawless",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"***Flawless",
-         "info":"Remix"
-        },
-        {
-         "@name":"Feeling Myself",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-          "@name":"Nicki Minaj",
-          "@sortName":"Minaj, Nicki",
-          "@tmid":"1432250",
-          "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-         }
-        },
-        {
-         "@name":"Yoncé"
-        },
-        {
-         "@name":"Drunk in Love"
-        },
-        {
-         "@name":"Rocket"
-        },
-        {
-         "@name":"Partition"
-        }
-       ]
-      },
-      {
-       "@name":"Act 4",
-       "song":[
-        {
-         "@name":"Hip Hop Star \/ Freakum Dress",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Daddy Lessons"
-        },
-        {
-         "@name":"Love on Top",
-         "info":"Acapella"
-        },
-        {
-         "@name":"1+1"
-        }
-       ]
-      },
-      {
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Purple Rain",
-         "@tape":"true",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         },
-         "info":"Interlude"
-        },
-        {
-         "@name":"Crazy in Love",
-         "info":"First half is the 2014 remix. With \"Bootylicious\" sample"
-        },
-        {
-         "@name":"Naughty Girl"
-        },
-        {
-         "@name":"Party",
-         "info":"With sample of \"La Di Da Di\""
-        }
-       ]
-      },
-      {
-       "@encore":"1",
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Die with You \/ Blue",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Freedom"
-        },
-        {
-         "@name":"Survivor",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-          "@name":"Destiny’s Child",
-          "@sortName":"Destiny’s Child",
-          "@tmid":"798067",
-          "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-         }
-        },
-        {
-         "@name":"End of Time",
-         "info":"with \"Grown Woman\" sample"
-        },
-        {
-         "@name":"Halo"
-        },
-        {
-         "@name":"Schoolin' Life",
-         "@tape":"true",
-         "info":"Outro"
-        }
-       ]
-      }
-     ]
-    },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/friends-arena-solna-sweden-73ff5e59.html"
-   },
-   {
-    "@eventDate":"24-07-2016",
-    "@id":"23ff606b",
-    "@lastUpdated":"2016-07-29T19:07:31.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"33adbcb1",
-    "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
-    },
-    "venue":{
-     "@id":"bd6d57a",
-     "@name":"Parken",
-     "city":{
-      "@id":"2618425",
-      "@name":"Copenhagen",
-      "@state":"Capital Region",
-      "@stateCode":"17",
-      "coords":{
-       "@lat":"55.6776812020993",
-       "@long":"12.5709342956543"
-      },
-      "country":{
-       "@code":"DK",
-       "@name":"Denmark"
-      }
-     },
-     "url":"http:\/\/www.setlist.fm\/venue\/parken-copenhagen-denmark-bd6d57a.html"
-    },
-    "sets":{
-     "set":[
-      {
-       "@name":"Act 1",
-       "song":[
-        {
-         "@name":"",
-         "@tape":"true",
-         "info":"with samples of \"No Angel\" and \"Formation\""
-        },
-        {
-         "@name":"Formation"
-        },
-        {
-         "@name":"Sorry"
-        },
-        {
-         "@name":"Irreplaceable",
-         "info":"Acapella"
-        },
-        {
-         "@name":"Bow Down",
-         "info":"with \"Tom Ford\" outro"
-        },
-        {
-         "@name":"Run the World (Girls)"
-        }
-       ]
-      },
-      {
-       "@name":"Act 2",
-       "song":[
-        {
-         "@name":"Superpower",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Mine"
-        },
-        {
-         "@name":"Baby Boy",
-         "info":"with samples of \"Standing on the Sun\", \"Freaks\" and \"Bam Bam\""
-        },
-        {
-         "@name":"Hold Up"
-        },
-        {
-         "@name":"Countdown",
-         "info":"with samples of \"Pop My Trunk\""
-        },
-        {
-         "@name":"Me, Myself and I"
-        },
-        {
-         "@name":"Runnin' (Lose It All)",
-         "cover":{
-          "@disambiguation":"British songwriter, record producer, musician and rapper",
-          "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-          "@name":"Naughty Boy",
-          "@sortName":"Naughty Boy",
-          "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-         }
-        },
-        {
-         "@name":"All Night"
-        }
-       ]
-      },
-      {
-       "@name":"Act 3",
-       "song":[
-        {
-         "@name":"I Care \/ 6 Inch",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Don't Hurt Yourself"
-        },
-        {
-         "@name":"Ring the Alarm",
-         "info":"with samples of \"Independent Woman Part I\", \"Lost Yo Mind\", \"Naughty Girl\" and \"Diva\""
-        },
-        {
-         "@name":"Diva"
-        },
-        {
-         "@name":"***Flawless",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"***Flawless",
-         "info":"Remix"
-        },
-        {
-         "@name":"Feeling Myself",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-          "@name":"Nicki Minaj",
-          "@sortName":"Minaj, Nicki",
-          "@tmid":"1432250",
-          "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-         }
-        },
-        {
-         "@name":"Yoncé"
-        },
-        {
-         "@name":"Drunk in Love"
-        },
-        {
-         "@name":"Rocket"
-        },
-        {
-         "@name":"Partition"
-        }
-       ]
-      },
-      {
-       "@name":"Act 4",
-       "song":[
-        {
-         "@name":"Hip Hop Star \/ Freakum Dress",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Daddy Lessons"
-        },
-        {
-         "@name":"Love on Top",
-         "info":"Acapella"
-        },
-        {
-         "@name":"1+1"
-        },
-        {
-         "@name":"The Beautiful Ones",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         }
-        }
-       ]
-      },
-      {
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Purple Rain",
-         "@tape":"true",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         },
-         "info":"Interlude"
-        },
-        {
-         "@name":"Crazy in Love",
-         "info":"First half is the 2014 remix. With \"Bootylicious\" sample"
-        },
-        {
-         "@name":"Naughty Girl"
-        },
-        {
-         "@name":"Party",
-         "info":"With sample of \"La Di Da Di\""
-        }
-       ]
-      },
-      {
-       "@encore":"1",
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Die with You \/ Blue",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Freedom"
-        },
-        {
-         "@name":"Survivor",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-          "@name":"Destiny’s Child",
-          "@sortName":"Destiny’s Child",
-          "@tmid":"798067",
-          "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-         }
-        },
-        {
-         "@name":"End of Time",
-         "info":"with \"Grown Woman\" sample"
-        },
-        {
-         "@name":"Halo"
-        },
-        {
-         "@name":"Schoolin' Life",
-         "@tape":"true",
-         "info":"Outro"
-        }
-       ]
-      }
-     ]
-    },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/parken-copenhagen-denmark-23ff606b.html"
-   },
-   {
-    "@eventDate":"21-07-2016",
-    "@id":"13ff79bd",
-    "@lastUpdated":"2016-07-29T23:15:00.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"1badb91c",
-    "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
-    },
-    "venue":{
-     "@id":"3bd6c4d8",
-     "@name":"Stade de France",
-     "city":{
-      "@id":"2980916",
-      "@name":"Saint-Denis",
-      "@state":"Île-de-France",
-      "@stateCode":"A8",
-      "coords":{
-       "@lat":"48.9333333",
-       "@long":"2.3666667"
-      },
-      "country":{
-       "@code":"FR",
-       "@name":"France"
-      }
-     },
-     "url":"http:\/\/www.setlist.fm\/venue\/stade-de-france-saint-denis-france-3bd6c4d8.html"
-    },
-    "sets":{
-     "set":[
-      {
-       "@name":"Act 1",
-       "song":[
-        {
-         "@name":"",
-         "@tape":"true",
-         "info":"with samples of \"No Angel\" and \"Formation\""
-        },
-        {
-         "@name":"Formation"
-        },
-        {
-         "@name":"Sorry"
-        },
-        {
-         "@name":"Irreplaceable",
-         "info":"Acapella"
-        },
-        {
-         "@name":"Bow Down",
-         "info":"with \"Tom Ford\" outro"
-        },
-        {
-         "@name":"Run the World (Girls)"
-        }
-       ]
-      },
-      {
-       "@name":"Act 2",
-       "song":[
-        {
-         "@name":"Superpower",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Mine"
-        },
-        {
-         "@name":"Baby Boy",
-         "info":"with samples of \"Standing on the Sun\", \"Freaks\" and \"Bam Bam\""
-        },
-        {
-         "@name":"Hold Up"
-        },
-        {
-         "@name":"Countdown",
-         "info":"with samples of \"Pop My Trunk\""
-        },
-        {
-         "@name":"Me, Myself and I"
-        },
-        {
-         "@name":"Runnin' (Lose It All)",
-         "cover":{
-          "@disambiguation":"British songwriter, record producer, musician and rapper",
-          "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-          "@name":"Naughty Boy",
-          "@sortName":"Naughty Boy",
-          "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-         }
-        },
-        {
-         "@name":"All Night"
-        }
-       ]
-      },
-      {
-       "@name":"Act 3",
-       "song":[
-        {
-         "@name":"I Care \/ 6 Inch",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Don't Hurt Yourself"
-        },
-        {
-         "@name":"Ring the Alarm",
-         "info":"with samples of \"Independent Woman Part I\", \"Lost Yo Mind\", \"Naughty Girl\" and \"Diva\""
-        },
-        {
-         "@name":"Diva"
-        },
-        {
-         "@name":"***Flawless",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"***Flawless",
-         "info":"Remix"
-        },
-        {
-         "@name":"Feeling Myself",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-          "@name":"Nicki Minaj",
-          "@sortName":"Minaj, Nicki",
-          "@tmid":"1432250",
-          "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-         }
-        },
-        {
-         "@name":"Yoncé"
-        },
-        {
-         "@name":"Drunk in Love"
-        },
-        {
-         "@name":"Rocket"
-        },
-        {
-         "@name":"Partition"
-        }
-       ]
-      },
-      {
-       "@name":"Act 4",
-       "song":[
-        {
-         "@name":"Hip Hop Star \/ Freakum Dress",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Daddy Lessons"
-        },
-        {
-         "@name":"Love on Top",
-         "info":"Acapella"
-        },
-        {
-         "@name":"1+1"
-        }
-       ]
-      },
-      {
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Purple Rain",
-         "@tape":"true",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         },
-         "info":"Interlude"
-        },
-        {
-         "@name":"Crazy in Love",
-         "info":"First half is the 2014 remix. With \"Bootylicious\" sample"
-        },
-        {
-         "@name":"Naughty Girl"
-        },
-        {
-         "@name":"Party",
-         "info":"With sample of \"La Di Da Di\""
-        }
-       ]
-      },
-      {
-       "@encore":"1",
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Die with You \/ Blue",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Freedom"
-        },
-        {
-         "@name":"Survivor",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-          "@name":"Destiny’s Child",
-          "@sortName":"Destiny’s Child",
-          "@tmid":"798067",
-          "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-         }
-        },
-        {
-         "@name":"End of Time",
-         "info":"with \"Grown Woman\" sample"
-        },
-        {
-         "@name":"Halo"
-        },
-        {
-         "@name":"Schoolin' Life",
-         "@tape":"true",
-         "info":"Outro"
-        }
-       ]
-      }
-     ]
-    },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/stade-de-france-saint-denis-france-13ff79bd.html"
-   },
-   {
-    "@eventDate":"18-07-2016",
-    "@id":"7bff0e14",
-    "@lastUpdated":"2016-07-23T16:47:25.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"bac0da2",
-    "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
-    },
-    "venue":{
-     "@id":"43d77f2f",
-     "@name":"Stadio San Siro",
-     "city":{
-      "@id":"3173435",
-      "@name":"Milan",
-      "@state":"Lombardy",
-      "@stateCode":"09",
-      "coords":{
-       "@lat":"45.4642693810258",
-       "@long":"9.1895055770874"
-      },
-      "country":{
-       "@code":"IT",
-       "@name":"Italy"
-      }
-     },
-     "url":"http:\/\/www.setlist.fm\/venue\/stadio-san-siro-milan-italy-43d77f2f.html"
-    },
-    "sets":{
-     "set":[
-      {
-       "@name":"Act 1",
-       "song":[
-        {
-         "@name":"",
-         "@tape":"true",
-         "info":"with samples of \"No Angel\" and \"Formation\""
-        },
-        {
-         "@name":"Formation"
-        },
-        {
-         "@name":"Sorry"
-        },
-        {
-         "@name":"Irreplaceable",
-         "info":"Acapella"
-        },
-        {
-         "@name":"Bow Down",
-         "info":"with \"Tom Ford\" outro"
-        },
-        {
-         "@name":"Run the World (Girls)"
-        }
-       ]
-      },
-      {
-       "@name":"Act 2",
-       "song":[
-        {
-         "@name":"Superpower",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Mine"
-        },
-        {
-         "@name":"Baby Boy",
-         "info":"with samples of \"Standing on the Sun\", \"Freaks\" and \"Bam Bam\""
-        },
-        {
-         "@name":"Hold Up"
-        },
-        {
-         "@name":"Countdown",
-         "info":"with samples of \"Pop My Trunk\""
-        },
-        {
-         "@name":"Me, Myself and I"
-        },
-        {
-         "@name":"Runnin' (Lose It All)",
-         "cover":{
-          "@disambiguation":"British songwriter, record producer, musician and rapper",
-          "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-          "@name":"Naughty Boy",
-          "@sortName":"Naughty Boy",
-          "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-         }
-        },
-        {
-         "@name":"All Night"
-        }
-       ]
-      },
-      {
-       "@name":"Act 3",
-       "song":[
-        {
-         "@name":"I Care \/ 6 Inch",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Don't Hurt Yourself"
-        },
-        {
-         "@name":"Ring the Alarm",
-         "info":"with samples of \"Independent Woman Part I\", \"Lost Yo Mind\", \"Naughty Girl\" and \"Diva\""
-        },
-        {
-         "@name":"Diva"
-        },
-        {
-         "@name":"***Flawless",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"***Flawless",
-         "info":"Remix"
-        },
-        {
-         "@name":"Feeling Myself",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-          "@name":"Nicki Minaj",
-          "@sortName":"Minaj, Nicki",
-          "@tmid":"1432250",
-          "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-         }
-        },
-        {
-         "@name":"Yoncé"
-        },
-        {
-         "@name":"Drunk in Love"
-        },
-        {
-         "@name":"Rocket"
-        },
-        {
-         "@name":"Partition"
-        }
-       ]
-      },
-      {
-       "@name":"Act 4",
-       "song":[
-        {
-         "@name":"Hip Hop Star \/ Freakum Dress",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Daddy Lessons"
-        },
-        {
-         "@name":"Love on Top",
-         "info":"Acapella"
-        },
-        {
-         "@name":"1+1"
-        },
-        {
-         "@name":"The Beautiful Ones",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         }
-        }
-       ]
-      },
-      {
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Purple Rain",
-         "@tape":"true",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         },
-         "info":"Interlude"
-        },
-        {
-         "@name":"Crazy in Love",
-         "info":"First half is the 2014 remix. With \"Bootylicious\" sample"
-        },
-        {
-         "@name":"Naughty Girl"
-        },
-        {
-         "@name":"Party",
-         "info":"With sample of \"La Di Da Di\""
-        }
-       ]
-      },
-      {
-       "@encore":"1",
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Die with You \/ Blue",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Freedom"
-        },
-        {
-         "@name":"Survivor",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-          "@name":"Destiny’s Child",
-          "@sortName":"Destiny’s Child",
-          "@tmid":"798067",
-          "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-         }
-        },
-        {
-         "@name":"End of Time",
-         "info":"with \"Grown Woman\" sample"
-        },
-        {
-         "@name":"Halo"
-        },
-        {
-         "@name":"Schoolin' Life",
-         "@tape":"true",
-         "info":"Outro"
-        }
-       ]
-      }
-     ]
-    },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/stadio-san-siro-milan-italy-7bff0e14.html"
-   },
-   {
-    "@eventDate":"16-07-2016",
-    "@id":"bff3166",
-    "@lastUpdated":"2016-07-19T11:07:30.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"73acd2d1",
-    "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
-    },
-    "venue":{
-     "@id":"5bd6379c",
-     "@name":"ArenA",
-     "city":{
-      "@id":"2759794",
-      "@name":"Amsterdam",
-      "@state":"North Holland",
-      "@stateCode":"07",
-      "coords":{
-       "@lat":"52.373",
-       "@long":"4.9"
-      },
-      "country":{
-       "@code":"NL",
-       "@name":"Netherlands"
-      }
-     },
-     "url":"http:\/\/www.setlist.fm\/venue\/arena-amsterdam-netherlands-5bd6379c.html"
-    },
-    "sets":{
-     "set":[
-      {
-       "@name":"Act 1",
-       "song":[
-        {
-         "@name":"",
-         "@tape":"true",
-         "info":"with samples of \"No Angel\" and \"Formation\""
-        },
-        {
-         "@name":"Formation"
-        },
-        {
-         "@name":"Sorry",
-         "info":"with \"I'm Sorry\" intro"
-        },
-        {
-         "@name":"Irreplaceable",
-         "info":"Acapella"
-        },
-        {
-         "@name":"Bow Down",
-         "info":"with \"Tom Ford\" outro"
-        },
-        {
-         "@name":"Run the World (Girls)"
-        }
-       ]
-      },
-      {
-       "@name":"Act 2",
-       "song":[
-        {
-         "@name":"Superpower",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Mine"
-        },
-        {
-         "@name":"Baby Boy",
-         "info":"with samples of \"Standing on the Sun\", \"Freaks\" & \"Bam Bam\""
-        },
-        {
-         "@name":"Hold Up"
-        },
-        {
-         "@name":"Countdown",
-         "info":"With sample of \"Pop My Trunk\""
-        },
-        {
-         "@name":"Me, Myself and I"
-        },
-        {
-         "@name":"Runnin' (Lose It All)",
-         "cover":{
-          "@disambiguation":"British songwriter, record producer, musician and rapper",
-          "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-          "@name":"Naughty Boy",
-          "@sortName":"Naughty Boy",
-          "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-         }
-        },
-        {
-         "@name":"All Night"
-        }
-       ]
-      },
-      {
-       "@name":"Act 3",
-       "song":[
-        {
-         "@name":"I Care \/ Ghost",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Don't Hurt Yourself"
-        },
-        {
-         "@name":"Ring the Alarm",
-         "info":"with samples of \"Lost Yo Mind\", \"Independent Woman Part I\", \"Naughty Girl\" and \"Diva\""
-        },
-        {
-         "@name":"Diva",
-         "info":"With samples of \"U Mad\", \"Cut It\" and \"Panda\""
-        },
-        {
-         "@name":"***Flawless",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"***Flawless"
-        },
-        {
-         "@name":"Feeling Myself",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-          "@name":"Nicki Minaj",
-          "@sortName":"Minaj, Nicki",
-          "@tmid":"1432250",
-          "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-         }
-        },
-        {
-         "@name":"Yoncé"
-        },
-        {
-         "@name":"Drunk in Love"
-        },
-        {
-         "@name":"Rocket"
-        },
-        {
-         "@name":"Partition"
-        }
-       ]
-      },
-      {
-       "@name":"Act 4",
-       "song":[
-        {
-         "@name":"Hip Hop Star \/ Freakum Dress",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Daddy Lessons"
-        },
-        {
-         "@name":"Love on Top",
-         "info":"Acapella"
-        },
-        {
-         "@name":"1+1"
-        }
-       ]
-      },
-      {
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Purple Rain",
-         "@tape":"true",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         },
-         "info":"Interlude"
-        },
-        {
-         "@name":"Crazy in Love",
-         "info":"with \"Bootylicious\" sample"
-        },
-        {
-         "@name":"Naughty Girl"
-        },
-        {
-         "@name":"Party"
-        }
-       ]
-      },
-      {
-       "@encore":"1",
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Die with You \/ Blue",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Freedom"
-        },
-        {
-         "@name":"Survivor",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-          "@name":"Destiny’s Child",
-          "@sortName":"Destiny’s Child",
-          "@tmid":"798067",
-          "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-         }
-        },
-        {
-         "@name":"End of Time",
-         "info":"with \"Grown Woman\" sample"
-        },
-        {
-         "@name":"Halo"
-        },
-        {
-         "@name":"Schoolin' Life",
-         "@tape":"true",
-         "info":"Outro"
-        }
-       ]
-      }
-     ]
-    },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/arena-amsterdam-netherlands-bff3166.html"
-   },
-   {
-    "@eventDate":"14-07-2016",
-    "@id":"43ff2f8b",
-    "@lastUpdated":"2016-07-19T11:04:15.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"7bacd2dc",
-    "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
-    },
-    "venue":{
-     "@id":"23d61c2f",
-     "@name":"Letzigrund Stadion",
-     "city":{
-      "@id":"2657896",
-      "@name":"Zurich",
-      "@state":"Zürich",
-      "@stateCode":"ZH",
-      "coords":{
-       "@lat":"47.3666667",
-       "@long":"8.55"
-      },
-      "country":{
-       "@code":"CH",
-       "@name":"Switzerland"
-      }
-     },
-     "url":"http:\/\/www.setlist.fm\/venue\/letzigrund-stadion-zurich-switzerland-23d61c2f.html"
-    },
-    "sets":{
-     "set":[
-      {
-       "@name":"Act 1",
-       "song":[
-        {
-         "@name":"",
-         "@tape":"true",
-         "info":"Contains samples of \"No Angel\" and \"Formation"
-        },
-        {
-         "@name":"Formation"
-        },
-        {
-         "@name":"Sorry",
-         "info":"with \"I'm Sorry\" intro"
-        },
-        {
-         "@name":"Irreplaceable",
-         "info":"Acapella"
-        },
-        {
-         "@name":"Bow Down",
-         "info":"with \"Tom Ford\" outro"
-        },
-        {
-         "@name":"Run the World (Girls)"
-        }
-       ]
-      },
-      {
-       "@name":"Act 2",
-       "song":[
-        {
-         "@name":"Superpower",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Mine"
-        },
-        {
-         "@name":"Baby Boy",
-         "info":"with samples of \"Standing on the Sun\", \"Freaks\" & \"Bam Bam\""
-        },
-        {
-         "@name":"Hold Up"
-        },
-        {
-         "@name":"Countdown",
-         "info":"with samples of \"Pop My Trunk\""
-        },
-        {
-         "@name":"Me, Myself and I"
-        },
-        {
-         "@name":"Runnin' (Lose It All)",
-         "cover":{
-          "@disambiguation":"British songwriter, record producer, musician and rapper",
-          "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-          "@name":"Naughty Boy",
-          "@sortName":"Naughty Boy",
-          "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-         }
-        },
-        {
-         "@name":"All Night"
-        }
-       ]
-      },
-      {
-       "@name":"Act 3",
-       "song":[
-        {
-         "@name":"I Care \/ Ghost",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Don't Hurt Yourself"
-        },
-        {
-         "@name":"Ring the Alarm",
-         "info":"with samples of \"Lost Yo Mind\", \"Independent Woman Part I\", \"Naughty Girl\" and \"Diva\""
-        },
-        {
-         "@name":"Diva",
-         "info":"with samples of \"U Mad\", \"Cut It\" and \"Panda\""
-        },
-        {
-         "@name":"***Flawless",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"***Flawless"
-        },
-        {
-         "@name":"Feeling Myself",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-          "@name":"Nicki Minaj",
-          "@sortName":"Minaj, Nicki",
-          "@tmid":"1432250",
-          "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-         }
-        },
-        {
-         "@name":"Yoncé"
-        },
-        {
-         "@name":"Drunk in Love"
-        },
-        {
-         "@name":"Rocket"
-        },
-        {
-         "@name":"Partition"
-        }
-       ]
-      },
-      {
-       "@name":"Act 4",
-       "song":[
-        {
-         "@name":"Hip Hop Star \/ Freakum Dress",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Daddy Lessons"
-        },
-        {
-         "@name":"Love on Top",
-         "info":"Acapella"
-        },
-        {
-         "@name":"1+1"
-        }
-       ]
-      },
-      {
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Purple Rain",
-         "@tape":"true",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         },
-         "info":"Interlude"
-        },
-        {
-         "@name":"Crazy in Love",
-         "info":"with \"Bootylicious\" sample"
-        },
-        {
-         "@name":"Naughty Girl"
-        },
-        {
-         "@name":"Party"
-        }
-       ]
-      },
-      {
-       "@encore":"1",
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Die with You \/ Blue",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Freedom"
-        },
-        {
-         "@name":"Survivor",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-          "@name":"Destiny’s Child",
-          "@sortName":"Destiny’s Child",
-          "@tmid":"798067",
-          "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-         }
-        },
-        {
-         "@name":"End of Time",
-         "info":"with \"Grown Woman\" sample"
-        },
-        {
-         "@name":"Halo"
-        },
-        {
-         "@name":"Schoolin' Life",
-         "@tape":"true",
-         "info":"Outro"
-        }
-       ]
-      }
-     ]
-    },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/letzigrund-stadion-zurich-switzerland-43ff2f8b.html"
-   },
-   {
-    "@eventDate":"12-07-2016",
-    "@id":"5bffcff4",
-    "@lastUpdated":"2016-07-17T11:44:02.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"2bacf4ce",
-    "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
-    },
-    "venue":{
-     "@id":"5bd6d7c8",
-     "@name":"Esprit Arena",
-     "city":{
-      "@id":"2934246",
-      "@name":"Düsseldorf",
-      "@state":"North Rhine-Westphalia",
-      "@stateCode":"07",
-      "coords":{
-       "@lat":"51.2217225723832",
-       "@long":"6.77616119384766"
-      },
-      "country":{
-       "@code":"DE",
-       "@name":"Germany"
-      }
-     },
-     "url":"http:\/\/www.setlist.fm\/venue\/esprit-arena-dusseldorf-germany-5bd6d7c8.html"
-    },
-    "sets":{
-     "set":[
-      {
-       "@name":"Act 1",
-       "song":[
-        {
-         "@name":"Formation"
-        },
-        {
-         "@name":"Sorry"
-        },
-        {
-         "@name":"Irreplaceable",
-         "info":"Acapella"
-        },
-        {
-         "@name":"Bow Down",
-         "info":"with \"Tom Ford\" outro"
-        },
-        {
-         "@name":"Run the World (Girls)"
-        }
-       ]
-      },
-      {
-       "@name":"Act 2",
-       "song":[
-        {
-         "@name":"Superpower",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Mine"
-        },
-        {
-         "@name":"Baby Boy",
-         "info":"with samples of \"Standing on the Sun\", \"Freaks\" & \"Bam Bam\""
-        },
-        {
-         "@name":"Hold Up"
-        },
-        {
-         "@name":"Countdown"
-        },
-        {
-         "@name":"Me, Myself and I"
-        },
-        {
-         "@name":"Runnin' (Lose It All)",
-         "cover":{
-          "@disambiguation":"British songwriter, record producer, musician and rapper",
-          "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-          "@name":"Naughty Boy",
-          "@sortName":"Naughty Boy",
-          "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-         }
-        },
-        {
-         "@name":"All Night"
-        }
-       ]
-      },
-      {
-       "@name":"Act 3",
-       "song":[
-        {
-         "@name":"Don't Hurt Yourself"
-        },
-        {
-         "@name":"Ring the Alarm",
-         "info":"with samples of \"Lost Yo Mind\", \"Independent Woman Part I\", \"Naughty Girl\" and \"Diva\""
-        },
-        {
-         "@name":"Diva"
-        },
-        {
-         "@name":"***Flawless"
-        },
-        {
-         "@name":"Feeling Myself",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-          "@name":"Nicki Minaj",
-          "@sortName":"Minaj, Nicki",
-          "@tmid":"1432250",
-          "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-         }
-        },
-        {
-         "@name":"Yoncé"
-        },
-        {
-         "@name":"Drunk in Love"
-        },
-        {
-         "@name":"Rocket"
-        },
-        {
-         "@name":"Partition"
-        }
-       ]
-      },
-      {
-       "@name":"Act 4",
-       "song":[
-        {
-         "@name":"Hip Hop Star \/ Freakum Dress",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Daddy Lessons"
-        },
-        {
-         "@name":"Love on Top",
-         "info":"Acapella"
-        },
-        {
-         "@name":"1+1"
-        }
-       ]
-      },
-      {
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Purple Rain",
-         "@tape":"true",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         },
-         "info":"Interlude"
-        },
-        {
-         "@name":"Crazy in Love",
-         "info":"with \"Bootylicious\" sample"
-        },
-        {
-         "@name":"Naughty Girl"
-        },
-        {
-         "@name":"Party"
-        }
-       ]
-      },
-      {
-       "@encore":"1",
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Freedom"
-        },
-        {
-         "@name":"Survivor",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-          "@name":"Destiny’s Child",
-          "@sortName":"Destiny’s Child",
-          "@tmid":"798067",
-          "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-         }
-        },
-        {
-         "@name":"End of Time",
-         "info":"with \"Grown Woman\" sample"
-        },
-        {
-         "@name":"Halo"
-        },
-        {
-         "@name":"Schoolin' Life",
-         "@tape":"true",
-         "info":"Outro"
-        }
-       ]
-      }
-     ]
-    },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/esprit-arena-dusseldorf-germany-5bffcff4.html"
-   },
-   {
-    "@eventDate":"09-07-2016",
-    "@id":"33ffe0c1",
-    "@lastUpdated":"2016-07-17T11:44:22.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"33acf4cd",
-    "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
-    },
-    "venue":{
-     "@id":"5bd62380",
-     "@name":"Croke Park",
-     "city":{
-      "@id":"2964574",
-      "@name":"Dublin",
-      "@state":"Dublin",
-      "@stateCode":"07",
-      "coords":{
-       "@lat":"53.3330556",
-       "@long":"-6.2488889"
-      },
-      "country":{
-       "@code":"IE",
-       "@name":"Ireland"
-      }
-     },
-     "url":"http:\/\/www.setlist.fm\/venue\/croke-park-dublin-ireland-5bd62380.html"
-    },
-    "sets":{
-     "set":[
-      {
-       "@name":"Act 1",
-       "song":[
-        {
-         "@name":"",
-         "@tape":"true",
-         "info":"With \"No Angel\" and \"Formation\" samples"
-        },
-        {
-         "@name":"Formation"
-        },
-        {
-         "@name":"Sorry"
-        },
-        {
-         "@name":"Irreplaceable",
-         "info":"Acapella"
-        },
-        {
-         "@name":"Bow Down",
-         "info":"with \"Tom Ford\" outro"
-        },
-        {
-         "@name":"Run the World (Girls)"
-        }
-       ]
-      },
-      {
-       "@name":"Act 2",
-       "song":[
-        {
-         "@name":"Superpower",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Mine"
-        },
-        {
-         "@name":"Baby Boy",
-         "info":"with samples of \"Standing on the Sun\", \"Freaks\" & \"Bam Bam\""
-        },
-        {
-         "@name":"Hold Up"
-        },
-        {
-         "@name":"Countdown"
-        },
-        {
-         "@name":"Me, Myself and I"
-        },
-        {
-         "@name":"Runnin' (Lose It All)",
-         "cover":{
-          "@disambiguation":"British songwriter, record producer, musician and rapper",
-          "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-          "@name":"Naughty Boy",
-          "@sortName":"Naughty Boy",
-          "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-         }
-        },
-        {
-         "@name":"All Night"
-        }
-       ]
-      },
-      {
-       "@name":"Act 3",
-       "song":[
-        {
-         "@name":"I Care \/ Ghost",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Don't Hurt Yourself"
-        },
-        {
-         "@name":"Ring the Alarm",
-         "info":"with samples of \"Lost Yo Mind\", \"Independent Woman Part I\", \"Naughty Girl\" and \"Diva\""
-        },
-        {
-         "@name":"Diva"
-        },
-        {
-         "@name":"***Flawless",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"***Flawless",
-         "info":"Remix"
-        },
-        {
-         "@name":"Feeling Myself",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-          "@name":"Nicki Minaj",
-          "@sortName":"Minaj, Nicki",
-          "@tmid":"1432250",
-          "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-         }
-        },
-        {
-         "@name":"Yoncé"
-        },
-        {
-         "@name":"Drunk in Love"
-        },
-        {
-         "@name":"Rocket"
-        }
-       ]
-      },
-      {
-       "@name":"Act 4",
-       "song":[
-        {
-         "@name":"Daddy Lessons"
-        },
-        {
-         "@name":"Love on Top",
-         "info":"Acapella"
-        },
-        {
-         "@name":"1+1"
-        },
-        {
-         "@name":"The Beautiful Ones",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         }
-        }
-       ]
-      },
-      {
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Hip Hop Star \/ Freakum Dress",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Crazy in Love",
-         "info":"with \"Bootylicious\" sample"
-        },
-        {
-         "@name":"Naughty Girl"
-        },
-        {
-         "@name":"Party",
-         "info":"with \"La Di Da Di\" sample"
-        }
-       ]
-      },
-      {
-       "@encore":"1",
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Die with You \/ Blue",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Freedom"
-        },
-        {
-         "@name":"Survivor",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-          "@name":"Destiny’s Child",
-          "@sortName":"Destiny’s Child",
-          "@tmid":"798067",
-          "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-         }
-        },
-        {
-         "@name":"End of Time",
-         "info":"with \"Grown Woman\" sample"
-        },
-        {
-         "@name":"Halo"
-        },
-        {
-         "@name":"Schoolin' Life",
-         "@tape":"true",
-         "info":"Outro"
-        }
-       ]
-      }
-     ]
-    },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/croke-park-dublin-ireland-33ffe0c1.html"
-   },
-   {
-    "@eventDate":"07-07-2016",
-    "@id":"5bffef00",
-    "@lastUpdated":"2016-07-27T23:37:51.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"5bac57dc",
-    "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
-    },
-    "venue":{
-     "@id":"3d4556b",
-     "@name":"Hampden Park Football Ground",
-     "city":{
-      "@id":"2648579",
-      "@name":"Glasgow",
-      "@state":"Scotland",
-      "@stateCode":"SCT",
-      "coords":{
-       "@lat":"55.8333333",
-       "@long":"-4.25"
-      },
-      "country":{
-       "@code":"GB",
-       "@name":"United Kingdom"
-      }
-     },
-     "url":"http:\/\/www.setlist.fm\/venue\/hampden-park-football-ground-glasgow-scotland-3d4556b.html"
-    },
-    "sets":{
-     "set":[
-      {
-       "@name":"Act 1",
-       "song":[
-        {
-         "@name":"No Angel \/ Formation",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Formation"
-        },
-        {
-         "@name":"Sorry",
-         "info":"\"I'm Sorry\" intro"
-        },
-        {
-         "@name":"Irreplaceable",
-         "info":"A cappella"
-        },
-        {
-         "@name":"Bow Down",
-         "info":"with 'Tom Ford' outro"
-        },
-        {
-         "@name":"Run the World (Girls)"
-        }
-       ]
-      },
-      {
-       "@name":"Act 2",
-       "song":[
-        {
-         "@name":"Superpower",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Mine"
-        },
-        {
-         "@name":"Baby Boy",
-         "info":"with elements of 'Standing on the Sun', 'Freaks' & 'Bam Bam'"
-        },
-        {
-         "@name":"Hold Up"
-        },
-        {
-         "@name":"Countdown",
-         "info":"With samples of 'Pop My Trunk'"
-        },
-        {
-         "@name":"Me, Myself and I"
-        },
-        {
-         "@name":"Runnin' (Lose It All)",
-         "cover":{
-          "@disambiguation":"British songwriter, record producer, musician and rapper",
-          "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-          "@name":"Naughty Boy",
-          "@sortName":"Naughty Boy",
-          "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-         }
-        },
-        {
-         "@name":"All Night"
-        }
-       ]
-      },
-      {
-       "@name":"Act 3",
-       "song":[
-        {
-         "@name":"I Care \/ Ghost",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Don't Hurt Yourself",
-         "info":"begins with live guitar playing samples of ‘6 Inch’ and Kanye West's ‘New Slaves’"
-        },
-        {
-         "@name":"Ring the Alarm",
-         "info":"with samples of ‘Lost Yo Mind’, ‘I Been On’, ‘Naughty Girl’ and ‘Independent Woman Part I’"
-        },
-        {
-         "@name":"Diva",
-         "info":"with samples of 'Cut It' and 'Panda'"
-        },
-        {
-         "@name":"***Flawless",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"***Flawless",
-         "info":"with samples of 'Feeling Myself'"
-        },
-        {
-         "@name":"Feeling Myself",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-          "@name":"Nicki Minaj",
-          "@sortName":"Minaj, Nicki",
-          "@tmid":"1432250",
-          "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-         }
-        },
-        {
-         "@name":"Yoncé"
-        },
-        {
-         "@name":"Drunk in Love"
-        },
-        {
-         "@name":"Rocket"
-        },
-        {
-         "@name":"Partition"
-        }
-       ]
-      },
-      {
-       "@name":"Act 4",
-       "song":[
-        {
-         "@name":"Hip Hop Star \/ Freakum Dress",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Daddy Lessons"
-        },
-        {
-         "@name":"Love on Top",
-         "info":"A cappella"
-        },
-        {
-         "@name":"1+1"
-        }
-       ]
-      },
-      {
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Purple Rain",
-         "@tape":"true",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         },
-         "info":"Interlude"
-        },
-        {
-         "@name":"Crazy in Love",
-         "info":"First half is the 2014 remix, with a 'Bootylicious' sample"
-        },
-        {
-         "@name":"Naughty Girl"
-        },
-        {
-         "@name":"Party",
-         "info":"with 'La Di Da Di' sample"
-        }
-       ]
-      },
-      {
-       "@encore":"1",
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Die with You \/ Blue",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Freedom",
-         "info":"First half is a cappella, in memory of Alton Sterling and Philando Castile"
-        },
-        {
-         "@name":"Survivor",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-          "@name":"Destiny’s Child",
-          "@sortName":"Destiny’s Child",
-          "@tmid":"798067",
-          "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-         }
-        },
-        {
-         "@name":"End of Time",
-         "info":"with samples of 'Grown Woman'"
-        },
-        {
-         "@name":"Halo"
-        },
-        {
-         "@name":"Schoolin' Life",
-         "@tape":"true",
-         "info":"Outro"
-        }
-       ]
-      }
-     ]
-    },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/hampden-park-football-ground-glasgow-scotland-5bffef00.html"
-   },
-   {
-    "@eventDate":"05-07-2016",
-    "@id":"13fff9dd",
-    "@lastUpdated":"2016-07-07T10:29:45.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"53af13c1",
-    "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
-    },
-    "venue":{
-     "@id":"2bd5b452",
-     "@name":"Emirates Old Trafford",
-     "city":{
-      "@id":"2643123",
-      "@name":"Manchester",
-      "@state":"England",
-      "@stateCode":"ENG",
-      "coords":{
-       "@lat":"53.4809464283615",
-       "@long":"-2.23743438720703"
-      },
-      "country":{
-       "@code":"GB",
-       "@name":"United Kingdom"
-      }
-     },
-     "url":"http:\/\/www.setlist.fm\/venue\/emirates-old-trafford-manchester-england-2bd5b452.html"
-    },
-    "sets":{
-     "set":[
-      {
-       "@name":"Act 1",
-       "song":[
-        {
-         "@name":"",
-         "@tape":"true"
-        },
-        {
-         "@name":"Formation"
-        },
-        {
-         "@name":"Sorry",
-         "info":"\"I'm Sorry\" intro"
-        },
-        {
-         "@name":"Irreplaceable",
-         "info":"Acapella"
-        },
-        {
-         "@name":"Bow Down",
-         "info":"with \"Tom Ford\" outro"
-        },
-        {
-         "@name":"Run the World (Girls)"
-        }
-       ]
-      },
-      {
-       "@name":"Act 2",
-       "song":[
-        {
-         "@name":"Superpower",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Mine"
-        },
-        {
-         "@name":"Baby Boy",
-         "info":"with elements of \"Standing on the Sun\", \"Freaks\" & \"Bam Bam\""
-        },
-        {
-         "@name":"Hold Up"
-        },
-        {
-         "@name":"Countdown",
-         "info":"With samples of \"Pop My Trunk\""
-        },
-        {
-         "@name":"Me, Myself and I"
-        },
-        {
-         "@name":"Runnin' (Lose It All)",
-         "cover":{
-          "@disambiguation":"British songwriter, record producer, musician and rapper",
-          "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-          "@name":"Naughty Boy",
-          "@sortName":"Naughty Boy",
-          "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-         }
-        },
-        {
-         "@name":"All Night"
-        }
-       ]
-      },
-      {
-       "@name":"Act 3",
-       "song":[
-        {
-         "@name":"I Care \/ Ghost",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Don't Hurt Yourself",
-         "info":"begins with live guitar playing samples of \"6 Inch\" & Kanye West's \"New Slaves\""
-        },
-        {
-         "@name":"Ring the Alarm",
-         "info":"with samples of \"Lost Yo Mind\", \"I Been On\", \"Naughty Girl\" and \"Independant Woman Part I\""
-        },
-        {
-         "@name":"Diva",
-         "info":"with samples of \"Cut It\" and \"Panda\""
-        },
-        {
-         "@name":"***Flawless",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"***Flawless",
-         "info":"with samples of \"Feeling Myself\""
-        },
-        {
-         "@name":"Feeling Myself",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-          "@name":"Nicki Minaj",
-          "@sortName":"Minaj, Nicki",
-          "@tmid":"1432250",
-          "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-         }
-        },
-        {
-         "@name":"Yoncé"
-        },
-        {
-         "@name":"Drunk in Love"
-        },
-        {
-         "@name":"Rocket"
-        }
-       ]
-      },
-      {
-       "@name":"Act 4",
-       "song":[
-        {
-         "@name":"Hip Hop Star \/ Freakum Dress",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Daddy Lessons"
-        },
-        {
-         "@name":"Love on Top",
-         "info":"Acapella"
-        },
-        {
-         "@name":"1+1"
-        }
-       ]
-      },
-      {
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Purple Rain",
-         "@tape":"true",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         },
-         "info":"Interlude"
-        },
-        {
-         "@name":"Crazy in Love",
-         "info":"First half is the 2014 remix, with a \"Bootylicious\" sample"
-        },
-        {
-         "@name":"Naughty Girl"
-        },
-        {
-         "@name":"Party",
-         "info":"with \"La Di Da Di\" sample"
-        }
-       ]
-      },
-      {
-       "@encore":"1",
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Die with You \/ Blue",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Freedom"
-        },
-        {
-         "@name":"Survivor",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-          "@name":"Destiny’s Child",
-          "@sortName":"Destiny’s Child",
-          "@tmid":"798067",
-          "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-         }
-        },
-        {
-         "@name":"End of Time",
-         "info":"with \"Grown Woman\" sample"
-        },
-        {
-         "@name":"Halo"
-        },
-        {
-         "@name":"Schoolin' Life",
-         "@tape":"true",
-         "info":"Outro"
-        }
-       ]
-      }
-     ]
-    },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/emirates-old-trafford-manchester-england-13fff9dd.html"
-   },
-   {
-    "@eventDate":"03-07-2016",
-    "@id":"3bff8454",
-    "@lastUpdated":"2016-07-17T17:31:24.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"2bacf08a",
-    "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
-    },
-    "venue":{
-     "@id":"2bd6c086",
-     "@name":"Wembley Stadium",
-     "city":{
-      "@id":"2643743",
-      "@name":"London",
-      "@state":"England",
-      "@stateCode":"ENG",
-      "coords":{
-       "@lat":"51.5084152563931",
-       "@long":"-0.125532746315002"
-      },
-      "country":{
-       "@code":"GB",
-       "@name":"United Kingdom"
-      }
-     },
-     "url":"http:\/\/www.setlist.fm\/venue\/wembley-stadium-london-england-2bd6c086.html"
-    },
-    "sets":{
-     "set":[
-      {
-       "@name":"Act1",
-       "song":[
-        {
-         "@name":"",
-         "@tape":"true",
-         "info":"With samples \"No Angel\" and \"Formation\""
-        },
-        {
-         "@name":"Formation"
-        },
-        {
-         "@name":"Sorry",
-         "info":"With \"I'm Sorry\" intro"
-        },
-        {
-         "@name":"Irreplaceable",
-         "info":"Acapella"
-        },
-        {
-         "@name":"Bow Down",
-         "info":"With \"Tom Ford\" outro"
-        },
-        {
-         "@name":"Run the World (Girls)"
-        }
-       ]
-      },
-      {
-       "@name":"Act 2",
-       "song":[
-        {
-         "@name":"Superpower",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Mine"
-        },
-        {
-         "@name":"Baby Boy",
-         "info":"with samples of \"Standing on the Sun\", \"Freaks\" & \"Bam Bam\""
-        },
-        {
-         "@name":"Hold Up"
-        },
-        {
-         "@name":"Countdown",
-         "info":"With sample of \"Pop My Trunk\""
-        },
-        {
-         "@name":"Me, Myself and I"
-        },
-        {
-         "@name":"Runnin' (Lose It All)",
-         "cover":{
-          "@disambiguation":"British songwriter, record producer, musician and rapper",
-          "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-          "@name":"Naughty Boy",
-          "@sortName":"Naughty Boy",
-          "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-         }
-        },
-        {
-         "@name":"All Night"
-        }
-       ]
-      },
-      {
-       "@name":"Act 3",
-       "song":[
-        {
-         "@name":"I Care \/ Ghost",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Don't Hurt Yourself"
-        },
-        {
-         "@name":"Ring the Alarm",
-         "info":"With samples of \"Independent Woman Part I\", \"Lost Yo Mind\", \"Naughty Girl\" and \"Diva\""
-        },
-        {
-         "@name":"Diva"
-        },
-        {
-         "@name":"***Flawless",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"***Flawless"
-        },
-        {
-         "@name":"Feeling Myself",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-          "@name":"Nicki Minaj",
-          "@sortName":"Minaj, Nicki",
-          "@tmid":"1432250",
-          "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-         }
-        },
-        {
-         "@name":"Yoncé"
-        },
-        {
-         "@name":"Drunk in Love"
-        },
-        {
-         "@name":"Rocket"
-        },
-        {
-         "@name":"Partition"
-        }
-       ]
-      },
-      {
-       "@name":"Act 4",
-       "song":[
-        {
-         "@name":"Hip Hop Star \/ Freakum Dress",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Daddy Lessons"
-        },
-        {
-         "@name":"Love on Top",
-         "info":"Acapella"
-        },
-        {
-         "@name":"1+1"
-        },
-        {
-         "@name":"The Beautiful Ones",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         }
-        }
-       ]
-      },
-      {
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Purple Rain",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         },
-         "info":"Interlude"
-        },
-        {
-         "@name":"Crazy in Love",
-         "info":"First half is the 2014 remix. With a \"Bootylicious\" sample"
-        },
-        {
-         "@name":"Naughty Girl"
-        },
-        {
-         "@name":"Party"
-        }
-       ]
-      },
-      {
-       "@encore":"1",
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Die with You \/ Blue",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Freedom"
-        },
-        {
-         "@name":"Survivor",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-          "@name":"Destiny’s Child",
-          "@sortName":"Destiny’s Child",
-          "@tmid":"798067",
-          "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-         }
-        },
-        {
-         "@name":"End of Time",
-         "info":"With sample of \"Grown Woman\""
-        },
-        {
-         "@name":"Halo"
-        },
-        {
-         "@name":"Schoolin' Life",
-         "@tape":"true",
-         "info":"Outro"
-        }
-       ]
-      }
-     ]
-    },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/wembley-stadium-london-england-3bff8454.html"
-   },
-   {
-    "@eventDate":"02-07-2016",
-    "@id":"33ff8455",
-    "@lastUpdated":"2016-07-17T11:44:59.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"23acf4c3",
-    "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
-    },
-    "venue":{
-     "@id":"2bd6c086",
-     "@name":"Wembley Stadium",
-     "city":{
-      "@id":"2643743",
-      "@name":"London",
-      "@state":"England",
-      "@stateCode":"ENG",
-      "coords":{
-       "@lat":"51.5084152563931",
-       "@long":"-0.125532746315002"
-      },
-      "country":{
-       "@code":"GB",
-       "@name":"United Kingdom"
-      }
-     },
-     "url":"http:\/\/www.setlist.fm\/venue\/wembley-stadium-london-england-2bd6c086.html"
-    },
-    "sets":{
-     "set":[
-      {
-       "@name":"Act 1",
-       "song":[
-        {
-         "@name":"",
-         "@tape":"true",
-         "info":"with samples of 'No Angel' and ‘Formation'"
-        },
-        {
-         "@name":"Formation"
-        },
-        {
-         "@name":"Sorry",
-         "info":"'I'm Sorry' intro"
-        },
-        {
-         "@name":"Irreplaceable",
-         "info":"acapella"
-        },
-        {
-         "@name":"Bow Down",
-         "info":"'Tom Ford' outro"
-        },
-        {
-         "@name":"Run the World (Girls)"
-        }
-       ]
-      },
-      {
-       "@name":"Act 2",
-       "song":[
-        {
-         "@name":"Superpower",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Mine"
-        },
-        {
-         "@name":"Baby Boy",
-         "info":"with samples of 'Standing on the Sun', 'Freaks' & 'Bam Bam’"
-        },
-        {
-         "@name":"Hold Up"
-        },
-        {
-         "@name":"Countdown",
-         "info":"with samples of 'Pop My Trunk’"
-        },
-        {
-         "@name":"Me, Myself and I"
-        },
-        {
-         "@name":"Runnin' (Lose It All)",
-         "cover":{
-          "@disambiguation":"British songwriter, record producer, musician and rapper",
-          "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-          "@name":"Naughty Boy",
-          "@sortName":"Naughty Boy",
-          "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-         }
-        },
-        {
-         "@name":"All Night"
-        }
-       ]
-      },
-      {
-       "@name":"Act 3",
-       "song":[
-        {
-         "@name":"I Care \/ Ghost",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Don't Hurt Yourself",
-         "info":"begins with live guitar playing samples of '6 Inch' & Kanye West's 'New Slaves’"
-        },
-        {
-         "@name":"Ring the Alarm",
-         "info":"with samples of 'Lost Yo Mind', 'I Been On', 'Naughty Girl' & 'Independent Women Part I’"
-        },
-        {
-         "@name":"Diva",
-         "info":"with samples of 'That's not me'"
-        },
-        {
-         "@name":"***Flawless",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"***Flawless",
-         "info":"Remix"
-        },
-        {
-         "@name":"Feeling Myself",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-          "@name":"Nicki Minaj",
-          "@sortName":"Minaj, Nicki",
-          "@tmid":"1432250",
-          "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-         }
-        },
-        {
-         "@name":"Yoncé"
-        },
-        {
-         "@name":"Drunk in Love"
-        },
-        {
-         "@name":"Rocket"
-        },
-        {
-         "@name":"Partition"
-        }
-       ]
-      },
-      {
-       "@name":"Act 4",
-       "song":[
-        {
-         "@name":"Hip Hop Star \/ Freakum Dress",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Daddy Lessons"
-        },
-        {
-         "@name":"Love on Top",
-         "info":"Acapella"
-        },
-        {
-         "@name":"1+1"
-        },
-        {
-         "@name":"The Beautiful Ones",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         }
-        }
-       ]
-      },
-      {
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Purple Rain",
-         "@tape":"true",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         },
-         "info":"Interlude"
-        },
-        {
-         "@name":"Crazy in Love",
-         "info":"First half is 2014 Remix. With samples of 'Bootylicious'."
-        },
-        {
-         "@name":"Naughty Girl"
-        },
-        {
-         "@name":"Party",
-         "info":"with samples of 'La Di Da Di’"
-        }
-       ]
-      },
-      {
-       "@encore":"1",
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Die with You \/ Blue",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Freedom"
-        },
-        {
-         "@name":"Survivor",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-          "@name":"Destiny’s Child",
-          "@sortName":"Destiny’s Child",
-          "@tmid":"798067",
-          "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-         }
-        },
-        {
-         "@name":"End of Time",
-         "info":"with samples of 'Grown Woman’"
-        },
-        {
-         "@name":"Halo"
-        },
-        {
-         "@name":"Schoolin' Life",
-         "@tape":"true",
-         "info":"Outro"
-        }
-       ]
-      }
-     ]
-    },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/wembley-stadium-london-england-33ff8455.html"
-   },
-   {
-    "@eventDate":"30-06-2016",
-    "@id":"1bff9958",
-    "@lastUpdated":"2016-07-17T11:45:17.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"3bacf4c0",
-    "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
-    },
-    "venue":{
-     "@id":"4bd6379a",
-     "@name":"Millennium Stadium",
-     "city":{
-      "@id":"2653822",
-      "@name":"Cardiff",
-      "@state":"Wales",
-      "@stateCode":"WLS",
-      "coords":{
-       "@lat":"51.48",
-       "@long":"-3.18"
-      },
-      "country":{
-       "@code":"GB",
-       "@name":"United Kingdom"
-      }
-     },
-     "url":"http:\/\/www.setlist.fm\/venue\/millennium-stadium-cardiff-wales-4bd6379a.html"
-    },
-    "sets":{
-     "set":[
-      {
-       "@name":"Act 1",
-       "song":[
-        {
-         "@name":"",
-         "@tape":"true",
-         "info":"with samples of 'No Angel' and ‘Formation'"
-        },
-        {
-         "@name":"Formation"
-        },
-        {
-         "@name":"Sorry",
-         "info":"'I'm Sorry' intro"
-        },
-        {
-         "@name":"Irreplaceable",
-         "info":"acapella"
-        },
-        {
-         "@name":"Bow Down",
-         "info":"'Tom Ford' outro"
-        },
-        {
-         "@name":"Run the World (Girls)"
-        }
-       ]
-      },
-      {
-       "@name":"Act 2",
-       "song":[
-        {
-         "@name":"Superpower",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Mine"
-        },
-        {
-         "@name":"Baby Boy",
-         "info":"with samples of 'Standing on the Sun', 'Freaks' & 'Bam Bam’"
-        },
-        {
-         "@name":"Hold Up"
-        },
-        {
-         "@name":"Countdown",
-         "info":"with samples of 'Pop My Trunk’"
-        },
-        {
-         "@name":"Me, Myself and I"
-        },
-        {
-         "@name":"Runnin' (Lose It All)",
-         "cover":{
-          "@disambiguation":"British songwriter, record producer, musician and rapper",
-          "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-          "@name":"Naughty Boy",
-          "@sortName":"Naughty Boy",
-          "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-         }
-        },
-        {
-         "@name":"All Night"
-        }
-       ]
-      },
-      {
-       "@name":"Act 3",
-       "song":[
-        {
-         "@name":"I Care \/ Ghost",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Don't Hurt Yourself",
-         "info":"begins with live guitar playing samples of '6 Inch' & Kanye West's 'New Slaves’"
-        },
-        {
-         "@name":"Ring the Alarm",
-         "info":"with samples of 'Lost Yo Mind', 'I Been On', 'Naughty Girl' & 'Independent Women Part I’"
-        },
-        {
-         "@name":"Diva",
-         "info":"with samples of 'Cut It', & ‘Panda’"
-        },
-        {
-         "@name":"***Flawless",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"***Flawless",
-         "info":"Remix"
-        },
-        {
-         "@name":"Feeling Myself",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-          "@name":"Nicki Minaj",
-          "@sortName":"Minaj, Nicki",
-          "@tmid":"1432250",
-          "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-         }
-        },
-        {
-         "@name":"Yoncé"
-        },
-        {
-         "@name":"Drunk in Love"
-        },
-        {
-         "@name":"Rocket"
-        },
-        {
-         "@name":"Partition"
-        }
-       ]
-      },
-      {
-       "@name":"Act 4",
-       "song":[
-        {
-         "@name":"Hip Hop Star \/ Freakum Dress",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Daddy Lessons"
-        },
-        {
-         "@name":"Love on Top",
-         "info":"Acapella"
-        },
-        {
-         "@name":"1+1"
-        },
-        {
-         "@name":"The Beautiful Ones",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         }
-        }
-       ]
-      },
-      {
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Purple Rain",
-         "@tape":"true",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         },
-         "info":"Interlude"
-        },
-        {
-         "@name":"Crazy in Love",
-         "info":"First half is 2014 Remix. With samples of 'Bootylicious'."
-        },
-        {
-         "@name":"Naughty Girl"
-        },
-        {
-         "@name":"Party",
-         "info":"with samples of 'La Di Da Di’"
-        }
-       ]
-      },
-      {
-       "@encore":"1",
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Die with You \/ Blue",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Freedom"
-        },
-        {
-         "@name":"Survivor",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-          "@name":"Destiny’s Child",
-          "@sortName":"Destiny’s Child",
-          "@tmid":"798067",
-          "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-         }
-        },
-        {
-         "@name":"End of Time",
-         "info":"with samples of 'Grown Woman’"
-        },
-        {
-         "@name":"Halo"
-        },
-        {
-         "@name":"Schoolin' Life",
-         "@tape":"true",
-         "info":"Outro"
-        }
-       ]
-      }
-     ]
-    },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/millennium-stadium-cardiff-wales-1bff9958.html"
-   },
-   {
-    "@eventDate":"28-06-2016",
-    "@id":"bff995a",
-    "@lastUpdated":"2016-07-03T13:19:37.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"3afe1e7",
-    "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
-    },
-    "venue":{
-     "@id":"63d6cee7",
-     "@name":"Stadium of Light",
-     "city":{
-      "@id":"2636532",
-      "@name":"Sunderland",
-      "@state":"England",
-      "@stateCode":"ENG",
-      "coords":{
-       "@lat":"54.7",
-       "@long":"-3.2666667"
-      },
-      "country":{
-       "@code":"GB",
-       "@name":"United Kingdom"
-      }
-     },
-     "url":"http:\/\/www.setlist.fm\/venue\/stadium-of-light-sunderland-england-63d6cee7.html"
-    },
-    "sets":{
-     "set":[
-      {
-       "@name":"Act 1",
-       "song":[
-        {
-         "@name":"",
-         "@tape":"true",
-         "info":"with samples of 'No Angel' and ‘Formation'"
-        },
-        {
-         "@name":"Formation"
-        },
-        {
-         "@name":"Sorry",
-         "info":"'I'm Sorry' intro"
-        },
-        {
-         "@name":"Kitty Kat",
-         "info":"acapella"
-        },
-        {
-         "@name":"Bow Down",
-         "info":"'Tom Ford' outro"
-        },
-        {
-         "@name":"Run the World (Girls)"
-        }
-       ]
-      },
-      {
-       "@name":"Act 2",
-       "song":[
-        {
-         "@name":"Superpower",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Mine"
-        },
-        {
-         "@name":"Baby Boy",
-         "info":"with samples of 'Standing on the Sun', 'Freaks' & 'Bam Bam’"
-        },
-        {
-         "@name":"Hold Up"
-        },
-        {
-         "@name":"Countdown",
-         "info":"with samples of 'Pop My Trunk’"
-        },
-        {
-         "@name":"Me, Myself and I"
-        },
-        {
-         "@name":"Runnin' (Lose It All)",
-         "cover":{
-          "@disambiguation":"British songwriter, record producer, musician and rapper",
-          "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-          "@name":"Naughty Boy",
-          "@sortName":"Naughty Boy",
-          "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-         }
-        },
-        {
-         "@name":"All Night"
-        }
-       ]
-      },
-      {
-       "@name":"Act 3",
-       "song":[
-        {
-         "@name":"I Care \/ Ghost",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Don't Hurt Yourself",
-         "info":"begins with live guitar playing samples of '6 Inch' & Kanye West's 'New Slaves’"
-        },
-        {
-         "@name":"Ring the Alarm",
-         "info":"with samples of 'Lost Yo Mind', 'I Been On', 'Naughty Girl' & 'Independent Women Part I’"
-        },
-        {
-         "@name":"Diva",
-         "info":"with samples of 'Cut It', & ‘Panda’"
-        },
-        {
-         "@name":"***Flawless",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"***Flawless",
-         "info":"Remix"
-        },
-        {
-         "@name":"Feeling Myself",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-          "@name":"Nicki Minaj",
-          "@sortName":"Minaj, Nicki",
-          "@tmid":"1432250",
-          "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-         }
-        },
-        {
-         "@name":"Yoncé"
-        },
-        {
-         "@name":"Drunk in Love"
-        },
-        {
-         "@name":"Rocket"
-        }
-       ]
-      },
-      {
-       "@name":"Act 4",
-       "song":[
-        {
-         "@name":"Hip Hop Star \/ Freakum Dress",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Daddy Lessons"
-        },
-        {
-         "@name":"Love on Top",
-         "info":"Acapella"
-        },
-        {
-         "@name":"1+1"
-        }
-       ]
-      },
-      {
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Purple Rain",
-         "@tape":"true",
-         "cover":{
-          "@disambiguation":"“The Artist Formerly Known as…”",
-          "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-          "@name":"Prince",
-          "@sortName":"Prince",
-          "@tmid":"735895",
-          "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-         },
-         "info":"Interlude"
-        },
-        {
-         "@name":"Crazy in Love",
-         "info":" Of Grey (With samples of 'Dance (A$$) & 'Bootylicious'."
-        },
-        {
-         "@name":"Naughty Girl"
-        },
-        {
-         "@name":"Party",
-         "info":"with samples of 'La Di Da Di’"
-        }
-       ]
-      },
-      {
-       "@encore":"1",
-       "@name":"Act 5",
-       "song":[
-        {
-         "@name":"Die with You \/ Blue",
-         "@tape":"true",
-         "info":"Interlude"
-        },
-        {
-         "@name":"Freedom"
-        },
-        {
-         "@name":"Survivor",
-         "cover":{
-          "@disambiguation":"",
-          "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-          "@name":"Destiny’s Child",
-          "@sortName":"Destiny’s Child",
-          "@tmid":"798067",
-          "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-         }
-        },
-        {
-         "@name":"End of Time",
-         "info":"with samples of 'Grown Woman’"
-        },
-        {
-         "@name":"Halo"
-        },
-        {
-         "@name":"Schoolin' Life",
-         "@tape":"true",
-         "info":"Outro"
-        }
-       ]
-      }
-     ]
-    },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/stadium-of-light-sunderland-england-bff995a.html"
-   },
-   {
-    "@eventDate":"26-06-2016",
-    "@id":"7bffa6d8",
-    "@lastUpdated":"2016-06-27T11:57:01.000+0000",
-    "@versionId":"13ae4541",
-    "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
-    },
-    "venue":{
-     "@id":"1bd5b144",
-     "@name":"Microsoft Theater",
-     "city":{
-      "@id":"5368361",
-      "@name":"Los Angeles",
-      "@state":"California",
-      "@stateCode":"CA",
-      "coords":{
-       "@lat":"34.052",
-       "@long":"-118.244"
-      },
-      "country":{
-       "@code":"US",
-       "@name":"United States"
-      }
-     },
-     "url":"http:\/\/www.setlist.fm\/venue\/microsoft-theater-los-angeles-ca-usa-1bd5b144.html"
-    },
-    "sets":{
-     "set":{
-      "song":{
-       "@name":"Freedom",
-       "with":{
-        "@disambiguation":"",
-        "@mbid":"381086ea-f511-4aba-bdf9-71c753dc5077",
-        "@name":"Kendrick Lamar",
-        "@sortName":"Lamar, Kendrick",
-        "@tmid":"1480454",
-        "url":"http:\/\/www.setlist.fm\/setlists\/kendrick-lamar-bd2f5d6.html"
-       }
-      }
-     }
-    },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/microsoft-theater-los-angeles-ca-7bffa6d8.html"
-   },
-   {
-    "@eventDate":"14-06-2016",
-    "@id":"3fe01cb",
-    "@lastUpdated":"2016-06-15T14:49:45.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"3aefd57",
-    "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
-    },
-    "venue":{
-     "@id":"bd6398a",
-     "@name":"Ford Field",
-     "city":{
-      "@id":"4990729",
-      "@name":"Detroit",
-      "@state":"Michigan",
-      "@stateCode":"MI",
-      "coords":{
-       "@lat":"42.331427",
-       "@long":"-83.0457538"
-      },
-      "country":{
-       "@code":"US",
-       "@name":"United States"
-      }
-     },
-     "url":"http:\/\/www.setlist.fm\/venue\/ford-field-detroit-mi-usa-bd6398a.html"
+     "url":"http:\/\/www.setlist.fm\/venue\/sanda-athletic-sanda-japan-2bd520ca.html"
     },
     "sets":{
      "set":{
       "song":[
        {
-        "@name":"",
-        "@tape":"true",
-        "info":"with samples of 'No Angel' and ‘Formation'"
+        "name":"It's Different For Girls"
        },
        {
-        "@name":"Formation"
+        "name":"Gallery Piece"
        },
        {
-        "@name":"Sorry",
-        "info":"'I'm Sorry' intro"
+        "name":"Let's Relate"
        },
        {
-        "@name":"Kitty Kat",
-        "info":"acapella"
+        "name":"Wraith Pinned to the Mist (and Other Games)"
        },
        {
-        "@name":"Bow Down",
-        "info":"'Tom Ford' outro"
+        "name":"A Sport and a Pastime"
        },
        {
-        "@name":"Run the World (Girls)"
+        "name":"Labyrinthian Pomp"
        },
        {
-        "@name":"Superpower",
-        "@tape":"true",
-        "info":"Interlude"
+        "name":"My Fair Lady"
        },
        {
-        "@name":"Mine"
+        "name":"Knight Rider"
        },
        {
-        "@name":"Baby Boy",
-        "info":"with samples of 'Standing on the Sun', 'Freaks' & 'Bam Bam’"
+        "name":"Our Riotous Defects"
        },
        {
-        "@name":"Hold Up"
+        "name":"Trashed Exes"
        },
        {
-        "@name":"Countdown",
-        "info":"with samples of 'Pop My Trunk’"
+        "name":"Nonpareil of Favor"
        },
        {
-        "@name":"Me, Myself and I"
+        "name":"Ambassador Bridge"
        },
        {
-        "@name":"Runnin' (Lose It All)",
-        "cover":{
-         "@disambiguation":"British songwriter, record producer, musician and rapper",
-         "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-         "@name":"Naughty Boy",
-         "@sortName":"Naughty Boy",
-         "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-        }
+        "name":"Id Engager"
        },
        {
-        "@name":"All Night"
+        "name":"Gronlandic Edit"
        },
        {
-        "@name":"I Care \/ Ghost",
-        "@tape":"true",
-        "info":"Interlude"
+        "name":"Bassem Sabry"
        },
        {
-        "@name":"Don't Hurt Yourself",
-        "info":"begins with live guitar playing samples of '6 Inch' & Kanye West's 'New Slaves’"
+        "name":"A Sentence of Sorts in Kongsvinger"
        },
        {
-        "@name":"Ring the Alarm",
-        "info":"with samples of 'Lost Yo Mind', 'I Been On', 'Naughty Girl' & 'Independent Women Part I’"
-       },
-       {
-        "@name":"Diva",
-        "info":"with samples of 'Cut It', & ‘Panda’"
-       },
-       {
-        "@name":"***Flawless",
-        "@tape":"true",
-        "info":"Interlude"
-       },
-       {
-        "@name":"***Flawless",
-        "info":"Remix"
-       },
-       {
-        "@name":"Feeling Myself",
-        "cover":{
-         "@disambiguation":"",
-         "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-         "@name":"Nicki Minaj",
-         "@sortName":"Minaj, Nicki",
-         "@tmid":"1432250",
-         "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-        }
-       },
-       {
-        "@name":"Yoncé"
-       },
-       {
-        "@name":"Drunk in Love"
-       },
-       {
-        "@name":"Rocket"
-       },
-       {
-        "@name":"Partition"
-       },
-       {
-        "@name":"Hip Hop Star \/ Freakum Dress",
-        "@tape":"true",
-        "info":"Interlude"
-       },
-       {
-        "@name":"Daddy Lessons"
-       },
-       {
-        "@name":"Love on Top",
-        "info":"Acapella"
-       },
-       {
-        "@name":"1+1"
-       },
-       {
-        "@name":"The Beautiful Ones",
-        "cover":{
-         "@disambiguation":"“The Artist Formerly Known as…”",
-         "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-         "@name":"Prince",
-         "@sortName":"Prince",
-         "@tmid":"735895",
-         "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-        }
-       },
-       {
-        "@name":"Purple Rain",
-        "@tape":"true",
-        "cover":{
-         "@disambiguation":"“The Artist Formerly Known as…”",
-         "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-         "@name":"Prince",
-         "@sortName":"Prince",
-         "@tmid":"735895",
-         "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-        },
-        "info":"Interlude"
-       },
-       {
-        "@name":"Crazy in Love",
-        "info":"First half is 'Fifty Shades Of Grey (2014 Remix)'. With samples of 'Dance (A$$) & 'Bootylicious'."
-       },
-       {
-        "@name":"Naughty Girl"
-       },
-       {
-        "@name":"Party",
-        "info":"with samples of 'La Di Da Di’"
-       },
-       {
-        "@name":"Blow",
-        "info":"with samples of 'Nasty Girl’"
-       },
-       {
-        "@name":"Die with You \/ Blue",
-        "@tape":"true",
-        "info":"Interlude"
-       },
-       {
-        "@name":"Freedom"
-       },
-       {
-        "@name":"Survivor",
-        "cover":{
-         "@disambiguation":"",
-         "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-         "@name":"Destiny’s Child",
-         "@sortName":"Destiny’s Child",
-         "@tmid":"798067",
-         "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-        }
-       },
-       {
-        "@name":"End of Time",
-        "info":"with samples of 'Grown Woman’"
-       },
-       {
-        "@name":"Halo"
-       },
-       {
-        "@name":"Schoolin' Life",
-        "@tape":"true",
-        "info":"Outro"
+        "name":"It's Different for Girls(reprise)"
        }
       ]
      }
     },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/ford-field-detroit-mi-3fe01cb.html"
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2016\/sanda-athletic-sanda-japan-4bfc2786.html"
    },
    {
-    "@eventDate":"12-06-2016",
-    "@id":"33fe0831",
-    "@lastUpdated":"2016-06-30T02:53:03.000+0000",
-    "@tour":"The Formation World Tour",
-    "@versionId":"33af9069",
+    "eventDate":"19-08-2016",
+    "id":"33fcc071",
+    "lastUpdated":"2016-08-24T14:05:54.000+0000",
+    "versionId":"baa2d0a",
     "artist":{
-     "@disambiguation":"American singer, songwriter, record producer and actress",
-     "@mbid":"859d0860-d480-4efd-970c-c05d5f1776b8",
-     "@name":"Beyoncé",
-     "@sortName":"Beyoncé",
-     "url":"http:\/\/www.setlist.fm\/setlists\/beyonce-33d69c3d.html"
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
     },
     "venue":{
-     "@id":"43d61fd7",
-     "@name":"Hersheypark Stadium",
+     "id":"3bd754ac",
+     "name":"Chikaikkai",
      "city":{
-      "@id":"5193342",
-      "@name":"Hershey",
-      "@state":"Pennsylvania",
-      "@stateCode":"PA",
+      "id":"1853909",
+      "name":"Osaka",
+      "state":"Osaka",
+      "stateCode":"32",
       "coords":{
-       "@lat":"40.2859239",
-       "@long":"-76.6502468"
+       "lat":"34.694",
+       "long":"135.502"
       },
       "country":{
-       "@code":"US",
-       "@name":"United States"
+       "code":"JP",
+       "name":"Japan"
       }
      },
-     "url":"http:\/\/www.setlist.fm\/venue\/hersheypark-stadium-hershey-pa-usa-43d61fd7.html"
+     "url":"http:\/\/www.setlist.fm\/venue\/chikaikkai-osaka-japan-3bd754ac.html"
+    },
+    "sets":{
+     "set":[
+      {
+       "song":[
+        {
+         "name":"It's Different For Girls"
+        },
+        {
+         "name":"Gallery Piece"
+        },
+        {
+         "name":"Let's Relate"
+        },
+        {
+         "name":"Wraith Pinned to the Mist (and Other Games)"
+        },
+        {
+         "name":"A Sport and a Pastime"
+        },
+        {
+         "name":"Labyrinthian Pomp"
+        },
+        {
+         "name":"My Fair Lady"
+        },
+        {
+         "name":"Knight Rider"
+        },
+        {
+         "name":"Our Riotous Defects"
+        },
+        {
+         "name":"Trashed Exes"
+        },
+        {
+         "name":"Nonpareil of Favor"
+        },
+        {
+         "name":"Ambassador Bridge"
+        },
+        {
+         "name":"The Party's Crashing Us"
+        },
+        {
+         "name":"Women's Studies Victims"
+        },
+        {
+         "name":"Wicked Wisdom"
+        },
+        {
+         "name":"Famine Affair"
+        },
+        {
+         "name":"For Our Elegant Caste"
+        },
+        {
+         "name":"Id Engager"
+        },
+        {
+         "name":"An Eluardian Instance"
+        },
+        {
+         "name":"Gronlandic Edit"
+        },
+        {
+         "name":"Bassem Sabry"
+        },
+        {
+         "name":"A Sentence of Sorts in Kongsvinger"
+        },
+        {
+         "name":"It's Different For Girls",
+         "info":"Reprise"
+        }
+       ]
+      },
+      {
+       "encore":"1",
+       "song":{
+        "name":"Heimdalsgate Like a Promethean Curse"
+       }
+      },
+      {
+       "encore":"2",
+       "song":{
+        "name":"Suffer for Fashion"
+       }
+      }
+     ]
+    },
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2016\/chikaikkai-osaka-japan-33fcc071.html"
+   },
+   {
+    "eventDate":"17-08-2016",
+    "id":"3bfc3430",
+    "lastUpdated":"2016-08-24T14:03:38.000+0000",
+    "versionId":"1baa2d1c",
+    "artist":{
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
+    },
+    "venue":{
+     "id":"4bd6c30e",
+     "name":"The Wall",
+     "city":{
+      "id":"1668341",
+      "name":"Taipei",
+      "state":"T'ai-pei",
+      "stateCode":"03",
+      "coords":{
+       "lat":"25.0391667",
+       "long":"121.525"
+      },
+      "country":{
+       "code":"TW",
+       "name":"Taiwan"
+      }
+     },
+     "url":"http:\/\/www.setlist.fm\/venue\/the-wall-taipei-taiwan-4bd6c30e.html"
+    },
+    "sets":{
+     "set":[
+      {
+       "song":[
+        {
+         "name":"It's Different For Girls"
+        },
+        {
+         "name":"Gallery Piece"
+        },
+        {
+         "name":"Let's Relate"
+        },
+        {
+         "name":"Wraith Pinned to the Mist (and Other Games)"
+        },
+        {
+         "name":"A Sport and a Pastime"
+        },
+        {
+         "name":"Labyrinthian Pomp"
+        },
+        {
+         "name":"My Fair Lady"
+        },
+        {
+         "name":"Knight Rider"
+        },
+        {
+         "name":"Our Riotous Defects"
+        },
+        {
+         "name":"Trashed Exes"
+        },
+        {
+         "name":"Nonpareil of Favor"
+        },
+        {
+         "name":"Ambassador Bridge"
+        },
+        {
+         "name":"Suffer for Fashion"
+        },
+        {
+         "name":"The Party's Crashing Us"
+        },
+        {
+         "name":"Women's Studies Victims"
+        },
+        {
+         "name":"Wicked Wisdom"
+        },
+        {
+         "name":"Famine Affair"
+        },
+        {
+         "name":"For Our Elegant Caste"
+        },
+        {
+         "name":"An Eluardian Instance"
+        },
+        {
+         "name":"Gronlandic Edit"
+        },
+        {
+         "name":"Id Engager"
+        },
+        {
+         "name":"Bassem Sabry"
+        },
+        {
+         "name":"A Sentence of Sorts in Kongsvinger"
+        },
+        {
+         "name":"It's Different For Girls",
+         "info":"Reprise"
+        }
+       ]
+      },
+      {
+       "encore":"1",
+       "song":{
+        "name":"Heimdalsgate Like a Promethean Curse"
+       }
+      },
+      {
+       "encore":"2",
+       "song":[
+        {
+         "name":"She's a Rejecter"
+        },
+        {
+         "name":"The Past Is a Grotesque Animal"
+        }
+       ]
+      }
+     ]
+    },
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2016\/the-wall-taipei-taiwan-3bfc3430.html"
+   },
+   {
+    "eventDate":"19-06-2016",
+    "id":"5bff67e8",
+    "lastUpdated":"2016-08-02T21:53:36.000+0000",
+    "versionId":"13adf125",
+    "artist":{
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
+    },
+    "venue":{
+     "id":"53d5d351",
+     "name":"Needle Vinyl Tavern",
+     "city":{
+      "id":"5946768",
+      "name":"Edmonton",
+      "state":"Alberta",
+      "stateCode":"AB",
+      "coords":{
+       "lat":"53.550135939",
+       "long":"-113.468712219"
+      },
+      "country":{
+       "code":"CA",
+       "name":"Canada"
+      }
+     },
+     "url":"http:\/\/www.setlist.fm\/venue\/needle-vinyl-tavern-edmonton-ab-canada-53d5d351.html"
     },
     "sets":{
      "set":{
       "song":[
        {
-        "@name":"",
-        "@tape":"true",
-        "info":"with samples of 'No Angel' and ‘Formation'"
+        "name":"Id Engager"
        },
        {
-        "@name":"Formation"
+        "name":"Suffer for Fashion"
        },
        {
-        "@name":"Sorry",
-        "info":"'I'm Sorry' intro"
+        "name":"Heimdalsgate Like a Promethean Curse"
        },
        {
-        "@name":"Kitty Kat",
-        "info":"acapella"
+        "name":"Empyrean Abattoir"
        },
        {
-        "@name":"Bow Down",
-        "info":"'Tom Ford' outro"
+        "name":"Triumph of Disintegration"
        },
        {
-        "@name":"Run the World (Girls)"
+        "name":"Gratuitous Abysses"
        },
        {
-        "@name":"Superpower",
-        "@tape":"true",
-        "info":"Interlude"
+        "name":"For Our Elegant Caste"
        },
        {
-        "@name":"Mine"
+        "name":"Bassem Sabry"
        },
        {
-        "@name":"Baby Boy",
-        "info":"with samples of 'Standing on the Sun', 'Freaks' & 'Bam Bam’"
+        "name":"Bunny Ain't No Kind of Rider"
        },
        {
-        "@name":"Hold Up"
+        "name":"Like Ashoka's Inferno of Memory"
        },
        {
-        "@name":"Countdown",
-        "info":"with samples of 'Pop My Trunk’"
+        "name":"The Party's Crashing Us"
        },
        {
-        "@name":"Me, Myself and I"
+        "name":"Gronlandic Edit"
        },
        {
-        "@name":"Runnin' (Lose It All)",
-        "cover":{
-         "@disambiguation":"British songwriter, record producer, musician and rapper",
-         "@mbid":"1e4460c9-4d4a-4eb7-b2a6-3718e6e1020b",
-         "@name":"Naughty Boy",
-         "@sortName":"Naughty Boy",
-         "url":"http:\/\/www.setlist.fm\/setlists\/naughty-boy-2bd7d89e.html"
-        }
-       },
-       {
-        "@name":"All Night"
-       },
-       {
-        "@name":"I Care \/ Ghost",
-        "@tape":"true",
-        "info":"Interlude"
-       },
-       {
-        "@name":"Don't Hurt Yourself",
-        "info":"begins with live guitar playing samples of '6 Inch' & Kanye West's 'New Slaves’"
-       },
-       {
-        "@name":"Ring the Alarm",
-        "info":"with samples of 'Lost Yo Mind', 'I Been On', 'Naughty Girl' & 'Independent Women Part I’"
-       },
-       {
-        "@name":"Diva",
-        "info":"with samples of 'Cut It', & ‘Panda’"
-       },
-       {
-        "@name":"***Flawless",
-        "@tape":"true",
-        "info":"Interlude"
-       },
-       {
-        "@name":"***Flawless",
-        "info":"Remix"
-       },
-       {
-        "@name":"Feeling Myself",
-        "cover":{
-         "@disambiguation":"",
-         "@mbid":"1036b808-f58c-4a3e-b461-a2c4492ecf1b",
-         "@name":"Nicki Minaj",
-         "@sortName":"Minaj, Nicki",
-         "@tmid":"1432250",
-         "url":"http:\/\/www.setlist.fm\/setlists\/nicki-minaj-53d4e769.html"
-        }
-       },
-       {
-        "@name":"Yoncé"
-       },
-       {
-        "@name":"Drunk in Love"
-       },
-       {
-        "@name":"Rocket"
-       },
-       {
-        "@name":"Hip Hop Star \/ Freakum Dress",
-        "@tape":"true",
-        "info":"Interlude"
-       },
-       {
-        "@name":"Daddy Lessons"
-       },
-       {
-        "@name":"Love on Top",
-        "info":"Acapella"
-       },
-       {
-        "@name":"1+1"
-       },
-       {
-        "@name":"The Beautiful Ones",
-        "cover":{
-         "@disambiguation":"“The Artist Formerly Known as…”",
-         "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-         "@name":"Prince",
-         "@sortName":"Prince",
-         "@tmid":"735895",
-         "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-        }
-       },
-       {
-        "@name":"Purple Rain",
-        "@tape":"true",
-        "cover":{
-         "@disambiguation":"“The Artist Formerly Known as…”",
-         "@mbid":"070d193a-845c-479f-980e-bef15710653e",
-         "@name":"Prince",
-         "@sortName":"Prince",
-         "@tmid":"735895",
-         "url":"http:\/\/www.setlist.fm\/setlists\/prince-13d6b9ed.html"
-        },
-        "info":"Interlude"
-       },
-       {
-        "@name":"Crazy in Love",
-        "info":"With samples of 'Dance (A$$) & 'Bootylicious'."
-       },
-       {
-        "@name":"Naughty Girl"
-       },
-       {
-        "@name":"Party",
-        "info":"with samples of 'La Di Da Di’"
-       },
-       {
-        "@name":"Blow",
-        "info":"with samples of 'Nasty Girl’"
-       },
-       {
-        "@name":"Die with You \/ Blue",
-        "@tape":"true",
-        "info":"Interlude"
-       },
-       {
-        "@name":"Freedom"
-       },
-       {
-        "@name":"Survivor",
-        "cover":{
-         "@disambiguation":"",
-         "@mbid":"a796b92e-c137-4895-9c89-10f900617a4f",
-         "@name":"Destiny’s Child",
-         "@sortName":"Destiny’s Child",
-         "@tmid":"798067",
-         "url":"http:\/\/www.setlist.fm\/setlists\/destinys-child-23d6bc0f.html"
-        }
-       },
-       {
-        "@name":"End of Time",
-        "info":"with samples of 'Grown Woman’"
-       },
-       {
-        "@name":"Halo"
-       },
-       {
-        "@name":"Schoolin' Life",
-        "@tape":"true",
-        "info":"Outro"
+        "name":"A Sentence of Sorts in Kongsvinger"
        }
       ]
      }
     },
-    "url":"http:\/\/www.setlist.fm\/setlist\/beyonce\/2016\/hersheypark-stadium-hershey-pa-33fe0831.html"
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2016\/needle-vinyl-tavern-edmonton-ab-canada-5bff67e8.html"
+   },
+   {
+    "eventDate":"17-06-2016",
+    "id":"5bfe7308",
+    "lastUpdated":"2016-06-19T08:09:45.000+0000",
+    "versionId":"33aecc29",
+    "artist":{
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
+    },
+    "venue":{
+     "id":"6bd6d2a2",
+     "name":"Commodore Ballroom",
+     "city":{
+      "id":"6173331",
+      "name":"Vancouver",
+      "state":"British Columbia",
+      "stateCode":"BC",
+      "coords":{
+       "lat":"49.249657393",
+       "long":"-123.119340403"
+      },
+      "country":{
+       "code":"CA",
+       "name":"Canada"
+      }
+     },
+     "url":"http:\/\/www.setlist.fm\/venue\/commodore-ballroom-vancouver-bc-canada-6bd6d2a2.html"
+    },
+    "sets":{
+     "set":{
+      "song":[
+       {
+        "name":"Id Engager"
+       },
+       {
+        "name":"Suffer for Fashion"
+       },
+       {
+        "name":"Heimdalsgate Like a Promethean Curse"
+       },
+       {
+        "name":"Empyrean Abattoir"
+       },
+       {
+        "name":"For Our Elegant Caste"
+       },
+       {
+        "name":"Bassem Sabry"
+       },
+       {
+        "name":"Bunny Ain't No Kind of Rider"
+       },
+       {
+        "name":"The Party's Crashing Us"
+       },
+       {
+        "name":"Gronlandic Edit"
+       },
+       {
+        "name":"A Sentence of Sorts in Kongsvinger"
+       },
+       {
+        "name":"She's a Rejecter"
+       },
+       {
+        "name":"The Past Is a Grotesque Animal"
+       }
+      ]
+     }
+    },
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2016\/commodore-ballroom-vancouver-bc-canada-5bfe7308.html"
+   },
+   {
+    "eventDate":"05-06-2016",
+    "id":"3fe2917",
+    "lastUpdated":"2016-06-06T17:32:01.000+0000",
+    "versionId":"1ba10d04",
+    "artist":{
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
+    },
+    "venue":{
+     "id":"23d6188b",
+     "name":"Historic Fort York",
+     "city":{
+      "id":"6167865",
+      "name":"Toronto",
+      "state":"Ontario",
+      "stateCode":"ON",
+      "coords":{
+       "lat":"43.700113788",
+       "long":"-79.416304194"
+      },
+      "country":{
+       "code":"CA",
+       "name":"Canada"
+      }
+     },
+     "url":"http:\/\/www.setlist.fm\/venue\/historic-fort-york-toronto-on-canada-23d6188b.html"
+    },
+    "sets":{
+     "set":{
+      "song":[
+       {
+        "name":"Id Engager"
+       },
+       {
+        "name":"Suffer for Fashion"
+       },
+       {
+        "name":"The Party's Crashing Us"
+       },
+       {
+        "name":"Bassem Sabry"
+       },
+       {
+        "name":"Bunny Ain't No Kind of Rider"
+       },
+       {
+        "name":"Heimdalsgate Like a Promethean Curse"
+       },
+       {
+        "name":"The Past Is a Grotesque Animal"
+       },
+       {
+        "name":"A Sentence of Sorts in Kongsvinger"
+       },
+       {
+        "name":"Gronlandic Edit"
+       }
+      ]
+     }
+    },
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2016\/historic-fort-york-toronto-on-canada-3fe2917.html"
+   },
+   {
+    "eventDate":"07-05-2016",
+    "id":"53f103c5",
+    "lastUpdated":"2016-07-12T10:53:04.000+0000",
+    "versionId":"5baf4bb4",
+    "artist":{
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
+    },
+    "venue":{
+     "id":"63d632eb",
+     "name":"Recinto Ferial de La Fica",
+     "city":{
+      "id":"2513416",
+      "name":"Murcia",
+      "state":"Murcia",
+      "stateCode":"31",
+      "coords":{
+       "lat":"37.9833333",
+       "long":"-1.1166667"
+      },
+      "country":{
+       "code":"ES",
+       "name":"Spain"
+      }
+     },
+     "url":"http:\/\/www.setlist.fm\/venue\/recinto-ferial-de-la-fica-murcia-spain-63d632eb.html"
+    },
+    "sets":{
+     "set":{
+      "song":[
+       {
+        "name":"The Party's Crashing Us"
+       },
+       {
+        "name":"Gronlandic Edit"
+       },
+       {
+        "name":"Heimdalsgate Like a Promethean Curse"
+       },
+       {
+        "name":"A Sentence of Sorts in Kongsvinger"
+       },
+       {
+        "name":"She's a Rejecter"
+       },
+       {
+        "name":"The Past Is a Grotesque Animal"
+       }
+      ]
+     }
+    },
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2016\/recinto-ferial-de-la-fica-murcia-spain-53f103c5.html"
+   },
+   {
+    "eventDate":"02-04-2016",
+    "id":"73f04235",
+    "lastUpdated":"2016-04-03T19:20:20.000+0000",
+    "versionId":"33a54c31",
+    "artist":{
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
+    },
+    "venue":{
+     "id":"2bd638aa",
+     "name":"The Social",
+     "city":{
+      "id":"4167147",
+      "name":"Orlando",
+      "state":"Florida",
+      "stateCode":"FL",
+      "coords":{
+       "lat":"28.5383355",
+       "long":"-81.3792365"
+      },
+      "country":{
+       "code":"US",
+       "name":"United States"
+      }
+     },
+     "url":"http:\/\/www.setlist.fm\/venue\/the-social-orlando-fl-usa-2bd638aa.html"
+    },
+    "sets":{
+     "set":[
+      {
+       "song":[
+        {
+         "name":"Id Engager"
+        },
+        {
+         "name":"Last Rites at the Jane Hotel"
+        },
+        {
+         "name":"For Our Elegant Caste"
+        },
+        {
+         "name":"Bassem Sabry"
+        },
+        {
+         "name":"Fugitive Air"
+        },
+        {
+         "name":"Suffer for Fashion"
+        },
+        {
+         "name":"Gratuitous Abysses"
+        },
+        {
+         "name":"Bunny Ain't No Kind of Rider"
+        },
+        {
+         "name":"Coquet Coquette"
+        },
+        {
+         "name":"Beware Our Nubile Miscreants"
+        },
+        {
+         "name":"Like Ashoka's Inferno of Memory"
+        },
+        {
+         "name":"Rapture Rapes the Muses"
+        },
+        {
+         "name":"Rave segment"
+        },
+        {
+         "name":"The Party's Crashing Us"
+        },
+        {
+         "name":"Gronlandic Edit"
+        },
+        {
+         "name":"A Sentence of Sorts in Kongsvinger"
+        }
+       ]
+      },
+      {
+       "encore":"1",
+       "song":[
+        {
+         "name":"She's a Rejecter"
+        },
+        {
+         "name":"Heimdalsgate Like a Promethean Curse"
+        }
+       ]
+      }
+     ]
+    },
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2016\/the-social-orlando-fl-73f04235.html"
+   },
+   {
+    "eventDate":"01-04-2016",
+    "id":"2bf0485a",
+    "lastUpdated":"2016-04-02T12:15:28.000+0000",
+    "versionId":"1ba565d8",
+    "artist":{
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
+    },
+    "venue":{
+     "id":"bd6cda6",
+     "name":"Culture Room",
+     "city":{
+      "id":"4155966",
+      "name":"Fort Lauderdale",
+      "state":"Florida",
+      "stateCode":"FL",
+      "coords":{
+       "lat":"26.1223084",
+       "long":"-80.1433786"
+      },
+      "country":{
+       "code":"US",
+       "name":"United States"
+      }
+     },
+     "url":"http:\/\/www.setlist.fm\/venue\/culture-room-fort-lauderdale-fl-usa-bd6cda6.html"
+    },
+    "sets":{
+     "set":[
+      {
+       "song":[
+        {
+         "name":"Id Engager"
+        },
+        {
+         "name":"Last Rites at the Jane Hotel"
+        },
+        {
+         "name":"For Our Elegant Caste"
+        },
+        {
+         "name":"Bassem Sabry"
+        },
+        {
+         "name":"Fugitive Air"
+        },
+        {
+         "name":"Suffer for Fashion"
+        },
+        {
+         "name":"Gratuitous Abysses"
+        },
+        {
+         "name":"Bunny Ain't No Kind of Rider"
+        },
+        {
+         "name":"Coquet Coquette"
+        },
+        {
+         "name":"Beware Our Nubile Miscreants"
+        },
+        {
+         "name":"Like Ashoka's Inferno of Memory"
+        },
+        {
+         "name":"Rapture Rapes the Muses"
+        },
+        {
+         "name":"Rave segment"
+        },
+        {
+         "name":"The Party's Crashing Us"
+        },
+        {
+         "name":"Gronlandic Edit"
+        },
+        {
+         "name":"A Sentence of Sorts in Kongsvinger"
+        }
+       ]
+      },
+      {
+       "encore":"1",
+       "song":[
+        {
+         "name":"She's a Rejecter"
+        },
+        {
+         "name":"Heimdalsgate Like a Promethean Curse"
+        }
+       ]
+      }
+     ]
+    },
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2016\/culture-room-fort-lauderdale-fl-2bf0485a.html"
+   },
+   {
+    "eventDate":"26-03-2016",
+    "id":"bf065de",
+    "lastUpdated":"2016-03-30T05:08:40.000+0000",
+    "versionId":"23a5148b",
+    "artist":{
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
+    },
+    "venue":{
+     "id":"4bd63fe2",
+     "name":"40 Watt Club",
+     "city":{
+      "id":"4180386",
+      "name":"Athens",
+      "state":"Georgia",
+      "stateCode":"GA",
+      "coords":{
+       "lat":"33.960948",
+       "long":"-83.3779358"
+      },
+      "country":{
+       "code":"US",
+       "name":"United States"
+      }
+     },
+     "url":"http:\/\/www.setlist.fm\/venue\/40-watt-club-athens-ga-usa-4bd63fe2.html"
+    },
+    "sets":{
+     "set":[
+      {
+       "song":[
+        {
+         "name":"Id Engager"
+        },
+        {
+         "name":"Last Rites at the Jane Hotel"
+        },
+        {
+         "name":"For Our Elegant Caste"
+        },
+        {
+         "name":"Bassem Sabry"
+        },
+        {
+         "name":"Fugitive Air"
+        },
+        {
+         "name":"Suffer for Fashion"
+        },
+        {
+         "name":"Gratuitous Abysses"
+        },
+        {
+         "name":"Bunny Ain't No Kind of Rider"
+        },
+        {
+         "name":"Coquet Coquette"
+        },
+        {
+         "name":"Beware Our Nubile Miscreants"
+        },
+        {
+         "name":"Like Ashoka's Inferno of Memory"
+        },
+        {
+         "name":"Rapture Rapes the Muses"
+        },
+        {
+         "name":"The Party's Crashing Us"
+        },
+        {
+         "name":"Gronlandic Edit"
+        },
+        {
+         "name":"A Sentence of Sorts in Kongsvinger"
+        }
+       ]
+      },
+      {
+       "encore":"1",
+       "song":[
+        {
+         "name":"She's a Rejecter"
+        },
+        {
+         "name":"Heimdalsgate Like a Promethean Curse"
+        },
+        {
+         "name":"The Past Is a Grotesque Animal"
+        }
+       ]
+      }
+     ]
+    },
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2016\/40-watt-club-athens-ga-bf065de.html"
+   },
+   {
+    "eventDate":"14-03-2016",
+    "id":"7bf0d2bc",
+    "lastUpdated":"2016-03-14T23:48:18.000+0000",
+    "versionId":"1ba40154",
+    "artist":{
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
+    },
+    "venue":{
+     "id":"23d62ce3",
+     "name":"Village Underground",
+     "city":{
+      "id":"2643743",
+      "name":"London",
+      "state":"England",
+      "stateCode":"ENG",
+      "coords":{
+       "lat":"51.5084152563931",
+       "long":"-0.125532746315002"
+      },
+      "country":{
+       "code":"GB",
+       "name":"United Kingdom"
+      }
+     },
+     "url":"http:\/\/www.setlist.fm\/venue\/village-underground-london-england-23d62ce3.html"
+    },
+    "sets":{
+     "set":[
+      {
+       "song":[
+        {
+         "name":"Bassem Sabry"
+        },
+        {
+         "name":"Triumph of Disintegration"
+        },
+        {
+         "name":"Suffer for Fashion"
+        },
+        {
+         "name":"For Our Elegant Caste"
+        },
+        {
+         "name":"Empyrean Abattoir"
+        },
+        {
+         "name":"Bunny Ain't No Kind of Rider"
+        },
+        {
+         "name":"Coquet Coquette"
+        },
+        {
+         "name":"Beware Our Nubile Miscreants"
+        },
+        {
+         "name":"Requiem for O.M.M.2"
+        },
+        {
+         "name":"Wraith Pinned to the Mist (and Other Games)"
+        },
+        {
+         "name":"Like Ashoka's Inferno of Memory"
+        },
+        {
+         "name":"Plastis Wafer"
+        },
+        {
+         "name":"The Party's Crashing Us"
+        },
+        {
+         "name":"Gronlandic Edit"
+        },
+        {
+         "name":"A Sentence of Sorts in Kongsvinger"
+        }
+       ]
+      },
+      {
+       "encore":"1",
+       "song":[
+        {
+         "name":"Heimdalsgate Like a Promethean Curse"
+        },
+        {
+         "name":"She's a Rejecter"
+        },
+        {
+         "name":"The Past Is a Grotesque Animal"
+        }
+       ]
+      }
+     ]
+    },
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2016\/village-underground-london-england-7bf0d2bc.html"
+   },
+   {
+    "eventDate":"12-03-2016",
+    "id":"3bf0d004",
+    "lastUpdated":"2016-03-13T19:58:50.000+0000",
+    "versionId":"23a41467",
+    "artist":{
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
+    },
+    "venue":{
+     "id":"1bd4d934",
+     "name":"Victoria Warehouse",
+     "city":{
+      "id":"2643123",
+      "name":"Manchester",
+      "state":"England",
+      "stateCode":"ENG",
+      "coords":{
+       "lat":"53.4809464283615",
+       "long":"-2.23743438720703"
+      },
+      "country":{
+       "code":"GB",
+       "name":"United Kingdom"
+      }
+     },
+     "url":"http:\/\/www.setlist.fm\/venue\/victoria-warehouse-manchester-england-1bd4d934.html"
+    },
+    "sets":{
+     "set":{
+      "song":[
+       {
+        "name":"Bassem Sabry"
+       },
+       {
+        "name":"Triumph of Disintegration"
+       },
+       {
+        "name":"Suffer for Fashion"
+       },
+       {
+        "name":"Empyrean Abattoir"
+       },
+       {
+        "name":"Bunny Ain't No Kind of Rider"
+       },
+       {
+        "name":"Coquet Coquette"
+       },
+       {
+        "name":"Beware Our Nubile Miscreants"
+       },
+       {
+        "name":"The Party's Crashing Us"
+       },
+       {
+        "name":"Gronlandic Edit"
+       },
+       {
+        "name":"A Sentence of Sorts in Kongsvinger"
+       },
+       {
+        "name":"She's a Rejecter"
+       },
+       {
+        "name":"Heimdalsgate Like a Promethean Curse"
+       }
+      ]
+     }
+    },
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2016\/victoria-warehouse-manchester-england-3bf0d004.html"
+   },
+   {
+    "eventDate":"11-11-2015",
+    "id":"4bf5030e",
+    "lastUpdated":"2015-11-12T19:17:59.000+0000",
+    "versionId":"73bd0a31",
+    "artist":{
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
+    },
+    "venue":{
+     "id":"7bd61ae4",
+     "name":"Howlin' Wolf",
+     "city":{
+      "id":"4335045",
+      "name":"New Orleans",
+      "state":"Louisiana",
+      "stateCode":"LA",
+      "coords":{
+       "lat":"29.955",
+       "long":"-90.075"
+      },
+      "country":{
+       "code":"US",
+       "name":"United States"
+      }
+     },
+     "url":"http:\/\/www.setlist.fm\/venue\/howlin-wolf-new-orleans-la-usa-7bd61ae4.html"
+    },
+    "sets":{
+     "set":[
+      {
+       "song":[
+        {
+         "name":"Bassem Sabry"
+        },
+        {
+         "name":"Triumph of Disintegration"
+        },
+        {
+         "name":"Suffer for Fashion"
+        },
+        {
+         "name":"Empyrean Abattoir"
+        },
+        {
+         "name":"Gratuitous Abysses"
+        },
+        {
+         "name":"Bunny Ain't No Kind of Rider"
+        },
+        {
+         "name":"Coquet Coquette"
+        },
+        {
+         "name":"Beware Our Nubile Miscreants"
+        },
+        {
+         "name":"Like Ashoka's Inferno of Memory"
+        },
+        {
+         "name":"And I've Seen a Bloody Shadow"
+        },
+        {
+         "name":"Plastis Wafer"
+        },
+        {
+         "name":"Rave Intermission",
+         "tape":"true"
+        },
+        {
+         "name":"The Party's Crashing Us"
+        },
+        {
+         "name":"Gronlandic Edit"
+        },
+        {
+         "name":"A Sentence of Sorts in Kongsvinger"
+        }
+       ]
+      },
+      {
+       "encore":"1",
+       "song":[
+        {
+         "name":"Id Engager"
+        },
+        {
+         "name":"She's a Rejecter"
+        },
+        {
+         "name":"Heimdalsgate Like a Promethean Curse"
+        }
+       ]
+      }
+     ]
+    },
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2015\/howlin-wolf-new-orleans-la-4bf5030e.html"
+   },
+   {
+    "eventDate":"10-11-2015",
+    "id":"2bf50c62",
+    "lastUpdated":"2015-11-12T21:25:50.000+0000",
+    "versionId":"13bd05e5",
+    "artist":{
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
+    },
+    "venue":{
+     "id":"73d6da71",
+     "name":"Mohawk",
+     "city":{
+      "id":"4671654",
+      "name":"Austin",
+      "state":"Texas",
+      "stateCode":"TX",
+      "coords":{
+       "lat":"30.267153",
+       "long":"-97.7430608"
+      },
+      "country":{
+       "code":"US",
+       "name":"United States"
+      }
+     },
+     "url":"http:\/\/www.setlist.fm\/venue\/mohawk-austin-tx-usa-73d6da71.html"
+    },
+    "sets":{
+     "set":[
+      {
+       "song":[
+        {
+         "name":"Bassem Sabry"
+        },
+        {
+         "name":"Triumph of Disintegration"
+        },
+        {
+         "name":"Suffer for Fashion"
+        },
+        {
+         "name":"Empyrean Abattoir"
+        },
+        {
+         "name":"Gratuitous Abysses"
+        },
+        {
+         "name":"Bunny Ain't No Kind of Rider"
+        },
+        {
+         "name":"Coquet Coquette"
+        },
+        {
+         "name":"Beware Our Nubile Miscreants"
+        },
+        {
+         "name":"Like Ashoka's Inferno of Memory"
+        },
+        {
+         "name":"And I've Seen a Bloody Shadow"
+        },
+        {
+         "name":"Plastis Wafer"
+        },
+        {
+         "name":"Rave Intermission",
+         "tape":"true"
+        },
+        {
+         "name":"The Party's Crashing Us"
+        },
+        {
+         "name":"Gronlandic Edit"
+        },
+        {
+         "name":"A Sentence of Sorts in Kongsvinger"
+        }
+       ]
+      },
+      {
+       "encore":"1",
+       "song":[
+        {
+         "name":"Heimdalsgate Like a Promethean Curse"
+        },
+        {
+         "name":"She's a Rejecter"
+        }
+       ]
+      }
+     ]
+    },
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2015\/mohawk-austin-tx-2bf50c62.html"
+   },
+   {
+    "eventDate":"09-11-2015",
+    "id":"1bf56990",
+    "lastUpdated":"2015-11-16T03:46:13.000+0000",
+    "versionId":"7bbd4a64",
+    "artist":{
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
+    },
+    "venue":{
+     "id":"43d44feb",
+     "name":"The Paper Tiger",
+     "city":{
+      "id":"4726206",
+      "name":"San Antonio",
+      "state":"Texas",
+      "stateCode":"TX",
+      "coords":{
+       "lat":"29.4241219",
+       "long":"-98.4936282"
+      },
+      "country":{
+       "code":"US",
+       "name":"United States"
+      }
+     },
+     "url":"http:\/\/www.setlist.fm\/venue\/the-paper-tiger-san-antonio-tx-usa-43d44feb.html"
+    },
+    "sets":"",
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2015\/the-paper-tiger-san-antonio-tx-1bf56990.html"
+   },
+   {
+    "eventDate":"04-11-2015",
+    "id":"53f52bbd",
+    "lastUpdated":"2016-03-14T23:45:31.000+0000",
+    "versionId":"3a40177",
+    "artist":{
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
+    },
+    "venue":{
+     "id":"3d47157",
+     "name":"The Regent Theater",
+     "city":{
+      "id":"5368361",
+      "name":"Los Angeles",
+      "state":"California",
+      "stateCode":"CA",
+      "coords":{
+       "lat":"34.052",
+       "long":"-118.244"
+      },
+      "country":{
+       "code":"US",
+       "name":"United States"
+      }
+     },
+     "url":"http:\/\/www.setlist.fm\/venue\/the-regent-theater-los-angeles-ca-usa-3d47157.html"
+    },
+    "sets":{
+     "set":[
+      {
+       "song":[
+        {
+         "name":"Bassem Sabry"
+        },
+        {
+         "name":"Triumph of Disintegration"
+        },
+        {
+         "name":"Suffer for Fashion"
+        },
+        {
+         "name":"Empyrean Abattoir"
+        },
+        {
+         "name":"Gratuitous Abysses"
+        },
+        {
+         "name":"Requiem for O.M.M.2"
+        },
+        {
+         "name":"Bunny Ain't No Kind of Rider"
+        },
+        {
+         "name":"Coquet Coquette"
+        },
+        {
+         "name":"Beware Our Nubile Miscreants"
+        },
+        {
+         "name":"And I've Seen a Bloody Shadow"
+        },
+        {
+         "name":"Plastis Wafer"
+        },
+        {
+         "name":"Rave Intermission",
+         "tape":"true"
+        },
+        {
+         "name":"The Party's Crashing Us"
+        },
+        {
+         "name":"Gronlandic Edit"
+        },
+        {
+         "name":"A Sentence of Sorts in Kongsvinger"
+        }
+       ]
+      },
+      {
+       "encore":"1",
+       "song":[
+        {
+         "name":"Id Engager"
+        },
+        {
+         "name":"She's a Rejecter"
+        },
+        {
+         "name":"Heimdalsgate Like a Promethean Curse"
+        }
+       ]
+      },
+      {
+       "encore":"2",
+       "song":{
+        "name":"The Past Is a Grotesque Animal"
+       }
+      }
+     ]
+    },
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2015\/the-regent-theater-los-angeles-ca-53f52bbd.html"
+   },
+   {
+    "eventDate":"27-10-2015",
+    "id":"5bf5e78c",
+    "lastUpdated":"2015-11-12T21:26:49.000+0000",
+    "versionId":"13bd05dd",
+    "artist":{
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
+    },
+    "venue":{
+     "id":"23d6c42b",
+     "name":"Record Bar",
+     "city":{
+      "id":"4393217",
+      "name":"Kansas City",
+      "state":"Missouri",
+      "stateCode":"MO",
+      "coords":{
+       "lat":"39.0997266",
+       "long":"-94.5785667"
+      },
+      "country":{
+       "code":"US",
+       "name":"United States"
+      }
+     },
+     "url":"http:\/\/www.setlist.fm\/venue\/record-bar-kansas-city-mo-usa-23d6c42b.html"
+    },
+    "sets":{
+     "set":[
+      {
+       "song":[
+        {
+         "name":"Bassem Sabry"
+        },
+        {
+         "name":"Triumph of Disintegration"
+        },
+        {
+         "name":"Suffer for Fashion"
+        },
+        {
+         "name":"Empyrean Abattoir"
+        },
+        {
+         "name":"Gratuitous Abysses"
+        },
+        {
+         "name":"Bunny Ain't No Kind of Rider"
+        },
+        {
+         "name":"Id Engager"
+        },
+        {
+         "name":"Beware Our Nubile Miscreants"
+        },
+        {
+         "name":"Like Ashoka's Inferno of Memory"
+        },
+        {
+         "name":"And I've Seen a Bloody Shadow"
+        },
+        {
+         "name":"Plastis Wafer"
+        },
+        {
+         "name":"Rave Intermission",
+         "tape":"true"
+        },
+        {
+         "name":"The Party's Crashing Us"
+        },
+        {
+         "name":"Gronlandic Edit"
+        },
+        {
+         "name":"A Sentence of Sorts in Kongsvinger"
+        }
+       ]
+      },
+      {
+       "encore":"1",
+       "song":[
+        {
+         "name":"For Our Elegant Caste"
+        },
+        {
+         "name":"She's a Rejecter"
+        },
+        {
+         "name":"Heimdalsgate Like a Promethean Curse"
+        }
+       ]
+      }
+     ]
+    },
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2015\/record-bar-kansas-city-mo-5bf5e78c.html"
+   },
+   {
+    "eventDate":"25-10-2015",
+    "id":"3f5f10f",
+    "lastUpdated":"2015-10-26T06:41:01.000+0000",
+    "versionId":"13bc1961",
+    "artist":{
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
+    },
+    "venue":{
+     "id":"33d6188d",
+     "name":"Majestic Theatre",
+     "city":{
+      "id":"5261457",
+      "name":"Madison",
+      "state":"Wisconsin",
+      "stateCode":"WI",
+      "coords":{
+       "lat":"43.0730517",
+       "long":"-89.4012302"
+      },
+      "country":{
+       "code":"US",
+       "name":"United States"
+      }
+     },
+     "url":"http:\/\/www.setlist.fm\/venue\/majestic-theatre-madison-wi-usa-33d6188d.html"
+    },
+    "sets":"",
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2015\/majestic-theatre-madison-wi-3f5f10f.html"
+   },
+   {
+    "eventDate":"24-10-2015",
+    "id":"33f5f815",
+    "lastUpdated":"2016-08-24T09:12:19.000+0000",
+    "versionId":"3baa3058",
+    "artist":{
+     "disambiguation":"",
+     "mbid":"8475297d-fb78-4630-8d74-9b87b6bb7cc8",
+     "name":"of Montreal",
+     "sortName":"of Montreal",
+     "tmid":"794994",
+     "url":"http:\/\/www.setlist.fm\/setlists\/of-montreal-73d6f279.html"
+    },
+    "venue":{
+     "id":"23d72c17",
+     "name":"Wooly's",
+     "city":{
+      "id":"4853828",
+      "name":"Des Moines",
+      "state":"Iowa",
+      "stateCode":"IA",
+      "coords":{
+       "lat":"41.6005448",
+       "long":"-93.6091064"
+      },
+      "country":{
+       "code":"US",
+       "name":"United States"
+      }
+     },
+     "url":"http:\/\/www.setlist.fm\/venue\/woolys-des-moines-ia-usa-23d72c17.html"
+    },
+    "sets":{
+     "set":[
+      {
+       "song":[
+        {
+         "name":"Bassem Sabry"
+        },
+        {
+         "name":"Triumph of Disintegration"
+        },
+        {
+         "name":"Suffer for Fashion"
+        },
+        {
+         "name":"Empyrean Abattoir"
+        },
+        {
+         "name":"Requiem for O.M.M.2"
+        },
+        {
+         "name":"You Do Mutilate?",
+         "info":"Part 1"
+        },
+        {
+         "name":"Beware Our Nubile Miscreants"
+        },
+        {
+         "name":"Like Ashoka's Inferno of Memory"
+        },
+        {
+         "name":"And I've Seen a Bloody Shadow"
+        },
+        {
+         "name":"Plastis Wafer"
+        },
+        {
+         "name":"For Our Elegant Caste"
+        },
+        {
+         "name":"Rave Intermission",
+         "tape":"true"
+        },
+        {
+         "name":"The Party's Crashing Us"
+        },
+        {
+         "name":"Gronlandic Edit"
+        },
+        {
+         "name":"A Sentence of Sorts in Kongsvinger"
+        }
+       ]
+      },
+      {
+       "encore":"1",
+       "song":[
+        {
+         "name":"Bunny Ain't No Kind of Rider"
+        },
+        {
+         "name":"Id Engager"
+        },
+        {
+         "name":"She's a Rejecter"
+        },
+        {
+         "name":"Heimdalsgate Like a Promethean Curse"
+        }
+       ]
+      }
+     ]
+    },
+    "url":"http:\/\/www.setlist.fm\/setlist\/of-montreal\/2015\/woolys-des-moines-ia-33f5f815.html"
    }
   ]
  }

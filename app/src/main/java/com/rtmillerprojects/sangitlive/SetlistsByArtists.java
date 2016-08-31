@@ -431,6 +431,9 @@ public class SetlistsByArtists {
                     private List<SongBean> song;
 
                     public List<SongBean> getSong() {
+                        if(song.isEmpty()){
+                            return null;
+                        }
                         return song;
                     }
 

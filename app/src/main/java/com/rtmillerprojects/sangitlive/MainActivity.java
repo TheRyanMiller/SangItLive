@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.loopj.android.http.AsyncHttpClient;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
@@ -80,6 +81,14 @@ public class MainActivity extends AppCompatActivity {
         }
         page++;
 
+        GsonBuilder gsonBuilder = new GsonBuilder()
+                .registerTypeAdapterFactory(new ItemTypeAdapterFactory());
+        Gson gson = gsonBuilder.create();
+        InputStream is = this.getResources().openRawResource(R.raw.ofmontreal);
+        Reader reader = new InputStreamReader(is);
+        SetlistsByArtists localSetlistsByArtists = gson.fromJson(reader, SetlistsByArtists.class);
+
+
         if(artistName!=null) {
             btnChooseArtist.setText(artistName);
         }
@@ -134,14 +143,16 @@ public class MainActivity extends AppCompatActivity {
             si.setWasPlayed(false);
             for (int i = 0; i < sl.getSets().getSet().size(); i++) {
                 set = sl.getSets().getSet().get(i);
-                for (int k = 0; k < set.getSong().size(); k++) {
-                    song = set.getSong().get(k).getName().toLowerCase();
-                    songs.add(set.getSong().get(k).getName());
-                    if (songName.toLowerCase().equals(song) && !song.equals("")) {
-                        instanceCounter++;
-                        si.setWasPlayed(true);
+                if(set.getSong()!=null) {
+                    for (int k = 0; k < set.getSong().size(); k++) {
+                        song = set.getSong().get(k).getName().toLowerCase();
+                        songs.add(set.getSong().get(k).getName());
+                        if (songName.toLowerCase().equals(song) && !song.equals("")) {
+                            instanceCounter++;
+                            si.setWasPlayed(true);
+                        }
+                        //Need to add song to set songs array
                     }
-                    //Need to add song to set songs array
                 }
             }
             si.setSongs(songs);
