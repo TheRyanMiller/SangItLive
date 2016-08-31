@@ -17,7 +17,6 @@ public class SetInfo implements Parcelable {
     private String date;
     private String tourName;
     private boolean wasPlayed;
-
     private ArrayList<String> songs;
 
     public void setWasPlayed(boolean wasPlayed) {
@@ -42,8 +41,10 @@ public class SetInfo implements Parcelable {
     }
     protected SetInfo(Parcel in) {
 
-        songs = new ArrayList<String>();
+        //songs = new ArrayList<>();
+        ArrayList<String> songs = new ArrayList<>();
         in.readStringList(songs);
+        this.songs = songs;
         venue = in.readString();
         city = in.readString();
         state = in.readString();

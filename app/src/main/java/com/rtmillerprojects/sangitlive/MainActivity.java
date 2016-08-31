@@ -145,9 +145,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             si.setSongs(songs);
-            songs.clear();
             setInfo.add(si);
+            songs = new ArrayList<String>();
             totalSetsCounted++;
+
             //NEED TO ADD SI
         }
 
