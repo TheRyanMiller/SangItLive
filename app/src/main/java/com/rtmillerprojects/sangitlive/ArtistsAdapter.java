@@ -67,7 +67,6 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVi
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            Toast.makeText(ACA.getApplicationContext(),"Position: "+position,Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(ACA, MainActivity.class);
             intent.putExtra("mbid",mbid);
             intent.putExtra("artistName",artistName.getText().toString());
@@ -76,3 +75,4 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVi
     }
 
 }
+//Toast.makeText(ACA.getApplicationContext(),"Position: "+position,Toast.LENGTH_SHORT).show();

@@ -15,7 +15,7 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
-public class ItemTypeAdapterFactory implements TypeAdapterFactory {
+public class SetlistTypeAdapterFactory implements TypeAdapterFactory {
 
     public <T> TypeAdapter<T> create(Gson gson, final TypeToken<T> type) {
 
@@ -34,6 +34,7 @@ public class ItemTypeAdapterFactory implements TypeAdapterFactory {
                 if (jsonElement.isJsonObject()) {
                     JsonObject jsonObject = jsonElement.getAsJsonObject();
 
+                    //For sets that return a string
                     if(jsonObject.has("sets")){
                         JsonObject sets = new JsonObject();
                         try {

@@ -7,33 +7,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.EventLog;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.loopj.android.http.AsyncHttpClient;
-import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -82,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         page++;
 
         GsonBuilder gsonBuilder = new GsonBuilder()
-                .registerTypeAdapterFactory(new ItemTypeAdapterFactory());
+                .registerTypeAdapterFactory(new SetlistTypeAdapterFactory());
         Gson gson = gsonBuilder.create();
         InputStream is = this.getResources().openRawResource(R.raw.ofmontreal);
         Reader reader = new InputStreamReader(is);

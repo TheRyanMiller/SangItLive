@@ -4,8 +4,6 @@ import android.os.AsyncTask;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.rtmillerprojects.sangitlive.ItemTypeAdapterFactory;
-import com.rtmillerprojects.sangitlive.SetlistsByArtists;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -56,7 +54,7 @@ class NewConnection extends AsyncTask<String, String, String> {
         if(result!=null && result.toString()!=""){
             String resultString = result.toString();
             GsonBuilder gsonBuilder = new GsonBuilder()
-                    .registerTypeAdapterFactory(new ItemTypeAdapterFactory());
+                    .registerTypeAdapterFactory(new SetlistTypeAdapterFactory());
             Gson gson = gsonBuilder.create();
             setlistsByArtists = gson.fromJson(resultString, SetlistsByArtists.class);
             page++;

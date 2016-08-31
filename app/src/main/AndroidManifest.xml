@@ -21,6 +21,8 @@
         </activity>
         <activity android:name=".ArtistSearchActivity"
             android:permission="android.permission.INTERNET" />
+        <activity android:name=".SetlistDetailActivity"
+            android:permission="android.permission.INTERNET" />
     </application>
 
 </manifest>

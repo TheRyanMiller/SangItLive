@@ -1,8 +1,6 @@
 package com.rtmillerprojects.sangitlive;
 
-import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,25 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.SocketTimeoutException;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
@@ -66,7 +48,7 @@ public class ArtistSearchActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String searchString = String.valueOf(s);
                 if(!TextUtils.isEmpty(searchString) && searchString.substring(searchString.length()-1).equals(" ")) {
-                    getArtists(searchString);
+                    //getArtists(searchString);
                 }
             }
 
@@ -137,3 +119,4 @@ public class ArtistSearchActivity extends AppCompatActivity {
         EventBus.unregister(this);
     }
 }
+//Toast.makeText(this,"ARTIST IS RETURNED",Toast.LENGTH_SHORT).show();

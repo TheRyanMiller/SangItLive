@@ -5,10 +5,10 @@ import android.content.Context;
 import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
-import java.util.Set;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,7 +55,7 @@ public class SetlistService {
 
     private void getSetlists(String mbid, int page){
         Gson gson = new GsonBuilder()
-                .registerTypeAdapterFactory(new ItemTypeAdapterFactory())
+                .registerTypeAdapterFactory(new SetlistTypeAdapterFactory())
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiService.BASEURL)
@@ -83,8 +83,13 @@ public class SetlistService {
     }
 
     private void getArtists(String artistSearchString, int page){
+        try {
+            artistSearchString = URLEncoder.encode(artistSearchString,"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         Gson gson = new GsonBuilder()
-                .registerTypeAdapterFactory(new ItemTypeAdapterFactory())
+                .registerTypeAdapterFactory(new ArtistTypeAdapterFactory())
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiService.BASEURL)
@@ -106,6 +111,8 @@ public class SetlistService {
 
             @Override
             public void onFailure(Call<ArtistResults> call, Throwable t) {
+                Log.d("RYAN TEST","ARTISTS RESPONSE FAILED");
+                //EventBus.post(new APIError)
                 //EventBus.post(new APIErrorEvent(RetrofitError.unexpectedError(response.getUrl(), new HttpException("Empty Body")), event.getCallNumber()));
             }
         });
@@ -116,7 +123,7 @@ public class SetlistService {
 public SetlistsByArtists getJsonFromFile(String mbid, int page) {
 
         GsonBuilder gsonBuilder = new GsonBuilder()
-                .registerTypeAdapterFactory(new ItemTypeAdapterFactory());
+                .registerTypeAdapterFactory(new SetlistTypeAdapterFactory());
         Gson gson = gsonBuilder.create();
         InputStream is = this.getResources().openRawResource(R.raw.samplesetlistjson);
         Reader reader = new InputStreamReader(is);
