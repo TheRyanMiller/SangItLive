@@ -1,4 +1,4 @@
-package com.rtmillerprojects.sangitlive;
+package com.rtmillerprojects.sangitlive.api;
 
 import retrofit2.Retrofit;
 

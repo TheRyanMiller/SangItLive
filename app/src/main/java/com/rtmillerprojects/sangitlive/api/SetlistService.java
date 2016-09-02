@@ -1,10 +1,20 @@
-package com.rtmillerprojects.sangitlive;
+package com.rtmillerprojects.sangitlive.api;
 
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.rtmillerprojects.sangitlive.*;
+import com.rtmillerprojects.sangitlive.ArtistTypeAdapterFactory;
+import com.rtmillerprojects.sangitlive.EventBus;
+import com.rtmillerprojects.sangitlive.api.ApiService;
+import com.rtmillerprojects.sangitlive.api.DoRestEvent;
+import com.rtmillerprojects.sangitlive.api.SetlistTypeAdapterFactory;
+import com.rtmillerprojects.sangitlive.model.ArtistResults;
+import com.rtmillerprojects.sangitlive.model.LoadArtistEvent;
+import com.rtmillerprojects.sangitlive.model.LoadSetlistsEvent;
+import com.rtmillerprojects.sangitlive.model.SetlistsByArtists;
 import com.squareup.otto.Subscribe;
 
 import java.io.UnsupportedEncodingException;

@@ -1,4 +1,4 @@
-package com.rtmillerprojects.sangitlive;
+package com.rtmillerprojects.sangitlive.api;
 
 /**
  * Created by Ryan on 8/23/2016.

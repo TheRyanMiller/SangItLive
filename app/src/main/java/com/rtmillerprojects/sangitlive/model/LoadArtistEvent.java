@@ -1,4 +1,4 @@
-package com.rtmillerprojects.sangitlive;
+package com.rtmillerprojects.sangitlive.model;
 
 /**
  * Created by Ryan on 8/28/2016.

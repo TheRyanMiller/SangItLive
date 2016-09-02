@@ -1,4 +1,4 @@
-package com.rtmillerprojects.sangitlive;
+package com.rtmillerprojects.sangitlive.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,15 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.rtmillerprojects.sangitlive.EventBus;
+import com.rtmillerprojects.sangitlive.R;
+import com.rtmillerprojects.sangitlive.adapter.SetAdapter;
+import com.rtmillerprojects.sangitlive.api.DoRestEvent;
+import com.rtmillerprojects.sangitlive.api.SetlistService;
+import com.rtmillerprojects.sangitlive.api.SetlistTypeAdapterFactory;
+import com.rtmillerprojects.sangitlive.model.LoadSetlistsEvent;
+import com.rtmillerprojects.sangitlive.model.SetInfo;
+import com.rtmillerprojects.sangitlive.model.SetlistsByArtists;
 import com.squareup.otto.Subscribe;
 
 import java.io.InputStream;
@@ -173,15 +182,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             si.setSongs(songs);
+            songs = new ArrayList<String>();
             setInfoList.add(si);
             totalSetsCounted++;
         }
+
         return setInfoList;
     }
 
     public void addSetsToAdapter(ArrayList<SetInfo> newSetInfo){
         if(slAdapter != null && slAdapter.getItemCount()>0){
-            setInfo.addAll(newSetInfo);
+            //setInfo.addAll(newSetInfo);
             slAdapter.notifyDataSetChanged();
         }
         else{

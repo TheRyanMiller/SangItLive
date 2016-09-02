@@ -1,4 +1,4 @@
-package com.rtmillerprojects.sangitlive;
+package com.rtmillerprojects.sangitlive.model;
 
 import com.google.gson.annotations.SerializedName;
 

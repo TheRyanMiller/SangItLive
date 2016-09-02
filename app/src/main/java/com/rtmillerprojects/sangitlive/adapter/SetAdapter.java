@@ -1,4 +1,4 @@
-package com.rtmillerprojects.sangitlive;
+package com.rtmillerprojects.sangitlive.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
+
+import com.rtmillerprojects.sangitlive.R;
+import com.rtmillerprojects.sangitlive.model.SetInfo;
+import com.rtmillerprojects.sangitlive.ui.SetlistDetailActivity;
 
 import java.util.ArrayList;
 

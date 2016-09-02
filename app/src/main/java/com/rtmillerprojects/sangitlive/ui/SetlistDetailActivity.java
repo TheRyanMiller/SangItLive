@@ -1,4 +1,4 @@
-package com.rtmillerprojects.sangitlive;
+package com.rtmillerprojects.sangitlive.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.rtmillerprojects.sangitlive.R;
+import com.rtmillerprojects.sangitlive.api.SongListAdapter;
+import com.rtmillerprojects.sangitlive.model.SetInfo;
 
 /**
  * Created by Ryan on 8/31/2016.

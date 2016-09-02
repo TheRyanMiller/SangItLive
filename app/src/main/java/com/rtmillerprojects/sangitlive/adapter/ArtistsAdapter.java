@@ -1,4 +1,4 @@
-package com.rtmillerprojects.sangitlive;
+package com.rtmillerprojects.sangitlive.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.rtmillerprojects.sangitlive.ui.MainActivity;
+import com.rtmillerprojects.sangitlive.R;
+import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,7 @@
-package com.rtmillerprojects.sangitlive;
+package com.rtmillerprojects.sangitlive.api;
+
+import com.rtmillerprojects.sangitlive.model.ArtistResults;
+import com.rtmillerprojects.sangitlive.model.SetlistsByArtists;
 
 import retrofit2.Call;
 import retrofit2.Callback;

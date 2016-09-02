@@ -1,4 +1,4 @@
-package com.rtmillerprojects.sangitlive;
+package com.rtmillerprojects.sangitlive.ui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,6 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.rtmillerprojects.sangitlive.EventBus;
+import com.rtmillerprojects.sangitlive.R;
+import com.rtmillerprojects.sangitlive.adapter.ArtistsAdapter;
+import com.rtmillerprojects.sangitlive.api.DoRestEvent;
+import com.rtmillerprojects.sangitlive.api.SetlistService;
+import com.rtmillerprojects.sangitlive.model.ArtistDetails;
+import com.rtmillerprojects.sangitlive.model.ArtistResults;
+import com.rtmillerprojects.sangitlive.model.LoadArtistEvent;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
