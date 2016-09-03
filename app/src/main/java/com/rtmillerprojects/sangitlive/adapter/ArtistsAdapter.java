@@ -7,11 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.rtmillerprojects.sangitlive.ui.MainActivity;
+import com.rtmillerprojects.sangitlive.ui.ArtistSetlist;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 
@@ -71,7 +69,7 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVi
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            Intent intent = new Intent(ACA, MainActivity.class);
+            Intent intent = new Intent(ACA, ArtistSetlist.class);
             intent.putExtra("mbid",mbid);
             intent.putExtra("artistName",artistName.getText().toString());
             ACA.startActivity(intent);

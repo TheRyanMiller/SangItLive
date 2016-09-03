@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp"
+    android:gravity="center"
+    tools:context=".ui.ArtistSetlist"
+    android:theme="@style/AppTheme.Green">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/bordergrayfill"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:textSize="23sp"
+            android:text="Choose an Artist"
+            android:id="@+id/btn_choose_artist"
+            android:layout_gravity="center"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_below="@id/btn_choose_artist"
+                android:hint="Song Name"
+                android:id="@+id/songSearch">
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/searchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/songSearch"
+                android:layout_below="@id/btn_choose_artist"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:text="Search" />
+            </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text=""
+            android:id="@+id/results_detail"
+            android:layout_below="@id/songSearch"/>
+    </LinearLayout>
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:id="@+id/songlist" />
+</LinearLayout>
