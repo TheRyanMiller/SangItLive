@@ -18,7 +18,7 @@ import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.ArtistsAdapter;
 import com.rtmillerprojects.sangitlive.api.DoRestEvent;
-import com.rtmillerprojects.sangitlive.api.SetlistService;
+import com.rtmillerprojects.sangitlive.api.ServiceSetlist;
 import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.ArtistResults;
 import com.rtmillerprojects.sangitlive.model.LoadArtistEvent;
@@ -38,7 +38,7 @@ public class ArtistSearchActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerView;
     Bus mBus;
-    SetlistService setlistService;
+    ServiceSetlist serviceSetlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

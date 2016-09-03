@@ -1,7 +1,10 @@
 package com.rtmillerprojects.sangitlive.api;
 
 import com.rtmillerprojects.sangitlive.model.ArtistResults;
+import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 import com.rtmillerprojects.sangitlive.model.SetlistsByArtists;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -14,11 +17,11 @@ import retrofit2.http.Query;
 public interface ApiServiceBandsInTown {
     final static String BASEURL = "http://api.bandsintown.com/";
     final static String APPSETTINGS = "";
-    final static String EVENTENDPOINT = "/artists/mbid_{mbid}";
+    final static String EVENTENDPOINT = "/artists/mbid_{mbid}/events";
 
     // Events
     @GET(EVENTENDPOINT)
-    Call<SetlistsByArtists> searchEvents (@Path("mbid") String mbid, @Query("format") String format, @Query("app_id") String appId);
+    Call<ArrayList<BandsInTownEventResult>> searchEvents (@Path("mbid") String mbid, @Query("format") String format, @Query("api_version") String apiVersion, @Query("app_id") String appId);
 
 
     /*

@@ -35,7 +35,7 @@ public class HomeUpcomingAdapter extends RecyclerView.Adapter<HomeUpcomingAdapte
 
     @Override
     public HomeUpcomingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.each_list_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_list_item, parent, false);
         HomeUpcomingViewHolder vh = new HomeUpcomingViewHolder(v,context);
 
         return vh;

@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,7 +19,7 @@ import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.SetAdapter;
 import com.rtmillerprojects.sangitlive.api.DoRestEvent;
-import com.rtmillerprojects.sangitlive.api.SetlistService;
+import com.rtmillerprojects.sangitlive.api.ServiceSetlist;
 import com.rtmillerprojects.sangitlive.api.SetlistTypeAdapterFactory;
 import com.rtmillerprojects.sangitlive.model.LoadSetlistsEvent;
 import com.rtmillerprojects.sangitlive.model.SetInfo;
@@ -31,7 +30,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ArtistSetlist extends AppCompatActivity {
 
@@ -43,7 +41,7 @@ public class ArtistSetlist extends AppCompatActivity {
     private TextInputLayout songString;
     //private EditText songString;
     private TextView resultsMsg;
-    private SetlistService setlistService;
+    private ServiceSetlist serviceSetlist;
     private Button btnChooseArtist;
     private SetlistsByArtists setlistsByArtists;
     private String mbid;
@@ -66,7 +64,7 @@ public class ArtistSetlist extends AppCompatActivity {
         setInfo = new ArrayList<>();
 
         EventBus.register(this);
-        EventBus.register(new SetlistService(this.getApplication()));
+        EventBus.register(new ServiceSetlist(this.getApplication()));
 
         Intent intent = getIntent();
         String artistName = intent.getStringExtra("artistName");

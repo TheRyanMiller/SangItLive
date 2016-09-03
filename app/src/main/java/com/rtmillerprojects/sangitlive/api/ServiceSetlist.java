@@ -25,12 +25,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by Ryan on 8/27/2016.
  */
-public class SetlistService {
+public class ServiceSetlist {
     private SetlistsByArtists setlistsByArtists;
     private ArtistResults artistResults;
     private Context context;
 
-    public SetlistService(Application context){
+    public ServiceSetlist(Application context){
         this.context = context;
         /* Some Examplesettings to use in future
             Look in NowPlayingApplication.java:

@@ -9,7 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
+import com.rtmillerprojects.sangitlive.api.ServiceSetlist;
+import com.rtmillerprojects.sangitlive.api.ServiceUpcomingEvents;
 import com.rtmillerprojects.sangitlive.listener.MainListener;
 
 /**
@@ -20,6 +23,7 @@ public class MainActivity extends AppCompatActivity
 
     DrawerLayout drawer; //@Bind(R.id.drawer_layout)
     NavigationView navigationView; //@Bind(R.id.nav_view)
+    ServiceUpcomingEvents sue;
 
 
     @Override protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +85,17 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sue = new ServiceUpcomingEvents(this.getApplication());
+        EventBus.register(sue);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.unregister(sue);
+    }
 
     @Override public DrawerLayout getDrawer() {
         return drawer;
