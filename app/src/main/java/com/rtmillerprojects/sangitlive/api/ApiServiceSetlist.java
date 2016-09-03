@@ -12,7 +12,7 @@ import retrofit2.http.Query;
 /**
  * Created by Ryan on 8/28/2016.
  */
-public interface ApiService {
+public interface ApiServiceSetlist {
     final static String BASEURL = "http://api.setlist.fm";
     final static String APPSETTINGS = "/rest/0.1/application_settings.json";
     final static String SETLISTSENDPOINT = "/rest/0.1/search/setlists.json";

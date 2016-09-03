@@ -5,12 +5,8 @@ import android.content.Context;
 import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.rtmillerprojects.sangitlive.*;
 import com.rtmillerprojects.sangitlive.ArtistTypeAdapterFactory;
 import com.rtmillerprojects.sangitlive.EventBus;
-import com.rtmillerprojects.sangitlive.api.ApiService;
-import com.rtmillerprojects.sangitlive.api.DoRestEvent;
-import com.rtmillerprojects.sangitlive.api.SetlistTypeAdapterFactory;
 import com.rtmillerprojects.sangitlive.model.ArtistResults;
 import com.rtmillerprojects.sangitlive.model.LoadArtistEvent;
 import com.rtmillerprojects.sangitlive.model.LoadSetlistsEvent;
@@ -68,12 +64,12 @@ public class SetlistService {
                 .registerTypeAdapterFactory(new SetlistTypeAdapterFactory())
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApiService.BASEURL)
+                .baseUrl(ApiServiceSetlist.BASEURL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
         // prepare call in Retrofit 2.0
-        ApiService setlistApi = retrofit.create(ApiService.class);
+        ApiServiceSetlist setlistApi = retrofit.create(ApiServiceSetlist.class);
         //String radioheadKey = "a74b1b7f-71a5-4011-9441-d0b5e4122711";
         Call<SetlistsByArtists> call = setlistApi.getSetlists(mbid, page);
         //asynchronous call
@@ -102,13 +98,13 @@ public class SetlistService {
                 .registerTypeAdapterFactory(new ArtistTypeAdapterFactory())
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApiService.BASEURL)
+                .baseUrl(ApiServiceSetlist.BASEURL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
 
 
-        ApiService setlistApi = retrofit.create(ApiService.class);
+        ApiServiceSetlist setlistApi = retrofit.create(ApiServiceSetlist.class);
         Call<ArtistResults> call = setlistApi.getArtists(artistSearchString, page);
         //asynchronous call
         call.enqueue(new Callback<ArtistResults>() {

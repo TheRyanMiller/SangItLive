@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rtmillerprojects.sangitlive.R;
+import com.rtmillerprojects.sangitlive.adapter.HomeUpcomingAdapter;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class HomeUpcomingFragment extends BaseFragment {
 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
+    private HomeUpcomingAdapter upcomingAdapter;
 
 
     public static HomeUpcomingFragment newInstance() {
@@ -39,12 +41,13 @@ public class HomeUpcomingFragment extends BaseFragment {
                                        Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.home_upcoming_fragment, container, false);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_home_upcoming);
 
         layoutManager = new LinearLayoutManager(ACA);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        //recyclerView.setAdapter(upcomingAdapter);
-        //recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(upcomingAdapter);
+        recyclerView.setLayoutManager(layoutManager);
 
 
         return rootView;
