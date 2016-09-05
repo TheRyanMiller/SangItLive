@@ -7,6 +7,7 @@ package com.rtmillerprojects.sangitlive.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 
 import com.rtmillerprojects.sangitlive.ui.HomeHistoryFragment;
 import com.rtmillerprojects.sangitlive.ui.HomeRsvpFragment;
@@ -60,5 +61,13 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         return "History";
     }
     return null;
+  }
+
+  @Override
+  public void destroyItem(ViewGroup container, int position, Object object) {
+    // TODO Auto-generated method stub
+    String test = "My test code" +
+            "hi";
+    //super.destroyItem(ViewGroup container, int position, Object object);
   }
 }

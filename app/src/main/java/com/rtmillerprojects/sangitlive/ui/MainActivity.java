@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        sue = new ServiceUpcomingEvents(this.getApplication());
+        if(sue==null){sue = new ServiceUpcomingEvents(this.getApplication());}
         EventBus.register(sue);
     }
     @Override
