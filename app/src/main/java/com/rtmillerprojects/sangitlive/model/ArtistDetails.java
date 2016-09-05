@@ -1,10 +1,13 @@
 package com.rtmillerprojects.sangitlive.model;
 
+import org.parceler.Parcel;
+
 /**
  * Created by Ryan on 8/25/2016.
  */
+@Parcel
 public class ArtistDetails {
-    private String name;
+    String name;
 
     public String getName() {
         return name;

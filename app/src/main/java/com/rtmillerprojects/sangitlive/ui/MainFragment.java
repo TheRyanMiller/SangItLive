@@ -56,6 +56,7 @@ public class MainFragment extends BaseFragment{
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
 
+        fab.hide();
         toolbar.setTitle(getResources().getString(R.string.toolbar_title));
         ACA.setSupportActionBar(toolbar);
 
@@ -72,10 +73,10 @@ public class MainFragment extends BaseFragment{
             }
 
             @Override public void onPageSelected(int position) {
-                if (position == 1) {
-                    fab.hide();
-                } else {
+                if (position == 2) {
                     fab.show();
+                } else {
+                    fab.hide();
                 }
             }
 

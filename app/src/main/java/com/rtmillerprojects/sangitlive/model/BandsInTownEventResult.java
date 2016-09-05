@@ -2,6 +2,7 @@
 package com.rtmillerprojects.sangitlive.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -13,43 +14,43 @@ public class BandsInTownEventResult {
 
     @SerializedName("id")
     @Expose
-    private Integer id;
+    Integer id;
     @SerializedName("title")
     @Expose
-    private String title;
+    String title;
     @SerializedName("datetime")
     @Expose
-    private String datetime;
+    Date datetime;
     @SerializedName("formatted_datetime")
     @Expose
-    private String formattedDatetime;
+    String formattedDatetime;
     @SerializedName("formatted_location")
     @Expose
-    private String formattedLocation;
+    String formattedLocation;
     @SerializedName("ticket_url")
     @Expose
-    private String ticketUrl;
+    String ticketUrl;
     @SerializedName("ticket_type")
     @Expose
-    private String ticketType;
+    String ticketType;
     @SerializedName("ticket_status")
     @Expose
-    private String ticketStatus;
+    String ticketStatus;
     @SerializedName("on_sale_datetime")
     @Expose
-    private String onSaleDatetime;
+    String onSaleDatetime;
     @SerializedName("facebook_rsvp_url")
     @Expose
-    private String facebookRsvpUrl;
+    String facebookRsvpUrl;
     @SerializedName("description")
     @Expose
-    private String description;
+    String description;
     @SerializedName("artists")
     @Expose
-    private List<BandsInTownArtist> artists = new ArrayList<BandsInTownArtist>();
+    List<BandsInTownArtist> artists = new ArrayList<BandsInTownArtist>();
     @SerializedName("venue")
     @Expose
-    private Venue venue;
+    Venue venue;
 
     /**
      * 
@@ -92,7 +93,7 @@ public class BandsInTownEventResult {
      * @return
      *     The datetime
      */
-    public String getDatetime() {
+    public Date getDatetime() {
         return datetime;
     }
 
@@ -101,7 +102,7 @@ public class BandsInTownEventResult {
      * @param datetime
      *     The datetime
      */
-    public void setDatetime(String datetime) {
+    public void setDatetime(Date datetime) {
         this.datetime = datetime;
     }
 

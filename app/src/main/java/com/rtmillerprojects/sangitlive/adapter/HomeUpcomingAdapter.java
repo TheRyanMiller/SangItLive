@@ -13,9 +13,12 @@ import android.widget.TextView;
 
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
-import com.rtmillerprojects.sangitlive.model.SetInfo;
-import com.rtmillerprojects.sangitlive.ui.SetlistDetailActivity;
+import com.rtmillerprojects.sangitlive.ui.EventDetailsActivity;
 
+import org.parceler.Parcels;
+
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -49,7 +52,10 @@ public class HomeUpcomingAdapter extends RecyclerView.Adapter<HomeUpcomingAdapte
         holder.resultNumber.setText(++position +"");
         holder.title.setText(event.getTitle());
         holder.location.setText(event.getFormattedLocation());
-        holder.date.setText(event.getDatetime());
+        Format formatter = new SimpleDateFormat("MM/dd/yyyy");
+        String dateString = formatter.format(event.getDatetime());
+        holder.date.setText(dateString);
+        //holder.date.setText(event.getDatetime().toString());
         holder.venue.setText(event.getVenue().getName());
         holder.position = position;
         holder.event = event;
@@ -102,12 +108,10 @@ public class HomeUpcomingAdapter extends RecyclerView.Adapter<HomeUpcomingAdapte
 
         @Override
         public void onClick(View v) {
-            /*
             int position = getAdapterPosition();
-            Intent intent = new Intent(ACA, SetlistDetailActivity.class);
-            intent.putExtra("setinfo",setInfo);
+            Intent intent = new Intent(ACA, EventDetailsActivity.class);
+            intent.putExtra("event", Parcels.wrap(event));
             ACA.startActivity(intent);
-            */
         }
 
     }

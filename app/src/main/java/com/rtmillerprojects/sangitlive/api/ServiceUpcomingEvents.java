@@ -48,6 +48,7 @@ public class ServiceUpcomingEvents {
     public void receiveQueryForUpcomingEvents(UpcomingEventQuery event){
         Gson gson = new GsonBuilder()
                 //.registerTypeAdapterFactory(new SetlistTypeAdapterFactory())
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiServiceBandsInTown.BASEURL)
@@ -66,7 +67,9 @@ public class ServiceUpcomingEvents {
                 public void onResponse(Call<ArrayList<BandsInTownEventResult>> call, Response<ArrayList<BandsInTownEventResult>> response) {
                     bandsInTownEvents = response.body();
                     Log.d("RYAN TEST","EVENT SEARCH RESPONSE SUCCESS");
-                    EventBus.post(bandsInTownEvents);
+                    if(bandsInTownEvents!=null) {
+                        EventBus.post(bandsInTownEvents);
+                    }
                 }
 
                 @Override

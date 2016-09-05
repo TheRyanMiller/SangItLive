@@ -21,7 +21,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
   public final int HOME_UPCOMING = 0;
   public final int HOME_RSVP = 1;
-  public final int HOME_HISTORY = 2;
+  public final int TRACKED_ARTISTS = 2;
+  public final int HOME_HISTORY = 3;
 
   public SectionsPagerAdapter(FragmentManager fm) {
     super(fm);
@@ -39,6 +40,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         pagerFragment = HomeRsvpFragment.newInstance();
         break;
 
+      case TRACKED_ARTISTS:
+        pagerFragment = HomeRsvpFragment.newInstance();
+        break;
+
       case HOME_HISTORY:
         pagerFragment = HomeHistoryFragment.newInstance();
         break;
@@ -48,7 +53,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
   @Override public int getCount() {
     // Show 3 total pages.
-    return 3;
+    return 4;
   }
 
   @Override public CharSequence getPageTitle(int position) {
@@ -58,6 +63,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
       case 1:
         return "RSVP'd";
       case 2:
+        return "Tracked Artists";
+      case 3:
         return "History";
     }
     return null;
@@ -66,8 +73,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
   @Override
   public void destroyItem(ViewGroup container, int position, Object object) {
     // TODO Auto-generated method stub
-    String test = "My test code" +
-            "hi";
     //super.destroyItem(ViewGroup container, int position, Object object);
   }
 }
