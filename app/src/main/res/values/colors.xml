@@ -143,4 +143,6 @@
     <color name="selector_blue_pressed">#442962FF</color>
     <color name="selector_purple_focused">#22AA00FF</color>
     <color name="selector_purple_pressed">#44AA00FF</color>
+
+    <color name="light_grey_row_color">#FAFAFA</color>
 </resources>

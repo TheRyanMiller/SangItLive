@@ -9,9 +9,11 @@ import com.google.gson.GsonBuilder;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 import com.rtmillerprojects.sangitlive.model.UpcomingEventQuery;
+import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +28,7 @@ public class ServiceUpcomingEvents {
     private ArrayList<BandsInTownEventResult> bandsInTownEvents;
     private Context context;
     private String mbid;
+    private List<Long> favoritedShows;
 
     public ServiceUpcomingEvents(Application context){
         this.context = context;
@@ -68,6 +71,18 @@ public class ServiceUpcomingEvents {
                     bandsInTownEvents = response.body();
                     Log.d("RYAN TEST","EVENT SEARCH RESPONSE SUCCESS");
                     if(bandsInTownEvents!=null) {
+                        ArrayList<BandsInTownEventResult> scrubbedEventList = new ArrayList<>();
+                        DatabaseHelper db = DatabaseHelper.getInstance(context);
+                        favoritedShows = db.getFavoritedEventIds();
+                        for(BandsInTownEventResult e : bandsInTownEvents){
+                            e.setAttending(false);
+                            for (int i = 0; i < favoritedShows.size(); i++) {
+                                if(e.getId() == favoritedShows.get(i).intValue()){
+                                    e.setAttending(true);
+                                }
+                            }
+                            scrubbedEventList.add(e);
+                        }
                         EventBus.post(bandsInTownEvents);
                     }
                 }

@@ -14,12 +14,14 @@ import android.widget.TextView;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 import com.rtmillerprojects.sangitlive.ui.EventDetailsActivity;
+import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
 
 import org.parceler.Parcels;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ryan on 9/3/2016.
@@ -28,11 +30,14 @@ public class HomeUpcomingAdapter extends RecyclerView.Adapter<HomeUpcomingAdapte
 
     private ArrayList<BandsInTownEventResult> events;
     private Context context;
+    private List<Long> favoritedShows;
 
     //Constructor
     public HomeUpcomingAdapter(ArrayList<BandsInTownEventResult> events, Context context){
         this.events = events;
         this.context = context;
+        DatabaseHelper db = DatabaseHelper.getInstance(context);
+        favoritedShows = db.getFavoritedEventIds();
 
     };
 
@@ -47,7 +52,14 @@ public class HomeUpcomingAdapter extends RecyclerView.Adapter<HomeUpcomingAdapte
     @Override
     public void onBindViewHolder(HomeUpcomingAdapter.HomeUpcomingViewHolder holder, int position) {
         BandsInTownEventResult event = events.get(position);
-        //holder.view.setBackgroundColor(0xFFFF8A80);
+        if(event.isAttending()){
+            holder.view.setBackgroundResource(R.color.material_lime_500);
+        }
+        else{
+            holder.view.setBackgroundResource(R.color.light_grey_row_color);
+        }
+
+
 
         holder.resultNumber.setText(++position +"");
         holder.title.setText(event.getTitle());
@@ -59,6 +71,7 @@ public class HomeUpcomingAdapter extends RecyclerView.Adapter<HomeUpcomingAdapte
         holder.venue.setText(event.getVenue().getName());
         holder.position = position;
         holder.event = event;
+        holder.attending = event.isAttending();
         /*
         if(event.getWasPlayed()){
             holder.setListItem.setBackgroundResource(R.drawable.bordergreen);
@@ -84,6 +97,7 @@ public class HomeUpcomingAdapter extends RecyclerView.Adapter<HomeUpcomingAdapte
         TextView date;
         TextView venue;
         int position;
+        boolean attending;
         TextView resultNumber;
         public ImageView imgView;
         LinearLayout setListItem;

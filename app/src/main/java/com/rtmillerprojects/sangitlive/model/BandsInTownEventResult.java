@@ -33,6 +33,7 @@ public class BandsInTownEventResult {
     @SerializedName("ticket_type")
     @Expose
     String ticketType;
+    boolean attending;
     @SerializedName("ticket_status")
     @Expose
     String ticketStatus;
@@ -284,6 +285,14 @@ public class BandsInTownEventResult {
      */
     public void setVenue(Venue venue) {
         this.venue = venue;
+    }
+
+    public boolean isAttending() {
+        return attending;
+    }
+
+    public void setAttending(boolean attending) {
+        this.attending = attending;
     }
 
 }
