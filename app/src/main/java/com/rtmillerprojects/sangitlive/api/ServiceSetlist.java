@@ -10,6 +10,7 @@ import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.model.ArtistResults;
 import com.rtmillerprojects.sangitlive.model.LoadArtistEvent;
 import com.rtmillerprojects.sangitlive.model.LoadSetlistsEvent;
+import com.rtmillerprojects.sangitlive.model.PostArtistSearch;
 import com.rtmillerprojects.sangitlive.model.SetlistsByArtists;
 import com.squareup.otto.Subscribe;
 
@@ -46,18 +47,6 @@ public class ServiceSetlist {
         */
     }
 
-
-    @Subscribe
-    public void receiveRest(DoRestEvent event) {
-        if(event.getArtistMbid()!=null){
-            //invoke setlist REST
-            getSetlists(event.getArtistMbid(), event.getPage());
-        }
-        else if(event.getArtistSearchString()!=null){
-            //invoke artistSearch REST
-            getArtists(event.getArtistSearchString(), event.getPage());
-        }
-    }
 
     private void getSetlists(String mbid, int page){
         Gson gson = new GsonBuilder()

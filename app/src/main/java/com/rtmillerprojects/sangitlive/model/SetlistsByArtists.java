@@ -86,15 +86,15 @@ public class SetlistsByArtists {
         @Parcel
         public static class SetlistBean {
             @SerializedName("@eventDate")
-            private String eventDate;
+            String eventDate;
             @SerializedName("@id")
-            private String id;
+            String id;
             @SerializedName("@lastUpdated")
-            private String lastUpdated;
+            String lastUpdated;
             @SerializedName("@tour")
-            private String tour;
+            String tour;
             @SerializedName("@versionId")
-            private String versionId;
+            String versionId;
             /**
              * @disambiguation :
              * @mbid : a74b1b7f-71a5-4011-9441-d0b5e4122711

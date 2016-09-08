@@ -11,31 +11,31 @@ public class BandsInTownArtist {
 
     @SerializedName("name")
     @Expose
-    private String name;
+    String name;
     @SerializedName("mbid")
     @Expose
-    private String mbid;
+    String mbid;
     @SerializedName("image_url")
     @Expose
-    private String imageUrl;
+    String imageUrl;
     @SerializedName("thumb_url")
     @Expose
-    private String thumbUrl;
+    String thumbUrl;
     @SerializedName("facebook_tour_dates_url")
     @Expose
-    private String facebookTourDatesUrl;
+    String facebookTourDatesUrl;
     @SerializedName("facebook_page_url")
     @Expose
-    private String facebookPageUrl;
+    String facebookPageUrl;
     @SerializedName("tracker_count")
     @Expose
-    private Integer trackerCount;
+    Integer trackerCount;
     @SerializedName("url")
     @Expose
-    private String url;
+    String url;
     @SerializedName("website")
     @Expose
-    private String website;
+    String website;
 
     /**
      * 

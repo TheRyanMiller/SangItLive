@@ -11,25 +11,25 @@ public class Venue {
 
     @SerializedName("name")
     @Expose
-    private String name;
+    String name;
     @SerializedName("place")
     @Expose
-    private String place;
+    String place;
     @SerializedName("city")
     @Expose
-    private String city;
+    String city;
     @SerializedName("region")
     @Expose
-    private String region;
+    String region;
     @SerializedName("country")
     @Expose
-    private String country;
+    String country;
     @SerializedName("latitude")
     @Expose
-    private Double latitude;
+    Double latitude;
     @SerializedName("longitude")
     @Expose
-    private Double longitude;
+    Double longitude;
 
     /**
      * 

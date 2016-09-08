@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -17,11 +14,13 @@ import android.widget.Toast;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.ArtistsAdapter;
-import com.rtmillerprojects.sangitlive.api.DoRestEvent;
+import com.rtmillerprojects.sangitlive.api.MusicBrainzArtistService;
+import com.rtmillerprojects.sangitlive.model.PostArtistSearch;
 import com.rtmillerprojects.sangitlive.api.ServiceSetlist;
 import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.ArtistResults;
 import com.rtmillerprojects.sangitlive.model.LoadArtistEvent;
+import com.rtmillerprojects.sangitlive.model.musicbrainzaritstbrowse.Artist;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
@@ -38,6 +37,7 @@ public class ArtistSearchActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerView;
     Bus mBus;
+    MusicBrainzArtistService mbas;
     ServiceSetlist serviceSetlist;
 
     @Override
@@ -46,26 +46,7 @@ public class ArtistSearchActivity extends AppCompatActivity {
         setContentView(R.layout.artist_search);
 
         searchString = (EditText) findViewById(R.id.artist_string);
-        searchString.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String searchString = String.valueOf(s);
-                if(!TextUtils.isEmpty(searchString) && searchString.substring(searchString.length()-1).equals(" ")) {
-                    //getArtists(searchString);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                //Call submit button
-
-            }
-        });
         btnSearch = (Button) findViewById(R.id.btn_search);
         recyclerView = (RecyclerView) findViewById(R.id.artist_results);
         final Context context = this;
@@ -86,10 +67,9 @@ public class ArtistSearchActivity extends AppCompatActivity {
     }
 
     @Subscribe
-    public void receiveArtistResults(LoadArtistEvent loadArtistEvent) {
+    public void receiveArtistResults(ArrayList<Artist> results) {
         Toast.makeText(this,"ARTIST IS RETURNED",Toast.LENGTH_SHORT).show();
-        ArtistResults aResults = loadArtistEvent.getArtistResults();
-        if(aResults==null){
+        if(results==null){
             //do something if null
             artistAdapter = new ArtistsAdapter(null, this);
             recyclerView.setAdapter(artistAdapter);
@@ -97,12 +77,12 @@ public class ArtistSearchActivity extends AppCompatActivity {
         }
         else {
             ArrayList<ArtistDetails> adList = new ArrayList<>();
-            for (ArtistResults.ArtistsBean.ArtistBean ab : aResults.getArtists().getArtist()) {
+            for (Artist a : results) {
                 ArtistDetails ad = new ArtistDetails();
-                ad.setMbid(ab.getMbid());
-                ad.setName(ab.getName());
-                ad.setSortName(ab.getSortName());
-                ad.setUrl(ab.getUrl());
+                ad.setMbid(a.getId());
+                ad.setName(a.getName());
+                ad.setSortName(a.getSortName());
+                ad.setUrl("no url");
                 adList.add(ad);
             }
             artistAdapter = new ArtistsAdapter(adList, this);
@@ -112,19 +92,24 @@ public class ArtistSearchActivity extends AppCompatActivity {
     }
 
     private void getArtists(String artistSearchString){
-        EventBus.post(new DoRestEvent(null, artistSearchString, 1));
+        EventBus.post(new PostArtistSearch(null, artistSearchString));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         EventBus.register(this);
+        if(mbas==null){mbas = new MusicBrainzArtistService(this.getApplication());}
+        EventBus.register(mbas);
+        EventBus.register(this);
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         EventBus.unregister(this);
+        EventBus.unregister(mbas);
     }
 }
 //Toast.makeText(this,"ARTIST IS RETURNED",Toast.LENGTH_SHORT).show();

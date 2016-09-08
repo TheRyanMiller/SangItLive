@@ -18,7 +18,7 @@ import com.google.gson.GsonBuilder;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.SetAdapter;
-import com.rtmillerprojects.sangitlive.api.DoRestEvent;
+import com.rtmillerprojects.sangitlive.model.PostArtistSearch;
 import com.rtmillerprojects.sangitlive.api.ServiceSetlist;
 import com.rtmillerprojects.sangitlive.api.SetlistTypeAdapterFactory;
 import com.rtmillerprojects.sangitlive.model.LoadSetlistsEvent;
@@ -149,7 +149,7 @@ public class ArtistSetlist extends AppCompatActivity {
     }
 
     public void getSetlistsFromBus(String mbid, int page){
-        EventBus.post(new DoRestEvent(mbid, null, page));
+        EventBus.post(new PostArtistSearch(mbid, null));
     }
     @Subscribe
     public void onReceiveSetlists(LoadSetlistsEvent event){

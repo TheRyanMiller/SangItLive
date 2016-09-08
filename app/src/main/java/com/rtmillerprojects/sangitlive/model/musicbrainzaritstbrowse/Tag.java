@@ -1,20 +1,17 @@
 
-package com.rtmillerprojects.sangitlive.model;
+package com.rtmillerprojects.sangitlive.model.musicbrainzaritstbrowse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
-@Parcel
 public class Tag {
 
     @SerializedName("count")
     @Expose
-    Integer count;
+    private Integer count;
     @SerializedName("name")
     @Expose
-    String name;
+    private String name;
 
     /**
      * 
