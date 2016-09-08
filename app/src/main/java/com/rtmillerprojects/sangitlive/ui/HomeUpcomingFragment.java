@@ -13,22 +13,16 @@ import android.widget.Toast;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.HomeUpcomingAdapter;
-import com.rtmillerprojects.sangitlive.api.ServiceUpcomingEvents;
 import com.rtmillerprojects.sangitlive.model.UpcomingEventQuery;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 import com.squareup.otto.Subscribe;
 
 import org.parceler.Parcels;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
 
 /**
  * Created by Ryan on 9/2/2016.
@@ -106,18 +100,6 @@ public class HomeUpcomingFragment extends BaseFragment {
         mbids.add("b5ff61dd-0154-4e80-b46b-c733f87db602");
         mbids.add("69d9c5ba-7bba-4cb7-ab32-8ccc48ad4f97");
 
-        if(refreshDate==null){
-            refreshDate = new Date();
-            mProgressBar.setVisibility(View.VISIBLE);
-            EventBus.post(new UpcomingEventQuery(mbids,1));
-        }
-        else{
-            if(upcomingAdapter == null){
-                upcomingAdapter = new HomeUpcomingAdapter(events, ACA);
-            }
-            recyclerView.setAdapter(upcomingAdapter);
-            recyclerView.setLayoutManager(layoutManager);
-        }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             @Override
@@ -150,7 +132,10 @@ public class HomeUpcomingFragment extends BaseFragment {
                 recyclerView.setAdapter(upcomingAdapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(ACA));
             }
-            else{upcomingAdapter.notifyDataSetChanged();}
+            else{
+                upcomingAdapter = new HomeUpcomingAdapter(events, ACA);
+                upcomingAdapter.notifyDataSetChanged();
+            }
 
         }
         else {
@@ -177,6 +162,7 @@ public class HomeUpcomingFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         EventBus.register(this);
+        refreshItems();
     }
 
     @Override
@@ -233,6 +219,7 @@ public class HomeUpcomingFragment extends BaseFragment {
         outState.putInt(KEY_BUNDLE_PAGE_NUMBER, page);
         outState.putInt(KEY_BUNDLE_TOTAL_EVENTS, mTotalEvents);
     }
+
 
 }
 

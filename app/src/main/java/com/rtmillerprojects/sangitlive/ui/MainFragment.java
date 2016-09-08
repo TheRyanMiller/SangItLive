@@ -1,6 +1,7 @@
 package com.rtmillerprojects.sangitlive.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -75,6 +76,13 @@ public class MainFragment extends BaseFragment{
             @Override public void onPageSelected(int position) {
                 if (position == 2) {
                     fab.show();
+                    fab.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(ACA, ArtistSearchActivity.class);
+                            ACA.startActivity(intent);
+                        }
+                    });
                 } else {
                     fab.hide();
                 }

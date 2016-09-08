@@ -9,13 +9,16 @@
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_home_upcoming"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_gravity="center" />
+
     </android.support.v4.widget.SwipeRefreshLayout>
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleLarge"

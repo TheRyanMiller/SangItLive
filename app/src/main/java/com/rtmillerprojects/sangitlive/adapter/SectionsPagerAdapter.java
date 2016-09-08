@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.rtmillerprojects.sangitlive.ui.HomeHistoryFragment;
 import com.rtmillerprojects.sangitlive.ui.HomeRsvpFragment;
+import com.rtmillerprojects.sangitlive.ui.HomeTrackedArtistsFragment;
 import com.rtmillerprojects.sangitlive.ui.HomeUpcomingFragment;
 
 /**
@@ -41,7 +42,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         break;
 
       case TRACKED_ARTISTS:
-        pagerFragment = HomeRsvpFragment.newInstance();
+        pagerFragment = HomeTrackedArtistsFragment.newInstance();
         break;
 
       case HOME_HISTORY:

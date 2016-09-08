@@ -7,18 +7,15 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
-import com.rtmillerprojects.sangitlive.api.SongListAdapter;
+import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
-import com.rtmillerprojects.sangitlive.model.SetInfo;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
 
 import org.parceler.Parcels;
@@ -44,6 +41,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final BandsInTownEventResult event = Parcels.unwrap(intent.getParcelableExtra("event"));
 
+        final ArtistDetails ad = new ArtistDetails();
         title = (TextView) findViewById(R.id.title);
         title.setText(event.getTitle().toString());
         date = (TextView) findViewById(R.id.date);
@@ -52,8 +50,11 @@ public class EventDetailsActivity extends AppCompatActivity {
         venue.setText(event.getVenue().getPlace().toString());
         city = (TextView) findViewById(R.id.city);
         city.setText(event.getVenue().getCity().toString());
+        ad.setMbid(event.getArtists().get(0).getMbid());
+        ad.setName(event.getArtists().get(0).getName());
         ticketLink = (TextView) findViewById(R.id.ticket_link);
         String ticketStatus;
+
         if(event.getTicketStatus().toString().toLowerCase().equals("available")){
             ticketStatus= "Tickets are available ";
         }
@@ -98,9 +99,22 @@ public class EventDetailsActivity extends AppCompatActivity {
                 else{
                     DatabaseHelper db = DatabaseHelper.getInstance(context);
                     db.insertEvent(event);
+                    db.insertArtist(ad);
                 }
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        EventBus.register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.unregister(this);
     }
 }

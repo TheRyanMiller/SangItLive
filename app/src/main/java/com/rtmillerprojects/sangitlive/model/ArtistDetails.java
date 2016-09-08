@@ -8,6 +8,12 @@ import org.parceler.Parcel;
 @Parcel
 public class ArtistDetails {
     String name;
+    String mbid;
+    String sortName;
+    String url;
+    String thumbUrl;
+
+
 
     public String getName() {
         return name;
@@ -41,7 +47,14 @@ public class ArtistDetails {
         this.url = url;
     }
 
-    private String mbid;
-    private String sortName;
-    private String url;
+    public String getThumbUrl() {
+        return thumbUrl;
+    }
+
+    public void setThumbUrl(String thumbUrl) {
+        this.thumbUrl = thumbUrl;
+    }
+
+
+
 }

@@ -5,16 +5,25 @@
     android:layout_height="60dp">
 
     <TextView
-        android:layout_width="40dp"
+        android:layout_width="60dp"
         android:layout_height="60dp"
         android:ems="10"
         android:gravity="center"
-        android:id="@+id/resultnumber"
+        android:id="@+id/artistresultnumber"
         />
+    <ImageView
+        android:id="@+id/artist_img"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:contentDescription="Artist Image"
+        android:gravity="center"
+        android:layout_toRightOf="@id/artistresultnumber"
+        android:text="Artist Image"
+        android:layout_alignParentTop="true" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_toRightOf="@id/resultnumber"
+        android:layout_toRightOf="@id/artist_img"
         android:orientation="vertical"
         android:layout_height="60dp"
         android:paddingTop="10dp"
@@ -29,6 +38,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
+
 
     </LinearLayout>
 

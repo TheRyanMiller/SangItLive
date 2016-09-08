@@ -11,9 +11,15 @@ import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.BandsInTownArtist;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 import com.rtmillerprojects.sangitlive.model.Venue;
+import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.Artist;
+import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -25,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static DatabaseHelper sInstance;
     private static final String TAG = "DatabaseHelper";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     //Table Defs
     public static final String DATABASE_NAME = "concertcompanion.db";
@@ -34,7 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Common column names
     private static final String KEY_ID = "id";
-    private static final String ARTIST_MBID = "artist_id";
+    private static final String ARTIST_MBID = "artist_mbid";
     private static final String KEY_CREATED_AT = "created_at";
 
     // Artist columns
@@ -54,12 +60,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_ARTIST = "CREATE TABLE " +
             TABLE_ARTIST + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            ARTIST_MBID + " TEXT," +
             ARTIST_NAME + " TEXT," +
-            KEY_CREATED_AT + " DATETIME" + ")";
+            KEY_CREATED_AT + " DATETIME," +
+            "UNIQUE("+ARTIST_MBID+"))";
 
     private static final String CREATE_TABLE_EVENT = "CREATE TABLE " + TABLE_EVENT + "(" +
             KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            EVENT_ID + " TEXT," +
+            EVENT_ID + " TEXT UNIQUE," +
             ARTIST_MBID + " TEXT," +
             EVENT_TITLE + " TEXT," +
             EVENT_DATE + " DATETIME," +
@@ -111,13 +119,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(EVENT_ID, event.getId());
         values.put(EVENT_TITLE, event.getTitle());
+        values.put(ARTIST_MBID,event.getArtists().get(0).getMbid());
         values.put(EVENT_DATE, event.getDatetime().toString());
         values.put(EVENT_VENUE_CITY, event.getVenue().getCity());
         values.put(EVENT_VENUE_REGION, event.getVenue().getRegion());
         values.put(EVENT_VENUE_PLACE, event.getVenue().getPlace());
         values.put(EVENT_VENUE_COUNTRY, event.getVenue().getCountry());
         values.put(EVENT_VENUE_NAME, event.getVenue().getName());
-        values.put(KEY_CREATED_AT, getDateTime());
+        values.put(KEY_CREATED_AT, getCurrentDateTimeAsString());
         if(event.getDatetime().before(new Date())){
             values.put(EVENT_IS_PAST, 0);
         }
@@ -126,20 +135,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         };
 
         // insert row
-        long contactId = db.insert(TABLE_EVENT, null, values);
+        long contactId = db.insertWithOnConflict(TABLE_EVENT, null, values, SQLiteDatabase.CONFLICT_IGNORE);
         return contactId;
     }
     public long insertArtist(ArtistDetails artistDetails){
         SQLiteDatabase db = this.getWritableDatabase();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-
         ContentValues values = new ContentValues();
         values.put(ARTIST_MBID, artistDetails.getMbid());
         values.put(ARTIST_NAME, artistDetails.getName());
-        values.put(KEY_CREATED_AT, getDateTime());
-        long artistRecordId = db.insert(TABLE_ARTIST, null, values);
+        values.put(KEY_CREATED_AT, getCurrentDateTimeAsString());
+        //long artistRecordId = db.insert(TABLE_ARTIST, null, values);
+        long artistRecordId = db.insertWithOnConflict(TABLE_ARTIST, null, values, SQLiteDatabase.CONFLICT_IGNORE);
         return artistRecordId;
     }
 
@@ -158,7 +164,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do {
                 BandsInTownEventResult event = new BandsInTownEventResult();
                 event.setId(c.getInt(c.getColumnIndex(EVENT_ID)));
-                event.setDatetime(new Date(c.getLong(c.getColumnIndex(EVENT_DATE))*1000));
+                event.setDatetime(convertToDate(c.getString(c.getColumnIndex(EVENT_DATE))));
+                //event.setDatetime();
                 event.setTitle(c.getString(c.getColumnIndex(EVENT_TITLE)));
                 ArrayList<BandsInTownArtist> artistList = new ArrayList<>();
                 BandsInTownArtist artist = new BandsInTownArtist();
@@ -176,19 +183,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while(c.moveToNext());
             c.moveToFirst();
         }
+        Collections.sort(events, new Comparator<BandsInTownEventResult>() {
+            @Override
+            public int compare(BandsInTownEventResult o1, BandsInTownEventResult o2) {
+                return o1.getDatetime().compareTo(o2.getDatetime());
+            }
+        });
         return events;
     }
 
-    public ArrayList<ArtistDetails> getAllArtists() {
-        ArrayList<ArtistDetails> artists = new ArrayList<>();
+    public ArrayList<ArtistLastFm> getAllArtists() {
+        ArrayList<ArtistLastFm> artists = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT  * FROM " + TABLE_ARTIST;
         Cursor c = db.rawQuery(selectQuery, null);
         if (c.moveToFirst()) {
             do {
-                ArtistDetails artist = new ArtistDetails();
-                artist.setMbid(c.getString(c.getColumnIndex(ARTIST_MBID)));
-                artist.setName(c.getString(c.getColumnIndex(ARTIST_NAME)));
+                ArtistLastFm artist = new ArtistLastFm();
+                artist.setArtist(new Artist());
+                artist.getArtist().setMbid(c.getString(c.getColumnIndex(ARTIST_MBID)));
+                artist.getArtist().setName(c.getString(c.getColumnIndex(ARTIST_NAME)));
                 artists.add(artist);
             } while(c.moveToNext());
             c.moveToFirst();
@@ -219,12 +233,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete(TABLE_ARTIST,ARTIST_MBID+"="+artistMbid,null);
     }
 
-    private String getDateTime() {
+    private String getCurrentDateTimeAsString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                "MM-dd-yyyy HH:mm:ss", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
     }
+
+    private String convertDateTimeToString(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "MM-dd-yyyy HH:mm:ss", Locale.getDefault());
+        return dateFormat.format(date);
+    }
+
+    private Date convertToDate(String string){
+        DateFormat format = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy", Locale.ENGLISH);
+        Date date = new Date();
+        try {
+            date = format.parse(string);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
 
 
     /*

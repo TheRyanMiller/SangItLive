@@ -1,6 +1,5 @@
-package com.rtmillerprojects.sangitlive.ui;
+package com.rtmillerprojects.sangitlive.adapter;
 
-import android.app.Service;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -12,26 +11,24 @@ import android.view.MenuItem;
 
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
-import com.rtmillerprojects.sangitlive.api.LastFmArtistService;
-import com.rtmillerprojects.sangitlive.api.ServiceArtistImage;
-import com.rtmillerprojects.sangitlive.api.ServiceSetlist;
 import com.rtmillerprojects.sangitlive.api.ServiceUpcomingEvents;
 import com.rtmillerprojects.sangitlive.listener.MainListener;
+import com.rtmillerprojects.sangitlive.ui.MainFragment;
 
 /**
- * Created by Ryan on 9/2/2016.
+ * Created by Ryan on 9/7/2016.
  */
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MainListener {
+public class ArtistDetailsActivity extends AppCompatActivity
+    implements NavigationView.OnNavigationItemSelectedListener, MainListener
 
-    DrawerLayout drawer; //@Bind(R.id.drawer_layout)
-    NavigationView navigationView; //@Bind(R.id.nav_view)
-    ServiceUpcomingEvents sue;
-    ServiceArtistImage sai;
-    LastFmArtistService lfas;
+    {
+
+        DrawerLayout drawer; //@Bind(R.id.drawer_layout)
+        NavigationView navigationView; //@Bind(R.id.nav_view)
+        ServiceUpcomingEvents sue;
 
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
+        @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -52,13 +49,13 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    @Override public boolean onCreateOptionsMenu(Menu menu) {
+        @Override public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
-    @Override public boolean onOptionsItemSelected(MenuItem item) {
+        @Override public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -69,8 +66,8 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    @SuppressWarnings("StatementWithEmptyBody") @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+        @SuppressWarnings("StatementWithEmptyBody") @Override
+        public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -81,7 +78,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override public void onBackPressed() {
+        @Override public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -90,25 +87,19 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    protected void onResume() {
+        @Override
+        protected void onResume() {
         super.onResume();
         if(sue==null){sue = new ServiceUpcomingEvents(this.getApplication());}
         EventBus.register(sue);
-        if(sai==null){sai = new ServiceArtistImage(this.getApplication());}
-        EventBus.register(sai);
-        if(lfas==null){lfas = new LastFmArtistService(this.getApplication());}
-        EventBus.register(lfas);
     }
-    @Override
-    protected void onPause() {
+        @Override
+        protected void onPause() {
         super.onPause();
         EventBus.unregister(sue);
-        EventBus.unregister(sai);
-        EventBus.unregister(lfas);
     }
 
-    @Override public DrawerLayout getDrawer() {
+        @Override public DrawerLayout getDrawer() {
         return drawer;
     }
-}
+    }
