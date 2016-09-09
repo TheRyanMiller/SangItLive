@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.ArtistsAdapter;
+import com.rtmillerprojects.sangitlive.adapter.MusicBrainzArtistsAdapter;
 import com.rtmillerprojects.sangitlive.api.MusicBrainzArtistService;
 import com.rtmillerprojects.sangitlive.model.PostArtistSearch;
 import com.rtmillerprojects.sangitlive.api.ServiceSetlist;
@@ -33,7 +34,7 @@ public class ArtistSearchActivity extends AppCompatActivity {
 
     EditText searchString;
     Button btnSearch;
-    ArtistsAdapter artistAdapter;
+    MusicBrainzArtistsAdapter artistAdapter;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerView;
     Bus mBus;
@@ -43,6 +44,7 @@ public class ArtistSearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.artist_search);
 
         searchString = (EditText) findViewById(R.id.artist_string);
@@ -71,21 +73,13 @@ public class ArtistSearchActivity extends AppCompatActivity {
         Toast.makeText(this,"ARTIST IS RETURNED",Toast.LENGTH_SHORT).show();
         if(results==null){
             //do something if null
-            artistAdapter = new ArtistsAdapter(null, this);
+            artistAdapter = new MusicBrainzArtistsAdapter(null, this);
             recyclerView.setAdapter(artistAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
         else {
-            ArrayList<ArtistDetails> adList = new ArrayList<>();
-            for (Artist a : results) {
-                ArtistDetails ad = new ArtistDetails();
-                ad.setMbid(a.getId());
-                ad.setName(a.getName());
-                ad.setSortName(a.getSortName());
-                ad.setUrl("no url");
-                adList.add(ad);
-            }
-            artistAdapter = new ArtistsAdapter(adList, this);
+            ArrayList<Artist>/*BUILD THIS FOR MUSICBRAINZ ARTIST TYPE*/ adList = new ArrayList<>();
+            artistAdapter = new MusicBrainzArtistsAdapter(results, this);
             recyclerView.setAdapter(artistAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
@@ -101,7 +95,6 @@ public class ArtistSearchActivity extends AppCompatActivity {
         EventBus.register(this);
         if(mbas==null){mbas = new MusicBrainzArtistService(this.getApplication());}
         EventBus.register(mbas);
-        EventBus.register(this);
 
     }
 
