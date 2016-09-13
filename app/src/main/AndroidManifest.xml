@@ -12,6 +12,8 @@
         android:theme="@style/AppTheme.Green">
         <activity android:name=".ui.MainActivity"
             android:permission="android.permission.INTERNET">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -92,6 +92,8 @@ public class ServiceUpcomingEvents {
                 @Override
                 public void onFailure(Call<ArrayList<BandsInTownEventResult>> call, Throwable t) {
                     //EventBus.post(new APIErrorEvent(RetrofitError.unexpectedError(response.getUrl(), new HttpException("Empty Body")), event.getCallNumber()));
+                    Log.d("RYAN TEST","EVENT SEARCH RESPONSE FAILED");
+                    //Log.e(t.getMessage());
                 }
             });
         }

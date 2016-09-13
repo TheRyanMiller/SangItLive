@@ -81,7 +81,7 @@ public class MainFragment extends BaseFragment{
                         public void onClick(View v) {
                             Intent intent = new Intent(ACA, ArtistSearchActivity.class);
                             ACA.startActivity(intent);
-                            ACA.overridePendingTransition(R.anim.slide_in_left,0);
+                            ACA.overridePendingTransition(R.anim.slide_in_left,R.anim.stay);
                         }
                     });
                 } else {

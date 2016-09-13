@@ -4,4 +4,5 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit rhoncus massa. Aenean tellus felis, ultrices eu mi eget, aliquam vehicula nulla. Aliquam porttitor ex et nisl suscipit, ac commodo est varius. Mauris eu eleifend velit. Maecenas quis elementum tortor. Fusce a sem consectetur, malesuada tortor id, gravida metus. Aliquam venenatis luctus varius. Mauris venenatis urna sed pulvinar mollis. Nunc nec libero purus. Nulla dui erat, porta a viverra at, finibus vitae tortor.</string>
 </resources>

@@ -92,7 +92,9 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
     public void onResume() {
         super.onResume();
         EventBus.register(this);
-        refreshItems();
+        if(trackedArtistAdapter==null) {
+            refreshItems();
+        }
     }
 
     @Override

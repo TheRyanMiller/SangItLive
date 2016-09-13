@@ -57,12 +57,12 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
     @Override
     public void onBindViewHolder(HomeTrackedArtistsAdapter.HomeTrackedArtistViewHolder holder, int position) {
         ArtistLastFm artistDetails = artists.get(position);
-
+        holder.artistDetails = artistDetails;
         holder.resultNumber.setText(++position +"");
         holder.artistMbid = artistDetails.getArtist().getMbid();
         holder.artistName.setText(artistDetails.getArtist().getName());
         holder.position = position;
-        holder.artistDetails = artistDetails;
+
         try {
             Picasso.with(context).load(artistDetails.getArtist().getImage().get(0).getText())
                     .placeholder(R.drawable.ic_person_grey600_24dp)
