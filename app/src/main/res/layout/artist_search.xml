@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/AppTheme.Green"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
     >
 
     <RelativeLayout
@@ -23,7 +24,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/artist_string"/>
+
         </android.support.design.widget.TextInputLayout>
+
         <Button
             android:layout_width="100dp"
             style="@style/Widget.AppCompat.Button.Colored"
@@ -34,12 +37,15 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
+        <android.support.v7.widget.RecyclerView
+            android:layout_below="@id/artisttextlayout"
+            android:layout_width="match_parent"
+            android:id="@+id/artist_results"
+            android:layout_height="wrap_content" />
+
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:id="@+id/artist_results"
-        android:layout_height="wrap_content" />
+
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/bottom_sheet"
@@ -59,4 +65,4 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
