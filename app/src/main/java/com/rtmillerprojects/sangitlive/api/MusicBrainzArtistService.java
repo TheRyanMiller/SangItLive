@@ -75,8 +75,10 @@ public class MusicBrainzArtistService {
                 artistBrowseResults = response.body();
                 Log.d("RYAN TEST","ARTIST SEARCH RESPONSE SUCCESS");
                 artistList = new ArrayList<Artist>();
-                artistList.addAll(artistBrowseResults.getArtists());
-                EventBus.post(artistList);
+                if(artistBrowseResults!=null) {
+                    artistList.addAll(artistBrowseResults.getArtists());
+                    EventBus.post(artistList);
+                }
             }
 
             @Override

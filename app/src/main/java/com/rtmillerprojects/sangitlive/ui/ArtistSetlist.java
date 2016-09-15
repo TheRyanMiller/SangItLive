@@ -144,7 +144,7 @@ public class ArtistSetlist extends AppCompatActivity {
     }
 
     public void searchArtist(){
-        Intent intent = new Intent(this, ArtistSearchActivity.class);
+        Intent intent = new Intent(this, ActivityArtistSearch.class);
         startActivity(intent);
     }
 

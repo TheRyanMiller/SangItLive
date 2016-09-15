@@ -30,7 +30,7 @@ import java.util.ArrayList;
 /**
  * Created by Ryan on 8/25/2016.
  */
-public class ArtistSearchActivity extends AppCompatActivity {
+public class ActivityArtistSearch extends AppCompatActivity {
 
     EditText searchString;
     Button btnSearch;
@@ -62,7 +62,12 @@ public class ArtistSearchActivity extends AppCompatActivity {
                 } catch (Exception e) {
 
                 }
-                getArtists(searchString.getText().toString());
+                if(searchString.getText().toString().equals("")){
+                    Toast.makeText(context,"Search value is empty",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    getArtists(searchString.getText().toString());
+                }
             }
         });
 

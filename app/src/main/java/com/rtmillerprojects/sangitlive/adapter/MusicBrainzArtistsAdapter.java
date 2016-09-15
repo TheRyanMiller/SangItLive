@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.rtmillerprojects.sangitlive.R;
-import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.musicbrainzaritstbrowse.Artist;
 import com.rtmillerprojects.sangitlive.ui.ArtistSetlist;
 
@@ -42,8 +41,10 @@ public class MusicBrainzArtistsAdapter extends RecyclerView.Adapter<MusicBrainzA
 
     @Override
     public void onBindViewHolder(ArtistViewHolder holder, int position) {
-        Artist aDetails = artistDetails.get(position);
+        final Artist aDetails = this.artistDetails.get(position);
+        holder.artistDetails = aDetails;
         holder.artistName.setText(aDetails.getName());
+        holder.disambig.setText(aDetails.getDisambiguation());
     }
 
     @Override
@@ -53,15 +54,17 @@ public class MusicBrainzArtistsAdapter extends RecyclerView.Adapter<MusicBrainzA
 
 
     public static class ArtistViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView artistName;
+        TextView artistName, disambig;
         public String mbid;
         TextView resultNumber;
+        Artist artistDetails;
         AppCompatActivity ACA;
 
         public ArtistViewHolder(View v, Context context) {
             super(v);
             artistName = (TextView) v.findViewById(R.id.artist_name);
             resultNumber = (TextView) v.findViewById(R.id.resultnumber);
+            disambig = (TextView) v.findViewById(R.id.artist_disambig);
             this.ACA = (AppCompatActivity) context;
             v.setOnClickListener(this);
         }

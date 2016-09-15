@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <RelativeLayout
+        android:id="@+id/head_group"
+        android:layout_width="match_parent"
+        android:elevation="5dp"
+        android:gravity="center"
+        android:background="@color/material_gray_050"
+        android:layout_height="80dp"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
         <android.support.design.widget.TextInputLayout
             android:layout_width="230dp"
             android:layout_height="wrap_content"
@@ -29,11 +38,15 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
-
-        <android.support.v7.widget.RecyclerView
-            android:layout_below="@id/artisttextlayout"
-            android:layout_width="match_parent"
-            android:id="@+id/artist_results"
-            android:layout_height="wrap_content" />
-
     </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/head_group"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:id="@+id/artist_results"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>
