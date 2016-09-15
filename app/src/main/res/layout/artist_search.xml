@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_content"
+
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
-    >
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="center">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="230dp"
@@ -44,25 +37,3 @@
             android:layout_height="wrap_content" />
 
     </RelativeLayout>
-
-
-
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/bottom_sheet"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:clipToPadding="true"
-        android:background="@android:color/holo_orange_light"
-        app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/ipsum"
-            android:padding="16dp"
-            android:textSize="16sp"/>
-
-    </android.support.v4.widget.NestedScrollView>
-
-</android.support.design.widget.CoordinatorLayout>
