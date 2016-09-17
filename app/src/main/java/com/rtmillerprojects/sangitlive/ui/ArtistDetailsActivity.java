@@ -1,4 +1,4 @@
-package com.rtmillerprojects.sangitlive.adapter;
+package com.rtmillerprojects.sangitlive.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;

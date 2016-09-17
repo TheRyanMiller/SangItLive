@@ -18,14 +18,13 @@ import com.rtmillerprojects.sangitlive.ui.HomeUpcomingFragment;
  * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class ArtistsSectionsPagerAdapter extends FragmentPagerAdapter {
 
-  public final int HOME_UPCOMING = 0;
-  public final int HOME_RSVP = 1;
-  public final int TRACKED_ARTISTS = 2;
-  public final int HOME_HISTORY = 3;
+  public final int ARTIST_DETAILS = 0;
+  public final int ARTIST_UPCOMING = 1;
+  public final int PAST_SETLISTS = 2;
 
-  public SectionsPagerAdapter(FragmentManager fm) {
+  public ArtistsSectionsPagerAdapter(FragmentManager fm) {
     super(fm);
   }
 
@@ -33,20 +32,16 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     Fragment pagerFragment = null;
     switch (position) {
-      case HOME_UPCOMING:
+      case ARTIST_DETAILS:
         pagerFragment = HomeUpcomingFragment.newInstance();
         break;
 
-      case HOME_RSVP:
+      case ARTIST_UPCOMING:
         pagerFragment = HomeRsvpFragment.newInstance();
         break;
 
-      case TRACKED_ARTISTS:
+      case PAST_SETLISTS:
         pagerFragment = HomeTrackedArtistsFragment.newInstance();
-        break;
-
-      case HOME_HISTORY:
-        pagerFragment = HomeHistoryFragment.newInstance();
         break;
     }
     return pagerFragment;
@@ -54,19 +49,17 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
   @Override public int getCount() {
     // Show 3 total pages.
-    return 4;
+    return 3;
   }
 
   @Override public CharSequence getPageTitle(int position) {
     switch (position) {
       case 0:
-        return "Upcoming";
+        return "Details";
       case 1:
-        return "RSVP'd";
+        return "Upcoming";
       case 2:
-        return "Tracked Artists";
-      case 3:
-        return "History";
+        return "Setlists";
     }
     return null;
   }

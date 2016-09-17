@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.model.musicbrainzaritstbrowse.Artist;
-import com.rtmillerprojects.sangitlive.ui.ArtistSetlist;
+import com.rtmillerprojects.sangitlive.ui.ActivityArtistDetail;
+import com.rtmillerprojects.sangitlive.ui.ArtistDetailsActivity;
 
 import java.util.ArrayList;
 
@@ -71,7 +72,7 @@ public class MusicBrainzArtistsAdapter extends RecyclerView.Adapter<MusicBrainzA
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            Intent intent = new Intent(ACA, ArtistSetlist.class);
+            Intent intent = new Intent(ACA, ActivityArtistDetail.class);
             intent.putExtra("mbid",mbid);
             intent.putExtra("artistName",artistName.getText().toString());
             ACA.startActivity(intent);

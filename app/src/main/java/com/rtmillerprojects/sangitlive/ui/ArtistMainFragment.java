@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,13 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rtmillerprojects.sangitlive.R;
-import com.rtmillerprojects.sangitlive.adapter.MainSectionsPagerAdapter;
+import com.rtmillerprojects.sangitlive.adapter.ArtistsSectionsPagerAdapter;
 import com.rtmillerprojects.sangitlive.listener.MainListener;
 
 /**
  * Created by Ryan on 9/2/2016.
  */
-public class MainFragment extends BaseFragment{
+public class ArtistMainFragment extends BaseFragment{
 
     Toolbar toolbar;
     ViewPager viewPager;
@@ -28,20 +29,15 @@ public class MainFragment extends BaseFragment{
     FloatingActionButton fab;
 
     private MainListener listener;
-    private MainSectionsPagerAdapter mainSectionsPagerAdapter;
+    private ArtistsSectionsPagerAdapter artistPagerAdapter;
 
-    public static MainFragment newInstance() {
-        MainFragment fragment = new MainFragment();
+    public static ArtistMainFragment newInstance() {
+        ArtistMainFragment fragment = new ArtistMainFragment();
         return fragment;
     }
 
-    public MainFragment() {
+    public ArtistMainFragment() {
         // Required empty public constructor
-    }
-
-    @Override public void onAttach(Context context) {
-        super.onAttach(context);
-        listener = (MainActivity) context;
     }
 
     @Override public void onCreate(Bundle savedInstanceState) {
@@ -58,15 +54,25 @@ public class MainFragment extends BaseFragment{
         tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
 
         fab.hide();
-        toolbar.setTitle(getResources().getString(R.string.toolbar_title));
+
+        //Configure Toolbar back button
+        toolbar.setTitle("Artist");
         ACA.setSupportActionBar(toolbar);
+        ACA.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ACA.getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ACA.onBackPressed();
+            }
+        });
 
         // Create the adapter that will return fragments for the view pager
         //UNCOMMENT!!!
-        mainSectionsPagerAdapter = new MainSectionsPagerAdapter(getChildFragmentManager());
+        artistPagerAdapter = new ArtistsSectionsPagerAdapter(getChildFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        viewPager.setAdapter(mainSectionsPagerAdapter);
+        viewPager.setAdapter(artistPagerAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -106,14 +112,6 @@ public class MainFragment extends BaseFragment{
         });
 
 
-        DrawerLayout drawer = listener.getDrawer();
-        ActionBarDrawerToggle toggle =
-                new ActionBarDrawerToggle(ACA, drawer, toolbar, R.string.navigation_drawer_open,
-                        R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-
         return rootView;
     }
 
@@ -121,4 +119,5 @@ public class MainFragment extends BaseFragment{
         super.onDetach();
         listener = null;
     }
+
 }
