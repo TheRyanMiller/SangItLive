@@ -23,6 +23,8 @@ public class ActivityArtistDetail extends AppCompatActivity{
 
     DrawerLayout drawer; //@Bind(R.id.drawer_layout)
     NavigationView navigationView; //@Bind(R.id.nav_view)
+    Bundle bundle;
+    ArtistMainFragment amf;
 
 
     @Override protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +34,18 @@ public class ActivityArtistDetail extends AppCompatActivity{
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
+        String artistName = getIntent().getExtras().getString("artistName");
+
+        bundle=new Bundle();
+        bundle.putString("artistName", artistName);
+        //set Fragmentclass Arguments
+        amf = new ArtistMainFragment();
+        amf.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragmentManager.findFragmentByTag(ArtistMainFragment.class.getName()) == null) {
 
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, ArtistMainFragment.newInstance(), ArtistMainFragment.class.getName())
+                    .replace(R.id.container, amf, ArtistMainFragment.class.getName())
                     .commit();
         }
 

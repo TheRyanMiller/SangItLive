@@ -55,7 +55,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         ticketLink = (TextView) findViewById(R.id.ticket_link);
         String ticketStatus;
 
-        if(event.getTicketStatus().toString().toLowerCase().equals("available")){
+        if(event.getTicketStatus()!=null && event.getTicketStatus().toString().toLowerCase().equals("available")){
             ticketStatus= "Tickets are available ";
         }
         else{

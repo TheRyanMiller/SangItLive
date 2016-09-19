@@ -54,9 +54,10 @@ public class ArtistMainFragment extends BaseFragment{
         tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
 
         fab.hide();
+        String toolbarTitle=getArguments().getString("artistName");
 
         //Configure Toolbar back button
-        toolbar.setTitle("Artist");
+        toolbar.setTitle(toolbarTitle);
         ACA.setSupportActionBar(toolbar);
         ACA.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ACA.getSupportActionBar().setDisplayShowHomeEnabled(true);
