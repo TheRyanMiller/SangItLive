@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.model.ArtistImageEvent;
 import com.rtmillerprojects.sangitlive.model.ArtistImageFound;
+import com.rtmillerprojects.sangitlive.model.EventCalls.LastFmArtistDetails;
 import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
 import com.squareup.otto.Subscribe;
 
@@ -47,6 +48,34 @@ public class LastFmArtistService {
         */
     }
 
+    @Subscribe
+    public void queryForArtistInfo(LastFmArtistDetails ad){
+        mbid = ad.getMbid();
+        Gson gson = new GsonBuilder()
+                //.registerTypeAdapterFactory(new ())
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                .create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApiLastFm.BASEURL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        ApiLastFm artistApi = retrofit.create(ApiLastFm.class);
+
+        Call<ArtistLastFm> call = artistApi.searchArtist("artist.getinfo",mbid,"da010c249a845cfee6f44aa935a7b2a0","json");
+        call.enqueue(new Callback<ArtistLastFm>() {
+            @Override
+            public void onResponse(Call<ArtistLastFm> call, Response<ArtistLastFm> response) {
+                artistResults = response.body();
+                EventBus.post(artistResults);
+            }
+            @Override
+            public void onFailure(Call<ArtistLastFm> call, Throwable t) {
+                //EventBus.post(new APIErrorEvent(RetrofitError.unexpectedError(response.getUrl(), new HttpException("Empty Body")), event.getCallNumber()));
+            }
+
+        });
+    }
 
     @Subscribe
     public void receiveQueryForArtistImage(ArtistImageEvent msg){

@@ -12,19 +12,21 @@ import android.view.MenuItem;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.api.LastFmArtistService;
-import com.rtmillerprojects.sangitlive.api.ServiceArtistImage;
 import com.rtmillerprojects.sangitlive.api.ServiceUpcomingEvents;
-import com.rtmillerprojects.sangitlive.listener.MainListener;
+import com.rtmillerprojects.sangitlive.listener.GetMbid;
 
 /**
  * Created by Ryan on 9/15/2016.
  */
-public class ActivityArtistDetail extends AppCompatActivity{
+public class ActivityArtistDetail extends AppCompatActivity implements GetMbid {
 
     DrawerLayout drawer; //@Bind(R.id.drawer_layout)
     NavigationView navigationView; //@Bind(R.id.nav_view)
     Bundle bundle;
     ArtistMainFragment amf;
+    private String mbid;
+    String artistName;
+    private LastFmArtistService lfad;
 
 
     @Override protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +36,12 @@ public class ActivityArtistDetail extends AppCompatActivity{
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-        String artistName = getIntent().getExtras().getString("artistName");
+        artistName = getIntent().getExtras().getString("artistName");
+        mbid = getIntent().getExtras().getString("mbid");
 
         bundle=new Bundle();
         bundle.putString("artistName", artistName);
+        bundle.putString("mbid", mbid);
         //set Fragmentclass Arguments
         amf = new ArtistMainFragment();
         amf.setArguments(bundle);
@@ -79,10 +83,17 @@ public class ActivityArtistDetail extends AppCompatActivity{
     @Override
     protected void onResume() {
         super.onResume();
+        if(lfad==null){lfad = new LastFmArtistService(this.getApplication());}
+        EventBus.register(lfad);
     }
     @Override
     protected void onPause() {
         super.onPause();
+        EventBus.unregister(lfad);
     }
 
+    @Override
+    public String getMbid() {
+        return mbid;
+    }
 }

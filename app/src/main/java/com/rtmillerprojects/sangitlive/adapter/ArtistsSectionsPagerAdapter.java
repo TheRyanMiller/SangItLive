@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
+import com.rtmillerprojects.sangitlive.ui.FragmentArtistDetails;
 import com.rtmillerprojects.sangitlive.ui.HomeHistoryFragment;
 import com.rtmillerprojects.sangitlive.ui.HomeRsvpFragment;
 import com.rtmillerprojects.sangitlive.ui.HomeTrackedArtistsFragment;
@@ -33,7 +34,7 @@ public class ArtistsSectionsPagerAdapter extends FragmentPagerAdapter {
     Fragment pagerFragment = null;
     switch (position) {
       case ARTIST_DETAILS:
-        pagerFragment = HomeUpcomingFragment.newInstance();
+        pagerFragment = FragmentArtistDetails.newInstance();
         break;
 
       case ARTIST_UPCOMING:

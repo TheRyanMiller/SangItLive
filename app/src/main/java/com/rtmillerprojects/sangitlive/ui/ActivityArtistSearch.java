@@ -49,6 +49,8 @@ public class ActivityArtistSearch extends AppCompatActivity {
         btnSearch = (Button) findViewById(R.id.btn_search);
         recyclerView = (RecyclerView) findViewById(R.id.artist_results);
         final Context context = this;
+
+        toolbar.setTitle("Artist Search");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -58,6 +60,7 @@ public class ActivityArtistSearch extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override

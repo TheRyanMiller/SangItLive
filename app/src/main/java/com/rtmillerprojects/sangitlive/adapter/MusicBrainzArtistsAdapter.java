@@ -46,6 +46,7 @@ public class MusicBrainzArtistsAdapter extends RecyclerView.Adapter<MusicBrainzA
         holder.artistDetails = aDetails;
         holder.artistName.setText(aDetails.getName());
         holder.disambig.setText(aDetails.getDisambiguation());
+        holder.mbid = aDetails.getId();
     }
 
     @Override
