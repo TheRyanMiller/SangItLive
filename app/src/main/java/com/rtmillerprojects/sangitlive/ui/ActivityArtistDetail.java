@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.api.LastFmArtistService;
+import com.rtmillerprojects.sangitlive.api.ServiceSetlist;
 import com.rtmillerprojects.sangitlive.api.ServiceUpcomingEvents;
 import com.rtmillerprojects.sangitlive.listener.GetMbid;
 
@@ -27,6 +28,8 @@ public class ActivityArtistDetail extends AppCompatActivity implements GetMbid {
     private String mbid;
     String artistName;
     private LastFmArtistService lfad;
+    ServiceUpcomingEvents sue;
+    ServiceSetlist ssl;
 
 
     @Override protected void onCreate(Bundle savedInstanceState) {
@@ -85,11 +88,17 @@ public class ActivityArtistDetail extends AppCompatActivity implements GetMbid {
         super.onResume();
         if(lfad==null){lfad = new LastFmArtistService(this.getApplication());}
         EventBus.register(lfad);
+        if(sue==null){sue = new ServiceUpcomingEvents(this.getApplication());}
+        EventBus.register(sue);
+        if(ssl==null){ssl = new ServiceSetlist(this.getApplication());}
+        EventBus.register(ssl);
     }
     @Override
     protected void onPause() {
         super.onPause();
         EventBus.unregister(lfad);
+        EventBus.unregister(sue);
+        EventBus.unregister(ssl);
     }
 
     @Override

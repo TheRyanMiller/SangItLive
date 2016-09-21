@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
@@ -50,6 +51,8 @@ public class FragmentArtistDetails extends BaseFragment {
     private ArtistImageEvent msg;
     private GetMbid listener;
     private LastFmArtistDetails lfad;
+    private View rootView;
+    private TextView artistDesc;
 
 
     public static FragmentArtistDetails newInstance() {
@@ -69,8 +72,9 @@ public class FragmentArtistDetails extends BaseFragment {
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                        Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_artist_details, container, false);
+        rootView = inflater.inflate(R.layout.fragment_artist_details, container, false);
         artistImg = (ImageView) rootView.findViewById(R.id.artist_img);
+        artistDesc = (TextView) rootView.findViewById(R.id.artist_text);
 
         lfad = new LastFmArtistDetails(listener.getMbid());
         EventBus.post(lfad);
@@ -101,12 +105,13 @@ public class FragmentArtistDetails extends BaseFragment {
         try {
             Picasso.with(ACA).load(artistDetails.getArtist().getImage().get(2).getText())
                     .placeholder(R.drawable.ic_person_grey600_24dp)
-                    .transform(new CircleTransform())
+                    ///.transform(new CircleTransform())
                     .into(artistImg);
         }
         catch (IndexOutOfBoundsException e) {
             Log.e(e.getClass().getName(),e.getMessage());
         }
+        artistDesc.setText(artistDetails.getArtist().getBio().getSummary());
     }
 
 

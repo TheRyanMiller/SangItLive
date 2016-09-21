@@ -1,5 +1,6 @@
 package com.rtmillerprojects.sangitlive.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,8 +14,9 @@ import android.widget.Toast;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.HomeUpcomingAdapter;
-import com.rtmillerprojects.sangitlive.model.UpcomingEventQuery;
+import com.rtmillerprojects.sangitlive.listener.GetMbid;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
+import com.rtmillerprojects.sangitlive.model.UpcomingEventQuery;
 import com.squareup.otto.Subscribe;
 
 import org.parceler.Parcels;
@@ -27,7 +29,7 @@ import java.util.Date;
 /**
  * Created by Ryan on 9/2/2016.
  */
-public class HomeUpcomingFragment extends BaseFragment {
+public class FragmentArtistUpcoming extends BaseFragment {
 
     public static final String TAG = "HomeUpcomingFragment";
     private static final String KEY_BUNDLE_PAGE_NUMBER = "page_number";
@@ -49,14 +51,15 @@ public class HomeUpcomingFragment extends BaseFragment {
     private ArrayList<BandsInTownEventResult> events = new ArrayList<>();
     private ProgressBar mProgressBar;
     private int mTotalEvents;
+    private GetMbid listener;
 
 
-    public static HomeUpcomingFragment newInstance() {
-        HomeUpcomingFragment fragment = new HomeUpcomingFragment();
+    public static FragmentArtistUpcoming newInstance() {
+        FragmentArtistUpcoming fragment = new FragmentArtistUpcoming();
         return fragment;
     }
 
-    public HomeUpcomingFragment() {
+    public FragmentArtistUpcoming() {
         // Required empty public constructor
     }
 
@@ -95,10 +98,7 @@ public class HomeUpcomingFragment extends BaseFragment {
 
         //Test Data
         mbids = new ArrayList<>();
-        mbids.add("65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab");
-        mbids.add("a74b1b7f-71a5-4011-9441-d0b5e4122711");
-        mbids.add("b5ff61dd-0154-4e80-b46b-c733f87db602");
-        mbids.add("69d9c5ba-7bba-4cb7-ab32-8ccc48ad4f97");
+        mbids.add(listener.getMbid());
 
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
@@ -113,6 +113,12 @@ public class HomeUpcomingFragment extends BaseFragment {
 
 
         return rootView;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        listener = (ActivityArtistDetail) context;
     }
 
     @Subscribe
@@ -162,7 +168,7 @@ public class HomeUpcomingFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         EventBus.register(this);
-        //refreshItems();
+        refreshItems();
     }
 
     @Override

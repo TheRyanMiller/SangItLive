@@ -16,6 +16,7 @@ import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
+import com.rtmillerprojects.sangitlive.ui.ActivityArtistDetail;
 import com.rtmillerprojects.sangitlive.ui.EventDetailsActivity;
 import com.rtmillerprojects.sangitlive.util.CircleTransform;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
@@ -107,12 +108,11 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
 
         @Override
         public void onClick(View v) {
-            /*
             int position = getAdapterPosition();
-            Intent intent = new Intent(ACA, ArtistDetailsActivity.class);
-            intent.putExtra("artistDetails", Parcels.wrap(artistDetails));
+            Intent intent = new Intent(ACA, ActivityArtistDetail.class);
+            intent.putExtra("mbid",artistDetails.getArtist().getMbid());
+            intent.putExtra("artistName",artistName.getText().toString());
             ACA.startActivity(intent);
-            */
         }
 
     }

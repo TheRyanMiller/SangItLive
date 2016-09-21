@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
 import com.rtmillerprojects.sangitlive.ui.FragmentArtistDetails;
+import com.rtmillerprojects.sangitlive.ui.FragmentArtistSetlists;
+import com.rtmillerprojects.sangitlive.ui.FragmentArtistUpcoming;
 import com.rtmillerprojects.sangitlive.ui.HomeHistoryFragment;
 import com.rtmillerprojects.sangitlive.ui.HomeRsvpFragment;
 import com.rtmillerprojects.sangitlive.ui.HomeTrackedArtistsFragment;
@@ -38,11 +40,11 @@ public class ArtistsSectionsPagerAdapter extends FragmentPagerAdapter {
         break;
 
       case ARTIST_UPCOMING:
-        pagerFragment = HomeRsvpFragment.newInstance();
+        pagerFragment = FragmentArtistUpcoming.newInstance();
         break;
 
       case PAST_SETLISTS:
-        pagerFragment = HomeTrackedArtistsFragment.newInstance();
+        pagerFragment = FragmentArtistSetlists.newInstance();
         break;
     }
     return pagerFragment;

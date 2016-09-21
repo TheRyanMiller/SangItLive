@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder;
 import com.rtmillerprojects.sangitlive.ArtistTypeAdapterFactory;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.model.ArtistResults;
+import com.rtmillerprojects.sangitlive.model.EventCalls.SetlistRequest;
 import com.rtmillerprojects.sangitlive.model.LoadArtistEvent;
 import com.rtmillerprojects.sangitlive.model.LoadSetlistsEvent;
 import com.rtmillerprojects.sangitlive.model.PostArtistSearch;
@@ -30,6 +31,8 @@ public class ServiceSetlist {
     private SetlistsByArtists setlistsByArtists;
     private ArtistResults artistResults;
     private Context context;
+    private String mbid;
+    private int page;
 
     public ServiceSetlist(Application context){
         this.context = context;
@@ -48,7 +51,10 @@ public class ServiceSetlist {
     }
 
 
-    private void getSetlists(String mbid, int page){
+    @Subscribe
+    public void getSetlists(SetlistRequest sr){
+        mbid = sr.getMbid();
+        page = sr.getPage();
         Gson gson = new GsonBuilder()
                 .registerTypeAdapterFactory(new SetlistTypeAdapterFactory())
                 .create();
