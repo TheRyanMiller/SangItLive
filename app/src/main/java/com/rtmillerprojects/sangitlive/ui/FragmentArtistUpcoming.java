@@ -218,7 +218,6 @@ public class FragmentArtistUpcoming extends BaseFragment {
          * why Parceler is so fantastic.  1 annotation in each model object and we
          * get to use Android's amazingly fast Parcelable.
          */
-        outState.putLong(KEY_BUNDLE_LAST_REFRESH_DATE, refreshDate != null ? refreshDate.getTime() : null);
         outState.putParcelable(KEY_BUNDLE_UPCOMING_EVENTS, Parcels.wrap(events));
         outState.putInt(KEY_BUNDLE_FIRST_VISIBLE_ITEM, mScrollPosition);
         outState.putInt(KEY_BUNDLE_SCROLL_OFFSET, mScrollOffset);

@@ -5,4 +5,5 @@ package com.rtmillerprojects.sangitlive.listener;
  */
 public interface GetMbid {
     public String getMbid();
+    public String getArtistName();
 }

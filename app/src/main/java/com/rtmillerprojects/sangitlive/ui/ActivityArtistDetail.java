@@ -24,7 +24,7 @@ public class ActivityArtistDetail extends AppCompatActivity implements GetMbid {
     DrawerLayout drawer; //@Bind(R.id.drawer_layout)
     NavigationView navigationView; //@Bind(R.id.nav_view)
     Bundle bundle;
-    ArtistMainFragment amf;
+    FragmentArtistMain amf;
     private String mbid;
     String artistName;
     private LastFmArtistService lfad;
@@ -46,13 +46,13 @@ public class ActivityArtistDetail extends AppCompatActivity implements GetMbid {
         bundle.putString("artistName", artistName);
         bundle.putString("mbid", mbid);
         //set Fragmentclass Arguments
-        amf = new ArtistMainFragment();
+        amf = new FragmentArtistMain();
         amf.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if (fragmentManager.findFragmentByTag(ArtistMainFragment.class.getName()) == null) {
+        if (fragmentManager.findFragmentByTag(FragmentArtistMain.class.getName()) == null) {
 
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, amf, ArtistMainFragment.class.getName())
+                    .replace(R.id.container, amf, FragmentArtistMain.class.getName())
                     .commit();
         }
 
@@ -104,5 +104,10 @@ public class ActivityArtistDetail extends AppCompatActivity implements GetMbid {
     @Override
     public String getMbid() {
         return mbid;
+    }
+
+    @Override
+    public String getArtistName() {
+        return artistName;
     }
 }

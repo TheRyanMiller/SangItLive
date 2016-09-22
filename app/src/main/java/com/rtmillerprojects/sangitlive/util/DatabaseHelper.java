@@ -210,6 +210,58 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return artists;
     }
 
+    public BandsInTownEventResult getEventById(long eventId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT  * FROM " + TABLE_EVENT + " WHERE "
+                + EVENT_ID + " = " + eventId;
+        /* Specified record
+        String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS + " WHERE "
+                + KEY_ID + " = " + todo_id;
+        */
+        Log.e(TAG, selectQuery);
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            BandsInTownEventResult event = new BandsInTownEventResult();
+            event.setId(c.getInt(c.getColumnIndex(EVENT_ID)));
+            event.setDatetime(convertToDate(c.getString(c.getColumnIndex(EVENT_DATE))));
+            //event.setDatetime();
+            event.setTitle(c.getString(c.getColumnIndex(EVENT_TITLE)));
+            ArrayList<BandsInTownArtist> artistList = new ArrayList<>();
+            BandsInTownArtist artist = new BandsInTownArtist();
+            artistList.add(artist);
+            artist.setMbid(c.getString(c.getColumnIndex(ARTIST_MBID)));
+            event.setArtists(artistList);
+            Venue v = new Venue();
+            v.setCity(c.getString(c.getColumnIndex(EVENT_VENUE_CITY)));
+            v.setName(c.getString(c.getColumnIndex(EVENT_TITLE)));
+            v.setPlace(c.getString(c.getColumnIndex(EVENT_VENUE_PLACE)));
+            v.setRegion(c.getString(c.getColumnIndex(EVENT_VENUE_REGION)));
+            v.setCountry(c.getString(c.getColumnIndex(EVENT_VENUE_COUNTRY)));
+            event.setVenue(v);
+            return event;
+        }
+        else{
+            return null;
+        }
+    }
+
+    public ArtistLastFm getArtistById(String mbid){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT  * FROM " + TABLE_ARTIST + " WHERE "
+                + ARTIST_MBID + " = " + mbid;
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            ArtistLastFm artist = new ArtistLastFm();
+            artist.setArtist(new Artist());
+            artist.getArtist().setMbid(c.getString(c.getColumnIndex(ARTIST_MBID)));
+            artist.getArtist().setName(c.getString(c.getColumnIndex(ARTIST_NAME)));
+            return artist;
+        }
+        else{
+            return null;
+        }
+    }
+
     public List<Long> getFavoritedEventIds(){
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT "+EVENT_ID+" FROM " + TABLE_EVENT;

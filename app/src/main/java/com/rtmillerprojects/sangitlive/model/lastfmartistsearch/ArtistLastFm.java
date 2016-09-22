@@ -9,6 +9,7 @@ public class ArtistLastFm {
     @SerializedName("artist")
     @Expose
     private Artist artist;
+    private boolean isFavorite;
 
     /**
      * 
@@ -28,4 +29,11 @@ public class ArtistLastFm {
         this.artist = artist;
     }
 
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
 }
