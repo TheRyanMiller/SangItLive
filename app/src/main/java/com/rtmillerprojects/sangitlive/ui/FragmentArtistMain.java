@@ -145,7 +145,6 @@ public class FragmentArtistMain extends BaseFragment{
 
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    starArtist.setText(""); //not attending
                                     //Delete from db
                                     DatabaseHelper db = DatabaseHelper.getInstance(ACA);
                                     db.deleteArtist(artist.getArtist().getMbid());
@@ -155,7 +154,6 @@ public class FragmentArtistMain extends BaseFragment{
 
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    starArtist.setText("You are attending."); //am attending
                                     starArtist.setChecked(true);
                                 }
                             })

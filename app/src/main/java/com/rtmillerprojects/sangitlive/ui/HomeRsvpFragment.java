@@ -2,7 +2,6 @@ package com.rtmillerprojects.sangitlive.ui;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,12 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.HomeRsvpdAdapter;
-import com.rtmillerprojects.sangitlive.adapter.HomeUpcomingAdapter;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
-import com.rtmillerprojects.sangitlive.model.UpcomingEventQuery;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
 
 import java.util.ArrayList;

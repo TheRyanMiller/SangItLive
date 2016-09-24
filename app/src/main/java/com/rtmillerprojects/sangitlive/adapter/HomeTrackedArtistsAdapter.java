@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.model.ArtistDetails;
@@ -102,6 +103,12 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
             this.ACA = (AppCompatActivity) context;
             v.setOnClickListener(this);
             view = v;
+            v.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    return false;
+                }
+            });
         }
 
 
@@ -113,6 +120,5 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
             intent.putExtra("artistName",artistName.getText().toString());
             ACA.startActivity(intent);
         }
-
     }
 }

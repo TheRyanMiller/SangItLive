@@ -8,12 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.HomeUpcomingAdapter;
-import com.rtmillerprojects.sangitlive.model.UpcomingEventQuery;
+import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
+import com.rtmillerprojects.sangitlive.model.EventCalls.UpcomingEventQuery;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
 import com.squareup.otto.Subscribe;
@@ -51,6 +51,7 @@ public class HomeUpcomingFragment extends BaseFragment {
     private ProgressBar mProgressBar;
     private int mTotalEvents;
     private DatabaseHelper db;
+    private ArrayList<NameMbidPair> nameMbidPairs = new ArrayList<>();;
 
 
     public static HomeUpcomingFragment newInstance() {
@@ -120,7 +121,6 @@ public class HomeUpcomingFragment extends BaseFragment {
 
     @Subscribe
     public void receiveEventResults(ArrayList<BandsInTownEventResult> apiEvents) {
-        Toast.makeText(ACA,"EVENTS RETURNED",Toast.LENGTH_SHORT).show();
         if(events==null || events.size()==0){
             //do something if null
             events = apiEvents;
@@ -179,10 +179,11 @@ public class HomeUpcomingFragment extends BaseFragment {
         // ...
 
         // Load complete
-        events = null;
+        //events = null;
         db = DatabaseHelper.getInstance(ACA);
         mbids = (ArrayList<String>) db.getFavoritedArtistMbids();
-        EventBus.post(new UpcomingEventQuery(mbids,1));
+        nameMbidPairs = (ArrayList<NameMbidPair>) db.getFavoritedNameMbidPairs();
+        EventBus.post(new UpcomingEventQuery(nameMbidPairs,1,false));
         onItemsLoadComplete();
     }
 
@@ -206,7 +207,7 @@ public class HomeUpcomingFragment extends BaseFragment {
     private void fetchMoreEvents(int pageLimit) {
         recordScrollPosition();
         mProgressBar.setVisibility(View.VISIBLE);
-        EventBus.post(new UpcomingEventQuery(mbids,1));
+        EventBus.post(new UpcomingEventQuery(nameMbidPairs,1,false));
     }
 
     @Override

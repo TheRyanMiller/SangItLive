@@ -10,6 +10,7 @@ import android.util.Log;
 import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.BandsInTownArtist;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
+import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
 import com.rtmillerprojects.sangitlive.model.Venue;
 import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.Artist;
 import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
@@ -291,6 +292,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return mbids;
     }
+
+    public List<NameMbidPair> getFavoritedNameMbidPairs(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT "+ARTIST_MBID+","+ARTIST_NAME+" FROM " + TABLE_ARTIST;
+        Cursor c = db.rawQuery(selectQuery, null);
+        NameMbidPair pair;
+        List<NameMbidPair> nmPairs = new ArrayList<>();
+        if (c.moveToFirst()) {
+            do {
+                String mbid = c.getString(c.getColumnIndex(ARTIST_MBID));
+                String artistName = c.getString(c.getColumnIndex(ARTIST_NAME));
+                pair = new NameMbidPair(artistName, mbid);
+                nmPairs.add(pair);
+            } while(c.moveToNext());
+            c.moveToFirst();
+        }
+        return nmPairs;
+    }
+
 
     public void deleteEvent(long eventId){
         SQLiteDatabase db = this.getReadableDatabase();

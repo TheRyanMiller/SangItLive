@@ -9,14 +9,10 @@ import com.google.gson.GsonBuilder;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.model.ArtistImageEvent;
 import com.rtmillerprojects.sangitlive.model.ArtistImageFound;
-import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
-import com.rtmillerprojects.sangitlive.model.UpcomingEventQuery;
 import com.rtmillerprojects.sangitlive.model.musicbrainzartistresourcemodel.MusicBrainzArtistResourceResult;
 import com.rtmillerprojects.sangitlive.model.musicbrainzartistresourcemodel.Relation;
-import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
 import com.squareup.otto.Subscribe;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

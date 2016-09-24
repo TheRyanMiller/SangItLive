@@ -18,10 +18,15 @@ public interface ApiServiceBandsInTown {
     final static String BASEURL = "http://api.bandsintown.com/";
     final static String APPSETTINGS = "";
     final static String EVENTENDPOINT = "/artists/mbid_{mbid}/events";
+    final static String ARTISTNAMEENDPOINT = "/artists/{artistName}/events";
 
     // Events
     @GET(EVENTENDPOINT)
-    Call<ArrayList<BandsInTownEventResult>> searchEvents (@Path("mbid") String mbid, @Query("format") String format, @Query("api_version") String apiVersion, @Query("app_id") String appId);
+    Call<ArrayList<BandsInTownEventResult>> searchEventsByMbid (@Path("mbid") String mbid, @Query("format") String format, @Query("api_version") String apiVersion, @Query("app_id") String appId);
+
+    // Events
+    @GET(ARTISTNAMEENDPOINT)
+    Call<ArrayList<BandsInTownEventResult>> searchEventsByArtistName (@Path("artistName") String artistName, @Query("format") String format, @Query("api_version") String apiVersion, @Query("app_id") String appId);
 
 
     /*

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rtmillerprojects.sangitlive.EventBus;
@@ -38,6 +39,7 @@ public class ActivityArtistSearch extends AppCompatActivity {
     MusicBrainzArtistService mbas;
     ServiceSetlist serviceSetlist;
     Toolbar toolbar;
+    TextView emptyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class ActivityArtistSearch extends AppCompatActivity {
         searchString = (EditText) findViewById(R.id.artist_string);
         btnSearch = (Button) findViewById(R.id.btn_search);
         recyclerView = (RecyclerView) findViewById(R.id.artist_results);
+        emptyView = (TextView) findViewById(R.id.empty_view);
         final Context context = this;
 
         toolbar.setTitle("Artist Search");
@@ -84,18 +87,17 @@ public class ActivityArtistSearch extends AppCompatActivity {
 
     @Subscribe
     public void receiveArtistResults(ArrayList<Artist> results) {
-        Toast.makeText(this,"ARTIST IS RETURNED",Toast.LENGTH_SHORT).show();
-        if(results==null){
-            //do something if null
-            artistAdapter = new MusicBrainzArtistsAdapter(null, this);
-            recyclerView.setAdapter(artistAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        if(results==null || results.size()==0){
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
         }
         else {
             ArrayList<Artist>/*BUILD THIS FOR MUSICBRAINZ ARTIST TYPE*/ adList = new ArrayList<>();
             artistAdapter = new MusicBrainzArtistsAdapter(results, this);
             recyclerView.setAdapter(artistAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
         }
     }
 

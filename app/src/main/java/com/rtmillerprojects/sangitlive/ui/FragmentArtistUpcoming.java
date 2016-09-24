@@ -9,14 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.HomeUpcomingAdapter;
 import com.rtmillerprojects.sangitlive.listener.GetMbid;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
-import com.rtmillerprojects.sangitlive.model.UpcomingEventQuery;
+import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
+import com.rtmillerprojects.sangitlive.model.EventCalls.UpcomingEventQuery;
 import com.squareup.otto.Subscribe;
 
 import org.parceler.Parcels;
@@ -52,6 +53,9 @@ public class FragmentArtistUpcoming extends BaseFragment {
     private ProgressBar mProgressBar;
     private int mTotalEvents;
     private GetMbid listener;
+    private TextView emptyView;
+    private String artistName;
+    private ArrayList<NameMbidPair> nameMbidPairs = new ArrayList<>();
 
 
     public static FragmentArtistUpcoming newInstance() {
@@ -92,14 +96,12 @@ public class FragmentArtistUpcoming extends BaseFragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_home_upcoming);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+        emptyView = (TextView) rootView.findViewById(R.id.empty_view);
 
         layoutManager = new LinearLayoutManager(ACA);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        //Test Data
-        mbids = new ArrayList<>();
-        mbids.add(listener.getMbid());
-
+        nameMbidPairs.add(new NameMbidPair(listener.getArtistName(),listener.getMbid()));
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             @Override
@@ -123,8 +125,9 @@ public class FragmentArtistUpcoming extends BaseFragment {
 
     @Subscribe
     public void receiveEventResults(ArrayList<BandsInTownEventResult> apiEvents) {
-        Toast.makeText(ACA,"EVENTS RETURNED",Toast.LENGTH_SHORT).show();
-        if(events==null || events.size()==0){
+        recyclerView.setVisibility(View.VISIBLE);
+        emptyView.setVisibility(View.GONE);
+        if(events.size()==0){
             //do something if null
             events = apiEvents;
             Collections.sort(events, new Comparator<BandsInTownEventResult>() {
@@ -141,6 +144,10 @@ public class FragmentArtistUpcoming extends BaseFragment {
             else{
                 upcomingAdapter = new HomeUpcomingAdapter(events, ACA);
                 upcomingAdapter.notifyDataSetChanged();
+            }
+            if(events.size()==0){
+                recyclerView.setVisibility(View.GONE);
+                emptyView.setVisibility(View.VISIBLE);
             }
 
         }
@@ -182,8 +189,7 @@ public class FragmentArtistUpcoming extends BaseFragment {
         // ...
 
         // Load complete
-        events = null;
-        EventBus.post(new UpcomingEventQuery(mbids,1));
+        EventBus.post(new UpcomingEventQuery(nameMbidPairs,1,false));
         onItemsLoadComplete();
     }
 
@@ -207,7 +213,7 @@ public class FragmentArtistUpcoming extends BaseFragment {
     private void fetchMoreEvents(int pageLimit) {
         recordScrollPosition();
         mProgressBar.setVisibility(View.VISIBLE);
-        EventBus.post(new UpcomingEventQuery(mbids,1));
+        EventBus.post(new UpcomingEventQuery(nameMbidPairs,1,false));
     }
 
     @Override

@@ -1,10 +1,17 @@
 package com.rtmillerprojects.sangitlive.ui;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.SpannableStringBuilder;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.URLSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +60,7 @@ public class FragmentArtistDetails extends BaseFragment {
     private LastFmArtistDetails lfad;
     private View rootView;
     private TextView artistDesc;
+    private ArtistLastFm artistDetails;
 
 
     public static FragmentArtistDetails newInstance() {
@@ -111,7 +119,37 @@ public class FragmentArtistDetails extends BaseFragment {
         catch (IndexOutOfBoundsException e) {
             Log.e(e.getClass().getName(),e.getMessage());
         }
-        artistDesc.setText(artistDetails.getArtist().getBio().getSummary());
+        this.artistDetails = artistDetails;
+        artistDesc.setText(artistDetails.getArtist().getBio().getContent());//.getSummary());
+        setTextViewHTML(artistDesc,artistDetails.getArtist().getBio().getContent());
+
+    }
+
+    //The two methods below are used to linkify the artist bio text
+    protected void makeLinkClickable(SpannableStringBuilder strBuilder, final URLSpan span){
+        int start = strBuilder.getSpanStart(span);
+        int end = strBuilder.getSpanEnd(span);
+        int flags = strBuilder.getSpanFlags(span);
+        ClickableSpan clickable = new ClickableSpan() {
+            public void onClick(View view) {
+                // Do something with span.getURL() to handle the link click...
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(artistDetails.getArtist().getUrl()));
+                ACA.startActivity(intent);
+            }
+        };
+        strBuilder.setSpan(clickable, start, end, flags);
+        strBuilder.removeSpan(span);
+    }
+
+    protected void setTextViewHTML(TextView text, String html){
+        CharSequence sequence = Html.fromHtml(html);
+        SpannableStringBuilder strBuilder = new SpannableStringBuilder(sequence);
+        URLSpan[] urls = strBuilder.getSpans(0, sequence.length(), URLSpan.class);
+        for(URLSpan span : urls) {
+            makeLinkClickable(strBuilder, span);
+        }
+        text.setText(strBuilder);
+        text.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
 

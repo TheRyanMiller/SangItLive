@@ -65,8 +65,9 @@ public class FragmentArtistSetlists extends BaseFragment {
     ArrayList<SetInfo> setInfo;
     private boolean loading = true;
     private View rootView;
-    GetMbid listener;
-    SetlistRequest sr;
+    private GetMbid listener;
+    private TextView emptyView;
+    private SetlistRequest sr;
     private int pastVisiblesItems, visibleItemCount, totalItemCount;
 
 
@@ -93,6 +94,7 @@ public class FragmentArtistSetlists extends BaseFragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview);
         searchButton = (Button) rootView.findViewById(R.id.searchButton);
+        emptyView = (TextView) rootView.findViewById(R.id.empty_view);
         recyclerView.setLayoutManager(layoutManager);
 
         sr = new SetlistRequest(listener.getMbid(), 1);
@@ -124,6 +126,14 @@ public class FragmentArtistSetlists extends BaseFragment {
         slAdapter = new SetAdapter(newSetInfo,context);
         recyclerView.setAdapter(slAdapter);
         recyclerView.setLayoutManager(layoutManager);
+        if (event.getSetlists().getSetlists().getSetlist().isEmpty()) {
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+        else {
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
     }
 
     public ArrayList<SetInfo> buildSetInfo(SetlistsByArtists apiReturn){
