@@ -59,7 +59,7 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
     public void onBindViewHolder(HomeTrackedArtistsAdapter.HomeTrackedArtistViewHolder holder, int position) {
         ArtistLastFm artistDetails = artists.get(position);
         holder.artistDetails = artistDetails;
-        holder.resultNumber.setText(++position +"");
+        holder.resultNumber = position;
         holder.artistMbid = artistDetails.getArtist().getMbid();
         holder.artistName.setText(artistDetails.getArtist().getName());
         holder.position = position;
@@ -89,7 +89,7 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
         TextView artistName;
         public String artistMbid;
         int position;
-        TextView resultNumber;
+        int resultNumber;
         public ImageView imgView;
         LinearLayout artistListItem;
         AppCompatActivity ACA;
@@ -98,7 +98,6 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
         public HomeTrackedArtistViewHolder(View v, Context context) {
             super(v);
             artistName = (TextView) v.findViewById(R.id.artist_name);
-            resultNumber = (TextView) v.findViewById(R.id.artistresultnumber);
             imgView = (ImageView) v.findViewById(R.id.artist_img);
             this.ACA = (AppCompatActivity) context;
             v.setOnClickListener(this);

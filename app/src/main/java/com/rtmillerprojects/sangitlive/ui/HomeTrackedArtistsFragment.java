@@ -92,9 +92,8 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
     public void onResume() {
         super.onResume();
         EventBus.register(this);
-        if(trackedArtistAdapter==null) {
-            refreshItems();
-        }
+        refreshItems();
+
     }
 
     @Override
@@ -105,14 +104,7 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
 
     @Subscribe
     public void pullImages(ArtistLastFm returnedData){
-        /*
-        for (int i = 0; i < artists.size(); i++) {
-            if(artists.get(i).getMbid().equals(returnedData.getMbid())){
-                artists.get(i).setThumbUrl(returnedData.getUrl());
-                break;
-            }
-        }
-        */
+
         artists.add(returnedData);
         returnCounter++;
         if(returnCounter == sizeOfArtists) {
@@ -125,11 +117,6 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
     }
 
     void refreshItems() {
-        // Load items
-        // ...
-
-        // Load complete
-
         artists = null;
         trackedArtistAdapter = null;
         db = DatabaseHelper.getInstance(ACA);
@@ -140,7 +127,17 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
         }
         sizeOfArtists = artists.size();
         artists = new ArrayList<ArtistLastFm>();
+        recyclerView.setAdapter(new HomeTrackedArtistsAdapter(artists,ACA));
         EventBus.post(new ArtistImageEvent(mbids));
+        onItemsLoadComplete();
 
+    }
+
+    void onItemsLoadComplete() {
+        // Update the adapter and notify data set changed
+        // ...
+
+        // Stop refresh animation
+        trackedArtistSwipeRefresh.setRefreshing(false);
     }
 }

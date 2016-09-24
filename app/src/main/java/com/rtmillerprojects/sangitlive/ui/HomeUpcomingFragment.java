@@ -15,6 +15,7 @@ import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.HomeUpcomingAdapter;
 import com.rtmillerprojects.sangitlive.model.UpcomingEventQuery;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
+import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
 import com.squareup.otto.Subscribe;
 
 import org.parceler.Parcels;
@@ -49,6 +50,7 @@ public class HomeUpcomingFragment extends BaseFragment {
     private ArrayList<BandsInTownEventResult> events = new ArrayList<>();
     private ProgressBar mProgressBar;
     private int mTotalEvents;
+    private DatabaseHelper db;
 
 
     public static HomeUpcomingFragment newInstance() {
@@ -94,11 +96,12 @@ public class HomeUpcomingFragment extends BaseFragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         //Test Data
-        mbids = new ArrayList<>();
-        mbids.add("65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab");
-        mbids.add("a74b1b7f-71a5-4011-9441-d0b5e4122711");
-        mbids.add("b5ff61dd-0154-4e80-b46b-c733f87db602");
-        mbids.add("69d9c5ba-7bba-4cb7-ab32-8ccc48ad4f97");
+        db = DatabaseHelper.getInstance(ACA);
+        mbids = (ArrayList<String>) db.getFavoritedArtistMbids();
+        //mbids.add("65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab");
+        //.add("a74b1b7f-71a5-4011-9441-d0b5e4122711");
+        //mbids.add("b5ff61dd-0154-4e80-b46b-c733f87db602");
+        //mbids.add("69d9c5ba-7bba-4cb7-ab32-8ccc48ad4f97");
 
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
@@ -177,6 +180,8 @@ public class HomeUpcomingFragment extends BaseFragment {
 
         // Load complete
         events = null;
+        db = DatabaseHelper.getInstance(ACA);
+        mbids = (ArrayList<String>) db.getFavoritedArtistMbids();
         EventBus.post(new UpcomingEventQuery(mbids,1));
         onItemsLoadComplete();
     }

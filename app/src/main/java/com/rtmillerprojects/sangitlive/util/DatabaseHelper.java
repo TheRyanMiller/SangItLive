@@ -248,7 +248,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArtistLastFm getArtistById(String mbid){
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT  * FROM " + TABLE_ARTIST + " WHERE "
-                + ARTIST_MBID + " = " + mbid;
+                + ARTIST_MBID + " = '" + mbid+"'";
         Cursor c = db.rawQuery(selectQuery, null);
         if (c.moveToFirst()) {
             ArtistLastFm artist = new ArtistLastFm();
@@ -276,13 +276,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return ids;
     }
+
+    public List<String> getFavoritedArtistMbids(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT "+ARTIST_MBID+" FROM " + TABLE_ARTIST;
+        Cursor c = db.rawQuery(selectQuery, null);
+        List<String> mbids = new ArrayList<>();
+        if (c.moveToFirst()) {
+            do {
+                String mbid = c.getString(c.getColumnIndex(ARTIST_MBID));
+                mbids.add(mbid);
+            } while(c.moveToNext());
+            c.moveToFirst();
+        }
+        return mbids;
+    }
+
     public void deleteEvent(long eventId){
         SQLiteDatabase db = this.getReadableDatabase();
         db.delete(TABLE_EVENT,EVENT_ID+"="+eventId,null);
     }
     public void deleteArtist(String artistMbid){
         SQLiteDatabase db = this.getReadableDatabase();
-        db.delete(TABLE_ARTIST,ARTIST_MBID+"="+artistMbid,null);
+        db.delete(TABLE_ARTIST,ARTIST_MBID+"='"+artistMbid+"'",null);
     }
 
     private String getCurrentDateTimeAsString() {
