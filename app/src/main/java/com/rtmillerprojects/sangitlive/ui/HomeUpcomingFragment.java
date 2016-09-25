@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
@@ -50,6 +51,7 @@ public class HomeUpcomingFragment extends BaseFragment {
     private ArrayList<BandsInTownEventResult> events = new ArrayList<>();
     private ProgressBar mProgressBar;
     private int mTotalEvents;
+    private TextView emptyView;
     private DatabaseHelper db;
     private ArrayList<NameMbidPair> nameMbidPairs = new ArrayList<>();;
 
@@ -66,21 +68,6 @@ public class HomeUpcomingFragment extends BaseFragment {
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(savedInstanceState!=null){
-            if (savedInstanceState.containsKey(KEY_BUNDLE_UPCOMING_EVENTS)) {
-                events = Parcels.unwrap(savedInstanceState.getParcelable(KEY_BUNDLE_UPCOMING_EVENTS));
-            }
-            if (savedInstanceState.containsKey(KEY_BUNDLE_FIRST_VISIBLE_ITEM) && savedInstanceState.containsKey(KEY_BUNDLE_SCROLL_OFFSET)) {
-                mScrollPosition = savedInstanceState.getInt(KEY_BUNDLE_FIRST_VISIBLE_ITEM, 0);
-                mScrollOffset = savedInstanceState.getInt(KEY_BUNDLE_SCROLL_OFFSET, 0);
-            }
-            if (savedInstanceState.containsKey(KEY_BUNDLE_TOTAL_EVENTS)) {
-                mTotalEvents = savedInstanceState.getInt(KEY_BUNDLE_TOTAL_EVENTS, 0);
-            }
-            if (savedInstanceState.containsKey(KEY_BUNDLE_LAST_REFRESH_DATE)) {
-                long a = savedInstanceState.getLong(KEY_BUNDLE_LAST_REFRESH_DATE,0);
-                refreshDate = new Date();
-                refreshDate.setTime(a);
-            }
         }
 
     }
@@ -92,6 +79,7 @@ public class HomeUpcomingFragment extends BaseFragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_home_upcoming);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+        emptyView = (TextView) rootView.findViewById(R.id.empty_view);
 
         layoutManager = new LinearLayoutManager(ACA);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -99,21 +87,15 @@ public class HomeUpcomingFragment extends BaseFragment {
         //Test Data
         db = DatabaseHelper.getInstance(ACA);
         mbids = (ArrayList<String>) db.getFavoritedArtistMbids();
-        //mbids.add("65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab");
-        //.add("a74b1b7f-71a5-4011-9441-d0b5e4122711");
-        //mbids.add("b5ff61dd-0154-4e80-b46b-c733f87db602");
-        //mbids.add("69d9c5ba-7bba-4cb7-ab32-8ccc48ad4f97");
-
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             @Override
             public void onRefresh() {
                 // Refresh items
+                swipeRefreshLayout.setRefreshing(true);
                 refreshItems();
             }
         });
-
-
 
 
         return rootView;
@@ -121,6 +103,8 @@ public class HomeUpcomingFragment extends BaseFragment {
 
     @Subscribe
     public void receiveEventResults(ArrayList<BandsInTownEventResult> apiEvents) {
+        recyclerView.setVisibility(View.VISIBLE);
+        emptyView.setVisibility(View.GONE);
         if(events==null || events.size()==0){
             //do something if null
             events = apiEvents;
@@ -130,15 +114,6 @@ public class HomeUpcomingFragment extends BaseFragment {
                     return o1.getDatetime().compareTo(o2.getDatetime());
                 }
             });
-            if(upcomingAdapter==null){
-                upcomingAdapter = new HomeUpcomingAdapter(events, ACA);
-                recyclerView.setAdapter(upcomingAdapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(ACA));
-            }
-            else{
-                upcomingAdapter = new HomeUpcomingAdapter(events, ACA);
-                upcomingAdapter.notifyDataSetChanged();
-            }
 
         }
         else {
@@ -152,12 +127,18 @@ public class HomeUpcomingFragment extends BaseFragment {
                     return o1.getDatetime().compareTo(o2.getDatetime());
                 }
             });
-            upcomingAdapter.notifyDataSetChanged();
-            recyclerView.setAdapter(upcomingAdapter);
-            recyclerView.setLayoutManager(layoutManager);
         }
+        upcomingAdapter = new HomeUpcomingAdapter(events,getContext());
+        recyclerView.setAdapter(upcomingAdapter);
+        recyclerView.setLayoutManager(layoutManager);
+        upcomingAdapter.notifyDataSetChanged();
         mProgressBar.setVisibility(View.GONE);
-        refreshDate = new Date();
+        swipeRefreshLayout.setRefreshing(false);
+        if(events.size()==0){
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+        else{recyclerView.smoothScrollToPosition(0);}
     }
 
 
@@ -175,40 +156,13 @@ public class HomeUpcomingFragment extends BaseFragment {
     }
 
     void refreshItems() {
-        // Load items
-        // ...
-
-        // Load complete
-        //events = null;
+        events = null;
         db = DatabaseHelper.getInstance(ACA);
         mbids = (ArrayList<String>) db.getFavoritedArtistMbids();
         nameMbidPairs = (ArrayList<NameMbidPair>) db.getFavoritedNameMbidPairs();
         EventBus.post(new UpcomingEventQuery(nameMbidPairs,1,false));
-        onItemsLoadComplete();
     }
 
-    void onItemsLoadComplete() {
-        // Update the adapter and notify data set changed
-        // ...
-
-        // Stop refresh animation
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
-    private void recordScrollPosition() {
-        /**
-         * In addition to grabbing the top visible item also store the view offset
-         * so we can truly keep our view exactly where it was.
-         */
-        mScrollPosition = recyclerView.getVerticalScrollbarPosition();
-        View view = recyclerView.getChildAt(0);
-        mScrollOffset = (view == null) ? 0 : view.getTop();
-    }
-    private void fetchMoreEvents(int pageLimit) {
-        recordScrollPosition();
-        mProgressBar.setVisibility(View.VISIBLE);
-        EventBus.post(new UpcomingEventQuery(nameMbidPairs,1,false));
-    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -218,11 +172,6 @@ public class HomeUpcomingFragment extends BaseFragment {
          * why Parceler is so fantastic.  1 annotation in each model object and we
          * get to use Android's amazingly fast Parcelable.
          */
-        outState.putParcelable(KEY_BUNDLE_UPCOMING_EVENTS, Parcels.wrap(events));
-        outState.putInt(KEY_BUNDLE_FIRST_VISIBLE_ITEM, mScrollPosition);
-        outState.putInt(KEY_BUNDLE_SCROLL_OFFSET, mScrollOffset);
-        outState.putInt(KEY_BUNDLE_PAGE_NUMBER, page);
-        outState.putInt(KEY_BUNDLE_TOTAL_EVENTS, mTotalEvents);
     }
 
 

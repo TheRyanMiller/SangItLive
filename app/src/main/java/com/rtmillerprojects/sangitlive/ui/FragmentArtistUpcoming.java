@@ -100,18 +100,15 @@ public class FragmentArtistUpcoming extends BaseFragment {
 
         layoutManager = new LinearLayoutManager(ACA);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
         nameMbidPairs.add(new NameMbidPair(listener.getArtistName(),listener.getMbid()));
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             @Override
             public void onRefresh() {
                 // Refresh items
+                swipeRefreshLayout.setRefreshing(true);
                 refreshItems();
             }
         });
-
-
 
 
         return rootView;
@@ -190,16 +187,9 @@ public class FragmentArtistUpcoming extends BaseFragment {
 
         // Load complete
         EventBus.post(new UpcomingEventQuery(nameMbidPairs,1,false));
-        onItemsLoadComplete();
-    }
-
-    void onItemsLoadComplete() {
-        // Update the adapter and notify data set changed
-        // ...
-
-        // Stop refresh animation
         swipeRefreshLayout.setRefreshing(false);
     }
+
 
     private void recordScrollPosition() {
         /**
@@ -209,11 +199,6 @@ public class FragmentArtistUpcoming extends BaseFragment {
         mScrollPosition = recyclerView.getVerticalScrollbarPosition();
         View view = recyclerView.getChildAt(0);
         mScrollOffset = (view == null) ? 0 : view.getTop();
-    }
-    private void fetchMoreEvents(int pageLimit) {
-        recordScrollPosition();
-        mProgressBar.setVisibility(View.VISIBLE);
-        EventBus.post(new UpcomingEventQuery(nameMbidPairs,1,false));
     }
 
     @Override
