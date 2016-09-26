@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.HomeRsvpdAdapter;
+import com.rtmillerprojects.sangitlive.adapter.HomeUpcomingAdapter;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
 
@@ -26,7 +27,7 @@ public class HomeRsvpFragment extends BaseFragment{
     private DatabaseHelper db;
     private List<Long> favoritedEvents;
     private Context context;
-    private HomeRsvpdAdapter rsvpAdapter;
+    private HomeUpcomingAdapter rsvpAdapter;
     private ArrayList<BandsInTownEventResult> events = new ArrayList<>();
     private SwipeRefreshLayout rsvpSwipeRefresh;
 
@@ -59,7 +60,7 @@ public class HomeRsvpFragment extends BaseFragment{
         db = DatabaseHelper.getInstance(ACA);
         events = db.getAllEvents();
         context = getContext();
-        rsvpAdapter = new HomeRsvpdAdapter(events,ACA);
+        rsvpAdapter = new HomeUpcomingAdapter(events,ACA);
         recyclerView.setAdapter(rsvpAdapter);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -93,7 +94,7 @@ public class HomeRsvpFragment extends BaseFragment{
         rsvpAdapter = null;
         db = DatabaseHelper.getInstance(ACA);
         events = db.getAllEvents();
-        rsvpAdapter = new HomeRsvpdAdapter(events,ACA);
+        rsvpAdapter = new HomeUpcomingAdapter(events,ACA);
         recyclerView.setAdapter(rsvpAdapter);
         recyclerView.setLayoutManager(layoutManager);
         rsvpSwipeRefresh.setRefreshing(false);

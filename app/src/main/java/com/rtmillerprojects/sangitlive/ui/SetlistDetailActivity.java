@@ -7,6 +7,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class SetlistDetailActivity extends AppCompatActivity {
     TextView venue;
     TextView city;
     TextView country;
+    TextView emptyView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,10 @@ public class SetlistDetailActivity extends AppCompatActivity {
         city = (TextView) findViewById(R.id.city);
         city.setText(setinfo.getCity().toString());
         recyclerView = (RecyclerView) findViewById(R.id.listofsongs);
+        emptyView = (TextView) findViewById(R.id.empty_view);
+
+        recyclerView.setVisibility(View.VISIBLE);
+        emptyView.setVisibility(View.GONE);
 
         layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -49,6 +55,11 @@ public class SetlistDetailActivity extends AppCompatActivity {
         SongListAdapter sla = new SongListAdapter(setinfo.getSongs(), this);
         recyclerView.setAdapter(sla);
         recyclerView.setLayoutManager(layoutManager);
+
+        if(setinfo.getSongs().size()==0){
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
 
     }
 }

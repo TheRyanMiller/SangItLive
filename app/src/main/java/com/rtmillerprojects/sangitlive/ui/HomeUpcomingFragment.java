@@ -114,7 +114,9 @@ public class HomeUpcomingFragment extends BaseFragment {
                     return o1.getDatetime().compareTo(o2.getDatetime());
                 }
             });
-
+            upcomingAdapter = new HomeUpcomingAdapter(events,getContext());
+            recyclerView.setAdapter(upcomingAdapter);
+            recyclerView.setLayoutManager(layoutManager);
         }
         else {
             for(BandsInTownEventResult event : apiEvents){
@@ -127,18 +129,14 @@ public class HomeUpcomingFragment extends BaseFragment {
                     return o1.getDatetime().compareTo(o2.getDatetime());
                 }
             });
+            upcomingAdapter.notifyDataSetChanged();
         }
-        upcomingAdapter = new HomeUpcomingAdapter(events,getContext());
-        recyclerView.setAdapter(upcomingAdapter);
-        recyclerView.setLayoutManager(layoutManager);
-        upcomingAdapter.notifyDataSetChanged();
         mProgressBar.setVisibility(View.GONE);
         swipeRefreshLayout.setRefreshing(false);
         if(events.size()==0){
             recyclerView.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
         }
-        else{recyclerView.smoothScrollToPosition(0);}
     }
 
 
@@ -147,6 +145,9 @@ public class HomeUpcomingFragment extends BaseFragment {
         super.onResume();
         EventBus.register(this);
         refreshItems();
+        if(events != null && events.size()>0) {
+            recyclerView.smoothScrollToPosition(0);
+        }
     }
 
     @Override
@@ -156,11 +157,12 @@ public class HomeUpcomingFragment extends BaseFragment {
     }
 
     void refreshItems() {
-        events = null;
+        events = new ArrayList<>();
         db = DatabaseHelper.getInstance(ACA);
         mbids = (ArrayList<String>) db.getFavoritedArtistMbids();
         nameMbidPairs = (ArrayList<NameMbidPair>) db.getFavoritedNameMbidPairs();
         EventBus.post(new UpcomingEventQuery(nameMbidPairs,1,false));
+
     }
 
 

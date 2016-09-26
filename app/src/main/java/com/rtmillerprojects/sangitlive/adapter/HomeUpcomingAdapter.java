@@ -21,6 +21,8 @@ import org.parceler.Parcels;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -59,14 +61,28 @@ public class HomeUpcomingAdapter extends RecyclerView.Adapter<HomeUpcomingAdapte
             holder.view.setBackgroundResource(R.color.light_grey_row_color);
         }
 
+        Date eventDate = event.getDatetime();
+        Calendar cal= Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("MMMM");
+        String month_name = formatter.format(eventDate);
+        formatter = new SimpleDateFormat("EEEE");
+        String dayOfWeek = formatter.format(eventDate);
+        formatter = new SimpleDateFormat("dd");
+        String dayOfMonth = formatter.format(eventDate);
+        formatter = new SimpleDateFormat("yyyy");
+        String year = formatter.format(eventDate);
 
+        event.getArtists().get(0).getName();
 
-        holder.resultNumber.setText(++position +"");
-        holder.title.setText(event.getTitle());
+        holder.month.setText(month_name);
+        holder.dayOfWeek.setText(dayOfWeek);
+        holder.dayOfMonth.setText(dayOfMonth);
+        holder.year.setText(year);
+        holder.resultNumber = position;
+        holder.artist.setText(event.getArtists().get(0).getName());
         holder.location.setText(event.getFormattedLocation());
-        Format formatter = new SimpleDateFormat("MM/dd/yyyy");
-        String dateString = formatter.format(event.getDatetime());
-        holder.date.setText(dateString);
+        SimpleDateFormat formatter2 = new SimpleDateFormat("MM/dd/yyyy");
+        String dateString = formatter2.format(event.getDatetime());
         //holder.date.setText(event.getDatetime().toString());
         holder.venue.setText(event.getVenue().getName());
         holder.position = position;
@@ -92,13 +108,16 @@ public class HomeUpcomingAdapter extends RecyclerView.Adapter<HomeUpcomingAdapte
 
     public static class HomeUpcomingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         BandsInTownEventResult event;
-        TextView title;
+        TextView artist;
         TextView location;
-        TextView date;
+        TextView dayOfMonth;
+        TextView dayOfWeek;
+        TextView year;
+        TextView month;
         TextView venue;
         int position;
         boolean attending;
-        TextView resultNumber;
+        int resultNumber;
         public ImageView imgView;
         LinearLayout setListItem;
         AppCompatActivity ACA;
@@ -106,12 +125,13 @@ public class HomeUpcomingAdapter extends RecyclerView.Adapter<HomeUpcomingAdapte
 
         public HomeUpcomingViewHolder(View v, Context context) {
             super(v);
-            title = (TextView) v.findViewById(R.id.title);
+            dayOfMonth = (TextView) v.findViewById(R.id.day_of_month);
+            dayOfWeek = (TextView) v.findViewById(R.id.day_of_week);
+            month = (TextView) v.findViewById(R.id.month);
+            year = (TextView) v.findViewById(R.id.year);
+            artist = (TextView) v.findViewById(R.id.artist);
             location = (TextView) v.findViewById(R.id.location);
-            date = (TextView) v.findViewById(R.id.date);
             venue = (TextView) v.findViewById(R.id.venue);
-            resultNumber = (TextView) v.findViewById(R.id.resultnumber);
-            setListItem = (LinearLayout) v.findViewById(R.id.event_item);
             imgView = (ImageView) v.findViewById(R.id.indicator);
             this.ACA = (AppCompatActivity) context;
             v.setOnClickListener(this);

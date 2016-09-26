@@ -127,7 +127,7 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
         }
         sizeOfArtists = artists.size();
         artists = new ArrayList<ArtistLastFm>();
-        recyclerView.setAdapter(new HomeTrackedArtistsAdapter(artists,ACA));
+        //recyclerView.setAdapter(new HomeTrackedArtistsAdapter(artists,ACA));
         EventBus.post(new ArtistImageEvent(mbids));
         onItemsLoadComplete();
 

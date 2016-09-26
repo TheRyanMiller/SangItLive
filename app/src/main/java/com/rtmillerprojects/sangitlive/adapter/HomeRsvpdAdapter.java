@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Created by Ryan on 9/3/2016.
  */
-public class HomeRsvpdAdapter extends RecyclerView.Adapter<HomeRsvpdAdapter.HomeRsvpdViewHolder> {
+public class HomeRsvpdAdapter extends RecyclerView.Adapter<HomeRsvpdAdapter.HomeRsvpViewHolder> {
 
     private ArrayList<BandsInTownEventResult> events;
     private Context context;
@@ -42,15 +42,15 @@ public class HomeRsvpdAdapter extends RecyclerView.Adapter<HomeRsvpdAdapter.Home
     };
 
     @Override
-    public HomeRsvpdViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public HomeRsvpViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_list_item, parent, false);
-        HomeRsvpdViewHolder vh = new HomeRsvpdViewHolder(v,context);
+        HomeRsvpViewHolder vh = new HomeRsvpViewHolder(v,context);
 
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(HomeRsvpdViewHolder holder, int position) {
+    public void onBindViewHolder(HomeRsvpdAdapter.HomeRsvpViewHolder holder, int position) {
         BandsInTownEventResult event = events.get(position);
         if(event.isAttending()){
             holder.view.setBackgroundResource(R.color.material_lime_500);
@@ -61,15 +61,13 @@ public class HomeRsvpdAdapter extends RecyclerView.Adapter<HomeRsvpdAdapter.Home
 
 
 
-        holder.resultNumber.setText(++position +"");
-        holder.title.setText(event.getTitle());
+        holder.resultNumber = position;
+        holder.artist.setText(event.getTitle());
         holder.location.setText(event.getFormattedLocation());
         Format formatter = new SimpleDateFormat("MM/dd/yyyy");
         String dateString = formatter.format(event.getDatetime());
-        holder.date.setText(dateString);
         //holder.date.setText(event.getDatetime().toString());
-        holder.artistName.setText(event.getArtists().get(0).getName());
-        holder.venue.setText(event.getVenue().getPlace());
+        holder.venue.setText(event.getVenue().getName());
         holder.position = position;
         holder.event = event;
         holder.attending = event.isAttending();
@@ -91,30 +89,32 @@ public class HomeRsvpdAdapter extends RecyclerView.Adapter<HomeRsvpdAdapter.Home
     }
 
 
-    public static class HomeRsvpdViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class HomeRsvpViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         BandsInTownEventResult event;
-        TextView title;
+        TextView artist;
         TextView location;
-        TextView date;
+        TextView dayOfMonth;
+        TextView dayOfWeek;
+        TextView year;
+        TextView month;
         TextView venue;
-        TextView artistName;
         int position;
         boolean attending;
-        TextView resultNumber;
+        int resultNumber;
         public ImageView imgView;
         LinearLayout setListItem;
         AppCompatActivity ACA;
         View view;
 
-        public HomeRsvpdViewHolder(View v, Context context) {
+        public HomeRsvpViewHolder(View v, Context context) {
             super(v);
-            title = (TextView) v.findViewById(R.id.title);
-            artistName = (TextView) v.findViewById(R.id.artist);
+            dayOfMonth = (TextView) v.findViewById(R.id.day_of_month);
+            dayOfWeek = (TextView) v.findViewById(R.id.day_of_week);
+            month = (TextView) v.findViewById(R.id.month);
+            year = (TextView) v.findViewById(R.id.year);
+            artist = (TextView) v.findViewById(R.id.artist);
             location = (TextView) v.findViewById(R.id.location);
-            date = (TextView) v.findViewById(R.id.date);
             venue = (TextView) v.findViewById(R.id.venue);
-            resultNumber = (TextView) v.findViewById(R.id.resultnumber);
-            setListItem = (LinearLayout) v.findViewById(R.id.event_item);
             imgView = (ImageView) v.findViewById(R.id.indicator);
             this.ACA = (AppCompatActivity) context;
             v.setOnClickListener(this);

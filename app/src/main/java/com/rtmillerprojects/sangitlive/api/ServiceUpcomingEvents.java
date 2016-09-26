@@ -31,9 +31,13 @@ public class ServiceUpcomingEvents {
     private Context context;
     private String artistName;
     private String mbid;
-    private int attemptCount = 0;
     private List<Long> favoritedShows;
     private NameMbidPair pair;
+    private String failedArtistName;
+    private String failedArtistMbid;
+    private int responseCounter = 0;
+    boolean failedFlag = false;
+    ArrayList<String> knownFailures = new ArrayList<>();
 
     public ServiceUpcomingEvents(Application context){
         this.context = context;
@@ -53,7 +57,9 @@ public class ServiceUpcomingEvents {
 
 
     @Subscribe
-    public void receiveQueryForUpcomingEvents(UpcomingEventQuery event){
+    public void receiveQueryForUpcomingEvents(final UpcomingEventQuery event){
+        responseCounter = 0;
+        knownFailures = new ArrayList<>();
         Gson gson = new GsonBuilder()
                 //.registerTypeAdapterFactory(new SetlistTypeAdapterFactory())
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
@@ -67,31 +73,42 @@ public class ServiceUpcomingEvents {
         //String radioheadKey = "a74b1b7f-71a5-4011-9441-d0b5e4122711";
         ApiServiceBandsInTown eventsApi = retrofit.create(ApiServiceBandsInTown.class);
         for (int i = 0; i < event.getNameMbidPairs().size(); i++) {
-            attemptCount = 0;
             mbid = event.getNameMbidPairs().get(i).getMbid();
             artistName = event.getNameMbidPairs().get(i).getArtistName();
-            pair = new NameMbidPair(artistName,mbid);
-            if(event.isFailedMbidAttempt() == false) {
+            if(!event.isFailedMbidAttempt()) {
                 Call<ArrayList<BandsInTownEventResult>> call = eventsApi.searchEventsByMbid(mbid, "json", "2.0", "ConcertCompanion");
                 //asynchronous call
                 call.enqueue(new Callback<ArrayList<BandsInTownEventResult>>() {
                     @Override
                     public void onResponse(Call<ArrayList<BandsInTownEventResult>> call, Response<ArrayList<BandsInTownEventResult>> response) {
-                        if (response.body() == null && response.errorBody() != null && attemptCount<1) {
-                            Log.d("RYAN TEST", artistName + " EVENT SEARCH BY MBID FAILED");
-                            try {
-                                String errorMsg = response.errorBody().string();
-                                //Make New attempt using artist name
-                                if (errorMsg.contains("Unknown Artist")) {
-                                    ArrayList<NameMbidPair> pairs = new ArrayList<NameMbidPair>();
-                                    pairs.add(pair);
-                                    EventBus.post(pair);
-                                    attemptCount++;
+                        String aName = event.getNameMbidPairs().get(responseCounter).getArtistName();
+                        if (response.body() == null && response.errorBody() != null){
+                            //Check against known failures
+                            for(String a : knownFailures){
+                                if(aName.equals(a)){
+                                    failedFlag = true;
+                                    break;
                                 }
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                                else failedFlag = false;
                             }
-                            //DO ERROR HANDLING HERE
+                            if (!failedFlag) {
+                                knownFailures.add(aName);
+                                failedFlag = false;
+                                pair = new NameMbidPair(event.getNameMbidPairs().get(responseCounter).getArtistName(),event.getNameMbidPairs().get(responseCounter).getMbid());
+                                Log.d("RYAN TEST", event.getNameMbidPairs().get(responseCounter).getArtistName() + " EVENT SEARCH BY MBID FAILED");
+                                try {
+                                    String errorMsg = response.errorBody().string();
+                                    //Make New attempt using artist name
+                                    if (errorMsg.contains("Unknown Artist")) {
+                                        ArrayList<NameMbidPair> pairs = new ArrayList<NameMbidPair>();
+                                        pairs.add(pair);
+                                        EventBus.post(pair);
+                                    }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                //DO ERROR HANDLING HERE
+                            }
                         }
                         else if(response.body() != null){
                             bandsInTownEvents = response.body();
@@ -112,11 +129,13 @@ public class ServiceUpcomingEvents {
                             }
                             EventBus.post(scrubbedEventList);
                         }
+                        responseCounter++;
                     }
 
                     @Override
                     public void onFailure(Call<ArrayList<BandsInTownEventResult>> call, Throwable t) {
                         Log.d("RYAN TEST", artistName+" EVENT SEARCH BY MBID FAILED");
+                        responseCounter++;
                         //Log.e(t.getMessage());
                     }
                 });

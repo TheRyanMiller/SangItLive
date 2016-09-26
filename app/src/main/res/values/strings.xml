@@ -8,4 +8,5 @@
     <string name="no_setlist_data_available">Unable to find setlist data for this artist</string>
     <string name="no_artist_results_available">Unable to find any artists by this name</string>
     <string name="no_upcoming_events_available">No upcoming events were found</string>
+    <string name="no_setlist_songs_available">Unable to find any songs for this setlist</string>
 </resources>

@@ -32,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static DatabaseHelper sInstance;
     private static final String TAG = "DatabaseHelper";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 5;
 
     //Table Defs
     public static final String DATABASE_NAME = "concertcompanion.db";
@@ -50,9 +50,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Event columns
     private static final String EVENT_ID = "event_id";
     private static final String EVENT_TITLE = "title";
+    private static final String EVENT_FORMATTED_LOC = "fmt_loc";
     private static final String EVENT_VENUE_CITY = "city";
     private static final String EVENT_VENUE_PLACE = "place";
-    private static final String EVENT_VENUE_REGION = "REGION";
+    private static final String EVENT_VENUE_REGION = "region";
     private static final String EVENT_VENUE_COUNTRY = "country";
     private static final String EVENT_VENUE_NAME = "venue_name";
     private static final String EVENT_DATE = "date";
@@ -70,8 +71,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             EVENT_ID + " TEXT UNIQUE," +
             ARTIST_MBID + " TEXT," +
+            ARTIST_NAME + " TEXT," +
             EVENT_TITLE + " TEXT," +
             EVENT_DATE + " DATETIME," +
+            EVENT_FORMATTED_LOC + " TEXT," +
             EVENT_VENUE_CITY + " TEXT," +
             EVENT_VENUE_COUNTRY + " TEXT," +
             EVENT_VENUE_REGION + " TEXT," +
@@ -121,7 +124,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(EVENT_ID, event.getId());
         values.put(EVENT_TITLE, event.getTitle());
         values.put(ARTIST_MBID,event.getArtists().get(0).getMbid());
+        values.put(ARTIST_NAME,event.getArtists().get(0).getName());
         values.put(EVENT_DATE, event.getDatetime().toString());
+        values.put(EVENT_FORMATTED_LOC, event.getFormattedLocation().toString());
         values.put(EVENT_VENUE_CITY, event.getVenue().getCity());
         values.put(EVENT_VENUE_REGION, event.getVenue().getRegion());
         values.put(EVENT_VENUE_PLACE, event.getVenue().getPlace());
@@ -136,8 +141,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         };
 
         // insert row
-        long contactId = db.insertWithOnConflict(TABLE_EVENT, null, values, SQLiteDatabase.CONFLICT_IGNORE);
-        return contactId;
+        long eventId = db.insertWithOnConflict(TABLE_EVENT, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        return eventId;
     }
     public long insertArtist(ArtistDetails artistDetails){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -170,12 +175,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 event.setTitle(c.getString(c.getColumnIndex(EVENT_TITLE)));
                 ArrayList<BandsInTownArtist> artistList = new ArrayList<>();
                 BandsInTownArtist artist = new BandsInTownArtist();
-                artistList.add(artist);
                 artist.setMbid(c.getString(c.getColumnIndex(ARTIST_MBID)));
+                artist.setName(c.getString(c.getColumnIndex(ARTIST_NAME)));
+                artistList.add(artist);
                 event.setArtists(artistList);
+                event.setFormattedLocation(c.getString(c.getColumnIndex(EVENT_FORMATTED_LOC)));
                 Venue v = new Venue();
                 v.setCity(c.getString(c.getColumnIndex(EVENT_VENUE_CITY)));
-                v.setName(c.getString(c.getColumnIndex(EVENT_TITLE)));
+                v.setName(c.getString(c.getColumnIndex(EVENT_VENUE_NAME)));
                 v.setPlace(c.getString(c.getColumnIndex(EVENT_VENUE_PLACE)));
                 v.setRegion(c.getString(c.getColumnIndex(EVENT_VENUE_REGION)));
                 v.setCountry(c.getString(c.getColumnIndex(EVENT_VENUE_COUNTRY)));

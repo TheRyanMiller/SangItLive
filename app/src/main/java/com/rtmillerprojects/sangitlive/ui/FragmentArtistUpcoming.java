@@ -186,6 +186,7 @@ public class FragmentArtistUpcoming extends BaseFragment {
         // ...
 
         // Load complete
+        events = new ArrayList<>();
         EventBus.post(new UpcomingEventQuery(nameMbidPairs,1,false));
         swipeRefreshLayout.setRefreshing(false);
     }

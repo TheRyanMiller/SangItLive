@@ -1,22 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="90dp"
     android:background="@drawable/border"
+    android:backgroundTint="@color/material_gray_200"
+    android:orientation="vertical"
     android:id="@+id/event_item"
     android:layout_marginTop="3dp">
 
-    <TextView
-        android:layout_width="40dp"
-        android:layout_height="100dp"
-        android:ems="10"
-        android:gravity="center"
-        android:id="@+id/resultnumber"
-        />
+    <LinearLayout
+        android:id="@+id/calendar_box"
+        android:layout_width="90dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical"
+        android:background="@color/material_gray_900"
+        android:layout_centerVertical="true"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/month"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="month"
+            android:textColor="@color/material_green_300"
+            android:textSize="12sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/day_of_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="DM"
+                android:textColor="@color/material_green_300"
+                android:textSize="28sp"/>
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                android:gravity="right"
+                android:text="year"
+                android:textColor="@color/material_green_300"
+                android:textSize="10sp"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/day_of_week"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="day_of_week"
+            android:textColor="@color/material_green_300"
+            android:textSize="12sp"/>
+
+
+
+    </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_toRightOf="@id/resultnumber"
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@id/calendar_box"
         android:orientation="vertical"
         android:layout_height="120dp"
         android:paddingTop="10dp"
@@ -26,45 +77,24 @@
         android:layout_weight="1"
         android:id="@+id/linearLayout">
         <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:text="title"
-            android:gravity="center"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textColor="#000000" />
-
-        <TextView
             android:id="@+id/artist"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:text="artist"
+            android:textSize="24sp"
             android:gravity="center"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textColor="#000000" />
 
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:text="date"
-            android:gravity="center"
-            android:layout_below="@+id/venue"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/location"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:text="city"
+            android:layout_height="wrap_content"
+            android:text="location"
             android:gravity="center"
-            android:layout_below="@+id/date"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textColor="#000000" />
@@ -72,7 +102,7 @@
         <TextView
             android:id="@+id/venue"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="venue"
             android:layout_below="@+id/songname"
@@ -93,4 +123,4 @@
         />
 
 
-</LinearLayout>
+</RelativeLayout>

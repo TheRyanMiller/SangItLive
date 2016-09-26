@@ -74,8 +74,8 @@ public class ServiceArtistImage {
                 @Override
                 public void onResponse(Call<MusicBrainzArtistResourceResult> call, Response<MusicBrainzArtistResourceResult> response) {
                     resourceReults = response.body();
-                    Log.d("RYAN TEST","EVENT SEARCH RESPONSE SUCCESS");
                     if(resourceReults!=null) {
+                        Log.d("RYAN TEST","Artist Image Response Successful");
                         wasFound = false;
                         for(Relation r : resourceReults.getRelations()){
                             if(r.getType().equals("image")){
