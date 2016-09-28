@@ -22,6 +22,8 @@ import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -106,6 +108,12 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
     public void pullImages(ArtistLastFm returnedData){
 
         artists.add(returnedData);
+        Collections.sort(artists, new Comparator<ArtistLastFm>() {
+            @Override
+            public int compare(ArtistLastFm o1, ArtistLastFm o2) {
+                return o1.getArtist().getName().compareTo(o2.getArtist().getName());
+            }
+        });
         returnCounter++;
         if(returnCounter == sizeOfArtists) {
             trackedArtistAdapter = new HomeTrackedArtistsAdapter(artists, ACA);
