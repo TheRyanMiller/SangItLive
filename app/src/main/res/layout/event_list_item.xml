@@ -5,8 +5,9 @@
     android:background="@drawable/border"
     android:backgroundTint="@color/material_gray_200"
     android:orientation="vertical"
+    android:elevation="2dp"
     android:id="@+id/event_item"
-    android:layout_marginTop="3dp">
+    android:layout_marginTop="5dp">
 
     <LinearLayout
         android:id="@+id/calendar_box"
