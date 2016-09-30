@@ -73,7 +73,9 @@ public class ServiceSetlist {
             public void onResponse(Call<SetlistsByArtists> call, Response<SetlistsByArtists> response) {
                 setlistsByArtists = response.body();
                 Log.d("RYAN TEST","SETLIST RESPONSE SUCCESS");
-                EventBus.post(new LoadSetlistsEvent(setlistsByArtists));
+                if(setlistsByArtists!=null) {
+                    EventBus.post(new LoadSetlistsEvent(setlistsByArtists));
+                }
             }
 
             @Override

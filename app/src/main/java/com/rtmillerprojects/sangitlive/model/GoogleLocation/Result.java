@@ -114,4 +114,8 @@ public class Result {
         this.types = types;
     }
 
+    @Override
+    public String toString() {
+        return this.getFormattedAddress();
+    }
 }

@@ -180,6 +180,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 artistList.add(artist);
                 event.setArtists(artistList);
                 event.setFormattedLocation(c.getString(c.getColumnIndex(EVENT_FORMATTED_LOC)));
+                event.setAttending(true);
                 Venue v = new Venue();
                 v.setCity(c.getString(c.getColumnIndex(EVENT_VENUE_CITY)));
                 v.setName(c.getString(c.getColumnIndex(EVENT_VENUE_NAME)));

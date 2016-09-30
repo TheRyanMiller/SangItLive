@@ -12,7 +12,7 @@ import retrofit2.http.Query;
  */
 public interface ApiGoogleMaps {
     final static String BASEURL = "https://maps.googleapis.com/";
-    final static String APIENDPOINT = "/maps/api/geocode/json?address=29412";
+    final static String APIENDPOINT = "/maps/api/geocode/json";
 
 
     @GET(APIENDPOINT)

@@ -1,6 +1,7 @@
 package com.rtmillerprojects.sangitlive.ui;
 
 import android.app.Service;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity
     ServiceUpcomingEvents sue;
     ServiceArtistImage sai;
     LastFmArtistService lfas;
+    Intent intent;
 
 
     @Override protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,6 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -73,9 +74,10 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        if(id == R.id.nav_settings){
+            startActivity(new Intent(this, ActivitySettings.class));
+        }
         //implement click handlers here
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

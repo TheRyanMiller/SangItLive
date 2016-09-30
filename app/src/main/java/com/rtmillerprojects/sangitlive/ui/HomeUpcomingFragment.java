@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.HomeUpcomingAdapter;
@@ -25,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Ryan on 9/2/2016.
@@ -76,6 +79,7 @@ public class HomeUpcomingFragment extends BaseFragment {
                                        Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.home_upcoming_fragment, container, false);
+        Fabric.with(ACA, new Crashlytics());
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_home_upcoming);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
@@ -162,7 +166,6 @@ public class HomeUpcomingFragment extends BaseFragment {
         mbids = (ArrayList<String>) db.getFavoritedArtistMbids();
         nameMbidPairs = (ArrayList<NameMbidPair>) db.getFavoritedNameMbidPairs();
         EventBus.post(new UpcomingEventQuery(nameMbidPairs,1,false));
-
     }
 
 

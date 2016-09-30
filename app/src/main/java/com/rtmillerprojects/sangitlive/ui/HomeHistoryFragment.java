@@ -94,6 +94,7 @@ public class HomeHistoryFragment extends BaseFragment{
 
     void refreshItems() {
         events = null;
+        scrubbedEvents = new ArrayList<>();
         eventHistoryAdapter = null;
         db = DatabaseHelper.getInstance(ACA);
         events = db.getAllEvents();

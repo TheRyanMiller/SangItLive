@@ -29,6 +29,12 @@
             android:permission="android.permission.INTERNET" />
         <activity android:name=".ui.ActivityArtistDetail"
             android:permission="android.permission.INTERNET" />
+        <activity android:name=".ui.ActivitySettings"
+            android:permission="android.permission.INTERNET" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="10e35ec98d4348541589c81819834f36b90f5e9d"
+            />
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

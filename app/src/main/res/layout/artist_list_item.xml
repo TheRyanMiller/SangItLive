@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/artist_item"
     android:layout_width="match_parent"
-    android:background="@drawable/border"
-    android:layout_height="60dp">
+    android:layout_height="60dp"
+    android:backgroundTint="@color/material_gray_200"
+    android:background="@color/material_gray_200"
+    android:orientation="vertical"
+    android:elevation="2dp"
+    android:layout_marginTop="5dp">
 
     <ImageView
         android:id="@+id/artist_img"
@@ -18,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_toRightOf="@id/artist_img"
         android:orientation="vertical"
-        android:layout_height="60dp"
+        android:layout_height="55dp"
         android:paddingTop="10dp"
         android:paddingLeft="10dp"
         android:gravity="left"
