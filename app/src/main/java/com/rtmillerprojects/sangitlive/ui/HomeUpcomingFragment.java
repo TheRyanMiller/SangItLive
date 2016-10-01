@@ -14,13 +14,12 @@ import com.crashlytics.android.Crashlytics;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.HomeUpcomingAdapter;
+import com.rtmillerprojects.sangitlive.model.EventCalls.MBBrowseList;
 import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
 import com.rtmillerprojects.sangitlive.model.EventCalls.UpcomingEventQuery;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
 import com.squareup.otto.Subscribe;
-
-import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -106,7 +105,8 @@ public class HomeUpcomingFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void receiveEventResults(ArrayList<BandsInTownEventResult> apiEvents) {
+    public void receiveEventResults(MBBrowseList.BITResultPackage bitResultPackage) {
+        ArrayList<BandsInTownEventResult> apiEvents = bitResultPackage.events;
         recyclerView.setVisibility(View.VISIBLE);
         emptyView.setVisibility(View.GONE);
         if(events==null || events.size()==0){

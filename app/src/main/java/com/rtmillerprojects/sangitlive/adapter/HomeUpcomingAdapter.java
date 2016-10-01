@@ -13,12 +13,11 @@ import android.widget.TextView;
 
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
-import com.rtmillerprojects.sangitlive.ui.EventDetailsActivity;
+import com.rtmillerprojects.sangitlive.ui.ActivityEventDetails;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
 
 import org.parceler.Parcels;
 
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -143,7 +142,7 @@ public class HomeUpcomingAdapter extends RecyclerView.Adapter<HomeUpcomingAdapte
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            Intent intent = new Intent(ACA, EventDetailsActivity.class);
+            Intent intent = new Intent(ACA, ActivityEventDetails.class);
             intent.putExtra("event", Parcels.wrap(event));
             ACA.startActivity(intent);
         }

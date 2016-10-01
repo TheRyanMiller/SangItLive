@@ -7,12 +7,10 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rtmillerprojects.sangitlive.EventBus;
-import com.rtmillerprojects.sangitlive.model.ArtistImageEvent;
-import com.rtmillerprojects.sangitlive.model.MusicBrainzArtist;
 import com.rtmillerprojects.sangitlive.model.PostArtistSearch;
-import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
 import com.rtmillerprojects.sangitlive.model.musicbrainzaritstbrowse.Artist;
 import com.rtmillerprojects.sangitlive.model.musicbrainzaritstbrowse.ArtistBrowseResults;
+import com.rtmillerprojects.sangitlive.model.EventCalls.MBBrowseList;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -77,7 +75,7 @@ public class MusicBrainzArtistService {
                 artistList = new ArrayList<Artist>();
                 if(artistBrowseResults!=null) {
                     artistList.addAll(artistBrowseResults.getArtists());
-                    EventBus.post(artistList);
+                    EventBus.post(new MBBrowseList(artistList));
                 }
             }
 

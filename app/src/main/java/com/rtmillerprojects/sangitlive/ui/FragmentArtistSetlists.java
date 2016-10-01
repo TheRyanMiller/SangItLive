@@ -54,21 +54,12 @@ public class FragmentArtistSetlists extends BaseFragment {
     private SetAdapter slAdapter;
     private LinearLayoutManager layoutManager;
     private RecyclerView recyclerView;
-    private TextInputLayout songString;
-    //private EditText songString;
-    private TextView resultsMsg;
-    private ServiceSetlist serviceSetlist;
-    private Button btnChooseArtist;
-    private SetlistsByArtists setlistsByArtists;
-    private String mbid;
     private Context context;
-    ArrayList<SetInfo> setInfo;
     private boolean loading = true;
     private View rootView;
     private GetMbid listener;
     private TextView emptyView;
     private SetlistRequest sr;
-    private int pastVisiblesItems, visibleItemCount, totalItemCount;
 
 
     public static FragmentArtistSetlists newInstance() {
@@ -107,7 +98,12 @@ public class FragmentArtistSetlists extends BaseFragment {
         Gson gson = gsonBuilder.create();
         InputStream is = this.getResources().openRawResource(R.raw.ofmontreal);
         Reader reader = new InputStreamReader(is);
-        SetlistsByArtists localSetlistsByArtists = gson.fromJson(reader, SetlistsByArtists.class);
+        if(recyclerView.getAdapter()==null || recyclerView.getAdapter().getItemCount()<1){
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+
+
 
         return rootView;
 

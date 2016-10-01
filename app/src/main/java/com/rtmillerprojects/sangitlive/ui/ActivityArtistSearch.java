@@ -17,6 +17,7 @@ import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.MusicBrainzArtistsAdapter;
 import com.rtmillerprojects.sangitlive.api.MusicBrainzArtistService;
+import com.rtmillerprojects.sangitlive.model.EventCalls.MBBrowseList;
 import com.rtmillerprojects.sangitlive.model.PostArtistSearch;
 import com.rtmillerprojects.sangitlive.api.ServiceSetlist;
 import com.rtmillerprojects.sangitlive.model.musicbrainzaritstbrowse.Artist;
@@ -86,7 +87,8 @@ public class ActivityArtistSearch extends AppCompatActivity {
     }
 
     @Subscribe
-    public void receiveArtistResults(ArrayList<Artist> results) {
+    public void receiveArtistResults(MBBrowseList mbBrowsList) {
+        ArrayList<Artist> results = mbBrowsList.results;
         if(results==null || results.size()==0){
             recyclerView.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);

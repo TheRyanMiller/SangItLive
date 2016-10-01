@@ -16,6 +16,7 @@ import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.HomeUpcomingAdapter;
 import com.rtmillerprojects.sangitlive.listener.GetMbid;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
+import com.rtmillerprojects.sangitlive.model.EventCalls.MBBrowseList;
 import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
 import com.rtmillerprojects.sangitlive.model.EventCalls.UpcomingEventQuery;
 import com.squareup.otto.Subscribe;
@@ -121,7 +122,8 @@ public class FragmentArtistUpcoming extends BaseFragment {
     }
 
     @Subscribe
-    public void receiveEventResults(ArrayList<BandsInTownEventResult> apiEvents) {
+    public void receiveEventResults(MBBrowseList.BITResultPackage bitResultPackage) {
+        ArrayList<BandsInTownEventResult> apiEvents = bitResultPackage.events;
         recyclerView.setVisibility(View.VISIBLE);
         emptyView.setVisibility(View.GONE);
         if(events.size()==0){

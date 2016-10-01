@@ -1,17 +1,23 @@
 package com.rtmillerprojects.sangitlive.ui;
 
+import android.app.Activity;
+import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,12 +28,15 @@ import com.rtmillerprojects.sangitlive.api.MusicBrainzArtistService;
 import com.rtmillerprojects.sangitlive.api.ServiceLocationGoogle;
 import com.rtmillerprojects.sangitlive.api.ServiceSetlist;
 import com.rtmillerprojects.sangitlive.model.EventCalls.GoogleLocationRequest;
+import com.rtmillerprojects.sangitlive.model.GoogleLocation.CustomLocationResult;
 import com.rtmillerprojects.sangitlive.model.GoogleLocation.LocationResults;
 import com.rtmillerprojects.sangitlive.model.GoogleLocation.Result;
 import com.rtmillerprojects.sangitlive.model.PostArtistSearch;
 import com.rtmillerprojects.sangitlive.model.musicbrainzaritstbrowse.Artist;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
+
+import org.parceler.Parcels;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -38,31 +47,31 @@ import java.util.List;
  */
 public class ActivitySettings extends AppCompatActivity {
 
-    EditText searchString;
-    Button btnSearch;
+    RelativeLayout locationLayout;
     RecyclerView.LayoutManager layoutManager;
     ListView listView;
-    Bus mBus;
-    ServiceLocationGoogle slg;
-    ServiceSetlist serviceSetlist;
     Toolbar toolbar;
+    final Context context = this;
     TextView emptyView;
     ArrayAdapter<Result> mAdapter;
     List<Result> r;
+    String zipReturn;
+    private final int ZIP_REQUEST_CODE = 1;
+    CustomLocationResult location;
+    TextView textViewLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_settings);
+        handleIntent(getIntent());
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        searchString = (EditText) findViewById(R.id.zip_string);
-        btnSearch = (Button) findViewById(R.id.btn_search);
+        locationLayout = (RelativeLayout) findViewById(R.id.location_layout);
+        textViewLocation = (TextView) findViewById(R.id.location_value);
         listView = (ListView) findViewById(R.id.location_results);
         emptyView = (TextView) findViewById(R.id.empty_view);
-        final Context context = this;
 
-        toolbar.setTitle("Artist Search");
+        toolbar.setTitle("Settings");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -74,56 +83,54 @@ public class ActivitySettings extends AppCompatActivity {
         });
 
 
-        btnSearch.setOnClickListener(new View.OnClickListener() {
+        locationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try  {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-                } catch (Exception e) {
-
-                }
-                if(searchString.getText().toString().equals("")){
-                    Toast.makeText(context,"Please enter a search value",Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    r = null;
-                    EventBus.post(new GoogleLocationRequest(searchString.getText().toString()));
-                }
+                startActivityForResult(new Intent(context, ActivityZipSearch.class), ZIP_REQUEST_CODE);
             }
         });
 
     }
 
-    @Subscribe
-    public void receiveArtistResults(LocationResults results) {
-        r = results.getResults();
-        if(r==null || r.size()==0){
-            listView.setVisibility(View.GONE);
-            emptyView.setVisibility(View.VISIBLE);
-        }
-        else {
-            mAdapter = new ArrayAdapter<Result>(this, android.R.layout.simple_list_item_1,r);
-            listView.setAdapter(mAdapter);
-            listView.setVisibility(View.VISIBLE);
-            emptyView.setVisibility(View.GONE);
+    @Override public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.m 23qv
+
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    private void handleIntent(Intent intent) {
+
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            //use the query to search your data somehow
+            Toast.makeText(this,query,Toast.LENGTH_SHORT).show();
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                location = Parcels.unwrap(data.getParcelableExtra("result"));
+                textViewLocation.setText(location.toString());
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
         EventBus.register(this);
-        if(slg==null){slg = new ServiceLocationGoogle(this.getApplication());}
-        EventBus.register(slg);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         EventBus.unregister(this);
-        EventBus.unregister(slg);
     }
 }
 //Toast.makeText(this,"ARTIST IS RETURNED",Toast.LENGTH_SHORT).show();

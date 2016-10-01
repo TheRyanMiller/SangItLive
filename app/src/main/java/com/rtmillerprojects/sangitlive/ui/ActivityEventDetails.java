@@ -23,7 +23,7 @@ import org.parceler.Parcels;
 /**
  * Created by Ryan on 9/5/2016.
  */
-public class EventDetailsActivity extends AppCompatActivity {
+public class ActivityEventDetails extends AppCompatActivity {
 
     LinearLayoutManager layoutManager;
     TextView date;
@@ -83,7 +83,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                                     attending.setText(""); //not attending
                                     //Delete from db
                                     DatabaseHelper db = DatabaseHelper.getInstance(context);
-                                    db.deleteEvent(event.getId());
+                                    db.deleteEventAttending(event.getId());
                                 }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
@@ -98,7 +98,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 }
                 else{
                     DatabaseHelper db = DatabaseHelper.getInstance(context);
-                    db.insertEvent(event);
+                    db.insertEventAttending(event);
                     db.insertArtist(ad);
                 }
 

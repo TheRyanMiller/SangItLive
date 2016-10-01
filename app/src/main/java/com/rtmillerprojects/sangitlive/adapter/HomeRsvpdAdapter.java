@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
-import com.rtmillerprojects.sangitlive.ui.EventDetailsActivity;
+import com.rtmillerprojects.sangitlive.ui.ActivityEventDetails;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
 
 import org.parceler.Parcels;
@@ -126,7 +126,7 @@ public class HomeRsvpdAdapter extends RecyclerView.Adapter<HomeRsvpdAdapter.Home
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            Intent intent = new Intent(ACA, EventDetailsActivity.class);
+            Intent intent = new Intent(ACA, ActivityEventDetails.class);
             intent.putExtra("event", Parcels.wrap(event));
             ACA.startActivity(intent);
         }

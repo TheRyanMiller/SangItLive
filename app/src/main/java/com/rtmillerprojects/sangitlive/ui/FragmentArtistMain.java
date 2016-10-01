@@ -22,6 +22,7 @@ import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.EventCalls.LastFmArtistDetails;
 import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
+import com.rtmillerprojects.sangitlive.util.EventManagerService;
 
 /**
  * Created by Ryan on 9/2/2016.
@@ -39,6 +40,7 @@ public class FragmentArtistMain extends BaseFragment{
     boolean isFavorite;
     String artistName;
     ArtistDetails ad;
+    EventManagerService ems;
 
     private MainListener listener;
     private ArtistsSectionsPagerAdapter artistPagerAdapter;
@@ -149,6 +151,7 @@ public class FragmentArtistMain extends BaseFragment{
                 }
                 else{
                     DatabaseHelper db = DatabaseHelper.getInstance(ACA);
+                    ems = ems.getInstance(ACA);
                     db.insertArtist(ad);
                 }
 

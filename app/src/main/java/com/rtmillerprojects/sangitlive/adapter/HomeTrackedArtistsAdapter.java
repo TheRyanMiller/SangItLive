@@ -11,22 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rtmillerprojects.sangitlive.R;
-import com.rtmillerprojects.sangitlive.model.ArtistDetails;
-import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
 import com.rtmillerprojects.sangitlive.ui.ActivityArtistDetail;
-import com.rtmillerprojects.sangitlive.ui.EventDetailsActivity;
 import com.rtmillerprojects.sangitlive.util.CircleTransform;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
 import com.squareup.picasso.Picasso;
 
-import org.parceler.Parcels;
-
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
