@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by Ryan on 9/7/2016.
  */
-public class ArtistImageEvent {
+public class ArtistsThumbnailRequest {
     public ArrayList<String> mbids;
     public ArrayList<String> getMbids() {
         return mbids;
@@ -15,7 +15,7 @@ public class ArtistImageEvent {
         this.mbids = mbids;
     }
 
-    public ArtistImageEvent(ArrayList<String> mbids) {
+    public ArtistsThumbnailRequest(ArrayList<String> mbids) {
         this.mbids = mbids;
     }
 }

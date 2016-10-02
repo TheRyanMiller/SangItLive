@@ -75,14 +75,13 @@ public class MainFragment extends BaseFragment{
             }
 
             @Override public void onPageSelected(int position) {
-                if (position == 2) {
+                if (position == 1) {
                     fab.show();
                     fab.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(ACA, ActivityArtistSearch.class);
                             ACA.startActivity(intent);
-                            ACA.overridePendingTransition(R.anim.slide_in_left,R.anim.stay);
                         }
                     });
                 } else {
@@ -97,6 +96,7 @@ public class MainFragment extends BaseFragment{
 
         // Set up the TabLayout with the ViewPager
         tabLayout.setupWithViewPager(viewPager);
+
 
 
         // Listen for fab clicks

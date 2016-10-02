@@ -58,7 +58,7 @@ public class HomeRsvpFragment extends BaseFragment{
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         db = DatabaseHelper.getInstance(ACA);
-        events = db.getEventsAttending();
+        events = db.getEventsAttending(true);
         context = getContext();
         rsvpAdapter = new HomeUpcomingAdapter(events,ACA);
         recyclerView.setAdapter(rsvpAdapter);
@@ -93,7 +93,7 @@ public class HomeRsvpFragment extends BaseFragment{
         events = null;
         rsvpAdapter = null;
         db = DatabaseHelper.getInstance(ACA);
-        events = db.getEventsAttending();
+        events = db.getEventsAttending(true);
         rsvpAdapter = new HomeUpcomingAdapter(events,ACA);
         recyclerView.setAdapter(rsvpAdapter);
         recyclerView.setLayoutManager(layoutManager);

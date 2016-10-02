@@ -133,7 +133,7 @@ public class HomeUpcomingFragment extends BaseFragment {
             events = db.getEventsLocal();
         }
         else{
-            events = db.getEventsAll();
+            events = db.getEventsAll(true);
         }
         recyclerView.setVisibility(View.VISIBLE);
         emptyView.setVisibility(View.GONE);

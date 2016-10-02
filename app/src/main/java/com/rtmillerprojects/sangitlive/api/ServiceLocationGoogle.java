@@ -2,19 +2,13 @@ package com.rtmillerprojects.sangitlive.api;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rtmillerprojects.sangitlive.EventBus;
-import com.rtmillerprojects.sangitlive.model.ArtistImageEvent;
 import com.rtmillerprojects.sangitlive.model.EventCalls.GoogleLocationRequest;
-import com.rtmillerprojects.sangitlive.model.EventCalls.LastFmArtistDetails;
 import com.rtmillerprojects.sangitlive.model.GoogleLocation.LocationResults;
-import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
 import com.squareup.otto.Subscribe;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;

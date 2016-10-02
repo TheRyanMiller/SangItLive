@@ -1,48 +1,32 @@
 package com.rtmillerprojects.sangitlive.ui;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
-import com.rtmillerprojects.sangitlive.adapter.HomeUpcomingAdapter;
 import com.rtmillerprojects.sangitlive.adapter.SetAdapter;
-import com.rtmillerprojects.sangitlive.api.ServiceSetlist;
 import com.rtmillerprojects.sangitlive.api.SetlistTypeAdapterFactory;
 import com.rtmillerprojects.sangitlive.listener.GetMbid;
-import com.rtmillerprojects.sangitlive.model.ArtistImageEvent;
-import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
-import com.rtmillerprojects.sangitlive.model.EventCalls.LastFmArtistDetails;
 import com.rtmillerprojects.sangitlive.model.EventCalls.SetlistRequest;
 import com.rtmillerprojects.sangitlive.model.LoadSetlistsEvent;
-import com.rtmillerprojects.sangitlive.model.PostArtistSearch;
 import com.rtmillerprojects.sangitlive.model.SetInfo;
 import com.rtmillerprojects.sangitlive.model.SetlistsByArtists;
-import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
 import com.squareup.otto.Subscribe;
-import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by Ryan on 9/2/2016.
@@ -91,8 +75,6 @@ public class FragmentArtistSetlists extends BaseFragment {
         sr = new SetlistRequest(listener.getMbid(), 1);
         EventBus.post(sr);
 
-        page++;
-
         GsonBuilder gsonBuilder = new GsonBuilder()
                 .registerTypeAdapterFactory(new SetlistTypeAdapterFactory());
         Gson gson = gsonBuilder.create();
@@ -103,10 +85,7 @@ public class FragmentArtistSetlists extends BaseFragment {
             emptyView.setVisibility(View.VISIBLE);
         }
 
-
-
         return rootView;
-
     }
 
     @Override

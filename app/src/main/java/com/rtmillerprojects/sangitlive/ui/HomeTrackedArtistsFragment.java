@@ -8,15 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
-import com.rtmillerprojects.sangitlive.adapter.HomeRsvpdAdapter;
 import com.rtmillerprojects.sangitlive.adapter.HomeTrackedArtistsAdapter;
-import com.rtmillerprojects.sangitlive.model.ArtistDetails;
-import com.rtmillerprojects.sangitlive.model.ArtistImageEvent;
-import com.rtmillerprojects.sangitlive.model.ArtistImageFound;
-import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
+import com.rtmillerprojects.sangitlive.model.ArtistsThumbnailRequest;
 import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
 import com.squareup.otto.Subscribe;
@@ -34,13 +31,13 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private DatabaseHelper db;
-    private List<Long> favoritedEvents;
     private Context context;
     private HomeTrackedArtistsAdapter trackedArtistAdapter;
     private ArrayList<ArtistLastFm> artists = new ArrayList<>();
     private SwipeRefreshLayout trackedArtistSwipeRefresh;
     private int returnCounter;
     private int sizeOfArtists;
+    private TextView emptyView;
 
 
     public static HomeTrackedArtistsFragment newInstance() {
@@ -64,6 +61,7 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
         View rootView = inflater.inflate(R.layout.home_tracked_artists_fragment, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.tracked_artists);
         trackedArtistSwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.rsvpSwipeRefresh);
+        emptyView = (TextView) rootView.findViewById(R.id.empty_view);
 
         layoutManager = new LinearLayoutManager(ACA);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -116,8 +114,8 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
         });
         returnCounter++;
         if(returnCounter == sizeOfArtists) {
-            //trackedArtistAdapter = new HomeTrackedArtistsAdapter(artists, ACA);
-            //recyclerView.setAdapter(trackedArtistAdapter);
+            trackedArtistAdapter = new HomeTrackedArtistsAdapter(artists, ACA);
+            recyclerView.setAdapter(trackedArtistAdapter);
             recyclerView.setLayoutManager(layoutManager);
             trackedArtistSwipeRefresh.setRefreshing(false);
             returnCounter = 0;
@@ -129,6 +127,8 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
         db = DatabaseHelper.getInstance(ACA);
         artists = db.getAllArtists();
         if(artists.size()>0) {
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
             ArrayList<String> mbids = new ArrayList<>();
             for (int i = 0; i < artists.size(); i++) {
                 mbids.add(artists.get(i).getArtist().getMbid());
@@ -136,7 +136,11 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
             sizeOfArtists = artists.size();
             artists = new ArrayList<ArtistLastFm>();
             //recyclerView.setAdapter(new HomeTrackedArtistsAdapter(artists,ACA));
-            EventBus.post(new ArtistImageEvent(mbids));
+            EventBus.post(new ArtistsThumbnailRequest(mbids));
+        }
+        else{
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
         }
         trackedArtistSwipeRefresh.setRefreshing(false);
     }

@@ -41,7 +41,7 @@ public class FragmentArtistMain extends BaseFragment{
     DatabaseHelper db;
     boolean isFavorite;
     String artistName;
-    ArtistDetails ad;
+    ArtistDetails adr;
     EventManagerService ems;
 
     private MainListener listener;
@@ -72,7 +72,8 @@ public class FragmentArtistMain extends BaseFragment{
         starArtist = (CheckBox) rootView.findViewById(R.id.save_artist_star);
         mbid = mbidListener.getMbid();
         artistName = mbidListener.getArtistName();
-        ad = new ArtistDetails();
+        final ArtistDetails ad = new ArtistDetails();
+        adr = ad;
         ad.setMbid(mbid);
         ad.setName(artistName);
 
@@ -111,17 +112,6 @@ public class FragmentArtistMain extends BaseFragment{
             }
         });
 
-        /* ARTIST STAR LOGIC */
-        //Determine if saved already to set star state
-        db = DatabaseHelper.getInstance(ACA);
-        final ArtistLastFm artist = db.getArtistById(mbid);
-
-        if(artist==null) {
-            starArtist.setChecked(false);
-        }
-        else{
-            starArtist.setChecked(true);
-        }
 
 
         starArtist.setOnClickListener(new View.OnClickListener() {
@@ -138,10 +128,9 @@ public class FragmentArtistMain extends BaseFragment{
 
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    String mbid = artist.getArtist().getMbid();
-                                    db.deleteArtist(mbid);
-                                    db.deleteEventsAllByArtist(mbid);
-                                    db.deleteEventsLocalByArtist(mbid);
+                                    db.deleteArtist(ad.getMbid());
+                                    db.deleteEventsAllByArtist(ad.getMbid(), ad.getName());
+                                    db.deleteEventsLocalByArtist(ad.getMbid(), ad.getName());
                                 }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
@@ -160,7 +149,7 @@ public class FragmentArtistMain extends BaseFragment{
                     pd.setCancelable(false);
                     db.insertArtist(ad);
                     ems = ems.getInstance(ACA);
-                    ems.getArtistEventsAll(new NameMbidPair(artistName,mbid));
+                    ems.getArtistEventsAll(new NameMbidPair(ad.getName(),ad.getMbid()));
                     pd.cancel();
                 }
 
@@ -201,8 +190,8 @@ public class FragmentArtistMain extends BaseFragment{
     }
 
     public void refreshStar(){
-        if(starArtist!=null){
-            if(db.getArtistById(ad.getMbid())==null){
+        if(starArtist!=null && adr!=null){
+            if(db.getArtistById(adr.getMbid())==null){
                 starArtist.setChecked(false);
             }
             else{

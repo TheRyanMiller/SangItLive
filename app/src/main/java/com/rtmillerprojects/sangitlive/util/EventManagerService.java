@@ -47,7 +47,7 @@ public class EventManagerService {
 
     @Subscribe
     public void receiveArtistEventsAll(BITResultPackageEventMgr result){
-        db.deleteEventsAllByArtist(result.pair.getMbid());
+        db.deleteEventsAllByArtist(result.pair.getMbid(),result.pair.getArtistName());
         //Insert into DB
         db.insertEventsAll(result.events);
 

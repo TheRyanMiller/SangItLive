@@ -7,7 +7,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rtmillerprojects.sangitlive.EventBus;
-import com.rtmillerprojects.sangitlive.model.ArtistImageEvent;
+import com.rtmillerprojects.sangitlive.model.ArtistsThumbnailRequest;
 import com.rtmillerprojects.sangitlive.model.ArtistImageFound;
 import com.rtmillerprojects.sangitlive.model.musicbrainzartistresourcemodel.MusicBrainzArtistResourceResult;
 import com.rtmillerprojects.sangitlive.model.musicbrainzartistresourcemodel.Relation;
@@ -50,9 +50,9 @@ public class ServiceArtistImage {
         */
     }
 
-
+/*
     @Subscribe
-    public void receiveQueryForArtistImage(ArtistImageEvent msg){
+    public void receiveQueryForArtistImage(ArtistsThumbnailRequest msg){
         ArrayList<String> mbids = msg.getMbids();
         Gson gson = new GsonBuilder()
                 //.registerTypeAdapterFactory(new ())
@@ -102,5 +102,5 @@ public class ServiceArtistImage {
         }
 
     }
-
+*/
 }

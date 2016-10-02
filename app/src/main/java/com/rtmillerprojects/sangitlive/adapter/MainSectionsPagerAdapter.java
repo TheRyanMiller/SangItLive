@@ -21,8 +21,8 @@ import com.rtmillerprojects.sangitlive.ui.HomeUpcomingFragment;
 public class MainSectionsPagerAdapter extends FragmentPagerAdapter {
 
   public final int HOME_UPCOMING = 0;
-  public final int HOME_RSVP = 1;
-  public final int TRACKED_ARTISTS = 2;
+  public final int TRACKED_ARTISTS = 1;
+  public final int HOME_RSVP = 2;
   public final int HOME_HISTORY = 3;
 
   public MainSectionsPagerAdapter(FragmentManager fm) {
@@ -60,11 +60,11 @@ public class MainSectionsPagerAdapter extends FragmentPagerAdapter {
   @Override public CharSequence getPageTitle(int position) {
     switch (position) {
       case 0:
-        return "Upcoming";
+        return "Feed";
       case 1:
-        return "RSVP'd";
-      case 2:
         return "Tracked Artists";
+      case 2:
+        return "RSVP'd";
       case 3:
         return "History";
     }
