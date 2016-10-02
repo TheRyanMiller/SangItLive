@@ -234,7 +234,6 @@ public class ServiceUpcomingEvents {
                 call.enqueue(new Callback<ArrayList<BandsInTownEventResult>>() {
                     @Override
                     public void onResponse(Call<ArrayList<BandsInTownEventResult>> call, Response<ArrayList<BandsInTownEventResult>> response) {
-                        String aName = event.getNameMbidPairs().get(responseCounter).getArtistName();
                         if (response.body() == null && response.errorBody() != null){
                             //Check against known failures
                             String reqUrl = response.raw().request().url().toString();
@@ -256,6 +255,15 @@ public class ServiceUpcomingEvents {
                             }
                         }
                         else if(response.body() != null){
+                            String reqUrl = response.raw().request().url().toString();
+                            String retMbid = reqUrl.substring(reqUrl.indexOf("mbid_")+5, reqUrl.indexOf("/events"));
+                            NameMbidPair n = new NameMbidPair(artistName,retMbid);
+                            for(NameMbidPair p : pairs){
+                                if(p.getMbid().contains(retMbid)){
+                                    n = new NameMbidPair(p.getArtistName(),retMbid);
+                                    break;
+                                }
+                            }
                             bandsInTownEvents = response.body();
                             Log.d("RYAN TEST", artistName+" EVENT SEARCH BY MBID SUCCESS");
                             ArrayList<BandsInTownEventResult> scrubbedEventList = new ArrayList<>();
@@ -272,7 +280,7 @@ public class ServiceUpcomingEvents {
                                 boolean a = e.isAttending();
                                 scrubbedEventList.add(e);
                             }
-                            EventBus.post(new BITResultPackage(scrubbedEventList));
+                            EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,n));
                         }
                         responseCounter++;
                     }
@@ -292,7 +300,7 @@ public class ServiceUpcomingEvents {
 
     @Subscribe
     public void newEventMgrAttempt(EventMgrNameMbidPair emPair){
-        NameMbidPair nmp = emPair.pair;
+        final NameMbidPair nmp = emPair.pair;
         Gson gson = new GsonBuilder()
                 //.registerTypeAdapterFactory(new SetlistTypeAdapterFactory())
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
@@ -341,7 +349,7 @@ public class ServiceUpcomingEvents {
                         boolean a = e.isAttending();
                         scrubbedEventList.add(e);
                     }
-                    EventBus.post(new BITResultPackage(scrubbedEventList));
+                    EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,nmp));
                 }
             }
 

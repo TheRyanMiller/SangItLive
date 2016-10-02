@@ -14,6 +14,7 @@ import com.crashlytics.android.Crashlytics;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.HomeUpcomingAdapter;
+import com.rtmillerprojects.sangitlive.model.EventCalls.BITResultPackage;
 import com.rtmillerprojects.sangitlive.model.EventCalls.MBBrowseList;
 import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
 import com.rtmillerprojects.sangitlive.model.EventCalls.UpcomingEventQuery;
@@ -43,6 +44,7 @@ public class HomeUpcomingFragment extends BaseFragment {
     private int mScrollPosition = 0;
     private int mScrollOffset = 0;
 
+    private boolean filterActivated = false;
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private HomeUpcomingAdapter upcomingAdapter;
@@ -104,45 +106,6 @@ public class HomeUpcomingFragment extends BaseFragment {
         return rootView;
     }
 
-    @Subscribe
-    public void receiveEventResults(MBBrowseList.BITResultPackage bitResultPackage) {
-        ArrayList<BandsInTownEventResult> apiEvents = bitResultPackage.events;
-        recyclerView.setVisibility(View.VISIBLE);
-        emptyView.setVisibility(View.GONE);
-        if(events==null || events.size()==0){
-            //do something if null
-            events = apiEvents;
-            Collections.sort(events, new Comparator<BandsInTownEventResult>() {
-                @Override
-                public int compare(BandsInTownEventResult o1, BandsInTownEventResult o2) {
-                    return o1.getDatetime().compareTo(o2.getDatetime());
-                }
-            });
-            upcomingAdapter = new HomeUpcomingAdapter(events,getContext());
-            recyclerView.setAdapter(upcomingAdapter);
-            recyclerView.setLayoutManager(layoutManager);
-        }
-        else {
-            for(BandsInTownEventResult event : apiEvents){
-                events.add(event);
-            }
-            //upcomingAdapter = new HomeUpcomingAdapter(events,ACA);
-            Collections.sort(events, new Comparator<BandsInTownEventResult>() {
-                @Override
-                public int compare(BandsInTownEventResult o1, BandsInTownEventResult o2) {
-                    return o1.getDatetime().compareTo(o2.getDatetime());
-                }
-            });
-            upcomingAdapter.notifyDataSetChanged();
-        }
-        mProgressBar.setVisibility(View.GONE);
-        swipeRefreshLayout.setRefreshing(false);
-        if(events.size()==0){
-            recyclerView.setVisibility(View.GONE);
-            emptyView.setVisibility(View.VISIBLE);
-        }
-    }
-
 
     @Override
     public void onResume() {
@@ -165,7 +128,32 @@ public class HomeUpcomingFragment extends BaseFragment {
         db = DatabaseHelper.getInstance(ACA);
         mbids = (ArrayList<String>) db.getFavoritedArtistMbids();
         nameMbidPairs = (ArrayList<NameMbidPair>) db.getFavoritedNameMbidPairs();
-        EventBus.post(new UpcomingEventQuery(nameMbidPairs,1,false));
+        //EventBus.post(new UpcomingEventQuery(nameMbidPairs,1,false));
+        if(filterActivated){
+            events = db.getEventsLocal();
+        }
+        else{
+            events = db.getEventsAll();
+        }
+        recyclerView.setVisibility(View.VISIBLE);
+        emptyView.setVisibility(View.GONE);
+        if(events==null || events.size()==0){
+            //do something if null
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+        else {
+            Collections.sort(events, new Comparator<BandsInTownEventResult>() {
+                @Override
+                public int compare(BandsInTownEventResult o1, BandsInTownEventResult o2) {
+                    return o1.getDatetime().compareTo(o2.getDatetime());
+                }
+            });
+            upcomingAdapter = new HomeUpcomingAdapter(events,getContext());
+            recyclerView.setAdapter(upcomingAdapter);
+            recyclerView.setLayoutManager(layoutManager);
+        }
+        swipeRefreshLayout.setRefreshing(false);
     }
 
 

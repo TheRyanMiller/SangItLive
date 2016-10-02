@@ -53,8 +53,11 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
         ArtistLastFm artistDetails = artists.get(position);
         holder.artistDetails = artistDetails;
         holder.resultNumber = position;
-        holder.artistMbid = artistDetails.getArtist().getMbid();
-        holder.artistName.setText(artistDetails.getArtist().getName());
+        //use this if check for testing and then remove
+        if(artistDetails.getArtist()!=null){
+            holder.artistMbid = artistDetails.getArtist().getMbid();
+            holder.artistName.setText(artistDetails.getArtist().getName());
+        }
         holder.position = position;
 
         try {

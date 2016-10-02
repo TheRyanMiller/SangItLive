@@ -1,5 +1,6 @@
 package com.rtmillerprojects.sangitlive.model.EventCalls;
 
+import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class EventManagerRequest {
         this.nameMbidPairs = nameMbidPairs;
         this.page = page;
         this.failedMbidAttempt = failedMbidAttempt;
+
     }
 
     public ArrayList<NameMbidPair> getNameMbidPairs() {

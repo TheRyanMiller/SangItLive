@@ -2,6 +2,15 @@ package com.rtmillerprojects.sangitlive.util;
 
 import android.content.Context;
 
+import com.rtmillerprojects.sangitlive.EventBus;
+import com.rtmillerprojects.sangitlive.api.BITResultPackageEventMgr;
+import com.rtmillerprojects.sangitlive.model.BandsInTownArtist;
+import com.rtmillerprojects.sangitlive.model.EventCalls.EventManagerRequest;
+import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
+import com.squareup.otto.Subscribe;
+
+import java.util.ArrayList;
+
 /**
  * Created by Ryan on 10/1/2016.
  */
@@ -11,7 +20,7 @@ public class EventManagerService {
     private int dbVersion;
 
     //Singleton
-    public static synchronized EventManagerService getInstance(Context context){
+    public static EventManagerService getInstance(Context context){
         // Use the application context, which will ensure that you
         // don't accidentally leak an Activity's context.
         // See this article for more information: http://bit.ly/6LRzfx
@@ -25,6 +34,23 @@ public class EventManagerService {
     private EventManagerService(Context context) {
         db = db.getInstance(context);
         dbVersion = db.getCurrentVersion();
+        EventBus.register(this);
+    }
+
+    public void getArtistEventsAll(NameMbidPair nmPair){
+        ArrayList<NameMbidPair> pairs = new ArrayList<>();
+        pairs.add(nmPair);
+        //Request All Events for this artist
+        EventBus.post(new EventManagerRequest(pairs,0,false));
+        //Need new function to request only local events
+    }
+
+    @Subscribe
+    public void receiveArtistEventsAll(BITResultPackageEventMgr result){
+        db.deleteEventsAllByArtist(result.pair.getMbid());
+        //Insert into DB
+        db.insertEventsAll(result.events);
+
     }
 
     /*

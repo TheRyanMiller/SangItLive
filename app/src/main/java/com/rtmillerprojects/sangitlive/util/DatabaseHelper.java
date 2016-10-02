@@ -32,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static DatabaseHelper sInstance;
     private static final String TAG = "DatabaseHelper";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 1;
 
     //Table Defs
     public static final String DATABASE_NAME = "concertcompanion.db";
@@ -62,6 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String EVENT_IS_PAST = "is_past";
     private static final String EVENT_TICKET_URL = "ticket_url";
     private static final String EVENT_DESCRIPTION = "description";
+    private static final String EVENT_IS_ATTENDING = "is_attending";
 
 
 
@@ -89,9 +90,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             EVENT_VENUE_NAME + " TEXT," +
             EVENT_TICKET_URL + " TEXT," +
             EVENT_IS_PAST + " INTEGER," +
+            EVENT_IS_ATTENDING + " INTEGER," +
             KEY_CREATED_AT + " DATETIME" + ")";
 
-    private static final String CREATE_TABLE_EVENT_LOCAL = "CREATE TABLE " + TABLE_EVENT_ATTENDING + "(" +
+    private static final String CREATE_TABLE_EVENT_LOCAL = "CREATE TABLE " + TABLE_EVENT_LOCAL + "(" +
             KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             EVENT_ID + " TEXT UNIQUE," +
             EVENT_DESCRIPTION + " TEXT," +
@@ -107,9 +109,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             EVENT_VENUE_NAME + " TEXT," +
             EVENT_TICKET_URL + " TEXT," +
             EVENT_IS_PAST + " INTEGER," +
+            EVENT_IS_ATTENDING + " INTEGER," +
             KEY_CREATED_AT + " DATETIME" + ")";
 
-    private static final String CREATE_TABLE_EVENT_ALL = "CREATE TABLE " + TABLE_EVENT_ATTENDING + "(" +
+    private static final String CREATE_TABLE_EVENT_ALL = "CREATE TABLE " + TABLE_EVENT_ALL + "(" +
             KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             EVENT_ID + " TEXT UNIQUE," +
             EVENT_DESCRIPTION + " TEXT," +
@@ -125,6 +128,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             EVENT_VENUE_NAME + " TEXT," +
             EVENT_TICKET_URL + " TEXT," +
             EVENT_IS_PAST + " INTEGER," +
+            EVENT_IS_ATTENDING + " INTEGER," +
             KEY_CREATED_AT + " DATETIME" + ")";
 
 
@@ -156,6 +160,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // on upgrade drop older tables
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT_ATTENDING);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT_ALL);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT_LOCAL);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ARTIST);
         // create new tables
         onCreate(db);
@@ -185,7 +191,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         else{
             values.put(EVENT_IS_PAST, 1);
-        };
+        }
+        if(event.isAttending()){
+            values.put(EVENT_IS_ATTENDING, 1);
+        }
+        else{
+            values.put(EVENT_IS_ATTENDING, 0);
+        }
 
         // insert row
         long eventId = db.insertWithOnConflict(TABLE_EVENT_ATTENDING, null, values, SQLiteDatabase.CONFLICT_IGNORE);
@@ -213,7 +225,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         else{
             values.put(EVENT_IS_PAST, 1);
-        };
+        }
+        if(event.isAttending()){
+            values.put(EVENT_IS_ATTENDING, 1);
+        }
+        else{
+            values.put(EVENT_IS_ATTENDING, 0);
+        }
 
         // insert row
         long eventId = db.insertWithOnConflict(TABLE_EVENT_LOCAL, null, values, SQLiteDatabase.CONFLICT_IGNORE);
@@ -223,26 +241,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public long insertEventAll(BandsInTownEventResult event) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(EVENT_ID, event.getId());
-        values.put(EVENT_TITLE, event.getTitle());
-        values.put(EVENT_DESCRIPTION, event.getDescription());
-        values.put(ARTIST_MBID,event.getArtists().get(0).getMbid());
-        values.put(ARTIST_NAME,event.getArtists().get(0).getName());
-        values.put(EVENT_DATE, event.getDatetime().toString());
-        values.put(EVENT_TICKET_URL, event.getTicketUrl().toString());
-        values.put(EVENT_FORMATTED_LOC, event.getFormattedLocation().toString());
-        values.put(EVENT_VENUE_CITY, event.getVenue().getCity());
-        values.put(EVENT_VENUE_REGION, event.getVenue().getRegion());
-        values.put(EVENT_VENUE_PLACE, event.getVenue().getPlace());
-        values.put(EVENT_VENUE_COUNTRY, event.getVenue().getCountry());
-        values.put(EVENT_VENUE_NAME, event.getVenue().getName());
+        if(event.getId()!=null){values.put(EVENT_ID, event.getId());}
+        if(event.getTitle()!=null){values.put(EVENT_TITLE, event.getTitle());}
+        if(event.getDescription()!=null){values.put(EVENT_DESCRIPTION, event.getDescription());}
+        if(event.getArtists().get(0).getMbid()!=null){values.put(ARTIST_MBID,event.getArtists().get(0).getMbid());}
+        if(event.getArtists().get(0).getName()!=null){values.put(ARTIST_NAME,event.getArtists().get(0).getName());}
+        if(event.getDatetime()!=null){values.put(EVENT_DATE, event.getDatetime().toString());}
+        if(event.getTicketUrl()!=null){values.put(EVENT_TICKET_URL, event.getTicketUrl().toString());}
+        if(event.getFormattedLocation()!=null){values.put(EVENT_FORMATTED_LOC, event.getFormattedLocation());}
+        if(event.getVenue()!=null && event.getVenue().getCity()!=null){values.put(EVENT_VENUE_CITY, event.getVenue().getCity());}
+        if(event.getVenue()!=null && event.getVenue().getRegion()!=null){values.put(EVENT_VENUE_REGION, event.getVenue().getRegion());}
+        if(event.getVenue()!=null && event.getVenue().getPlace()!=null){values.put(EVENT_VENUE_PLACE, event.getVenue().getPlace());}
+        if(event.getVenue()!=null && event.getVenue().getCountry()!=null){values.put(EVENT_VENUE_COUNTRY, event.getVenue().getCountry());}
+        if(event.getVenue()!=null && event.getVenue().getName()!=null){values.put(EVENT_VENUE_NAME, event.getVenue().getName());}
         values.put(KEY_CREATED_AT, getCurrentDateTimeAsString());
-        if(event.getDatetime().before(new Date())){
+        if(event.getDatetime()!=null){if(event.getDatetime().before(new Date())){
             values.put(EVENT_IS_PAST, 0);
-        }
+        }}
         else{
             values.put(EVENT_IS_PAST, 1);
-        };
+        }
+        if(event.isAttending()){
+            values.put(EVENT_IS_ATTENDING, 1);
+        }
+        else{
+            values.put(EVENT_IS_ATTENDING, 0);
+        }
 
         // insert row
         long eventId = db.insertWithOnConflict(TABLE_EVENT_ALL, null, values, SQLiteDatabase.CONFLICT_IGNORE);
@@ -282,7 +306,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<BandsInTownEventResult> getAllEvents() {
+    public ArrayList<BandsInTownEventResult> getEventsAttending() {
         ArrayList<BandsInTownEventResult> events = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT  * FROM " + TABLE_EVENT_ATTENDING;
@@ -307,6 +331,106 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 event.setArtists(artistList);
                 event.setFormattedLocation(c.getString(c.getColumnIndex(EVENT_FORMATTED_LOC)));
                 event.setAttending(true);
+                Venue v = new Venue();
+                v.setCity(c.getString(c.getColumnIndex(EVENT_VENUE_CITY)));
+                v.setName(c.getString(c.getColumnIndex(EVENT_VENUE_NAME)));
+                v.setPlace(c.getString(c.getColumnIndex(EVENT_VENUE_PLACE)));
+                v.setRegion(c.getString(c.getColumnIndex(EVENT_VENUE_REGION)));
+                v.setCountry(c.getString(c.getColumnIndex(EVENT_VENUE_COUNTRY)));
+                event.setVenue(v);
+
+                if(c.getColumnIndex(EVENT_IS_ATTENDING)==0){
+                    event.setAttending(false);
+                }
+                else{
+                    event.setAttending(true);
+                }
+
+
+                events.add(event);
+            } while(c.moveToNext());
+            c.moveToFirst();
+        }
+        Collections.sort(events, new Comparator<BandsInTownEventResult>() {
+            @Override
+            public int compare(BandsInTownEventResult o1, BandsInTownEventResult o2) {
+                return o1.getDatetime().compareTo(o2.getDatetime());
+            }
+        });
+        return events;
+    }
+
+    public ArrayList<BandsInTownEventResult> getEventsAll() {
+        ArrayList<BandsInTownEventResult> events = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT  * FROM " + TABLE_EVENT_ALL;
+        /* Specified record
+        String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS + " WHERE "
+                + KEY_ID + " = " + todo_id;
+        */
+        Log.e(TAG, selectQuery);
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                BandsInTownEventResult event = new BandsInTownEventResult();
+                event.setId(c.getInt(c.getColumnIndex(EVENT_ID)));
+                event.setDatetime(convertToDate(c.getString(c.getColumnIndex(EVENT_DATE))));
+                //event.setDatetime();
+                event.setTitle(c.getString(c.getColumnIndex(EVENT_TITLE)));
+                ArrayList<BandsInTownArtist> artistList = new ArrayList<>();
+                BandsInTownArtist artist = new BandsInTownArtist();
+                artist.setMbid(c.getString(c.getColumnIndex(ARTIST_MBID)));
+                artist.setName(c.getString(c.getColumnIndex(ARTIST_NAME)));
+                artistList.add(artist);
+                event.setArtists(artistList);
+                event.setFormattedLocation(c.getString(c.getColumnIndex(EVENT_FORMATTED_LOC)));
+                event.setAttending(false);
+                Venue v = new Venue();
+                v.setCity(c.getString(c.getColumnIndex(EVENT_VENUE_CITY)));
+                v.setName(c.getString(c.getColumnIndex(EVENT_VENUE_NAME)));
+                v.setPlace(c.getString(c.getColumnIndex(EVENT_VENUE_PLACE)));
+                v.setRegion(c.getString(c.getColumnIndex(EVENT_VENUE_REGION)));
+                v.setCountry(c.getString(c.getColumnIndex(EVENT_VENUE_COUNTRY)));
+                event.setVenue(v);
+                events.add(event);
+            } while(c.moveToNext());
+            c.moveToFirst();
+        }
+        Collections.sort(events, new Comparator<BandsInTownEventResult>() {
+            @Override
+            public int compare(BandsInTownEventResult o1, BandsInTownEventResult o2) {
+                return o1.getDatetime().compareTo(o2.getDatetime());
+            }
+        });
+        return events;
+    }
+
+    public ArrayList<BandsInTownEventResult> getEventsLocal() {
+        ArrayList<BandsInTownEventResult> events = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT  * FROM " + TABLE_EVENT_LOCAL;
+
+        /* Specified record
+        String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS + " WHERE "
+                + KEY_ID + " = " + todo_id;
+        */
+        Log.e(TAG, selectQuery);
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                BandsInTownEventResult event = new BandsInTownEventResult();
+                event.setId(c.getInt(c.getColumnIndex(EVENT_ID)));
+                event.setDatetime(convertToDate(c.getString(c.getColumnIndex(EVENT_DATE))));
+                //event.setDatetime();
+                event.setTitle(c.getString(c.getColumnIndex(EVENT_TITLE)));
+                ArrayList<BandsInTownArtist> artistList = new ArrayList<>();
+                BandsInTownArtist artist = new BandsInTownArtist();
+                artist.setMbid(c.getString(c.getColumnIndex(ARTIST_MBID)));
+                artist.setName(c.getString(c.getColumnIndex(ARTIST_NAME)));
+                artistList.add(artist);
+                event.setArtists(artistList);
+                event.setFormattedLocation(c.getString(c.getColumnIndex(EVENT_FORMATTED_LOC)));
+                event.setAttending(false);
                 Venue v = new Venue();
                 v.setCity(c.getString(c.getColumnIndex(EVENT_VENUE_CITY)));
                 v.setName(c.getString(c.getColumnIndex(EVENT_VENUE_NAME)));
@@ -345,7 +469,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return artists;
     }
 
-    public BandsInTownEventResult getEventById(long eventId) {
+    public BandsInTownEventResult getEventAttendingById(long eventId) {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT  * FROM " + TABLE_EVENT_ATTENDING + " WHERE "
                 + EVENT_ID + " = " + eventId;
@@ -378,6 +502,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else{
             return null;
         }
+    }
+
+    public void updateEventAllByIdMarkAsAttending(long eventId){
+        //use this funciton to find an event in the all table and mark it as attending
+        String selectQuery = "UPDATE " + TABLE_EVENT_ALL + " SET "
+                + EVENT_IS_ATTENDING + " = "+ 1 + " WHERE "+ EVENT_ID +" = "+eventId;
     }
 
     public ArtistLastFm getArtistById(String mbid){
@@ -461,17 +591,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteEventsAttendingByArtist(String mbid){
         SQLiteDatabase db = this.getReadableDatabase();
-        db.delete(TABLE_EVENT_ATTENDING,ARTIST_MBID+"="+mbid,null);
+        db.delete(TABLE_EVENT_ATTENDING,ARTIST_MBID+"='"+mbid+"'",null);
     }
 
     public void deleteEventsLocalByArtist(String mbid){
         SQLiteDatabase db = this.getReadableDatabase();
-        db.delete(TABLE_EVENT_LOCAL,ARTIST_MBID+"="+mbid,null);
+        db.delete(TABLE_EVENT_LOCAL,ARTIST_MBID+"='"+mbid+"'",null);
     }
 
     public void deleteEventsAllByArtist(String mbid){
         SQLiteDatabase db = this.getReadableDatabase();
-        db.delete(TABLE_EVENT_ALL,ARTIST_MBID+"="+mbid,null);
+        db.delete(TABLE_EVENT_ALL,ARTIST_MBID+"='"+mbid+"'",null);
     }
 
     private String getCurrentDateTimeAsString() {
@@ -497,41 +627,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return date;
     }
-
-
-
-    /*
-
-    GET STUFF BY ID EXAMPLE BELOW
-
-    public AgendaItem getEventById(long recordId) {
-        AgendaItem dbAgendaItem = new AgendaItem();
-        SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT  * FROM " + TABLE_AGENDA_ITEMS +" WHERE "+ KEY_ID +" = "+ recordId;
-        Cursor c = db.rawQuery(selectQuery, null);
-        if (c.moveToFirst()) {
-            dbAgendaItem.setTitle(c.getString(c.getColumnIndex(EVENT_TITLE)));
-            try{
-                Date dbDate = new Date(c.getLong(c.getColumnIndex(EVENT_DATE))*1000);
-                dbAgendaItem.setDate(dbDate);
-            } catch(ParseException e) {
-                e.printStackTrace();
-            }
-            int isRecurring = c.getInt(c.getColumnIndex(EVENT_RECURRING));
-            dbAgendaItem.setRecurRate(c.getString(c.getColumnIndex(EVENT_RECURRATE)));
-            //Handle date type incompatibilities
-            if(isRecurring==1){dbAgendaItem.setRecurring(true);}
-            else{dbAgendaItem.setRecurring(false);}
-
-            if(c.getBlob(c.getColumnIndex(EVENT_IMAGE))==null) {}
-            else{
-                dbAgendaItem.setEventImage(DbBitmapUtility.getImage(c.getBlob(c.getColumnIndex(EVENT_IMAGE))));
-            }
-        }
-        return dbAgendaItem;
-    }
-   */
-
 
 
 

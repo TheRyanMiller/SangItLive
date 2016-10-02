@@ -59,7 +59,7 @@ public class HomeHistoryFragment extends BaseFragment{
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         db = DatabaseHelper.getInstance(ACA);
-        events = db.getAllEvents();
+        events = db.getEventsAttending();
         context = getContext();
         Date d = new Date();
         for(BandsInTownEventResult e : events){
@@ -97,7 +97,7 @@ public class HomeHistoryFragment extends BaseFragment{
         scrubbedEvents = new ArrayList<>();
         eventHistoryAdapter = null;
         db = DatabaseHelper.getInstance(ACA);
-        events = db.getAllEvents();
+        events = db.getEventsAttending();
         Date d = new Date();
         for(BandsInTownEventResult e : events){
             if(e.getDatetime().before(d)){

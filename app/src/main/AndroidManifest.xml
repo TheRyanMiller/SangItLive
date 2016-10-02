@@ -21,7 +21,7 @@
         </activity>
         <activity android:name=".ui.ActivityArtistSearch"
             android:permission="android.permission.INTERNET" />
-        <activity android:name=".ui.SetlistDetailActivity"
+        <activity android:name=".ui.ActivitySetlistDetail"
             android:permission="android.permission.INTERNET" />
         <activity android:name=".ui.ActivityEventDetails"
             android:permission="android.permission.INTERNET" />

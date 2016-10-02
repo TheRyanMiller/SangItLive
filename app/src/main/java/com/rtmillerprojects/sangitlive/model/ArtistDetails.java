@@ -13,8 +13,6 @@ public class ArtistDetails {
     String url;
     String thumbUrl;
 
-
-
     public String getName() {
         return name;
     }

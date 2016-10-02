@@ -19,7 +19,7 @@ import com.rtmillerprojects.sangitlive.model.SetInfo;
 /**
  * Created by Ryan on 8/31/2016.
  */
-public class SetlistDetailActivity extends AppCompatActivity {
+public class ActivitySetlistDetail extends AppCompatActivity {
 
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;

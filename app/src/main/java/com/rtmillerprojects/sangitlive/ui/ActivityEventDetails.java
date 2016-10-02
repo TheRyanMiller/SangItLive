@@ -42,6 +42,9 @@ public class ActivityEventDetails extends AppCompatActivity {
         final BandsInTownEventResult event = Parcels.unwrap(intent.getParcelableExtra("event"));
 
         final ArtistDetails ad = new ArtistDetails();
+        ad.setMbid(event.getArtists().get(0).getMbid());
+        ad.setName(event.getArtists().get(0).getName());
+
         title = (TextView) findViewById(R.id.title);
         title.setText(event.getTitle().toString());
         date = (TextView) findViewById(R.id.date);
@@ -50,8 +53,7 @@ public class ActivityEventDetails extends AppCompatActivity {
         venue.setText(event.getVenue().getPlace().toString());
         city = (TextView) findViewById(R.id.city);
         city.setText(event.getVenue().getCity().toString());
-        ad.setMbid(event.getArtists().get(0).getMbid());
-        ad.setName(event.getArtists().get(0).getName());
+
         ticketLink = (TextView) findViewById(R.id.ticket_link);
         String ticketStatus;
 
@@ -99,7 +101,31 @@ public class ActivityEventDetails extends AppCompatActivity {
                 else{
                     DatabaseHelper db = DatabaseHelper.getInstance(context);
                     db.insertEventAttending(event);
-                    db.insertArtist(ad);
+                    db.updateEventAllByIdMarkAsAttending(event.getId());
+                    if(db.getArtistById(ad.getMbid())==null && ad.getMbid()!=null && ad.getName()!=null){
+                        new AlertDialog.Builder(context)
+                                .setIcon(android.R.drawable.ic_dialog_info)
+                                .setTitle("Add artist?")
+                                .setMessage("You are not currently tracking this artist. Would you like to add them?")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        String mbid = ad.getMbid();
+                                        DatabaseHelper db = DatabaseHelper.getInstance(context);
+                                        //db.insertArtist(ad);
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener(){
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                })
+                                .show();
+                    }
+
                 }
 
             }

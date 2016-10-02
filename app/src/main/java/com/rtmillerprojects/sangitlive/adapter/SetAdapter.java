@@ -13,7 +13,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.model.SetInfo;
-import com.rtmillerprojects.sangitlive.ui.SetlistDetailActivity;
+import com.rtmillerprojects.sangitlive.ui.ActivitySetlistDetail;
 
 import java.util.ArrayList;
 
@@ -45,13 +45,16 @@ public class SetAdapter extends RecyclerView.Adapter<SetAdapter.SetInstanceViewH
         SetInfo si = setInstances.get(position);
         //holder.view.setBackgroundColor(0xFFFF8A80);
 
-        holder.resultNumber.setText(++position +"");
         holder.name.setText(si.getSongName());
         holder.city.setText(si.getCity());
         holder.date.setText(si.getDate());
         holder.venue.setText(si.getVenue());
         holder.position = position;
         holder.setInfo = si;
+        if(si.getSongs()==null || si.getSongs().size()==0){
+            holder.songsFound.setImageDrawable(null);
+        }
+        else{holder.songsFound.setImageResource(R.drawable.setlisticon);}
         if(si.getWasPlayed()){
             holder.setListItem.setBackgroundResource(R.drawable.bordergreen);
             //holder.imgView.setImageResource(R.drawable.greenlight);
@@ -74,6 +77,7 @@ public class SetAdapter extends RecyclerView.Adapter<SetAdapter.SetInstanceViewH
         TextView date;
         TextView venue;
         int position;
+        ImageView songsFound;
         TextView resultNumber;
         public ImageView imgView;
         LinearLayout setListItem;
@@ -87,7 +91,7 @@ public class SetAdapter extends RecyclerView.Adapter<SetAdapter.SetInstanceViewH
             date = (TextView) v.findViewById(R.id.date);
             name = (TextView) v.findViewById(R.id.songname);
             venue = (TextView) v.findViewById(R.id.venue);
-            resultNumber = (TextView) v.findViewById(R.id.resultnumber);
+            songsFound = (ImageView) v.findViewById(R.id.songs_found);
             setListItem = (LinearLayout) v.findViewById(R.id.setlistitem);
             imgView = (ImageView) v.findViewById(R.id.indicator);
             this.ACA = (AppCompatActivity) context;
@@ -99,7 +103,7 @@ public class SetAdapter extends RecyclerView.Adapter<SetAdapter.SetInstanceViewH
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            Intent intent = new Intent(ACA, SetlistDetailActivity.class);
+            Intent intent = new Intent(ACA, ActivitySetlistDetail.class);
             intent.putExtra("setinfo",setInfo);
             ACA.startActivity(intent);
         }

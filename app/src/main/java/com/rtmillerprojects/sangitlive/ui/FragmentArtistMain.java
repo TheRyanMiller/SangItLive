@@ -1,5 +1,6 @@
 package com.rtmillerprojects.sangitlive.ui;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import com.rtmillerprojects.sangitlive.listener.GetMbid;
 import com.rtmillerprojects.sangitlive.listener.MainListener;
 import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.EventCalls.LastFmArtistDetails;
+import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
 import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
 import com.rtmillerprojects.sangitlive.util.EventManagerService;
@@ -56,6 +58,7 @@ public class FragmentArtistMain extends BaseFragment{
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db = DatabaseHelper.getInstance(ACA);
     }
 
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -135,9 +138,10 @@ public class FragmentArtistMain extends BaseFragment{
 
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    //Delete from db
-                                    DatabaseHelper db = DatabaseHelper.getInstance(ACA);
-                                    db.deleteArtist(artist.getArtist().getMbid());
+                                    String mbid = artist.getArtist().getMbid();
+                                    db.deleteArtist(mbid);
+                                    db.deleteEventsAllByArtist(mbid);
+                                    db.deleteEventsLocalByArtist(mbid);
                                 }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
@@ -150,9 +154,14 @@ public class FragmentArtistMain extends BaseFragment{
                             .show();
                 }
                 else{
-                    DatabaseHelper db = DatabaseHelper.getInstance(ACA);
-                    ems = ems.getInstance(ACA);
+                    ProgressDialog pd = new ProgressDialog(ACA);
+                    pd.setTitle("Adding artist");
+                    pd.setMessage("Please wait");
+                    pd.setCancelable(false);
                     db.insertArtist(ad);
+                    ems = ems.getInstance(ACA);
+                    ems.getArtistEventsAll(new NameMbidPair(artistName,mbid));
+                    pd.cancel();
                 }
 
             }
@@ -183,5 +192,22 @@ public class FragmentArtistMain extends BaseFragment{
     public void onAttach(Context context) {
         super.onAttach(context);
         mbidListener = (ActivityArtistDetail) context;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshStar();
+    }
+
+    public void refreshStar(){
+        if(starArtist!=null){
+            if(db.getArtistById(ad.getMbid())==null){
+                starArtist.setChecked(false);
+            }
+            else{
+                starArtist.setChecked(true);
+            }
+        }
     }
 }

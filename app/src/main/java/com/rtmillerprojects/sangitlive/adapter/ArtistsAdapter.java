@@ -42,7 +42,6 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVi
     @Override
     public void onBindViewHolder(ArtistViewHolder holder, int position) {
         ArtistDetails aDetails = artistDetails.get(position);
-        holder.resultNumber.setText(++position +"");
         holder.artistName.setText(aDetails.getName());
         holder.mbid = aDetails.getMbid();
     }
@@ -62,7 +61,6 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ArtistVi
         public ArtistViewHolder(View v, Context context) {
             super(v);
             artistName = (TextView) v.findViewById(R.id.artist_name);
-            resultNumber = (TextView) v.findViewById(R.id.resultnumber);
             this.ACA = (AppCompatActivity) context;
             v.setOnClickListener(this);
         }

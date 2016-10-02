@@ -65,7 +65,6 @@ public class MusicBrainzArtistsAdapter extends RecyclerView.Adapter<MusicBrainzA
         public ArtistViewHolder(View v, Context context) {
             super(v);
             artistName = (TextView) v.findViewById(R.id.artist_name);
-            resultNumber = (TextView) v.findViewById(R.id.resultnumber);
             disambig = (TextView) v.findViewById(R.id.artist_disambig);
             this.ACA = (AppCompatActivity) context;
             v.setOnClickListener(this);

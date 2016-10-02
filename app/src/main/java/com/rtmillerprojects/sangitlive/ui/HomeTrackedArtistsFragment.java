@@ -116,8 +116,8 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
         });
         returnCounter++;
         if(returnCounter == sizeOfArtists) {
-            trackedArtistAdapter = new HomeTrackedArtistsAdapter(artists, ACA);
-            recyclerView.setAdapter(trackedArtistAdapter);
+            //trackedArtistAdapter = new HomeTrackedArtistsAdapter(artists, ACA);
+            //recyclerView.setAdapter(trackedArtistAdapter);
             recyclerView.setLayoutManager(layoutManager);
             trackedArtistSwipeRefresh.setRefreshing(false);
             returnCounter = 0;
@@ -126,26 +126,18 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
 
     void refreshItems() {
         artists = null;
-        trackedArtistAdapter = null;
         db = DatabaseHelper.getInstance(ACA);
         artists = db.getAllArtists();
-        ArrayList<String> mbids = new ArrayList<>();
-        for (int i = 0; i < artists.size(); i++) {
-            mbids.add(artists.get(i).getArtist().getMbid());
+        if(artists.size()>0) {
+            ArrayList<String> mbids = new ArrayList<>();
+            for (int i = 0; i < artists.size(); i++) {
+                mbids.add(artists.get(i).getArtist().getMbid());
+            }
+            sizeOfArtists = artists.size();
+            artists = new ArrayList<ArtistLastFm>();
+            //recyclerView.setAdapter(new HomeTrackedArtistsAdapter(artists,ACA));
+            EventBus.post(new ArtistImageEvent(mbids));
         }
-        sizeOfArtists = artists.size();
-        artists = new ArrayList<ArtistLastFm>();
-        //recyclerView.setAdapter(new HomeTrackedArtistsAdapter(artists,ACA));
-        EventBus.post(new ArtistImageEvent(mbids));
-        onItemsLoadComplete();
-
-    }
-
-    void onItemsLoadComplete() {
-        // Update the adapter and notify data set changed
-        // ...
-
-        // Stop refresh animation
         trackedArtistSwipeRefresh.setRefreshing(false);
     }
 }

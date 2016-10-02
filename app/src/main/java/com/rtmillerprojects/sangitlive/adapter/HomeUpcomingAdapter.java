@@ -141,6 +141,10 @@ public class HomeUpcomingAdapter extends RecyclerView.Adapter<HomeUpcomingAdapte
 
         @Override
         public void onClick(View v) {
+            DatabaseHelper db = DatabaseHelper.getInstance(ACA);
+            if(db.getEventAttendingById(event.getId())!=null){
+                event.setAttending(true);
+            }
             int position = getAdapterPosition();
             Intent intent = new Intent(ACA, ActivityEventDetails.class);
             intent.putExtra("event", Parcels.wrap(event));

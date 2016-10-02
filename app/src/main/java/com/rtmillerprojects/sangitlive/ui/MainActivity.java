@@ -19,6 +19,8 @@ import com.rtmillerprojects.sangitlive.api.ServiceSetlist;
 import com.rtmillerprojects.sangitlive.api.ServiceUpcomingEvents;
 import com.rtmillerprojects.sangitlive.listener.MainListener;
 
+import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService;
+
 /**
  * Created by Ryan on 9/2/2016.
  */
@@ -36,6 +38,10 @@ public class MainActivity extends AppCompatActivity
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Code to initialize SQLiteStudio connection
+        SQLiteStudioService.instance().start(this);
+
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -112,5 +118,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override public DrawerLayout getDrawer() {
         return drawer;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SQLiteStudioService.instance().stop();
     }
 }
