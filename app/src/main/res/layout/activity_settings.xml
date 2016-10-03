@@ -59,33 +59,115 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/setting_2_layout"
-            android:layout_below="@+id/location_layout"
+            android:id="@+id/refresh_frequency_layout"
             android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/location_layout"
             android:layout_marginTop="10dp"
             android:elevation="5dp"
             android:gravity="center"
             android:background="@color/material_gray_050"
-            android:layout_height="60dp"
             xmlns:android="http://schemas.android.com/apk/res/android">
 
             <TextView
-                android:id="@+id/setting_2_label"
+                android:id="@+id/refresh_requency_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/black"
-                android:text="Location"
+                android:text="Refresh Frequency"
                 />
             <TextView
-                android:id="@+id/setting_2_value"
+                android:id="@+id/refresh_requency_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_below="@+id/setting_2_label"
+                android:layout_below="@+id/refresh_requency_label"
                 android:textColor="@color/material_gray_700"
-                android:text="Unknown"/>
+                android:text="refresh_requency_value"/>
+            <LinearLayout
+                android:id="@+id/refresh_dates_layout"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/refresh_requency_value">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:weightSum="2"
+                    >
+
+                    <TextView
+                        android:id="@+id/last_refresh_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/material_gray_700"
+                        android:layout_weight="1"
+                        android:text="Last Refresh:"/>
+                    <TextView
+                        android:id="@+id/last_refresh_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/material_gray_700"
+                        android:layout_weight="1"
+                        android:text="MM DD YYYY"/>
+                </LinearLayout>
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:orientation="horizontal">
+
+                     <TextView
+                         android:id="@+id/next_refresh_label"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:textColor="@color/material_gray_700"
+                         android:layout_weight="1"
+                         android:text="Next Refresh:"/>
+                     <TextView
+                         android:id="@+id/next_refresh_value"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:gravity="center"
+                         android:textColor="@color/material_gray_700"
+                         android:layout_weight="1"
+                         android:text="MM DD YYYY"/>
+                 </LinearLayout>
+
+            </LinearLayout>
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/force_refresh_layout"
+            android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:layout_below="@id/refresh_frequency_layout"
+            android:layout_marginTop="20dp"
+            android:elevation="5dp"
+            android:gravity="center"
+            android:background="@color/material_gray_050"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <TextView
+                android:id="@+id/force_refresh_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:text="Force Refresh"
+                />
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
 
@@ -96,6 +178,5 @@
         android:gravity="center"
         android:visibility="gone"
         android:text="@string/no_location_results_available" />
-
 
 </RelativeLayout>

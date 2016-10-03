@@ -1,9 +1,11 @@
 package com.rtmillerprojects.sangitlive.ui;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,6 +35,7 @@ import com.rtmillerprojects.sangitlive.model.GoogleLocation.LocationResults;
 import com.rtmillerprojects.sangitlive.model.GoogleLocation.Result;
 import com.rtmillerprojects.sangitlive.model.PostArtistSearch;
 import com.rtmillerprojects.sangitlive.model.musicbrainzaritstbrowse.Artist;
+import com.rtmillerprojects.sangitlive.util.EventManagerService;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
@@ -48,10 +51,12 @@ import java.util.List;
 public class ActivitySettings extends AppCompatActivity {
 
     RelativeLayout locationLayout;
+    RelativeLayout forceRefresh;
+    EventManagerService ems;
     RecyclerView.LayoutManager layoutManager;
     ListView listView;
     Toolbar toolbar;
-    final Context context = this;
+
     TextView emptyView;
     ArrayAdapter<Result> mAdapter;
     List<Result> r;
@@ -59,6 +64,8 @@ public class ActivitySettings extends AppCompatActivity {
     private final int ZIP_REQUEST_CODE = 1;
     CustomLocationResult location;
     TextView textViewLocation;
+    ProgressDialog progressDialog;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +74,25 @@ public class ActivitySettings extends AppCompatActivity {
         handleIntent(getIntent());
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         locationLayout = (RelativeLayout) findViewById(R.id.location_layout);
+        forceRefresh = (RelativeLayout) findViewById(R.id.force_refresh_layout);
         textViewLocation = (TextView) findViewById(R.id.location_value);
         listView = (ListView) findViewById(R.id.location_results);
         emptyView = (TextView) findViewById(R.id.empty_view);
+        final Context context = this;
+
+        forceRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ems = EventManagerService.getInstance(context);
+                progressDialog = new ProgressDialog(context);
+                progressDialog.show();
+                new BackgroundJob().execute();
+            }
+        });
+        ems = EventManagerService.getInstance(this);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.show();
+        new BackgroundJob().execute();
 
         toolbar.setTitle("Settings");
         setSupportActionBar(toolbar);
@@ -89,6 +112,7 @@ public class ActivitySettings extends AppCompatActivity {
                 startActivityForResult(new Intent(context, ActivityZipSearch.class), ZIP_REQUEST_CODE);
             }
         });
+
 
     }
 
@@ -131,6 +155,32 @@ public class ActivitySettings extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         EventBus.unregister(this);
+    }
+
+    private class BackgroundJob extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        int responseCount;
+        @Override
+        protected Void doInBackground(Void... params) {
+            if(responseCount==1){
+                return null;
+            }
+            try {
+                Thread.sleep(50000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            progressDialog.cancel();
+        }
     }
 }
 //Toast.makeText(this,"ARTIST IS RETURNED",Toast.LENGTH_SHORT).show();
