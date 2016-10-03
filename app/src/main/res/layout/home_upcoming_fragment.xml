@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:paddingBottom="30dp"
         android:visibility="gone"
         android:text="@string/no_upcoming_events_available" />
 

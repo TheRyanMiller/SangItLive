@@ -57,7 +57,8 @@ public class HomeUpcomingFragment extends BaseFragment {
     private int mTotalEvents;
     private TextView emptyView;
     private DatabaseHelper db;
-    private ArrayList<NameMbidPair> nameMbidPairs = new ArrayList<>();;
+    private ArrayList<NameMbidPair> nameMbidPairs = new ArrayList<>();
+    private String emptyViewMsg;
 
 
     public static HomeUpcomingFragment newInstance() {
@@ -92,6 +93,8 @@ public class HomeUpcomingFragment extends BaseFragment {
         //Test Data
         db = DatabaseHelper.getInstance(ACA);
         mbids = (ArrayList<String>) db.getFavoritedArtistMbids();
+        emptyViewMsg = "There are no upcoming events to display. You are currently tracking "+mbids.size()+ " artist(s).";
+        emptyView.setText(emptyViewMsg);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             @Override
@@ -127,6 +130,8 @@ public class HomeUpcomingFragment extends BaseFragment {
         events = new ArrayList<>();
         db = DatabaseHelper.getInstance(ACA);
         mbids = (ArrayList<String>) db.getFavoritedArtistMbids();
+        emptyViewMsg = "There are no upcoming events to display. You are currently tracking "+mbids.size()+ " artist(s).";
+        emptyView.setText(emptyViewMsg);
         nameMbidPairs = (ArrayList<NameMbidPair>) db.getFavoritedNameMbidPairs();
         //EventBus.post(new UpcomingEventQuery(nameMbidPairs,1,false));
         if(filterActivated){

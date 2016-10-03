@@ -3,6 +3,15 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingBottom="30dp"
+        android:visibility="gone"
+        android:text="@string/no_rsvp_events_available" />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/rsvpSwipeRefresh"
         android:layout_width="wrap_content"

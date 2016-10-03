@@ -12,4 +12,6 @@
     <string name="no_location_results_available">No matching locations found</string>
     <string name="search_hint">Search</string>
     <string name="no_tracked_artists_available">Looks like you are not tracking any artists at the moment. Tap the search button below to find some.</string>
+    <string name="no_rsvp_events_available">You have not RSVP\'d to any upcoming shows.</string>
+    <string name="picasso_logging_enabled">Picasso logging enabled</string>
 </resources>

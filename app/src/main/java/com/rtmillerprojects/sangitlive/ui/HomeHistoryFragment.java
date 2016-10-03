@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.HomeUpcomingAdapter;
@@ -25,12 +26,12 @@ public class HomeHistoryFragment extends BaseFragment{
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private DatabaseHelper db;
-    private List<Long> favoritedEvents;
     private Context context;
     private HomeUpcomingAdapter eventHistoryAdapter;
     private ArrayList<BandsInTownEventResult> events = new ArrayList<>();
-    private ArrayList<BandsInTownEventResult> scrubbedEvents = new ArrayList<>();
     private SwipeRefreshLayout historySwipeRefresh;
+    private String emptyViewMsg;
+    private TextView emptyView;
 
 
     public static HomeHistoryFragment newInstance() {
@@ -54,22 +55,29 @@ public class HomeHistoryFragment extends BaseFragment{
         View rootView = inflater.inflate(R.layout.home_rsvp_fragment, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.rsvpd_events);
         historySwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.rsvpSwipeRefresh);
+        emptyView = (TextView) rootView.findViewById(R.id.empty_view);
 
         layoutManager = new LinearLayoutManager(ACA);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         db = DatabaseHelper.getInstance(ACA);
         events = db.getEventsAttending(false);
-        context = getContext();
-        Date d = new Date();
-        for(BandsInTownEventResult e : events){
-            if(e.getDatetime().before(d)){
-                scrubbedEvents.add(e);
-            }
+        if(events!=null && events.size()>0){
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+            eventHistoryAdapter = new HomeUpcomingAdapter(events,ACA);
+            recyclerView.setAdapter(eventHistoryAdapter);
+            recyclerView.setLayoutManager(layoutManager);
         }
-        eventHistoryAdapter = new HomeUpcomingAdapter(scrubbedEvents,ACA);
-        recyclerView.setAdapter(eventHistoryAdapter);
-        recyclerView.setLayoutManager(layoutManager);
+        else{
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+            emptyViewMsg = "Cannot find any shows you've attended. \n (This section will display any past shows you've starred.)";
+        }
+
+        emptyView.setText(emptyViewMsg);
+        context = getContext();
+
 
         historySwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             @Override
@@ -78,10 +86,6 @@ public class HomeHistoryFragment extends BaseFragment{
                 refreshItems();
             }
         });
-
-        //recyclerView.setAdapter(upcomingAdapter);
-        //recyclerView.setLayoutManager(layoutManager);
-
 
         return rootView;
     }
@@ -94,19 +98,22 @@ public class HomeHistoryFragment extends BaseFragment{
 
     void refreshItems() {
         events = null;
-        scrubbedEvents = new ArrayList<>();
         eventHistoryAdapter = null;
         db = DatabaseHelper.getInstance(ACA);
         events = db.getEventsAttending(false);
-        Date d = new Date();
-        for(BandsInTownEventResult e : events){
-            if(e.getDatetime().before(d)){
-                scrubbedEvents.add(e);
-            }
+        if(events!=null && events.size()>0){
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+            eventHistoryAdapter = new HomeUpcomingAdapter(events,ACA);
+            recyclerView.setAdapter(eventHistoryAdapter);
+            recyclerView.setLayoutManager(layoutManager);
+            historySwipeRefresh.setRefreshing(false);
         }
-        eventHistoryAdapter = new HomeUpcomingAdapter(scrubbedEvents,ACA);
-        recyclerView.setAdapter(eventHistoryAdapter);
-        recyclerView.setLayoutManager(layoutManager);
-        historySwipeRefresh.setRefreshing(false);
+        else{
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+            emptyViewMsg = "Past events that you've RSVP'd to will appear here to display a list of shows you've attended.";
+        }
+
     }
 }

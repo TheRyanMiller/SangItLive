@@ -8,7 +8,7 @@
         android:id="@+id/empty_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="30dp"
+        android:paddingBottom="30dp"
         android:gravity="center"
         android:visibility="gone"
         android:text="@string/no_tracked_artists_available"
