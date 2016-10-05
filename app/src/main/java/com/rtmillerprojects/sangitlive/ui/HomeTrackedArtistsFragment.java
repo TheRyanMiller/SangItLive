@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.HomeTrackedArtistsAdapter;
+import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.ArtistsThumbnailRequest;
 import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
@@ -33,7 +34,7 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
     private DatabaseHelper db;
     private Context context;
     private HomeTrackedArtistsAdapter trackedArtistAdapter;
-    private ArrayList<ArtistLastFm> artists = new ArrayList<>();
+    private ArrayList<ArtistDetails> artists = new ArrayList<>();
     private SwipeRefreshLayout trackedArtistSwipeRefresh;
     private int returnCounter;
     private int sizeOfArtists;
@@ -103,13 +104,13 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
     }
 
     @Subscribe
-    public void pullImages(ArtistLastFm returnedData){
+    public void pullImages(ArtistDetails returnedData){
 
         artists.add(returnedData);
-        Collections.sort(artists, new Comparator<ArtistLastFm>() {
+        Collections.sort(artists, new Comparator<ArtistDetails>() {
             @Override
-            public int compare(ArtistLastFm o1, ArtistLastFm o2) {
-                return o1.getArtist().getName().compareTo(o2.getArtist().getName());
+            public int compare(ArtistDetails o1, ArtistDetails o2) {
+                return o1.getName().compareTo(o2.getName());
             }
         });
         returnCounter++;
@@ -131,10 +132,10 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
             emptyView.setVisibility(View.GONE);
             ArrayList<String> mbids = new ArrayList<>();
             for (int i = 0; i < artists.size(); i++) {
-                mbids.add(artists.get(i).getArtist().getMbid());
+                mbids.add(artists.get(i).getMbid());
             }
             sizeOfArtists = artists.size();
-            artists = new ArrayList<ArtistLastFm>();
+            artists = new ArrayList<ArtistDetails>();
             //recyclerView.setAdapter(new HomeTrackedArtistsAdapter(artists,ACA));
             EventBus.post(new ArtistsThumbnailRequest(mbids));
         }

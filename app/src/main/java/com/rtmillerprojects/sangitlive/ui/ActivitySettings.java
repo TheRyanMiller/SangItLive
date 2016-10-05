@@ -5,19 +5,13 @@ import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,25 +19,14 @@ import android.widget.Toast;
 
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
-import com.rtmillerprojects.sangitlive.adapter.MusicBrainzArtistsAdapter;
-import com.rtmillerprojects.sangitlive.api.MusicBrainzArtistService;
-import com.rtmillerprojects.sangitlive.api.ServiceLocationGoogle;
-import com.rtmillerprojects.sangitlive.api.ServiceSetlist;
-import com.rtmillerprojects.sangitlive.model.EventCalls.GoogleLocationRequest;
 import com.rtmillerprojects.sangitlive.model.GoogleLocation.CustomLocationResult;
-import com.rtmillerprojects.sangitlive.model.GoogleLocation.LocationResults;
 import com.rtmillerprojects.sangitlive.model.GoogleLocation.Result;
-import com.rtmillerprojects.sangitlive.model.PostArtistSearch;
-import com.rtmillerprojects.sangitlive.model.musicbrainzaritstbrowse.Artist;
-import com.rtmillerprojects.sangitlive.util.CompletedForceRefresh;
+import com.rtmillerprojects.sangitlive.model.EventCalls.CompletedForceRefresh;
 import com.rtmillerprojects.sangitlive.util.EventManagerService;
-import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
 import org.parceler.Parcels;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

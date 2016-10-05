@@ -88,10 +88,11 @@ public class ServiceUpcomingEvents {
                     @Override
                     public void onResponse(Call<ArrayList<BandsInTownEventResult>> call, Response<ArrayList<BandsInTownEventResult>> response) {
                         String aName = event.getNameMbidPairs().get(responseCounter).getArtistName();
+                        String reqUrl = response.raw().request().url().toString();
+                        String retMbid = reqUrl.substring(reqUrl.indexOf("mbid_")+5, reqUrl.indexOf("/events"));
+                        NameMbidPair responsePair = new NameMbidPair(aName, retMbid);
                         if (response.body() == null && response.errorBody() != null){
                             //Check against known failures
-                            String reqUrl = response.raw().request().url().toString();
-                            String retMbid = reqUrl.substring(reqUrl.indexOf("mbid_")+5, reqUrl.indexOf("/events"));
                             try {
                                 String errorMsg = response.errorBody().string();
                                 if (errorMsg.contains("Unknown Artist")) {
@@ -126,7 +127,7 @@ public class ServiceUpcomingEvents {
                                 scrubbedEventList.add(e);
                             }
                             responseCounter++;
-                            EventBus.post(new BITResultPackage(scrubbedEventList));
+                            EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,responsePair,false));
                         }
                     }
 
@@ -144,7 +145,7 @@ public class ServiceUpcomingEvents {
     }
 
     @Subscribe
-    public void newAttempt(NameMbidPair nmp){
+    public void newAttempt(final NameMbidPair nmp){
         Gson gson = new GsonBuilder()
                 //.registerTypeAdapterFactory(new SetlistTypeAdapterFactory())
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
@@ -156,6 +157,7 @@ public class ServiceUpcomingEvents {
         ApiServiceBandsInTown eventsApi = retrofit.create(ApiServiceBandsInTown.class);
 
         artistName = nmp.getArtistName();
+        final String artistMbid = nmp.getMbid();
         Call<ArrayList<BandsInTownEventResult>> call = eventsApi.searchEventsByArtistName(nmp.getArtistName(), "json", "2.0", "ConcertCompanion");
         //asynchronous call
         call.enqueue(new Callback<ArrayList<BandsInTownEventResult>>() {
@@ -183,6 +185,9 @@ public class ServiceUpcomingEvents {
                     DatabaseHelper db = DatabaseHelper.getInstance(context);
                     favoritedShows = db.getFavoritedEventIds();
                     for (BandsInTownEventResult e : bandsInTownEvents) {
+                        if(e.getArtists().get(0).getMbid()==null){
+                            e.getArtists().get(0).setMbid(artistMbid);
+                        };
                         e.setAttending(false);
                         for (int i = 0; i < favoritedShows.size(); i++) {
                             if (e.getId() == favoritedShows.get(i).intValue()) {
@@ -194,7 +199,7 @@ public class ServiceUpcomingEvents {
                         scrubbedEventList.add(e);
                     }
                     responseCounter++;
-                    EventBus.post(new BITResultPackage(scrubbedEventList));
+                    EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,nmp,false));
                 }
             }
 
@@ -315,6 +320,7 @@ public class ServiceUpcomingEvents {
         ApiServiceBandsInTown eventsApi = retrofit.create(ApiServiceBandsInTown.class);
 
         artistName = nmp.getArtistName();
+        final String artistMbid = nmp.getMbid();
         Call<ArrayList<BandsInTownEventResult>> call = eventsApi.searchEventsByArtistName(nmp.getArtistName(), "json", "2.0", "ConcertCompanion");
         //asynchronous call
         call.enqueue(new Callback<ArrayList<BandsInTownEventResult>>() {
@@ -328,6 +334,7 @@ public class ServiceUpcomingEvents {
                         String errorMsg = response.errorBody().string();
                         if (errorMsg.contains("Unknown Artist")) {
                             Log.d("RYAN TEST", artistName+" Results show that this is an unknown Artist AGAIN");
+                            EventBus.post(new BITResultPackageEventMgr(null,nmp,true));
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -343,6 +350,9 @@ public class ServiceUpcomingEvents {
                     favoritedShows = db.getFavoritedEventIds();
                     for (BandsInTownEventResult e : bandsInTownEvents) {
                         e.setAttending(false);
+                        if(e.getArtists().get(0).getMbid()==null){
+                            e.getArtists().get(0).setMbid(artistMbid);
+                        };
                         for (int i = 0; i < favoritedShows.size(); i++) {
                             if (e.getId() == favoritedShows.get(i).intValue()) {
                                 e.setAttending(true);
@@ -360,6 +370,7 @@ public class ServiceUpcomingEvents {
             @Override
             public void onFailure(Call<ArrayList<BandsInTownEventResult>> call, Throwable t) {
                 Log.d("RYAN TEST", artistName+" EVENT SEARCH RESPONSE FAILED");
+                EventBus.post(new BITResultPackageEventMgr(null,nmp, true));
                 //Log.e(t.getMessage());
             }
         });

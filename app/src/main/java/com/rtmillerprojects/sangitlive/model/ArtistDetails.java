@@ -1,17 +1,55 @@
 package com.rtmillerprojects.sangitlive.model;
 
+import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.Image;
+
 import org.parceler.Parcel;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by Ryan on 8/25/2016.
  */
 @Parcel
-public class ArtistDetails {
+public class ArtistDetails{
     String name;
     String mbid;
     String sortName;
     String url;
     String thumbUrl;
+    boolean isOnTour;
+
+    public String getImageText() {
+        return imageText;
+    }
+
+    public void setImageText(String imageText) {
+        this.imageText = imageText;
+    }
+
+    private String imageText;
+
+    public String getImageSize() {
+        return imageSize;
+    }
+
+    public void setImageSize(String imageSize) {
+        this.imageSize = imageSize;
+    }
+
+    private String imageSize;
+
+
+    public boolean isOnTour() {
+        return isOnTour;
+    }
+
+    public void setOnTour(boolean onTour) {
+        isOnTour = onTour;
+    }
+
+
 
     public String getName() {
         return name;
@@ -52,7 +90,6 @@ public class ArtistDetails {
     public void setThumbUrl(String thumbUrl) {
         this.thumbUrl = thumbUrl;
     }
-
 
 
 }

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Switch;
 
 import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.BandsInTownArtist;
@@ -48,6 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Artist columns
     private static final String ARTIST_NAME = "name";
+    private static final String ARTIST_ON_TOUR = "on_tour";
 
     // Event columns
     private static final String EVENT_ID = "event_id";
@@ -71,6 +73,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             TABLE_ARTIST + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             ARTIST_MBID + " TEXT," +
             ARTIST_NAME + " TEXT," +
+            ARTIST_ON_TOUR + " INTEGER," +
             KEY_CREATED_AT + " DATETIME," +
             "UNIQUE("+ARTIST_MBID+"))";
 
@@ -301,6 +304,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(ARTIST_MBID, artistDetails.getMbid());
         values.put(ARTIST_NAME, artistDetails.getName());
+        if(artistDetails.isOnTour()){
+            values.put(ARTIST_ON_TOUR, 1);
+        }
+        else{
+            values.put(ARTIST_ON_TOUR, 0);
+        }
+
         values.put(KEY_CREATED_AT, getCurrentDateTimeAsString());
         //long artistRecordId = db.insert(TABLE_ARTIST, null, values);
         long artistRecordId = db.insertWithOnConflict(TABLE_ARTIST, null, values, SQLiteDatabase.CONFLICT_IGNORE);
@@ -465,17 +475,88 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return events;
     }
 
-    public ArrayList<ArtistLastFm> getAllArtists() {
-        ArrayList<ArtistLastFm> artists = new ArrayList<>();
+    public ArrayList<BandsInTownEventResult> getEventsAllByArtist(boolean allEvents, boolean localEvents, boolean attendingEvents, String mbid, String artistName, boolean futureOnly) {
+        ArrayList<BandsInTownEventResult> events = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT  * FROM ";
+
+        if(allEvents){selectQuery +=  TABLE_EVENT_ALL + " ";}
+        if(localEvents){selectQuery +=  TABLE_EVENT_LOCAL + " ";}
+        if(attendingEvents){selectQuery +=  TABLE_EVENT_ATTENDING + " ";}
+
+        if(mbid==null && artistName == null){
+            selectQuery += " WHERE "+ARTIST_MBID+ " == 'Blank' ";
+        }
+        else if(mbid!=null){
+            selectQuery += " WHERE "+ARTIST_MBID+ " = '"+mbid+"' ";
+        }
+        else if(artistName!=null){
+            selectQuery += " WHERE "+ARTIST_NAME+ " = '"+artistName+"' ";
+        }
+        else{
+            selectQuery += " WHERE "+ARTIST_MBID+ " = 'Blank' ";
+        }
+
+        if(futureOnly){
+            selectQuery += " AND date > DATE('now') ";
+        }
+
+        selectQuery += " ORDER BY date ASC";
+
+
+        Log.e(TAG, selectQuery);
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                BandsInTownEventResult event = new BandsInTownEventResult();
+                event.setId(c.getInt(c.getColumnIndex(EVENT_ID)));
+                event.setDatetime(convertToDate(c.getString(c.getColumnIndex(EVENT_DATE))));
+                //event.setDatetime();
+                event.setTitle(c.getString(c.getColumnIndex(EVENT_TITLE)));
+                ArrayList<BandsInTownArtist> artistList = new ArrayList<>();
+                BandsInTownArtist artist = new BandsInTownArtist();
+                artist.setMbid(c.getString(c.getColumnIndex(ARTIST_MBID)));
+                artist.setName(c.getString(c.getColumnIndex(ARTIST_NAME)));
+                artistList.add(artist);
+                event.setArtists(artistList);
+                event.setFormattedLocation(c.getString(c.getColumnIndex(EVENT_FORMATTED_LOC)));
+                event.setAttending(false);
+                Venue v = new Venue();
+                v.setCity(c.getString(c.getColumnIndex(EVENT_VENUE_CITY)));
+                v.setName(c.getString(c.getColumnIndex(EVENT_VENUE_NAME)));
+                v.setPlace(c.getString(c.getColumnIndex(EVENT_VENUE_PLACE)));
+                v.setRegion(c.getString(c.getColumnIndex(EVENT_VENUE_REGION)));
+                v.setCountry(c.getString(c.getColumnIndex(EVENT_VENUE_COUNTRY)));
+                event.setVenue(v);
+                events.add(event);
+            } while(c.moveToNext());
+            c.moveToFirst();
+        }
+        Collections.sort(events, new Comparator<BandsInTownEventResult>() {
+            @Override
+            public int compare(BandsInTownEventResult o1, BandsInTownEventResult o2) {
+                return o1.getDatetime().compareTo(o2.getDatetime());
+            }
+        });
+        c.close();
+
+        return events;
+    }
+
+    public ArrayList<ArtistDetails> getAllArtists() {
+        ArrayList<ArtistDetails> artists = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT  * FROM " + TABLE_ARTIST;
         Cursor c = db.rawQuery(selectQuery, null);
         if (c.moveToFirst()) {
             do {
-                ArtistLastFm artist = new ArtistLastFm();
-                artist.setArtist(new Artist());
-                artist.getArtist().setMbid(c.getString(c.getColumnIndex(ARTIST_MBID)));
-                artist.getArtist().setName(c.getString(c.getColumnIndex(ARTIST_NAME)));
+                ArtistDetails artist = new ArtistDetails();
+                artist.setMbid(c.getString(c.getColumnIndex(ARTIST_MBID)));
+                artist.setName(c.getString(c.getColumnIndex(ARTIST_NAME)));
+                artist.setOnTour(false);
+                if(c.getColumnIndex(ARTIST_ON_TOUR)==1){
+                    artist.setOnTour(true);
+                }
                 artists.add(artist);
             } while(c.moveToNext());
             c.moveToFirst();

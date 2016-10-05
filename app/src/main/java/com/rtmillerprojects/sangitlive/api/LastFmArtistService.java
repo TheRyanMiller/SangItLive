@@ -7,8 +7,10 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rtmillerprojects.sangitlive.EventBus;
+import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.ArtistsThumbnailRequest;
 import com.rtmillerprojects.sangitlive.model.EventCalls.LastFmArtistDetails;
+import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.Artist;
 import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
 import com.squareup.otto.Subscribe;
 
@@ -66,7 +68,8 @@ public class LastFmArtistService {
             @Override
             public void onResponse(Call<ArtistLastFm> call, Response<ArtistLastFm> response) {
                 artistResults = response.body();
-                EventBus.post(artistResults);
+                ArtistDetails ado = convertLastFMArtist(artistResults);
+                EventBus.post(ado);
             }
             @Override
             public void onFailure(Call<ArtistLastFm> call, Throwable t) {
@@ -100,7 +103,8 @@ public class LastFmArtistService {
                 public void onResponse(Call<ArtistLastFm> call, Response<ArtistLastFm> response) {
                     artistResults = response.body();
                     Log.d("RYAN TEST","ARTIST SEARCH RESPONSE SUCCESS");
-                    EventBus.post(artistResults);
+                    ArtistDetails ado = convertLastFMArtist(artistResults);
+                    EventBus.post(ado);
                 }
 
                 @Override
@@ -110,6 +114,23 @@ public class LastFmArtistService {
             });
         }
 
+    }
+
+    public ArtistDetails convertLastFMArtist(ArtistLastFm alfm){
+        ArtistDetails ad = new ArtistDetails();
+        Artist a = alfm.getArtist();
+        ad.setName(a.getName());
+        ad.setMbid(a.getMbid());
+        if(a.getOntour().equals("1")){
+            ad.setOnTour(true);
+        }
+        else{ad.setOnTour(false);}
+        if(a.getImage()!=null && a.getImage().get(2)!=null){
+            ad.setImageSize(a.getImage().get(2).getSize());
+            ad.setImageText(a.getImage().get(2).getText());
+        }
+
+        return ad;
     }
 
 }

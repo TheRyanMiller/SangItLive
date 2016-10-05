@@ -144,8 +144,8 @@ public class FragmentArtistMain extends BaseFragment{
                 }
                 else{
                     ProgressDialog pd = new ProgressDialog(ACA);
-                    pd.setTitle("Adding artist");
-                    pd.setMessage("Please wait");
+                    pd.show();
+                    pd.setMessage("Waiting");
                     pd.setCancelable(false);
                     db.insertArtist(ad);
                     ems = ems.getInstance(ACA);

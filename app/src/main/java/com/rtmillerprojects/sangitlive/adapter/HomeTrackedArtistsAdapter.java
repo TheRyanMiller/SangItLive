@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rtmillerprojects.sangitlive.R;
+import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
 import com.rtmillerprojects.sangitlive.ui.ActivityArtistDetail;
 import com.rtmillerprojects.sangitlive.util.CircleTransform;
@@ -27,12 +28,12 @@ import java.util.List;
  */
 public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedArtistsAdapter.HomeTrackedArtistViewHolder> {
 
-    private ArrayList<ArtistLastFm> artists;
+    private ArrayList<ArtistDetails> artists;
     private Context context;
     private List<Long> trackedArtists;
 
     //Constructor
-    public HomeTrackedArtistsAdapter(ArrayList<ArtistLastFm> artists, Context context){
+    public HomeTrackedArtistsAdapter(ArrayList<ArtistDetails> artists, Context context){
         this.artists = artists;
         this.context = context;
         DatabaseHelper db = DatabaseHelper.getInstance(context);
@@ -50,18 +51,18 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
 
     @Override
     public void onBindViewHolder(HomeTrackedArtistsAdapter.HomeTrackedArtistViewHolder holder, int position) {
-        ArtistLastFm artistDetails = artists.get(position);
+        ArtistDetails artistDetails = artists.get(position);
         holder.artistDetails = artistDetails;
         holder.resultNumber = position;
         //use this if check for testing and then remove
-        if(artistDetails.getArtist()!=null){
-            holder.artistMbid = artistDetails.getArtist().getMbid();
-            holder.artistName.setText(artistDetails.getArtist().getName());
+        if(artistDetails!=null){
+            holder.artistMbid = artistDetails.getMbid();
+            holder.artistName.setText(artistDetails.getName());
         }
         holder.position = position;
 
         try {
-            Picasso.with(context).load(artistDetails.getArtist().getImage().get(0).getText())
+            Picasso.with(context).load(artistDetails.getImageText())
                     .placeholder(R.drawable.ic_person_grey600_24dp)
                     .transform(new CircleTransform())
                     .into(holder.imgView);
@@ -81,7 +82,7 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
 
 
     public static class HomeTrackedArtistViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ArtistLastFm artistDetails;
+        ArtistDetails artistDetails;
         TextView artistName;
         public String artistMbid;
         int position;
@@ -111,7 +112,7 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
         public void onClick(View v) {
             int position = getAdapterPosition();
             Intent intent = new Intent(ACA, ActivityArtistDetail.class);
-            intent.putExtra("mbid",artistDetails.getArtist().getMbid());
+            intent.putExtra("mbid",artistDetails.getMbid());
             intent.putExtra("artistName",artistName.getText().toString());
             ACA.startActivity(intent);
         }
