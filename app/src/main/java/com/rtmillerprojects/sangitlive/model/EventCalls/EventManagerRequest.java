@@ -10,7 +10,16 @@ import java.util.ArrayList;
  */
 public class EventManagerRequest {
     private ArrayList<NameMbidPair> nameMbidPairs;
-    private int page;
+
+    public boolean isForcedRefresh() {
+        return forcedRefresh;
+    }
+
+    public void setForcedRefresh(boolean forcedRefresh) {
+        this.forcedRefresh = forcedRefresh;
+    }
+
+    private boolean forcedRefresh;
 
     public boolean isFailedMbidAttempt() {
         return failedMbidAttempt;
@@ -23,10 +32,10 @@ public class EventManagerRequest {
     private boolean failedMbidAttempt;
 
     //Constructor
-    public EventManagerRequest(ArrayList<NameMbidPair> nameMbidPairs, int page, boolean failedMbidAttempt) {
+    public EventManagerRequest(ArrayList<NameMbidPair> nameMbidPairs, boolean failedMbidAttempt, boolean forcedRefresh) {
         this.nameMbidPairs = nameMbidPairs;
-        this.page = page;
         this.failedMbidAttempt = failedMbidAttempt;
+        this.forcedRefresh = forcedRefresh;
 
     }
 
@@ -38,11 +47,4 @@ public class EventManagerRequest {
         this.nameMbidPairs = nameMbidPairs;
     }
 
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
 }

@@ -101,19 +101,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        if(sue==null){sue = new ServiceUpcomingEvents(this.getApplication());}
-        EventBus.register(sue);
-        if(sai==null){sai = new ServiceArtistImage(this.getApplication());}
-        EventBus.register(sai);
-        if(lfas==null){lfas = new LastFmArtistService(this.getApplication());}
-        EventBus.register(lfas);
     }
     @Override
     protected void onPause() {
         super.onPause();
-        EventBus.unregister(sue);
-        EventBus.unregister(sai);
-        EventBus.unregister(lfas);
     }
 
     @Override public DrawerLayout getDrawer() {

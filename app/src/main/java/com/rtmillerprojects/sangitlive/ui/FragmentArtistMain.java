@@ -149,7 +149,7 @@ public class FragmentArtistMain extends BaseFragment{
                     pd.setCancelable(false);
                     db.insertArtist(ad);
                     ems = ems.getInstance(ACA);
-                    ems.getArtistEventsAll(new NameMbidPair(ad.getName(),ad.getMbid()));
+                    ems.getSingleArtistEventsAll(new NameMbidPair(ad.getName(),ad.getMbid()));
                     pd.cancel();
                 }
 

@@ -35,6 +35,7 @@ import com.rtmillerprojects.sangitlive.model.GoogleLocation.LocationResults;
 import com.rtmillerprojects.sangitlive.model.GoogleLocation.Result;
 import com.rtmillerprojects.sangitlive.model.PostArtistSearch;
 import com.rtmillerprojects.sangitlive.model.musicbrainzaritstbrowse.Artist;
+import com.rtmillerprojects.sangitlive.util.CompletedForceRefresh;
 import com.rtmillerprojects.sangitlive.util.EventManagerService;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
@@ -84,15 +85,11 @@ public class ActivitySettings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ems = EventManagerService.getInstance(context);
+                ems.forceRefreshCalls();
                 progressDialog = new ProgressDialog(context);
                 progressDialog.show();
-                new BackgroundJob().execute();
             }
         });
-        ems = EventManagerService.getInstance(this);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.show();
-        new BackgroundJob().execute();
 
         toolbar.setTitle("Settings");
         setSupportActionBar(toolbar);
@@ -132,6 +129,11 @@ public class ActivitySettings extends AppCompatActivity {
         }
     }
 
+    @Subscribe
+    public void getResponseFromForceRefresh(CompletedForceRefresh response){
+        progressDialog.cancel();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
@@ -157,30 +159,5 @@ public class ActivitySettings extends AppCompatActivity {
         EventBus.unregister(this);
     }
 
-    private class BackgroundJob extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        int responseCount;
-        @Override
-        protected Void doInBackground(Void... params) {
-            if(responseCount==1){
-                return null;
-            }
-            try {
-                Thread.sleep(50000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            progressDialog.cancel();
-        }
-    }
 }
 //Toast.makeText(this,"ARTIST IS RETURNED",Toast.LENGTH_SHORT).show();

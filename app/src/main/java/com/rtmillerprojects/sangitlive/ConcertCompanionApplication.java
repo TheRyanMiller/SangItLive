@@ -7,7 +7,12 @@ import android.os.StrictMode;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
+import com.rtmillerprojects.sangitlive.api.LastFmArtistService;
+import com.rtmillerprojects.sangitlive.api.ServiceArtistImage;
+import com.rtmillerprojects.sangitlive.api.ServiceUpcomingEvents;
+import com.rtmillerprojects.sangitlive.util.EventManagerService;
 import com.squareup.picasso.Picasso;
+import com.rtmillerprojects.sangitlive.EventBus;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -67,6 +72,14 @@ public class ConcertCompanionApplication extends Application {
     private void registerHandlersWithEventBus() {
         // Register all our Handlers on the EventBus.
         //EventBus.register(new ServiceEventHandler(this));
+        EventBus.register(EventManagerService.getInstance(this));
+        ServiceUpcomingEvents sue = new ServiceUpcomingEvents(this);
+        ServiceArtistImage sai = new ServiceArtistImage(this);
+        LastFmArtistService lfas = new LastFmArtistService(this);
+        EventBus.register(sue);
+        EventBus.register(sai);
+        EventBus.register(lfas);
+
     }
 
     /**

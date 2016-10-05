@@ -360,14 +360,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                 events.add(event);
             } while(c.moveToNext());
+
             c.moveToFirst();
         }
-        Collections.sort(events, new Comparator<BandsInTownEventResult>() {
-            @Override
-            public int compare(BandsInTownEventResult o1, BandsInTownEventResult o2) {
-                return o1.getDatetime().compareTo(o2.getDatetime());
-            }
-        });
+        c.close();
         return events;
     }
 
@@ -416,6 +412,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 return o1.getDatetime().compareTo(o2.getDatetime());
             }
         });
+        c.close();
+
         return events;
     }
 
@@ -462,6 +460,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 return o1.getDatetime().compareTo(o2.getDatetime());
             }
         });
+        c.close();
+
         return events;
     }
 
@@ -480,6 +480,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while(c.moveToNext());
             c.moveToFirst();
         }
+        c.close();
+
         return artists;
     }
 
@@ -511,9 +513,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             v.setRegion(c.getString(c.getColumnIndex(EVENT_VENUE_REGION)));
             v.setCountry(c.getString(c.getColumnIndex(EVENT_VENUE_COUNTRY)));
             event.setVenue(v);
+            c.close();
+
             return event;
         }
         else{
+            c.close();
             return null;
         }
     }
@@ -534,9 +539,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             artist.setArtist(new Artist());
             artist.getArtist().setMbid(c.getString(c.getColumnIndex(ARTIST_MBID)));
             artist.getArtist().setName(c.getString(c.getColumnIndex(ARTIST_NAME)));
+            c.close();
+
             return artist;
         }
         else{
+            c.close();
             return null;
         }
     }
@@ -557,6 +565,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while(c.moveToNext());
             c.moveToFirst();
         }
+        c.close();
         return ids;
     }
 
@@ -572,6 +581,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while(c.moveToNext());
             c.moveToFirst();
         }
+        c.close();
         return mbids;
     }
 
@@ -590,6 +600,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while(c.moveToNext());
             c.moveToFirst();
         }
+        c.close();
         return nmPairs;
     }
 

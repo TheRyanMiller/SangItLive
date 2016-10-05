@@ -5,8 +5,10 @@ import android.content.Context;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.api.BITResultPackageEventMgr;
 import com.rtmillerprojects.sangitlive.model.BandsInTownArtist;
+import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 import com.rtmillerprojects.sangitlive.model.EventCalls.EventManagerRequest;
 import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
+import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -18,6 +20,9 @@ public class EventManagerService {
     private DatabaseHelper db;
     private static EventManagerService emsInstance;
     private int dbVersion;
+    private int numOfCallsMade = 0;
+    private int numOfCallsReceived = 0;
+    private ArrayList<BITResultPackageEventMgr> eventsList = new ArrayList<>();
 
     //Singleton
     public static EventManagerService getInstance(Context context){
@@ -34,23 +39,58 @@ public class EventManagerService {
     private EventManagerService(Context context) {
         db = db.getInstance(context);
         dbVersion = db.getCurrentVersion();
-        EventBus.register(this);
     }
 
-    public void getArtistEventsAll(NameMbidPair nmPair){
+
+    public void getSingleArtistEventsAll(NameMbidPair nmPair){
         ArrayList<NameMbidPair> pairs = new ArrayList<>();
         pairs.add(nmPair);
         //Request All Events for this artist
-        EventBus.post(new EventManagerRequest(pairs,0,false));
+        EventBus.post(new EventManagerRequest(pairs,false,true));
         //Need new function to request only local events
     }
 
+
     @Subscribe
     public void receiveArtistEventsAll(BITResultPackageEventMgr result){
-        db.deleteEventsAllByArtist(result.pair.getMbid(),result.pair.getArtistName());
-        //Insert into DB
-        db.insertEventsAll(result.events);
+        numOfCallsReceived++;
 
+        if(result.isForceRefresh){
+            eventsList.add(result);
+            if(numOfCallsReceived==numOfCallsMade){
+                reconcileTheChanges();
+            }
+        }
+        else{
+            numOfCallsReceived = 0;
+            numOfCallsMade = 0;
+            db.deleteEventsAllByArtist(result.pair.getMbid(),result.pair.getArtistName());
+            //Insert into DB
+            db.insertEventsAll(result.events);
+        }
+    }
+
+    private void reconcileTheChanges() {
+        //Make EventBus post to cancel loading
+        //Compare objects to what is in the database
+        numOfCallsReceived = 0;
+        numOfCallsMade = 0;
+        EventBus.post(new CompletedForceRefresh(true));
+    }
+
+
+    public void forceRefreshCalls(){
+        ArrayList<NameMbidPair> pairs = new ArrayList<>();
+        NameMbidPair nmPair;
+        ArrayList<ArtistLastFm> artistList = db.getAllArtists();
+        for(ArtistLastFm a : artistList){
+            nmPair = new NameMbidPair(a.getArtist().getName(),a.getArtist().getMbid());
+            pairs.add(nmPair);
+        }
+        //Request All Events for this artist
+        numOfCallsMade = artistList.size();
+        EventBus.post(new EventManagerRequest(pairs,false, true));
+        //Need new function to request only local events
     }
 
     /*

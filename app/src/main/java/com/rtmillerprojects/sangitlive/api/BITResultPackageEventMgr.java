@@ -11,9 +11,11 @@ import java.util.ArrayList;
 public class BITResultPackageEventMgr {
     public ArrayList<BandsInTownEventResult> events;
     public NameMbidPair pair;
+    public boolean isForceRefresh;
 
-    public BITResultPackageEventMgr(ArrayList<BandsInTownEventResult> events, NameMbidPair pair) {
+    public BITResultPackageEventMgr(ArrayList<BandsInTownEventResult> events, NameMbidPair pair, boolean isForceRefresh) {
         this.events = events;
         this.pair = pair;
+        this.isForceRefresh = isForceRefresh;
     }
 }

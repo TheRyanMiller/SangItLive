@@ -125,9 +125,9 @@ public class ServiceUpcomingEvents {
                                 boolean a = e.isAttending();
                                 scrubbedEventList.add(e);
                             }
+                            responseCounter++;
                             EventBus.post(new BITResultPackage(scrubbedEventList));
                         }
-                        responseCounter++;
                     }
 
                     @Override
@@ -193,6 +193,7 @@ public class ServiceUpcomingEvents {
                         boolean a = e.isAttending();
                         scrubbedEventList.add(e);
                     }
+                    responseCounter++;
                     EventBus.post(new BITResultPackage(scrubbedEventList));
                 }
             }
@@ -200,6 +201,7 @@ public class ServiceUpcomingEvents {
             @Override
             public void onFailure(Call<ArrayList<BandsInTownEventResult>> call, Throwable t) {
                 Log.d("RYAN TEST", artistName+" EVENT SEARCH RESPONSE FAILED");
+                responseCounter++;
                 //Log.e(t.getMessage());
             }
         });
@@ -270,6 +272,7 @@ public class ServiceUpcomingEvents {
                             DatabaseHelper db = DatabaseHelper.getInstance(context);
                             favoritedShows = db.getFavoritedEventIds();
                             for (BandsInTownEventResult e : bandsInTownEvents) {
+                                //check if attending
                                 e.setAttending(false);
                                 for (int i = 0; i < favoritedShows.size(); i++) {
                                     if (e.getId() == favoritedShows.get(i).intValue()) {
@@ -280,9 +283,9 @@ public class ServiceUpcomingEvents {
                                 boolean a = e.isAttending();
                                 scrubbedEventList.add(e);
                             }
-                            EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,n));
+                            responseCounter++;
+                            EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,n,true));
                         }
-                        responseCounter++;
                     }
 
                     @Override
@@ -349,7 +352,8 @@ public class ServiceUpcomingEvents {
                         boolean a = e.isAttending();
                         scrubbedEventList.add(e);
                     }
-                    EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,nmp));
+                    responseCounter++;
+                    EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,nmp,true));
                 }
             }
 
