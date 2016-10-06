@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -71,6 +73,9 @@ public class ActivitySettings extends AppCompatActivity {
                 ems.forceRefreshCalls();
                 progressDialog = new ProgressDialog(context);
                 progressDialog.show();
+                progressDialog.setCancelable(false);
+                progressDialog.setMessage("Please wait...");
+                progressDialog.setTitle("Refreshing your feeds");
             }
         });
 
@@ -115,6 +120,26 @@ public class ActivitySettings extends AppCompatActivity {
     @Subscribe
     public void getResponseFromForceRefresh(CompletedForceRefresh response){
         progressDialog.cancel();
+        int numNewShows = 0;
+        String message;
+        for (int i = 0; i < response.getNewEventsList().size(); i++) {
+            if(response.getNewEventsList().get(i)!=null) {
+                numNewShows = numNewShows + response.getNewEventsList().get(i).getNumOfNewShows();
+            }
+        }
+
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .setTitle("New events")
+                .setMessage(numNewShows+ " new shows found")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .show();
     }
 
     @Override

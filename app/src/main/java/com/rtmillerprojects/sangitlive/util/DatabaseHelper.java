@@ -475,7 +475,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return events;
     }
 
-    public ArrayList<BandsInTownEventResult> getEventsAllByArtist(boolean allEvents, boolean localEvents, boolean attendingEvents, String mbid, String artistName, boolean futureOnly) {
+    public ArrayList<BandsInTownEventResult> getEventsAllByArtist(boolean allEvents, boolean localEvents, boolean attendingEvents, String artistName, String mbid, boolean futureOnly) {
         ArrayList<BandsInTownEventResult> events = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT  * FROM ";
@@ -715,12 +715,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void deleteEventsAllByArtist(String mbid, String artistName){
+    public void deleteEventsAllByArtist(String artistName, String mbid){
         SQLiteDatabase db = this.getReadableDatabase();
-        if(mbid!=null & mbid!=""){
+        if(mbid!=null){
             db.delete(TABLE_EVENT_ALL,ARTIST_MBID+"='"+mbid+"'",null);
         }
-        if(artistName!=null & artistName!=""){
+        if(artistName!=null){
             db.delete(TABLE_EVENT_ALL,ARTIST_NAME+"='"+artistName+"'",null);
         }
     }

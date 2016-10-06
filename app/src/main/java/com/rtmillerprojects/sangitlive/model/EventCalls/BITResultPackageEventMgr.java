@@ -1,4 +1,4 @@
-package com.rtmillerprojects.sangitlive.api;
+package com.rtmillerprojects.sangitlive.model.EventCalls;
 
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;

@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.HomeUpcomingAdapter;
@@ -81,7 +80,6 @@ public class HomeUpcomingFragment extends BaseFragment {
                                        Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.home_upcoming_fragment, container, false);
-        Fabric.with(ACA, new Crashlytics());
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_home_upcoming);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);

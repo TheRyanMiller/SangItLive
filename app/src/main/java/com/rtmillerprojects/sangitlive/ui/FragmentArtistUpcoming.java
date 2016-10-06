@@ -152,6 +152,7 @@ public class FragmentArtistUpcoming extends BaseFragment {
 
         }
         else {
+            events = new ArrayList<>();
             for(BandsInTownEventResult event : apiEvents){
                 events.add(event);
             }
@@ -190,6 +191,7 @@ public class FragmentArtistUpcoming extends BaseFragment {
 
         // Load complete
         events = new ArrayList<>();
+        //Why is this calling twice?
         EventBus.post(new UpcomingEventQuery(nameMbidPairs,1,false));
         swipeRefreshLayout.setRefreshing(false);
     }

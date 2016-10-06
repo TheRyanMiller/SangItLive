@@ -45,7 +45,7 @@ public class SetAdapter extends RecyclerView.Adapter<SetAdapter.SetInstanceViewH
     public void onBindViewHolder(SetInstanceViewHolder holder, int position) {
         SetInfo si = setInstances.get(position);
         //holder.view.setBackgroundColor(0xFFFF8A80);
-
+        String dateText = getDate(si.getDate());
         holder.city.setText(si.getCity());
         holder.date.setText(si.getDate());
         holder.venue.setText(si.getVenue());
@@ -56,6 +56,9 @@ public class SetAdapter extends RecyclerView.Adapter<SetAdapter.SetInstanceViewH
         }
         else{holder.songsFound.setImageResource(R.drawable.setlisticon);}
 
+    }
+
+    private String getDate(String date) {
     }
 
     @Override

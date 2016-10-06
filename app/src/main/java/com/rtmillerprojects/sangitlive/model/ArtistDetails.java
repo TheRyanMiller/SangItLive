@@ -19,6 +19,17 @@ public class ArtistDetails{
     String url;
     String thumbUrl;
     boolean isOnTour;
+    String bio;
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+
 
     public String getImageText() {
         return imageText;
@@ -28,7 +39,7 @@ public class ArtistDetails{
         this.imageText = imageText;
     }
 
-    private String imageText;
+    public String imageText;
 
     public String getImageSize() {
         return imageSize;
@@ -38,7 +49,7 @@ public class ArtistDetails{
         this.imageSize = imageSize;
     }
 
-    private String imageSize;
+    public String imageSize;
 
 
     public boolean isOnTour() {

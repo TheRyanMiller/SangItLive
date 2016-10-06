@@ -3,13 +3,13 @@ package com.rtmillerprojects.sangitlive.util;
 import android.content.Context;
 
 import com.rtmillerprojects.sangitlive.EventBus;
-import com.rtmillerprojects.sangitlive.api.BITResultPackageEventMgr;
+import com.rtmillerprojects.sangitlive.model.EventCalls.BITResultPackageEventMgr;
 import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 import com.rtmillerprojects.sangitlive.model.EventCalls.CompletedForceRefresh;
 import com.rtmillerprojects.sangitlive.model.EventCalls.EventManagerRequest;
 import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
-import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
+import com.rtmillerprojects.sangitlive.model.NotifyNewEventsForArtist;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -23,6 +23,7 @@ public class EventManagerService {
     private int dbVersion;
     private int numOfCallsMade = 0;
     private int numOfCallsReceived = 0;
+    private Context context;
     private ArrayList<BITResultPackageEventMgr> eventsList = new ArrayList<>();
 
     //Singleton
@@ -38,8 +39,7 @@ public class EventManagerService {
 
     //Private Constructor
     private EventManagerService(Context context) {
-        db = db.getInstance(context);
-        dbVersion = db.getCurrentVersion();
+        this.context = context;
     }
 
 
@@ -64,6 +64,7 @@ public class EventManagerService {
             } else {
                 numOfCallsReceived = 0;
                 numOfCallsMade = 0;
+                db = DatabaseHelper.getInstance(context);
                 db.deleteEventsAllByArtist(result.pair.getMbid(), result.pair.getArtistName());
                 //Insert into DB
                 db.insertEventsAll(result.events);
@@ -77,6 +78,7 @@ public class EventManagerService {
     public void forceRefreshCalls() {
         ArrayList<NameMbidPair> pairs = new ArrayList<>();
         NameMbidPair nmPair;
+        db = DatabaseHelper.getInstance(context);
         ArrayList<ArtistDetails> artistList = db.getAllArtists();
         for (ArtistDetails a : artistList) {
             nmPair = new NameMbidPair(a.getName(), a.getMbid());
@@ -94,34 +96,57 @@ public class EventManagerService {
         //Need to repeat this for all local shows
         numOfCallsReceived = 0;
         numOfCallsMade = 0;
-        ArrayList<CompletedForceRefresh.NewEventsForArtist> results = new ArrayList<>();
+        ArrayList<NotifyNewEventsForArtist> results = new ArrayList<>();
         for (BITResultPackageEventMgr r : eventsList) {
-            CompletedForceRefresh.NewEventsForArtist ne = identifyIfNewDatesExist(r.events, r.pair);
-            results.add(ne);
+            if(r.events != null && r.pair != null) {
+                //if(identifyIfNewDatesExist(r.events, r.pair) != null){
+                    results.add(identifyIfNewDatesExist(r.events, r.pair));
+                //}
+
+            }
         }
-
-
-        //When ready, make callback back to ActivitySettings containing notifications
-        EventBus.post(new CompletedForceRefresh(true, false, results));
+        //Reconcile process is complete
+        //Now rready to build CompletedForceRefresh object and post
+        // it back to the event manager
+        CompletedForceRefresh complete = new CompletedForceRefresh(true, false);
+        complete.setNewEventsList(results);
+        EventBus.post(complete);
     }
 
-    private CompletedForceRefresh.NewEventsForArtist identifyIfNewDatesExist(ArrayList<BandsInTownEventResult> freshEvents, NameMbidPair nmp) {
-        //ALL EVENTS TABLE MATCHING
+    private NotifyNewEventsForArtist identifyIfNewDatesExist(ArrayList<BandsInTownEventResult> freshEvents, NameMbidPair nmp) {
         int numAdded = 0;
+        //ALL EVENTS TABLE MATCHING
+        //Compare the database values and the REST returned values
+        //We will say their are no changes if either of these conditions are true
+        //  1. Their array sizes match
+        //  2. The last event in their arrays have the same Event ID
         ArrayList<BandsInTownEventResult> dbEvents = db.getEventsAllByArtist(true, false, false, nmp.getArtistName(), nmp.getMbid(), true);
-        if (dbEvents.size() == freshEvents.size() || dbEvents.get(dbEvents.size()).getId() == freshEvents.get(freshEvents.size()).getId()) {
-            //Either the sizes match, or the final tour date is the same. Refresh the db
+        Integer dbLastEventId = 0;
+        Integer freshLastEventId = 0;
+        if(dbEvents!=null && dbEvents.size()>0 && dbEvents.get(dbEvents.size()-1).getId() != null){
+            dbLastEventId = dbEvents.get(dbEvents.size()-1).getId();
+        }
+        if(freshEvents!=null && freshEvents.size()>0 && freshEvents.get(freshEvents.size()-1).getId() != null){
+            freshLastEventId = freshEvents.get(freshEvents.size()-1).getId();
+        }
+
+        if (dbEvents.size() == freshEvents.size() || freshLastEventId == dbLastEventId) {
+            //Match was found. Delete all db events and add the new.
             db.deleteEventsAllByArtist(nmp.getArtistName(), nmp.getMbid());
             db.insertEventsAll(freshEvents);
         } else if (dbEvents.size() < freshEvents.size()) {
+            //More events found in the REST response
+            //We will assume that this indicates new events have been announced
             numAdded = freshEvents.size() - dbEvents.size();
             int numAddedLocal = 0;
-            CompletedForceRefresh.NewEventsForArtist ne = new CompletedForceRefresh.NewEventsForArtist(nmp.getArtistName(), nmp.getMbid(), numAdded, numAddedLocal);
+            NotifyNewEventsForArtist ne = new NotifyNewEventsForArtist(nmp.getArtistName(), nmp.getMbid(),numAdded);
             db.deleteEventsAllByArtist(nmp.getArtistName(), nmp.getMbid());
             db.insertEventsAll(freshEvents);
             return ne;
         } else {
-            //db events is greater. Just get rid of old events from db.
+            //db events is greater.
+            //Not quite sure what the explaination would be, but for now
+            //get rid of old events from db and replace with the new
             db.deleteEventsAllByArtist(nmp.getArtistName(), nmp.getMbid());
             db.insertEventsAll(freshEvents);
         }

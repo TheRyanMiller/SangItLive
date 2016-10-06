@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.HomeUpcomingAdapter;
+import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.ArtistsThumbnailRequest;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 import com.rtmillerprojects.sangitlive.model.EventCalls.LastFmArtistDetails;
@@ -59,7 +60,7 @@ public class FragmentArtistDetails extends BaseFragment {
     private LastFmArtistDetails lfad;
     private View rootView;
     private TextView artistDesc;
-    private ArtistLastFm artistDetails;
+    private ArtistDetails artistDetails;
 
 
     public static FragmentArtistDetails newInstance() {
@@ -108,9 +109,9 @@ public class FragmentArtistDetails extends BaseFragment {
     }
 
     @Subscribe
-    public void getArtistDetails(ArtistLastFm artistDetails){
+    public void getArtistDetails(ArtistDetails artistDetails){
         try {
-            Picasso.with(ACA).load(artistDetails.getArtist().getImage().get(2).getText())
+            Picasso.with(ACA).load(artistDetails.getImageText())
                     .placeholder(R.drawable.ic_person_grey600_24dp)
                     ///.transform(new CircleTransform())
                     .into(artistImg);
@@ -119,8 +120,8 @@ public class FragmentArtistDetails extends BaseFragment {
             Log.e(e.getClass().getName(),e.getMessage());
         }
         this.artistDetails = artistDetails;
-        artistDesc.setText(artistDetails.getArtist().getBio().getContent());//.getSummary());
-        setTextViewHTML(artistDesc,artistDetails.getArtist().getBio().getContent());
+        artistDesc.setText(artistDetails.getBio());//.getSummary());
+        setTextViewHTML(artistDesc,artistDetails.getBio());
 
     }
 
@@ -132,7 +133,7 @@ public class FragmentArtistDetails extends BaseFragment {
         ClickableSpan clickable = new ClickableSpan() {
             public void onClick(View view) {
                 // Do something with span.getURL() to handle the link click...
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(artistDetails.getArtist().getUrl()));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(artistDetails.getUrl()));
                 ACA.startActivity(intent);
             }
         };

@@ -129,6 +129,12 @@ public class LastFmArtistService {
             ad.setImageSize(a.getImage().get(2).getSize());
             ad.setImageText(a.getImage().get(2).getText());
         }
+        if(a.getBio()!=null){
+            ad.setBio(a.getBio().getContent());
+        }
+        if(a.getUrl()!=null){
+            ad.setUrl(a.getUrl());
+        }
 
         return ad;
     }

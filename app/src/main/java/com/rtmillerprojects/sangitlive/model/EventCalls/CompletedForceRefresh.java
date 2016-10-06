@@ -1,5 +1,7 @@
 package com.rtmillerprojects.sangitlive.model.EventCalls;
 
+import com.rtmillerprojects.sangitlive.model.NotifyNewEventsForArtist;
+
 import java.util.ArrayList;
 
 /**
@@ -9,25 +11,21 @@ public class CompletedForceRefresh {
     public boolean isComplete;
     public boolean isError;
     public String errorMessage;
-    public ArrayList<NewEventsForArtist> newEventsList;
+    public ArrayList<NotifyNewEventsForArtist> newEventsList;
 
-    public CompletedForceRefresh(boolean isComplete,boolean isError, ArrayList<NewEventsForArtist> newEventsList) {
-        this.isComplete = isComplete;
-        this.isError = isError;
+    public ArrayList<NotifyNewEventsForArtist> getNewEventsList() {
+        return newEventsList;
+    }
+
+    public void setNewEventsList(ArrayList<NotifyNewEventsForArtist> newEventsList) {
         this.newEventsList = newEventsList;
     }
 
-    public static class NewEventsForArtist {
-        private String artistName;
-        private String mbid;
-        private int numOfNewShows;
-        private int numOfNewShowsInLocation;
 
-        public NewEventsForArtist(String artistName, String mbid, int numOfNewShows, int numOfNewShowsInLocation) {
-            this.artistName = artistName;
-            this.mbid = mbid;
-            this.numOfNewShows = numOfNewShows;
-            this.numOfNewShowsInLocation = numOfNewShowsInLocation;
-        }
+
+    public CompletedForceRefresh(boolean isComplete,boolean isError) {
+        this.isComplete = isComplete;
+        this.isError = isError;
     }
+
 }

@@ -9,8 +9,8 @@ import com.google.gson.GsonBuilder;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 import com.rtmillerprojects.sangitlive.model.EventCalls.BITResultPackage;
+import com.rtmillerprojects.sangitlive.model.EventCalls.BITResultPackageEventMgr;
 import com.rtmillerprojects.sangitlive.model.EventCalls.EventManagerRequest;
-import com.rtmillerprojects.sangitlive.model.EventCalls.MBBrowseList;
 import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
 import com.rtmillerprojects.sangitlive.model.EventCalls.UpcomingEventQuery;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
@@ -127,7 +127,7 @@ public class ServiceUpcomingEvents {
                                 scrubbedEventList.add(e);
                             }
                             responseCounter++;
-                            EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,responsePair,false));
+                            EventBus.post(new BITResultPackage(scrubbedEventList));
                         }
                     }
 
@@ -199,7 +199,7 @@ public class ServiceUpcomingEvents {
                         scrubbedEventList.add(e);
                     }
                     responseCounter++;
-                    EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,nmp,false));
+                    EventBus.post(new BITResultPackage(scrubbedEventList));
                 }
             }
 
@@ -363,6 +363,7 @@ public class ServiceUpcomingEvents {
                         scrubbedEventList.add(e);
                     }
                     responseCounter++;
+
                     EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,nmp,true));
                 }
             }
