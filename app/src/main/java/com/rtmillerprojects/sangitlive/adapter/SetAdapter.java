@@ -16,7 +16,11 @@ import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.model.SetInfo;
 import com.rtmillerprojects.sangitlive.ui.ActivitySetlistDetail;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Ryan on 8/25/2016.
@@ -47,7 +51,7 @@ public class SetAdapter extends RecyclerView.Adapter<SetAdapter.SetInstanceViewH
         //holder.view.setBackgroundColor(0xFFFF8A80);
         String dateText = getDate(si.getDate());
         holder.city.setText(si.getCity());
-        holder.date.setText(si.getDate());
+        holder.date.setText(dateText);
         holder.venue.setText(si.getVenue());
         holder.position = position;
         holder.setInfo = si;
@@ -59,6 +63,20 @@ public class SetAdapter extends RecyclerView.Adapter<SetAdapter.SetInstanceViewH
     }
 
     private String getDate(String date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "dd-MM-yyyy", Locale.getDefault());
+        SimpleDateFormat newFormat = new SimpleDateFormat(
+                "MM/dd/yyyy", Locale.getDefault());
+        Date newDate = new Date();
+        try {
+            newDate = dateFormat.parse(date);
+            String desiredDate = newFormat.format(newDate);
+            return desiredDate;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return dateFormat.format(date);
     }
 
     @Override

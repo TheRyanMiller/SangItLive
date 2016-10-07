@@ -15,16 +15,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 
+import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.ArtistsSectionsPagerAdapter;
 import com.rtmillerprojects.sangitlive.listener.GetMbid;
 import com.rtmillerprojects.sangitlive.listener.MainListener;
 import com.rtmillerprojects.sangitlive.model.ArtistDetails;
+import com.rtmillerprojects.sangitlive.model.EventCalls.BITResultPackage;
 import com.rtmillerprojects.sangitlive.model.EventCalls.LastFmArtistDetails;
 import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
+import com.rtmillerprojects.sangitlive.model.EventCalls.UpcomingEventQuery;
 import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
 import com.rtmillerprojects.sangitlive.util.EventManagerService;
+import com.squareup.otto.Subscribe;
+
+import java.util.ArrayList;
 
 /**
  * Created by Ryan on 9/2/2016.
@@ -105,7 +111,17 @@ public class FragmentArtistMain extends BaseFragment{
             }
 
             @Override public void onPageSelected(int position) {
+                if (position == 2) {
+                    fab.show();
+                    fab.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //Turn toolbar into
+                        }
+                    });
+                } else {
                     fab.hide();
+                }
             }
 
             @Override public void onPageScrollStateChanged(int state) {
@@ -148,8 +164,9 @@ public class FragmentArtistMain extends BaseFragment{
                     pd.setMessage("Waiting");
                     pd.setCancelable(false);
                     db.insertArtist(ad);
-                    ems = ems.getInstance(ACA);
-                    ems.getSingleArtistEventsAll(new NameMbidPair(ad.getName(),ad.getMbid()));
+                    ArrayList<NameMbidPair> pairs = new ArrayList<NameMbidPair>();
+                    pairs.add(new NameMbidPair(ad.getName(),ad.getMbid()));
+                    EventBus.post(new UpcomingEventQuery(pairs,0,false));
                     pd.cancel();
                 }
 
@@ -187,6 +204,12 @@ public class FragmentArtistMain extends BaseFragment{
     public void onResume() {
         super.onResume();
         refreshStar();
+    }
+
+    @Subscribe
+    public void recieveShows(BITResultPackage showResults){
+        DatabaseHelper db = DatabaseHelper.getInstance(ACA);
+        db.insertEventsAll(showResults.events);
     }
 
     public void refreshStar(){

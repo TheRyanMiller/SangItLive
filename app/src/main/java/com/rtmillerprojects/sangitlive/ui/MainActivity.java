@@ -83,6 +83,9 @@ public class MainActivity extends AppCompatActivity
         if(id == R.id.nav_settings){
             startActivity(new Intent(this, ActivitySettings.class));
         }
+        if(id == R.id.nav_artist_search){
+            startActivity(new Intent(this, ActivityArtistSearch.class));
+        }
         //implement click handlers here
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

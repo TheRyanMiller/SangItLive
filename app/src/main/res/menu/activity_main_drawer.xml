@@ -4,6 +4,10 @@
     <group android:checkableBehavior="none"
         android:id="@+id/menu_top">
         <item
+            android:id="@+id/nav_artist_search"
+            android:icon="@drawable/ic_search_white_24dp"
+            android:title="@string/artist_search"/>
+        <item
             android:id="@+id/nav_filter"
             android:icon="@drawable/filtericon2"
             android:title="Filter Feed"/>

@@ -16,9 +16,16 @@ import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
+import com.rtmillerprojects.sangitlive.model.EventCalls.BITResultPackage;
+import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
+import com.rtmillerprojects.sangitlive.model.EventCalls.UpcomingEventQuery;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
+import com.squareup.otto.Subscribe;
 
 import org.parceler.Parcels;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by Ryan on 9/5/2016.
@@ -112,9 +119,11 @@ public class ActivityEventDetails extends AppCompatActivity {
 
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        String mbid = ad.getMbid();
+                                        ArrayList<NameMbidPair> pairs = new ArrayList<NameMbidPair>();
+                                        pairs.add(new NameMbidPair(ad.getName(),ad.getMbid()));
+                                        EventBus.post(new UpcomingEventQuery(pairs,0,false));
                                         DatabaseHelper db = DatabaseHelper.getInstance(context);
-                                        //db.insertArtist(ad);
+                                        db.insertArtist(ad);
                                     }
                                 })
                                 .setNegativeButton("No", new DialogInterface.OnClickListener(){
@@ -130,6 +139,12 @@ public class ActivityEventDetails extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Subscribe
+    public void recieveShows(BITResultPackage showResults){
+        DatabaseHelper db = DatabaseHelper.getInstance(this);
+        db.insertEventsAll(showResults.events);
     }
 
     @Override
