@@ -3,11 +3,13 @@
     android:id="@+id/event_item"
     android:layout_width="match_parent"
     android:layout_height="90dp"
-    android:background="@drawable/border"
     android:backgroundTint="@color/material_gray_200"
     android:orientation="vertical"
     android:elevation="2dp"
-    android:layout_marginTop="5dp">
+    android:layout_marginTop="5dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?attr/selectableItemBackground">
 
     <LinearLayout
         android:id="@+id/calendar_box"

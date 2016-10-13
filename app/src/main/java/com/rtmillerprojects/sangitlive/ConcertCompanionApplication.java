@@ -9,6 +9,7 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.rtmillerprojects.sangitlive.api.LastFmArtistService;
 import com.rtmillerprojects.sangitlive.api.ServiceArtistImage;
+import com.rtmillerprojects.sangitlive.api.ServiceInternetStatus;
 import com.rtmillerprojects.sangitlive.api.ServiceUpcomingEvents;
 import com.rtmillerprojects.sangitlive.util.EventManagerService;
 import com.squareup.picasso.Picasso;
@@ -76,9 +77,11 @@ public class ConcertCompanionApplication extends Application {
         ServiceUpcomingEvents sue = new ServiceUpcomingEvents(this);
         ServiceArtistImage sai = new ServiceArtistImage(this);
         LastFmArtistService lfas = new LastFmArtistService(this);
+        ServiceInternetStatus sis = new ServiceInternetStatus(this);
         EventBus.register(sue);
         EventBus.register(sai);
         EventBus.register(lfas);
+        EventBus.register(sis);
 
     }
 

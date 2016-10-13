@@ -22,8 +22,10 @@ import com.rtmillerprojects.sangitlive.listener.GetMbid;
 import com.rtmillerprojects.sangitlive.listener.MainListener;
 import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.EventCalls.BITResultPackage;
+import com.rtmillerprojects.sangitlive.model.EventCalls.CheckInternetStatus;
 import com.rtmillerprojects.sangitlive.model.EventCalls.LastFmArtistDetails;
 import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
+import com.rtmillerprojects.sangitlive.model.EventCalls.ReturnInternetStatus;
 import com.rtmillerprojects.sangitlive.model.EventCalls.UpcomingEventQuery;
 import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
@@ -40,6 +42,7 @@ public class FragmentArtistMain extends BaseFragment{
     Toolbar toolbar;
     ViewPager viewPager;
     TabLayout tabLayout;
+    ReturnInternetStatus ris;
     FloatingActionButton fab;
     String mbid;
     GetMbid mbidListener;
@@ -82,6 +85,8 @@ public class FragmentArtistMain extends BaseFragment{
         adr = ad;
         ad.setMbid(mbid);
         ad.setName(artistName);
+
+        EventBus.post(new CheckInternetStatus(ACA));
 
         fab.hide();
         String toolbarTitle=getArguments().getString("artistName");
@@ -207,6 +212,14 @@ public class FragmentArtistMain extends BaseFragment{
     }
 
     @Subscribe
+    public void receiveInternetStatus(ReturnInternetStatus ris){
+        this.ris = ris;
+        if(!ris.connected){
+
+        }
+    }
+
+    @Subscribe
     public void recieveShows(BITResultPackage showResults){
         DatabaseHelper db = DatabaseHelper.getInstance(ACA);
         db.insertEventsAll(showResults.events);
@@ -214,6 +227,7 @@ public class FragmentArtistMain extends BaseFragment{
 
     public void refreshStar(){
         if(starArtist!=null && adr!=null){
+            //This produces a bad result for the artist "LOGIC"
             if(db.getArtistById(adr.getMbid())==null){
                 starArtist.setChecked(false);
             }

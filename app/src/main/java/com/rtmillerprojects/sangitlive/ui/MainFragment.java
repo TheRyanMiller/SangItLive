@@ -65,6 +65,8 @@ public class MainFragment extends BaseFragment{
         //UNCOMMENT!!!
         mainSectionsPagerAdapter = new MainSectionsPagerAdapter(getChildFragmentManager());
 
+
+
         // Set up the ViewPager with the sections adapter.
         viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(mainSectionsPagerAdapter);
