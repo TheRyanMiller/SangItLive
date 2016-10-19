@@ -6,6 +6,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -52,6 +53,10 @@ public class ActivitySettings extends AppCompatActivity {
     TextView textViewLocation;
     ProgressDialog progressDialog;
     Context context;
+    RelativeLayout refreshFrequencyLayout;
+    SharedPreferences.Editor editor;
+    SharedPreferences sharedPref;
+    TextView refreshFrequencyValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +66,15 @@ public class ActivitySettings extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         locationLayout = (RelativeLayout) findViewById(R.id.location_layout);
         forceRefresh = (RelativeLayout) findViewById(R.id.force_refresh_layout);
+        refreshFrequencyLayout = (RelativeLayout) findViewById(R.id.refresh_frequency_layout);
         textViewLocation = (TextView) findViewById(R.id.location_value);
+        refreshFrequencyValue = (TextView) findViewById(R.id.refresh_requency_value);
         listView = (ListView) findViewById(R.id.location_results);
         emptyView = (TextView) findViewById(R.id.empty_view);
+        sharedPref = getPreferences(Context.MODE_PRIVATE);
         final Context context = this;
+
+        populateUserLocation();
 
         forceRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +107,51 @@ public class ActivitySettings extends AppCompatActivity {
                 startActivityForResult(new Intent(context, ActivityZipSearch.class), ZIP_REQUEST_CODE);
             }
         });
+
+        String frequencyDisplay = sharedPref.getInt(getString(R.string.user_refresh_frequency),60) + " days";
+        refreshFrequencyValue.setText(frequencyDisplay);
+
+        refreshFrequencyLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder b = new AlertDialog.Builder(context);
+                b.setTitle("Refresh Frequency");
+                String[] types = {"7 days", "21 days", "60 days"};
+                b.setItems(types, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                        switch(which){
+                            case 0:
+                                editor = sharedPref.edit();
+                                editor.putInt(getString(R.string.user_refresh_frequency), 7);
+                                editor.commit();
+                                //onZipRequested();
+                                break;
+                            case 1:
+                                editor = sharedPref.edit();
+                                editor.putInt(getString(R.string.user_refresh_frequency), 21);
+                                editor.commit();
+                                //onCategoryRequested();
+                                break;
+                            case 2:
+                                editor = sharedPref.edit();
+                                editor.putInt(getString(R.string.user_refresh_frequency), 60);
+                                editor.commit();
+                                //onCategoryRequested();
+                                break;
+                        }
+                    }
+
+                });
+
+                b.show();
+
+            }
+        });
+
 
 
     }
@@ -148,6 +203,16 @@ public class ActivitySettings extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 location = Parcels.unwrap(data.getParcelableExtra("result"));
                 textViewLocation.setText(location.toString());
+                //Put user location data into Shared Preferences
+                SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(getString(R.string.user_city), location.city);
+                editor.putString(getString(R.string.user_location_zip), location.getZip());
+                editor.putString(getString(R.string.user_location_country), location.getCountry());
+                editor.putString(getString(R.string.user_location_address_fmt), location.getFormattedAddress());
+                editor.putString(getString(R.string.user_location_state), location.getState());
+                editor.putString(getString(R.string.user_location_state_abr), location.getStateAbv());
+                editor.commit();
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
@@ -155,6 +220,17 @@ public class ActivitySettings extends AppCompatActivity {
         }
     }
 
+    private void populateUserLocation(){
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        location = new CustomLocationResult();
+        location.city = sharedPref.getString(getString(R.string.user_city), location.city);
+        location.zip = sharedPref.getString(getString(R.string.user_location_zip), location.getZip());
+        location.country = sharedPref.getString(getString(R.string.user_location_country), location.getCountry());
+        location.formattedAddress = sharedPref.getString(getString(R.string.user_location_address_fmt), location.getFormattedAddress());
+        location.state = sharedPref.getString(getString(R.string.user_location_state), location.getState());
+        location.stateAbv = sharedPref.getString(getString(R.string.user_location_state_abr), location.getStateAbv());
+        textViewLocation.setText(location.toString());
+    }
     @Override
     protected void onResume() {
         super.onResume();

@@ -99,7 +99,7 @@ public class ActivityZipSearch extends AppCompatActivity {
     }
 
     @Subscribe
-    public void receiveArtistResults(LocationResults results) {
+    public void receiveLocationResults(LocationResults results) {
         r = results.getResults();
         if(r==null || r.size()==0){
             listView.setVisibility(View.GONE);

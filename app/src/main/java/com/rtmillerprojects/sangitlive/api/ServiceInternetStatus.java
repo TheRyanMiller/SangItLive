@@ -52,15 +52,9 @@ public class ServiceInternetStatus {
                 .baseUrl("http://clients3.google.com/generate_204")
                 .build();
 
-        Call c = "";
-        Call<String> call = ;
-        //asynchronous call
-        call.enqueue(new Callback<ArrayList<BandsInTownEventResult>>() {
 
         if (isNetworkAvailable(cis.context)) {
             try {
-                AsyncTask
-            }
                 HttpURLConnection urlc = (HttpURLConnection)
                         (new URL("http://clients3.google.com/generate_204")
                                 .openConnection());
