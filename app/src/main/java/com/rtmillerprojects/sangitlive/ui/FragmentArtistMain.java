@@ -86,8 +86,6 @@ public class FragmentArtistMain extends BaseFragment{
         ad.setMbid(mbid);
         ad.setName(artistName);
 
-        EventBus.post(new CheckInternetStatus(ACA));
-
         fab.hide();
         String toolbarTitle=getArguments().getString("artistName");
 
@@ -139,7 +137,6 @@ public class FragmentArtistMain extends BaseFragment{
             @Override
             public void onClick(View v) {
                 if(starArtist.isChecked()==false){
-
                     new AlertDialog.Builder(ACA)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setTitle("Confirm selection")
@@ -209,14 +206,6 @@ public class FragmentArtistMain extends BaseFragment{
     public void onResume() {
         super.onResume();
         refreshStar();
-    }
-
-    @Subscribe
-    public void receiveInternetStatus(ReturnInternetStatus ris){
-        this.ris = ris;
-        if(!ris.connected){
-
-        }
     }
 
     @Subscribe

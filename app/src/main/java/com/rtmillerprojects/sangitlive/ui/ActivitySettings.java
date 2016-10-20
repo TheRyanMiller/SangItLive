@@ -30,7 +30,12 @@ import com.squareup.otto.Subscribe;
 
 import org.parceler.Parcels;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Ryan on 8/25/2016.
@@ -57,6 +62,11 @@ public class ActivitySettings extends AppCompatActivity {
     SharedPreferences.Editor editor;
     SharedPreferences sharedPref;
     TextView refreshFrequencyValue;
+    TextView tvNextRefreshDate;
+    TextView tvLastRefreshDate;
+    Date lastRefresh;
+    Date nextRefresh;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +81,13 @@ public class ActivitySettings extends AppCompatActivity {
         refreshFrequencyValue = (TextView) findViewById(R.id.refresh_requency_value);
         listView = (ListView) findViewById(R.id.location_results);
         emptyView = (TextView) findViewById(R.id.empty_view);
+        tvLastRefreshDate = (TextView) findViewById(R.id.last_refresh_value);
+        tvNextRefreshDate = (TextView) findViewById(R.id.next_refresh_value);
         sharedPref = getPreferences(Context.MODE_PRIVATE);
         final Context context = this;
 
         populateUserLocation();
+        populateRefreshDates();
 
         forceRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,26 +134,42 @@ public class ActivitySettings extends AppCompatActivity {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        String frequencyDisplay;
+                        int frequency;
+                        long newDate;
 
                         dialog.dismiss();
                         switch(which){
                             case 0:
                                 editor = sharedPref.edit();
-                                editor.putInt(getString(R.string.user_refresh_frequency), 7);
+                                frequency = 7;
+                                editor.putInt(getString(R.string.user_refresh_frequency), frequency);
                                 editor.commit();
-                                //onZipRequested();
+                                frequencyDisplay = frequency + " days";
+                                refreshFrequencyValue.setText(frequencyDisplay);
+                                newDate = calculateNextRefreshDate(frequency);
+                                tvNextRefreshDate.setText(longToString(newDate));
                                 break;
                             case 1:
                                 editor = sharedPref.edit();
-                                editor.putInt(getString(R.string.user_refresh_frequency), 21);
+                                frequency = 21;
+                                editor.putInt(getString(R.string.user_refresh_frequency), frequency);
                                 editor.commit();
-                                //onCategoryRequested();
+                                frequencyDisplay = frequency + " days";
+                                refreshFrequencyValue.setText(frequencyDisplay);
+                                newDate = calculateNextRefreshDate(frequency);
+                                tvNextRefreshDate.setText(longToString(newDate));
                                 break;
                             case 2:
                                 editor = sharedPref.edit();
-                                editor.putInt(getString(R.string.user_refresh_frequency), 60);
+                                frequency = 60;
+                                editor.putInt(getString(R.string.user_refresh_frequency), frequency);
+                                editor.putLong(getString(R.string.user_next_refresh), calculateNextRefreshDate(frequency));
                                 editor.commit();
-                                //onCategoryRequested();
+                                frequencyDisplay = 60 + " days";
+                                refreshFrequencyValue.setText(frequencyDisplay);
+                                newDate = calculateNextRefreshDate(frequency);
+                                tvNextRefreshDate.setText(longToString(newDate));
                                 break;
                         }
                     }
@@ -154,6 +183,32 @@ public class ActivitySettings extends AppCompatActivity {
 
 
 
+
+
+    }
+
+    private void populateRefreshDates() {
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        int frequency = sharedPref.getInt(getString(R.string.user_refresh_frequency),0);
+        nextRefresh = new Date(sharedPref.getLong(getString(R.string.user_next_refresh), calculateNextRefreshDate(frequency/*Zero is for default*/)));
+        lastRefresh = new Date(sharedPref.getLong(getString(R.string.user_last_refresh), calculateLastRefreshDate()));
+        tvLastRefreshDate.setText(dateToString(lastRefresh));
+        tvNextRefreshDate.setText(dateToString(nextRefresh));
+    }
+
+    private long calculateLastRefreshDate() {
+        Date d = new Date();
+        return d.getTime();
+    }
+
+    private long calculateNextRefreshDate(int frequency) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date()); // Now use today date.
+        if(frequency==0){frequency=60;}
+        c.add(Calendar.DATE, frequency); // Adding 5 days
+        Date d = c.getTime();
+        return d.getTime();
     }
 
     @Override public boolean onCreateOptionsMenu(Menu menu) {
@@ -170,6 +225,11 @@ public class ActivitySettings extends AppCompatActivity {
             //use the query to search your data somehow
             Toast.makeText(this,query,Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private String dateToString(Date d) {
+        DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy", Locale.ENGLISH);
+        return formatter.format(d);
     }
 
     @Subscribe
@@ -195,6 +255,16 @@ public class ActivitySettings extends AppCompatActivity {
                     }
                 })
                 .show();
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        nextRefresh = new Date(sharedPref.getLong(getString(R.string.user_next_refresh), calculateNextRefreshDate(0/*Zero is for default*/)));
+        int frequency = sharedPref.getInt(getString(R.string.user_refresh_frequency), 0);
+        editor.putLong(getString(R.string.user_next_refresh), calculateNextRefreshDate(frequency));
+        editor.putLong(getString(R.string.user_last_refresh), calculateLastRefreshDate());
+        editor.commit();
+        tvLastRefreshDate.setText(dateToString(lastRefresh));
+        tvNextRefreshDate.setText(dateToString(nextRefresh));
     }
 
     @Override
@@ -231,6 +301,13 @@ public class ActivitySettings extends AppCompatActivity {
         location.stateAbv = sharedPref.getString(getString(R.string.user_location_state_abr), location.getStateAbv());
         textViewLocation.setText(location.toString());
     }
+
+    private String longToString(long longDate){
+        Date d = new Date(longDate); //* 1000);
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
+        return sdf.format(d);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();

@@ -6,10 +6,17 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
+import android.support.v7.widget.SwitchCompat;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
@@ -33,6 +40,8 @@ public class MainActivity extends AppCompatActivity
     ServiceArtistImage sai;
     LastFmArtistService lfas;
     Intent intent;
+    MenuItem menuItem;
+
 
 
     @Override protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +65,17 @@ public class MainActivity extends AppCompatActivity
 
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        Menu menu = navigationView.getMenu();
+        menuItem = menu.findItem(R.id.nav_filter);
+        View actionView = MenuItemCompat.getActionView(menuItem);
+        SwitchCompat filterSwitch = (SwitchCompat) actionView.findViewById(R.id.filter_switch);
+        filterSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "FILTER CLICKED", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }

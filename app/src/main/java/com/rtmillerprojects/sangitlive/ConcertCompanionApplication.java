@@ -1,6 +1,8 @@
 package com.rtmillerprojects.sangitlive;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.StrictMode;
@@ -12,8 +14,13 @@ import com.rtmillerprojects.sangitlive.api.ServiceArtistImage;
 import com.rtmillerprojects.sangitlive.api.ServiceInternetStatus;
 import com.rtmillerprojects.sangitlive.api.ServiceUpcomingEvents;
 import com.rtmillerprojects.sangitlive.util.EventManagerService;
+import com.rtmillerprojects.sangitlive.util.SharedPreferencesHelper;
 import com.squareup.picasso.Picasso;
 import com.rtmillerprojects.sangitlive.EventBus;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -28,6 +35,7 @@ public class ConcertCompanionApplication extends Application {
 
     public static String versionName;
     public static int versionCode;
+
 
     public static ConcertCompanionApplication getInstance(){
         return singleton;
@@ -59,7 +67,12 @@ public class ConcertCompanionApplication extends Application {
         //GoogleAnalyticsHelper.initialize(this);
 
         /* Initialize our SharedPreferences Singleton */
-        //SharedPreferencesHelper.initialize(this);
+        SharedPreferencesHelper.initialize(this);
+        if(SharedPreferencesHelper.getLong(getString(R.string.user_last_refresh),0)==0){
+            SharedPreferencesHelper.putLong(getString(R.string.user_last_refresh), calculateLastRefreshDate());
+            SharedPreferencesHelper.putLong(getString(R.string.user_next_refresh), calculateNextRefreshDate(0));
+
+        }
 
         /* Initialize our Database Helper */
         //DBManager.getHelper(this);
@@ -77,11 +90,9 @@ public class ConcertCompanionApplication extends Application {
         ServiceUpcomingEvents sue = new ServiceUpcomingEvents(this);
         ServiceArtistImage sai = new ServiceArtistImage(this);
         LastFmArtistService lfas = new LastFmArtistService(this);
-        ServiceInternetStatus sis = new ServiceInternetStatus(this);
         EventBus.register(sue);
         EventBus.register(sai);
         EventBus.register(lfas);
-        EventBus.register(sis);
 
     }
 
@@ -143,5 +154,18 @@ public class ConcertCompanionApplication extends Application {
                     .build());
 
         }
+    }
+    private long calculateLastRefreshDate() {
+        Date d = new Date();
+        return d.getTime();
+    }
+    private long calculateNextRefreshDate(int frequency) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date()); // Now use today date.
+        if(frequency==0){frequency=60;}
+        c.add(Calendar.DATE, frequency); // Adding 5 days
+        Date d = c.getTime();
+        return d.getTime();
     }
 }

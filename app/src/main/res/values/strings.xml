@@ -15,7 +15,7 @@
     <string name="no_rsvp_events_available">You have not RSVP\'d to any upcoming shows.</string>
     <string name="picasso_logging_enabled">Picasso logging enabled</string>
     <string name="artist_search">Artist Search</string>
-    <string name="filter_feed">Filter Feed</string>
+    <string name="filter_feed">Apply Location Filter</string>
     <string name="settings">Settings</string>
     <string name="feedback">feedback</string>
     <string name="user_city">user_city</string>
@@ -25,4 +25,7 @@
     <string name="user_location_country">user_location_country</string>
     <string name="user_location_zip">user_location_zip</string>
     <string name="user_refresh_frequency">user_refresh_frequency</string>
+    <string name="user_next_refresh">user_next_refresh</string>
+    <string name="user_last_refresh">user_last_refresh</string>
+    <string name="error_preferences_illegal_state">error_preferences_illegal_state</string>
 </resources>
