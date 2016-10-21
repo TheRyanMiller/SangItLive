@@ -192,7 +192,7 @@ public class FragmentArtistUpcoming extends BaseFragment {
         // Load complete
         events = new ArrayList<>();
         //Why is this calling twice?
-        EventBus.post(new UpcomingEventQuery(nameMbidPairs,1,false));
+        EventBus.post(new UpcomingEventQuery(nameMbidPairs,false,false));
         swipeRefreshLayout.setRefreshing(false);
     }
 

@@ -25,6 +25,7 @@ import com.rtmillerprojects.sangitlive.api.ServiceArtistImage;
 import com.rtmillerprojects.sangitlive.api.ServiceSetlist;
 import com.rtmillerprojects.sangitlive.api.ServiceUpcomingEvents;
 import com.rtmillerprojects.sangitlive.listener.MainListener;
+import com.rtmillerprojects.sangitlive.util.SharedPreferencesHelper;
 
 import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService;
 
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity
     LastFmArtistService lfas;
     Intent intent;
     MenuItem menuItem;
+    boolean switchState;
 
 
 
@@ -69,11 +71,19 @@ public class MainActivity extends AppCompatActivity
         Menu menu = navigationView.getMenu();
         menuItem = menu.findItem(R.id.nav_filter);
         View actionView = MenuItemCompat.getActionView(menuItem);
-        SwitchCompat filterSwitch = (SwitchCompat) actionView.findViewById(R.id.filter_switch);
+        final SwitchCompat filterSwitch = (SwitchCompat) actionView.findViewById(R.id.filter_switch);
+        filterSwitch.setChecked(SharedPreferencesHelper.getBoolean(getString(R.string.is_Filtered),false));
         filterSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "FILTER CLICKED", Toast.LENGTH_SHORT).show();
+                if(filterSwitch.isChecked()){
+                    SharedPreferencesHelper.putBoolean(getString(R.string.is_Filtered),true);
+                    //Update shared pref
+                    //Callback to fragments with locality
+                }
+                else{
+                    SharedPreferencesHelper.putBoolean(getString(R.string.is_Filtered),true);
+                }
             }
         });
 

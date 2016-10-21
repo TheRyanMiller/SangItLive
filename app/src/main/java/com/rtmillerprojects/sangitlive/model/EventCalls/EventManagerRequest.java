@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * Created by Ryan on 10/1/2016.
  */
 public class EventManagerRequest {
+    public boolean isFilteredByLocation;
     private ArrayList<NameMbidPair> nameMbidPairs;
 
     public boolean isForcedRefresh() {
@@ -32,11 +33,11 @@ public class EventManagerRequest {
     private boolean failedMbidAttempt;
 
     //Constructor
-    public EventManagerRequest(ArrayList<NameMbidPair> nameMbidPairs, boolean failedMbidAttempt, boolean forcedRefresh) {
+    public EventManagerRequest(ArrayList<NameMbidPair> nameMbidPairs, boolean failedMbidAttempt, boolean forcedRefresh, boolean isFilteredByLocation) {
         this.nameMbidPairs = nameMbidPairs;
         this.failedMbidAttempt = failedMbidAttempt;
         this.forcedRefresh = forcedRefresh;
-
+        this.isFilteredByLocation = isFilteredByLocation;
     }
 
     public ArrayList<NameMbidPair> getNameMbidPairs() {

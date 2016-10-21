@@ -7,13 +7,16 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rtmillerprojects.sangitlive.EventBus;
+import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 import com.rtmillerprojects.sangitlive.model.EventCalls.BITResultPackage;
 import com.rtmillerprojects.sangitlive.model.EventCalls.BITResultPackageEventMgr;
 import com.rtmillerprojects.sangitlive.model.EventCalls.EventManagerRequest;
+import com.rtmillerprojects.sangitlive.model.EventCalls.FailedEventSearchByName;
 import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
 import com.rtmillerprojects.sangitlive.model.EventCalls.UpcomingEventQuery;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
+import com.rtmillerprojects.sangitlive.util.SharedPreferencesHelper;
 import com.squareup.otto.Subscribe;
 
 import java.io.IOException;
@@ -83,6 +86,12 @@ public class ServiceUpcomingEvents {
             artistName = event.getNameMbidPairs().get(i).getArtistName();
             if(!event.isFailedMbidAttempt()) {
                 Call<ArrayList<BandsInTownEventResult>> call = eventsApi.searchEventsByMbid(mbid, "json", "2.0", "ConcertCompanion");
+                //Build the call based on
+                if (event.isLocalEvents()){
+                    String city = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_city),"Charleston");
+                    String stateAbbr = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_location_state_abr),"SC");
+                    call = eventsApi.searchLocationalEventsByMbid(mbid, "json", city+" , "+stateAbbr, "2.0", "ConcertCompanion");
+                }
                 //asynchronous call
                 call.enqueue(new Callback<ArrayList<BandsInTownEventResult>>() {
                     @Override
@@ -100,7 +109,8 @@ public class ServiceUpcomingEvents {
                                         if(p.getMbid().contains(retMbid)){
                                             pair = p;
                                             Log.d("RYAN TEST",  p.getArtistName()+ " EVENT SEARCH BY MBID FAILED");
-                                            EventBus.post(pair);
+                                            FailedEventSearchByName fesbn = new FailedEventSearchByName(pair, event.isLocalEvents());
+                                            EventBus.post(fesbn);
                                             break;
                                         }
                                     }
@@ -127,7 +137,7 @@ public class ServiceUpcomingEvents {
                                 scrubbedEventList.add(e);
                             }
                             responseCounter++;
-                            EventBus.post(new BITResultPackage(scrubbedEventList));
+                            EventBus.post(new BITResultPackage(scrubbedEventList,event.isLocalEvents()));
                         }
                     }
 
@@ -145,7 +155,7 @@ public class ServiceUpcomingEvents {
     }
 
     @Subscribe
-    public void newAttempt(final NameMbidPair nmp){
+    public void newAttempt(final FailedEventSearchByName fesbn){
         Gson gson = new GsonBuilder()
                 //.registerTypeAdapterFactory(new SetlistTypeAdapterFactory())
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
@@ -156,9 +166,15 @@ public class ServiceUpcomingEvents {
                 .build();
         ApiServiceBandsInTown eventsApi = retrofit.create(ApiServiceBandsInTown.class);
 
-        artistName = nmp.getArtistName();
-        final String artistMbid = nmp.getMbid();
-        Call<ArrayList<BandsInTownEventResult>> call = eventsApi.searchEventsByArtistName(nmp.getArtistName(), "json", "2.0", "ConcertCompanion");
+        artistName = fesbn.getPair().getArtistName();
+        final String artistMbid = fesbn.getPair().getMbid();
+        Call<ArrayList<BandsInTownEventResult>> call = eventsApi.searchEventsByArtistName(fesbn.getPair().getArtistName(), "json", "2.0", "ConcertCompanion");
+        //Build the call based on
+        if (fesbn.isLocationFiltered()){
+            String city = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_city),"Charleston");
+            String stateAbbr = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_location_state_abr),"SC");
+            call = eventsApi.searchLocationalEventsByArtistName(mbid, "json", city+" , "+stateAbbr, "2.0", "ConcertCompanion");
+        }
         //asynchronous call
         call.enqueue(new Callback<ArrayList<BandsInTownEventResult>>() {
             @Override
@@ -199,7 +215,7 @@ public class ServiceUpcomingEvents {
                         scrubbedEventList.add(e);
                     }
                     responseCounter++;
-                    EventBus.post(new BITResultPackage(scrubbedEventList));
+                    EventBus.post(new BITResultPackage(scrubbedEventList,fesbn.isLocationFiltered));
                 }
             }
 
@@ -250,7 +266,7 @@ public class ServiceUpcomingEvents {
                                 if (errorMsg.contains("Unknown Artist")) {
                                     for(NameMbidPair p : pairs){
                                         if(p.getMbid().contains(retMbid)){
-                                            eventMgrPair = new EventMgrNameMbidPair(p);
+                                            eventMgrPair = new EventMgrNameMbidPair(p,event.isFilteredByLocation);
                                             Log.d("RYAN TEST",  p.getArtistName()+ " EVENT SEARCH BY MBID FAILED");
                                             EventBus.post(eventMgrPair);
                                             break;
@@ -289,7 +305,7 @@ public class ServiceUpcomingEvents {
                                 scrubbedEventList.add(e);
                             }
                             responseCounter++;
-                            EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,n,true));
+                            EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,n,true,event.isFilteredByLocation));
                         }
                     }
 
@@ -307,7 +323,7 @@ public class ServiceUpcomingEvents {
     }
 
     @Subscribe
-    public void newEventMgrAttempt(EventMgrNameMbidPair emPair){
+    public void newEventMgrAttempt(final EventMgrNameMbidPair emPair){
         final NameMbidPair nmp = emPair.pair;
         Gson gson = new GsonBuilder()
                 //.registerTypeAdapterFactory(new SetlistTypeAdapterFactory())
@@ -334,7 +350,7 @@ public class ServiceUpcomingEvents {
                         String errorMsg = response.errorBody().string();
                         if (errorMsg.contains("Unknown Artist")) {
                             Log.d("RYAN TEST", artistName+" Results show that this is an unknown Artist AGAIN");
-                            EventBus.post(new BITResultPackageEventMgr(null,nmp,true));
+                            EventBus.post(new BITResultPackageEventMgr(null,nmp,true, eventMgrPair.isFilteredByLocation));
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -364,14 +380,14 @@ public class ServiceUpcomingEvents {
                     }
                     responseCounter++;
 
-                    EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,nmp,true));
+                    EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,nmp,true, eventMgrPair.isFilteredByLocation));
                 }
             }
 
             @Override
             public void onFailure(Call<ArrayList<BandsInTownEventResult>> call, Throwable t) {
                 Log.d("RYAN TEST", artistName+" EVENT SEARCH RESPONSE FAILED");
-                EventBus.post(new BITResultPackageEventMgr(null,nmp, true));
+                EventBus.post(new BITResultPackageEventMgr(null,nmp, true,emPair.isFilteredByLocation));
                 //Log.e(t.getMessage());
             }
         });

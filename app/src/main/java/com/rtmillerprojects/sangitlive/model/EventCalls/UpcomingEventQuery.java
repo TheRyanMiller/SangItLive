@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class UpcomingEventQuery {
 
     private ArrayList<NameMbidPair> nameMbidPairs;
-    private int page;
+    private boolean localEvents;
 
     public boolean isFailedMbidAttempt() {
         return failedMbidAttempt;
@@ -21,9 +21,9 @@ public class UpcomingEventQuery {
     private boolean failedMbidAttempt;
 
     //Constructor
-    public UpcomingEventQuery(ArrayList<NameMbidPair> nameMbidPairs, int page, boolean failedMbidAttempt) {
+    public UpcomingEventQuery(ArrayList<NameMbidPair> nameMbidPairs, boolean localEvents, boolean failedMbidAttempt) {
         this.nameMbidPairs = nameMbidPairs;
-        this.page = page;
+        this.localEvents = localEvents;
         this.failedMbidAttempt = failedMbidAttempt;
     }
 
@@ -35,12 +35,12 @@ public class UpcomingEventQuery {
         this.nameMbidPairs = nameMbidPairs;
     }
 
-    public int getPage() {
-        return page;
+    public boolean isLocalEvents() {
+        return localEvents;
     }
 
-    public void setPage(int page) {
-        this.page = page;
+    public void setLocalEvents(boolean page) {
+        this.localEvents = localEvents;
     }
 
 }

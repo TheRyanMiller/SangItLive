@@ -19,14 +19,26 @@ public interface ApiServiceBandsInTown {
     final static String APPSETTINGS = "";
     final static String EVENTENDPOINT = "/artists/mbid_{mbid}/events";
     final static String ARTISTNAMEENDPOINT = "/artists/{artistName}/events";
+    final static String SEARCHBYMBIDLOCATIONENDPOINT = "/artists/mbid_{mbid}/events/search";
+    final static String SEARCHBYLOCATIONENDPOINT = "/artists/{artistName}/events/search";
 
-    // Events
+
+    // Events By MBID
     @GET(EVENTENDPOINT)
     Call<ArrayList<BandsInTownEventResult>> searchEventsByMbid (@Path("mbid") String mbid, @Query("format") String format, @Query("api_version") String apiVersion, @Query("app_id") String appId);
 
-    // Events
+    // Events By Artist Name
     @GET(ARTISTNAMEENDPOINT)
     Call<ArrayList<BandsInTownEventResult>> searchEventsByArtistName (@Path("artistName") String artistName, @Query("format") String format, @Query("api_version") String apiVersion, @Query("app_id") String appId);
+
+    // Events By Location (artist name)
+    @GET(SEARCHBYLOCATIONENDPOINT)
+    Call<ArrayList<BandsInTownEventResult>> searchLocationalEventsByArtistName (@Path("artistName") String artistName, @Query("format") String format, @Query("location") String location, @Query("api_version") String apiVersion, @Query("app_id") String appId);
+
+    // Events By Location (mbid)
+    @GET(SEARCHBYMBIDLOCATIONENDPOINT)
+    Call<ArrayList<BandsInTownEventResult>> searchLocationalEventsByMbid (@Path("mbid") String mbid, @Query("format") String format, @Query("location") String location, @Query("api_version") String apiVersion, @Query("app_id") String appId);
+
 
 
     /*

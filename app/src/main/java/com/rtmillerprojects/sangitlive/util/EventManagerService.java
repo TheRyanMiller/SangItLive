@@ -47,7 +47,7 @@ public class EventManagerService {
         ArrayList<NameMbidPair> pairs = new ArrayList<>();
         pairs.add(nmPair);
         //Request All Events for this artist
-        EventBus.post(new EventManagerRequest(pairs, false, false));
+        EventBus.post(new EventManagerRequest(pairs, false, false,false));
         //Need new function to request only local events
     }
 
@@ -65,9 +65,16 @@ public class EventManagerService {
                 numOfCallsReceived = 0;
                 numOfCallsMade = 0;
                 db = DatabaseHelper.getInstance(context);
-                db.deleteEventsAllByArtist(result.pair.getMbid(), result.pair.getArtistName());
+                if(result.isFilteredByLocation){
+                    db.deleteEventsLocalByArtist(result.pair.getMbid(), result.pair.getArtistName());
+                    db.insertEventsLocal(result.events);
+                }
+                else{
+                    db.deleteEventsAllByArtist(result.pair.getMbid(), result.pair.getArtistName());
+                    db.insertEventsAll(result.events);
+                }
                 //Insert into DB
-                db.insertEventsAll(result.events);
+
             }
         } else {
             //Handle situation where REST call failed
@@ -86,7 +93,8 @@ public class EventManagerService {
         }
         //Request All Events for this artist
         numOfCallsMade = artistList.size();
-        EventBus.post(new EventManagerRequest(pairs, false, true));
+        EventBus.post(new EventManagerRequest(pairs, false, true,true));
+        EventBus.post(new EventManagerRequest(pairs, false, true,false));
         //Need new function to request only local events
     }
 
@@ -99,9 +107,7 @@ public class EventManagerService {
         ArrayList<NotifyNewEventsForArtist> results = new ArrayList<>();
         for (BITResultPackageEventMgr r : eventsList) {
             if(r.events != null && r.pair != null) {
-                //if(identifyIfNewDatesExist(r.events, r.pair) != null){
-                    results.add(identifyIfNewDatesExist(r.events, r.pair));
-                //}
+                results.add(identifyIfNewDatesExist(r.events, r.pair));
 
             }
         }

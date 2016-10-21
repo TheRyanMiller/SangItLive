@@ -12,10 +12,12 @@ public class BITResultPackageEventMgr {
     public ArrayList<BandsInTownEventResult> events;
     public NameMbidPair pair;
     public boolean isForceRefresh;
+    public boolean isFilteredByLocation;
 
-    public BITResultPackageEventMgr(ArrayList<BandsInTownEventResult> events, NameMbidPair pair, boolean isForceRefresh) {
+    public BITResultPackageEventMgr(ArrayList<BandsInTownEventResult> events, NameMbidPair pair, boolean isForceRefresh, boolean isFilteredByLocation) {
         this.events = events;
         this.pair = pair;
         this.isForceRefresh = isForceRefresh;
+        this.isFilteredByLocation = isFilteredByLocation;
     }
 }

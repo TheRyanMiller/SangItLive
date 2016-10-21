@@ -10,8 +10,10 @@ import java.util.ArrayList;
  */
 public class BITResultPackage {
     public ArrayList<BandsInTownEventResult> events;
+    public boolean isLocationFiltered;
 
-    public BITResultPackage(ArrayList<BandsInTownEventResult> events) {
+    public BITResultPackage(ArrayList<BandsInTownEventResult> events, boolean isLocationFiltered) {
         this.events = events;
+        this.isLocationFiltered = isLocationFiltered;
     }
 }

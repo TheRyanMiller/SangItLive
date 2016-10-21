@@ -28,4 +28,5 @@
     <string name="user_next_refresh">user_next_refresh</string>
     <string name="user_last_refresh">user_last_refresh</string>
     <string name="error_preferences_illegal_state">error_preferences_illegal_state</string>
+    <string name="is_Filtered">is_Filtered</string>
 </resources>
