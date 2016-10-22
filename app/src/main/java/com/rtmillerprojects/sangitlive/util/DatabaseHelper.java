@@ -698,20 +698,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteEventsAttendingByArtist(String mbid, String artistName){
         SQLiteDatabase db = this.getReadableDatabase();
         if(mbid!=null & mbid!=""){
-            db.delete(TABLE_EVENT_ALL,ARTIST_MBID+"='"+mbid+"'",null);
+            db.delete(TABLE_EVENT_ATTENDING,ARTIST_MBID+"='"+mbid+"'",null);
         }
         if(artistName!=null & artistName!=""){
-            db.delete(TABLE_EVENT_ALL,ARTIST_NAME+"='"+artistName+"'",null);
+            db.delete(TABLE_EVENT_ATTENDING,ARTIST_NAME+"='"+artistName+"'",null);
         }
     }
 
     public void deleteEventsLocalByArtist(String mbid, String artistName){
         SQLiteDatabase db = this.getReadableDatabase();
         if(mbid!=null & mbid!=""){
-            db.delete(TABLE_EVENT_ALL,ARTIST_MBID+"='"+mbid+"'",null);
+            db.delete(TABLE_EVENT_LOCAL,ARTIST_MBID+"='"+mbid+"'",null);
         }
         if(artistName!=null & artistName!=""){
-            db.delete(TABLE_EVENT_ALL,ARTIST_NAME+"='"+artistName+"'",null);
+            db.delete(TABLE_EVENT_LOCAL,ARTIST_NAME+"='"+artistName+"'",null);
         }
     }
 

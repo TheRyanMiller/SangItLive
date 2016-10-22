@@ -67,4 +67,14 @@ public class SharedPreferencesHelper {
     public static long getLong(String key, long defaultValue) {
         return getInstance().sharedPreferences.getLong(key, defaultValue);
     }
+
+    public static boolean isUserLocationSet(){
+        //User location must contain both a city and a state in order to be considered as "SET"
+        String city = getInstance().getStringPreference(mContext.getString(R.string.user_city),"0");
+        String state = getInstance().getStringPreference(mContext.getString(R.string.user_location_state_abr),"0");
+        return !city.equals("0") && !state.equals("0");
+    }
+    public static boolean isLocationFilterSet(){
+        return getInstance().sharedPreferences.getBoolean(mContext.getString(R.string.is_Filtered),false);
+    }
 }

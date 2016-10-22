@@ -43,7 +43,8 @@ public class ServiceUpcomingEvents {
     private ArrayList<NameMbidPair> pairs;
     private String failedArtistName;
     private String failedArtistMbid;
-    private int responseCounter = 0;
+    private int responseCounterAll = 0;
+    private int responseCounterLocal = 0;
     boolean failedFlag = false;
     ArrayList<String> knownFailures = new ArrayList<>();
 
@@ -66,7 +67,8 @@ public class ServiceUpcomingEvents {
 
     @Subscribe
     public void receiveQueryForUpcomingEvents(final UpcomingEventQuery event){
-        responseCounter = 0;
+        responseCounterAll = 0;
+        responseCounterLocal = 0;
         pairs = event.getNameMbidPairs();
         knownFailures = new ArrayList<>();
         Gson gson = new GsonBuilder()
@@ -96,7 +98,14 @@ public class ServiceUpcomingEvents {
                 call.enqueue(new Callback<ArrayList<BandsInTownEventResult>>() {
                     @Override
                     public void onResponse(Call<ArrayList<BandsInTownEventResult>> call, Response<ArrayList<BandsInTownEventResult>> response) {
-                        String aName = event.getNameMbidPairs().get(responseCounter).getArtistName();
+                        String aName;
+                        if(event.isLocalEvents()){
+                            aName = event.getNameMbidPairs().get(responseCounterLocal).getArtistName();
+                        }
+                        else{
+                            aName = event.getNameMbidPairs().get(responseCounterAll).getArtistName();
+                        }
+
                         String reqUrl = response.raw().request().url().toString();
                         String retMbid = reqUrl.substring(reqUrl.indexOf("mbid_")+5, reqUrl.indexOf("/events"));
                         NameMbidPair responsePair = new NameMbidPair(aName, retMbid);
@@ -136,7 +145,9 @@ public class ServiceUpcomingEvents {
                                 boolean a = e.isAttending();
                                 scrubbedEventList.add(e);
                             }
-                            responseCounter++;
+                            if(event.isLocalEvents()){responseCounterLocal++;}
+                            else{responseCounterAll++;}
+
                             EventBus.post(new BITResultPackage(scrubbedEventList,event.isLocalEvents()));
                         }
                     }
@@ -144,7 +155,8 @@ public class ServiceUpcomingEvents {
                     @Override
                     public void onFailure(Call<ArrayList<BandsInTownEventResult>> call, Throwable t) {
                         Log.d("RYAN TEST", artistName+" EVENT SEARCH BY MBID FAILED");
-                        responseCounter++;
+                        if(event.isLocalEvents()){responseCounterLocal++;}
+                        else{responseCounterAll++;}
                         //Log.e(t.getMessage());
                     }
                 });
@@ -214,7 +226,8 @@ public class ServiceUpcomingEvents {
                         boolean a = e.isAttending();
                         scrubbedEventList.add(e);
                     }
-                    responseCounter++;
+                    if(fesbn.isLocationFiltered()){responseCounterLocal++;}
+                    else{responseCounterAll++;}
                     EventBus.post(new BITResultPackage(scrubbedEventList,fesbn.isLocationFiltered));
                 }
             }
@@ -222,7 +235,8 @@ public class ServiceUpcomingEvents {
             @Override
             public void onFailure(Call<ArrayList<BandsInTownEventResult>> call, Throwable t) {
                 Log.d("RYAN TEST", artistName+" EVENT SEARCH RESPONSE FAILED");
-                responseCounter++;
+                if(fesbn.isLocationFiltered()){responseCounterLocal++;}
+                else{responseCounterAll++;}
                 //Log.e(t.getMessage());
             }
         });
@@ -233,7 +247,8 @@ public class ServiceUpcomingEvents {
 
     @Subscribe
     public void receiveEventManagerQuery(final EventManagerRequest event){
-        responseCounter = 0;
+        responseCounterAll = 0;
+        responseCounterLocal = 0;
         pairs = event.getNameMbidPairs();
         knownFailures = new ArrayList<>();
         Gson gson = new GsonBuilder()
@@ -253,6 +268,11 @@ public class ServiceUpcomingEvents {
             artistName = event.getNameMbidPairs().get(i).getArtistName();
             if(!event.isFailedMbidAttempt()) {
                 Call<ArrayList<BandsInTownEventResult>> call = eventsApi.searchEventsByMbid(mbid, "json", "2.0", "ConcertCompanion");
+                if (event.isFilteredByLocation){
+                    String city = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_city),"");
+                    String stateAbbr = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_location_state_abr),"");
+                    call = eventsApi.searchLocationalEventsByMbid(mbid, "json", city+" , "+stateAbbr, "2.0", "ConcertCompanion");
+                }
                 //asynchronous call
                 call.enqueue(new Callback<ArrayList<BandsInTownEventResult>>() {
                     @Override
@@ -304,15 +324,17 @@ public class ServiceUpcomingEvents {
                                 boolean a = e.isAttending();
                                 scrubbedEventList.add(e);
                             }
-                            responseCounter++;
-                            EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,n,true,event.isFilteredByLocation));
+                            if(event.isFilteredByLocation){responseCounterLocal++;}
+                            else{responseCounterAll++;}
+                            EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,n,event.isForcedRefresh(),event.isFilteredByLocation));
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ArrayList<BandsInTownEventResult>> call, Throwable t) {
                         Log.d("RYAN TEST", artistName+" EVENT SEARCH BY MBID FAILED");
-                        responseCounter++;
+                        if(event.isFilteredByLocation){responseCounterLocal++;}
+                        else{responseCounterAll++;}
                         //Log.e(t.getMessage());
                     }
                 });
@@ -338,6 +360,11 @@ public class ServiceUpcomingEvents {
         artistName = nmp.getArtistName();
         final String artistMbid = nmp.getMbid();
         Call<ArrayList<BandsInTownEventResult>> call = eventsApi.searchEventsByArtistName(nmp.getArtistName(), "json", "2.0", "ConcertCompanion");
+        if (emPair.isFilteredByLocation){
+            String city = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_city),"Charleston");
+            String stateAbbr = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_location_state_abr),"SC");
+            call = eventsApi.searchLocationalEventsByArtistName(artistName, "json", city+" , "+stateAbbr, "2.0", "ConcertCompanion");
+        }
         //asynchronous call
         call.enqueue(new Callback<ArrayList<BandsInTownEventResult>>() {
             @Override
@@ -350,6 +377,7 @@ public class ServiceUpcomingEvents {
                         String errorMsg = response.errorBody().string();
                         if (errorMsg.contains("Unknown Artist")) {
                             Log.d("RYAN TEST", artistName+" Results show that this is an unknown Artist AGAIN");
+                            //Force Refresh is set true
                             EventBus.post(new BITResultPackageEventMgr(null,nmp,true, eventMgrPair.isFilteredByLocation));
                         }
                     } catch (IOException e) {
@@ -368,7 +396,7 @@ public class ServiceUpcomingEvents {
                         e.setAttending(false);
                         if(e.getArtists().get(0).getMbid()==null){
                             e.getArtists().get(0).setMbid(artistMbid);
-                        };
+                        }
                         for (int i = 0; i < favoritedShows.size(); i++) {
                             if (e.getId() == favoritedShows.get(i).intValue()) {
                                 e.setAttending(true);
@@ -378,8 +406,10 @@ public class ServiceUpcomingEvents {
                         boolean a = e.isAttending();
                         scrubbedEventList.add(e);
                     }
-                    responseCounter++;
+                    if(emPair.isFilteredByLocation){responseCounterLocal++;}
+                    else{responseCounterAll++;}
 
+                    //forceRefresh is set to true
                     EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,nmp,true, eventMgrPair.isFilteredByLocation));
                 }
             }
@@ -387,6 +417,7 @@ public class ServiceUpcomingEvents {
             @Override
             public void onFailure(Call<ArrayList<BandsInTownEventResult>> call, Throwable t) {
                 Log.d("RYAN TEST", artistName+" EVENT SEARCH RESPONSE FAILED");
+                //force refresh is set true
                 EventBus.post(new BITResultPackageEventMgr(null,nmp, true,emPair.isFilteredByLocation));
                 //Log.e(t.getMessage());
             }

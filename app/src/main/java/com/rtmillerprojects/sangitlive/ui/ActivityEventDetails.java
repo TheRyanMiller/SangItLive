@@ -121,7 +121,8 @@ public class ActivityEventDetails extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         ArrayList<NameMbidPair> pairs = new ArrayList<NameMbidPair>();
                                         pairs.add(new NameMbidPair(ad.getName(),ad.getMbid()));
-                                        EventBus.post(new UpcomingEventQuery(pairs,0,false));
+                                        EventBus.post(new UpcomingEventQuery(pairs,true,false));
+                                        EventBus.post(new UpcomingEventQuery(pairs,false,false));
                                         DatabaseHelper db = DatabaseHelper.getInstance(context);
                                         db.insertArtist(ad);
                                     }
@@ -139,12 +140,6 @@ public class ActivityEventDetails extends AppCompatActivity {
 
             }
         });
-    }
-
-    @Subscribe
-    public void recieveShows(BITResultPackage showResults){
-        DatabaseHelper db = DatabaseHelper.getInstance(this);
-        db.insertEventsAll(showResults.events);
     }
 
     @Override

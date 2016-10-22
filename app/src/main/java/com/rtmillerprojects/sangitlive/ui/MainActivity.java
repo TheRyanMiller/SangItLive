@@ -77,12 +77,14 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 if(filterSwitch.isChecked()){
+                    //Filter is turned on
                     SharedPreferencesHelper.putBoolean(getString(R.string.is_Filtered),true);
-                    //Update shared pref
-                    //Callback to fragments with locality
+                    EventBus.post(new SetLocalFilter(true));
                 }
                 else{
-                    SharedPreferencesHelper.putBoolean(getString(R.string.is_Filtered),true);
+                    //Filter is turned off
+                    SharedPreferencesHelper.putBoolean(getString(R.string.is_Filtered),false);
+                    EventBus.post(new SetLocalFilter(false));
                 }
             }
         });

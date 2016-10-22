@@ -27,7 +27,7 @@ public class EventManagerService {
     private ArrayList<BITResultPackageEventMgr> eventsList = new ArrayList<>();
 
     //Singleton
-    public static EventManagerService getInstance(Context context) {
+    public static synchronized EventManagerService getInstance(Context context) {
         // Use the application context, which will ensure that you
         // don't accidentally leak an Activity's context.
         // See this article for more information: http://bit.ly/6LRzfx
@@ -44,10 +44,24 @@ public class EventManagerService {
 
 
     public void getSingleArtistEventsAll(NameMbidPair nmPair) {
+        boolean failedMbidAttempt = false;
+        boolean isForceRefresh = false;
+        boolean isFilteredByLocation = false;
         ArrayList<NameMbidPair> pairs = new ArrayList<>();
         pairs.add(nmPair);
         //Request All Events for this artist
-        EventBus.post(new EventManagerRequest(pairs, false, false,false));
+        EventBus.post(new EventManagerRequest(pairs, failedMbidAttempt, isForceRefresh,isFilteredByLocation));
+        //Need new function to request only local events
+    }
+
+    public void getSingleArtistEventsLocal(NameMbidPair nmPair) {
+        boolean failedMbidAttempt = false;
+        boolean isForceRefresh = false;
+        boolean isFilteredByLocation = true;
+        ArrayList<NameMbidPair> pairs = new ArrayList<>();
+        pairs.add(nmPair);
+        //Request All Events for this artist
+        EventBus.post(new EventManagerRequest(pairs, failedMbidAttempt, isForceRefresh,isFilteredByLocation));
         //Need new function to request only local events
     }
 

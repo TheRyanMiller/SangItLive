@@ -23,6 +23,7 @@ import com.rtmillerprojects.sangitlive.listener.MainListener;
 import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.EventCalls.BITResultPackage;
 import com.rtmillerprojects.sangitlive.model.EventCalls.CheckInternetStatus;
+import com.rtmillerprojects.sangitlive.model.EventCalls.EventManagerRequest;
 import com.rtmillerprojects.sangitlive.model.EventCalls.LastFmArtistDetails;
 import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
 import com.rtmillerprojects.sangitlive.model.EventCalls.ReturnInternetStatus;
@@ -168,7 +169,11 @@ public class FragmentArtistMain extends BaseFragment{
                     db.insertArtist(ad);
                     ArrayList<NameMbidPair> pairs = new ArrayList<NameMbidPair>();
                     pairs.add(new NameMbidPair(ad.getName(),ad.getMbid()));
-                    EventBus.post(new UpcomingEventQuery(pairs,0,false));
+
+                    ems = EventManagerService.getInstance(ACA);
+                    ems.getSingleArtistEventsAll(new NameMbidPair(ad.getName(),ad.getMbid()));
+                    ems.getSingleArtistEventsLocal(new NameMbidPair(ad.getName(),ad.getMbid()));
+
                     pd.cancel();
                 }
 
@@ -211,7 +216,12 @@ public class FragmentArtistMain extends BaseFragment{
     @Subscribe
     public void recieveShows(BITResultPackage showResults){
         DatabaseHelper db = DatabaseHelper.getInstance(ACA);
-        db.insertEventsAll(showResults.events);
+        if(showResults.isLocationFiltered){
+            db.insertEventsLocal(showResults.events);
+        }
+        else{
+            db.insertEventsAll(showResults.events);
+        }
     }
 
     public void refreshStar(){

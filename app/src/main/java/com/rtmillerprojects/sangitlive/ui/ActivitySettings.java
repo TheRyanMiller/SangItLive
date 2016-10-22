@@ -26,6 +26,7 @@ import com.rtmillerprojects.sangitlive.model.GoogleLocation.CustomLocationResult
 import com.rtmillerprojects.sangitlive.model.GoogleLocation.Result;
 import com.rtmillerprojects.sangitlive.model.EventCalls.CompletedForceRefresh;
 import com.rtmillerprojects.sangitlive.util.EventManagerService;
+import com.rtmillerprojects.sangitlive.util.SharedPreferencesHelper;
 import com.squareup.otto.Subscribe;
 
 import org.parceler.Parcels;
@@ -248,8 +249,6 @@ public class ActivitySettings extends AppCompatActivity {
                 .setTitle("New events")
                 .setMessage(numNewShows+ " new shows found")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }
@@ -274,15 +273,12 @@ public class ActivitySettings extends AppCompatActivity {
                 location = Parcels.unwrap(data.getParcelableExtra("result"));
                 textViewLocation.setText(location.toString());
                 //Put user location data into Shared Preferences
-                SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString(getString(R.string.user_city), location.city);
-                editor.putString(getString(R.string.user_location_zip), location.getZip());
-                editor.putString(getString(R.string.user_location_country), location.getCountry());
-                editor.putString(getString(R.string.user_location_address_fmt), location.getFormattedAddress());
-                editor.putString(getString(R.string.user_location_state), location.getState());
-                editor.putString(getString(R.string.user_location_state_abr), location.getStateAbv());
-                editor.commit();
+                SharedPreferencesHelper.putStringPreference(getString(R.string.user_location_state_abr), location.getStateAbv());
+                SharedPreferencesHelper.putStringPreference(getString(R.string.user_location_state), location.getState());
+                SharedPreferencesHelper.putStringPreference(getString(R.string.user_location_address_fmt), location.getFormattedAddress());
+                SharedPreferencesHelper.putStringPreference(getString(R.string.user_location_country), location.getCountry());
+                SharedPreferencesHelper.putStringPreference(getString(R.string.user_location_zip), location.getZip());
+                SharedPreferencesHelper.putStringPreference(getString(R.string.user_city), location.city);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result

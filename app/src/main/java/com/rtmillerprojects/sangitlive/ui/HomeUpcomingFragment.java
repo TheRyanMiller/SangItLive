@@ -19,6 +19,7 @@ import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
 import com.rtmillerprojects.sangitlive.model.EventCalls.UpcomingEventQuery;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
+import com.rtmillerprojects.sangitlive.util.SharedPreferencesHelper;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -124,9 +125,22 @@ public class HomeUpcomingFragment extends BaseFragment {
         EventBus.unregister(this);
     }
 
+    @Subscribe
+    public void switchFilter(SetLocalFilter filter){
+        if(filter.isFilterSet){
+            upcomingAdapter = new HomeUpcomingAdapter(db.getEventsLocal(),ACA);
+            recyclerView.setAdapter(upcomingAdapter);
+        }
+        else{
+            upcomingAdapter = new HomeUpcomingAdapter(db.getEventsAll(true),ACA);
+            recyclerView.setAdapter(upcomingAdapter);
+        }
+    }
+
     void refreshItems() {
         events = new ArrayList<>();
         db = DatabaseHelper.getInstance(ACA);
+        filterActivated=SharedPreferencesHelper.getBoolean(getString(R.string.is_Filtered),false);
         mbids = (ArrayList<String>) db.getFavoritedArtistMbids();
         emptyViewMsg = "There are no upcoming events to display. You are currently tracking "+mbids.size()+ " artist(s).";
         emptyView.setText(emptyViewMsg);
@@ -152,6 +166,7 @@ public class HomeUpcomingFragment extends BaseFragment {
                     return o1.getDatetime().compareTo(o2.getDatetime());
                 }
             });
+
             upcomingAdapter = new HomeUpcomingAdapter(events,getContext());
             recyclerView.setAdapter(upcomingAdapter);
             recyclerView.setLayoutManager(layoutManager);
