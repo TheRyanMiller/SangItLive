@@ -57,7 +57,8 @@ public class ActivitySettings extends AppCompatActivity {
     private final int ZIP_REQUEST_CODE = 1;
     CustomLocationResult location;
     TextView textViewLocation;
-    ProgressDialog progressDialog;
+    ProgressDialog forceRefreshProgressDialog;
+    ProgressDialog locationChangeProgressDialog;
     Context context;
     RelativeLayout refreshFrequencyLayout;
     SharedPreferences.Editor editor;
@@ -86,6 +87,7 @@ public class ActivitySettings extends AppCompatActivity {
         tvNextRefreshDate = (TextView) findViewById(R.id.next_refresh_value);
         sharedPref = getPreferences(Context.MODE_PRIVATE);
         final Context context = this;
+        ems = EventManagerService.getInstance(context);
 
         populateUserLocation();
         populateRefreshDates();
@@ -93,13 +95,13 @@ public class ActivitySettings extends AppCompatActivity {
         forceRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                forceRefreshProgressDialog = new ProgressDialog(context);
+                forceRefreshProgressDialog.show();
+                forceRefreshProgressDialog.setCancelable(false);
+                forceRefreshProgressDialog.setMessage("Please wait...");
+                forceRefreshProgressDialog.setTitle("Refreshing your feeds");
                 ems = EventManagerService.getInstance(context);
-                ems.forceRefreshCalls();
-                progressDialog = new ProgressDialog(context);
-                progressDialog.show();
-                progressDialog.setCancelable(false);
-                progressDialog.setMessage("Please wait...");
-                progressDialog.setTitle("Refreshing your feeds");
+                ems.forceRefreshCalls(false);
             }
         });
 
@@ -235,7 +237,8 @@ public class ActivitySettings extends AppCompatActivity {
 
     @Subscribe
     public void getResponseFromForceRefresh(CompletedForceRefresh response){
-        progressDialog.cancel();
+        if(forceRefreshProgressDialog!=null && forceRefreshProgressDialog.isShowing()){forceRefreshProgressDialog.cancel();}
+        if(locationChangeProgressDialog!=null && locationChangeProgressDialog.isShowing()){locationChangeProgressDialog.cancel();}
         int numNewShows = 0;
         String message;
         for (int i = 0; i < response.getNewEventsList().size(); i++) {
@@ -254,14 +257,11 @@ public class ActivitySettings extends AppCompatActivity {
                     }
                 })
                 .show();
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
 
         nextRefresh = new Date(sharedPref.getLong(getString(R.string.user_next_refresh), calculateNextRefreshDate(0/*Zero is for default*/)));
         int frequency = sharedPref.getInt(getString(R.string.user_refresh_frequency), 0);
-        editor.putLong(getString(R.string.user_next_refresh), calculateNextRefreshDate(frequency));
-        editor.putLong(getString(R.string.user_last_refresh), calculateLastRefreshDate());
-        editor.commit();
+        SharedPreferencesHelper.putLong(getString(R.string.user_next_refresh), calculateNextRefreshDate(frequency));
+        SharedPreferencesHelper.putLong(getString(R.string.user_last_refresh), calculateLastRefreshDate());
         tvLastRefreshDate.setText(dateToString(lastRefresh));
         tvNextRefreshDate.setText(dateToString(nextRefresh));
     }
@@ -270,8 +270,11 @@ public class ActivitySettings extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
+                String oldLocation = SharedPreferencesHelper.getStringPreference(getString(R.string.user_location_zip),"default");
+                boolean hasLocationChanged = oldLocation != location.getZip();
+
                 location = Parcels.unwrap(data.getParcelableExtra("result"));
-                textViewLocation.setText(location.toString());
+                textViewLocation.setText(location.formattedAddress);
                 //Put user location data into Shared Preferences
                 SharedPreferencesHelper.putStringPreference(getString(R.string.user_location_state_abr), location.getStateAbv());
                 SharedPreferencesHelper.putStringPreference(getString(R.string.user_location_state), location.getState());
@@ -279,23 +282,36 @@ public class ActivitySettings extends AppCompatActivity {
                 SharedPreferencesHelper.putStringPreference(getString(R.string.user_location_country), location.getCountry());
                 SharedPreferencesHelper.putStringPreference(getString(R.string.user_location_zip), location.getZip());
                 SharedPreferencesHelper.putStringPreference(getString(R.string.user_city), location.city);
+                boolean validLocation = location.city != null && location.stateAbv != null;
+
+                if(hasLocationChanged && validLocation){
+                    locationChangeProgressDialog = new ProgressDialog(this);
+                    locationChangeProgressDialog.setMessage("Please wait while your local events are updated");
+                    locationChangeProgressDialog.setTitle("Please Wait");
+                    locationChangeProgressDialog.setCancelable(false);
+                    locationChangeProgressDialog.show();
+
+                    ems = EventManagerService.getInstance(context);
+                    ems.forceRefreshCalls(true);
+                }
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
             }
+
+
         }
     }
 
     private void populateUserLocation(){
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         location = new CustomLocationResult();
-        location.city = sharedPref.getString(getString(R.string.user_city), location.city);
-        location.zip = sharedPref.getString(getString(R.string.user_location_zip), location.getZip());
-        location.country = sharedPref.getString(getString(R.string.user_location_country), location.getCountry());
-        location.formattedAddress = sharedPref.getString(getString(R.string.user_location_address_fmt), location.getFormattedAddress());
-        location.state = sharedPref.getString(getString(R.string.user_location_state), location.getState());
-        location.stateAbv = sharedPref.getString(getString(R.string.user_location_state_abr), location.getStateAbv());
-        textViewLocation.setText(location.toString());
+        location.city = SharedPreferencesHelper.getStringPreference(getString(R.string.user_city), "");
+        location.zip = SharedPreferencesHelper.getStringPreference(getString(R.string.user_location_zip),"");
+        location.country = SharedPreferencesHelper.getStringPreference(getString(R.string.user_location_country), "");
+        location.formattedAddress = SharedPreferencesHelper.getStringPreference(getString(R.string.user_location_address_fmt), "");
+        location.state = SharedPreferencesHelper.getStringPreference(getString(R.string.user_location_state), "");
+        location.stateAbv = SharedPreferencesHelper.getStringPreference(getString(R.string.user_location_state_abr), "");
+        textViewLocation.setText(location.formattedAddress);
     }
 
     private String longToString(long longDate){

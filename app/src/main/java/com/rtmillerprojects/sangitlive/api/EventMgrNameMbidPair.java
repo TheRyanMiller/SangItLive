@@ -8,9 +8,11 @@ import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
 public class EventMgrNameMbidPair {
     public NameMbidPair pair;
     public boolean isFilteredByLocation;
+    public boolean isForceRefresh;
 
-    public EventMgrNameMbidPair(NameMbidPair pair, boolean isFilteredByLocation) {
+    public EventMgrNameMbidPair(NameMbidPair pair, boolean isForceRefresh, boolean isFilteredByLocation) {
         this.pair = pair;
         this.isFilteredByLocation = isFilteredByLocation;
+        this.isForceRefresh = isForceRefresh;
     }
 }

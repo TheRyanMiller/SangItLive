@@ -78,8 +78,16 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 if(filterSwitch.isChecked()){
                     //Filter is turned on
-                    SharedPreferencesHelper.putBoolean(getString(R.string.is_Filtered),true);
-                    EventBus.post(new SetLocalFilter(true));
+                    if(SharedPreferencesHelper.getStringPreference(getString(R.string.user_location_zip),"").equals("")){
+                        filterSwitch.setChecked(false);
+                        Toast.makeText(MainActivity.this, "You must set your location in order to filter on local events.", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(MainActivity.this, ActivitySettings.class));
+                    }
+                    else{
+                        SharedPreferencesHelper.putBoolean(getString(R.string.is_Filtered),true);
+                        EventBus.post(new SetLocalFilter(true));
+                    }
+
                 }
                 else{
                     //Filter is turned off

@@ -72,6 +72,7 @@ public class HomeUpcomingFragment extends BaseFragment {
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if(savedInstanceState!=null){
         }
 
@@ -114,9 +115,6 @@ public class HomeUpcomingFragment extends BaseFragment {
         super.onResume();
         EventBus.register(this);
         refreshItems();
-        if(events != null && events.size()>0) {
-            recyclerView.smoothScrollToPosition(0);
-        }
     }
 
     @Override
@@ -127,14 +125,7 @@ public class HomeUpcomingFragment extends BaseFragment {
 
     @Subscribe
     public void switchFilter(SetLocalFilter filter){
-        if(filter.isFilterSet){
-            upcomingAdapter = new HomeUpcomingAdapter(db.getEventsLocal(),ACA);
-            recyclerView.setAdapter(upcomingAdapter);
-        }
-        else{
-            upcomingAdapter = new HomeUpcomingAdapter(db.getEventsAll(true),ACA);
-            recyclerView.setAdapter(upcomingAdapter);
-        }
+        refreshItems();
     }
 
     void refreshItems() {
@@ -153,20 +144,13 @@ public class HomeUpcomingFragment extends BaseFragment {
             events = db.getEventsAll(true);
         }
         recyclerView.setVisibility(View.VISIBLE);
-        emptyView.setVisibility(View.GONE);
         if(events==null || events.size()==0){
             //do something if null
             recyclerView.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
         }
         else {
-            Collections.sort(events, new Comparator<BandsInTownEventResult>() {
-                @Override
-                public int compare(BandsInTownEventResult o1, BandsInTownEventResult o2) {
-                    return o1.getDatetime().compareTo(o2.getDatetime());
-                }
-            });
-
+            emptyView.setVisibility(View.GONE);
             upcomingAdapter = new HomeUpcomingAdapter(events,getContext());
             recyclerView.setAdapter(upcomingAdapter);
             recyclerView.setLayoutManager(layoutManager);

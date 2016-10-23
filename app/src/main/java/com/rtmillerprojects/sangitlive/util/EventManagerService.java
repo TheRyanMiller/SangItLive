@@ -73,7 +73,7 @@ public class EventManagerService {
             if (result.isForceRefresh) {
                 eventsList.add(result);
                 if (numOfCallsReceived == numOfCallsMade) {
-                    reconcileTheChanges(eventsList);
+                    reconcileTheChanges(eventsList, result.isFilteredByLocation);
                 }
             } else {
                 numOfCallsReceived = 0;
@@ -96,23 +96,38 @@ public class EventManagerService {
         }
     }
 
-    public void forceRefreshCalls() {
+    public void forceRefreshCalls(boolean locationedOnly) {
         ArrayList<NameMbidPair> pairs = new ArrayList<>();
         NameMbidPair nmPair;
         db = DatabaseHelper.getInstance(context);
         ArrayList<ArtistDetails> artistList = db.getAllArtists();
-        for (ArtistDetails a : artistList) {
-            nmPair = new NameMbidPair(a.getName(), a.getMbid());
-            pairs.add(nmPair);
+        if(artistList!=null && artistList.size()>0) {
+
+
+            for (ArtistDetails a : artistList) {
+                nmPair = new NameMbidPair(a.getName(), a.getMbid());
+                pairs.add(nmPair);
+            }
+            //Request All Events for this artist
+            numOfCallsMade = artistList.size();
+            if (locationedOnly) {
+                EventBus.post(new EventManagerRequest(pairs, false /*Failed attempt*/, true/*Force Refresh*/, true/*Locationed*/));
+            } else {
+                EventBus.post(new EventManagerRequest(pairs, false /*Failed attempt*/, true/*Force Refresh*/, true/*Locationed*/));
+                EventBus.post(new EventManagerRequest(pairs, false /*Failed attempt*/, true/*Force Refresh*/, false/*Locationed*/));
+            }
         }
-        //Request All Events for this artist
-        numOfCallsMade = artistList.size();
-        EventBus.post(new EventManagerRequest(pairs, false, true,true));
-        EventBus.post(new EventManagerRequest(pairs, false, true,false));
+        else{
+            ArrayList<NotifyNewEventsForArtist> results = new ArrayList<>();
+            results.add(new NotifyNewEventsForArtist("","",0));
+            CompletedForceRefresh complete = new CompletedForceRefresh(true, false);
+            complete.setNewEventsList(results);
+            EventBus.post(complete);
+        }
         //Need new function to request only local events
     }
 
-    private void reconcileTheChanges(ArrayList<BITResultPackageEventMgr> eventsList) {
+    private void reconcileTheChanges(ArrayList<BITResultPackageEventMgr> eventsList, boolean locationFiltered) {
         //This is the method called when all the callbacks are returned and the updates are ready to be made
         //Compare objects to what is in the database
         //Need to repeat this for all local shows
@@ -121,7 +136,7 @@ public class EventManagerService {
         ArrayList<NotifyNewEventsForArtist> results = new ArrayList<>();
         for (BITResultPackageEventMgr r : eventsList) {
             if(r.events != null && r.pair != null) {
-                results.add(identifyIfNewDatesExist(r.events, r.pair));
+                results.add(identifyIfNewDatesExist(r.events, r.pair, locationFiltered));
 
             }
         }
@@ -133,43 +148,59 @@ public class EventManagerService {
         EventBus.post(complete);
     }
 
-    private NotifyNewEventsForArtist identifyIfNewDatesExist(ArrayList<BandsInTownEventResult> freshEvents, NameMbidPair nmp) {
+    private NotifyNewEventsForArtist identifyIfNewDatesExist(ArrayList<BandsInTownEventResult> freshEvents, NameMbidPair nmp, boolean locationFiltered) {
         int numAdded = 0;
         //ALL EVENTS TABLE MATCHING
         //Compare the database values and the REST returned values
         //We will say their are no changes if either of these conditions are true
         //  1. Their array sizes match
         //  2. The last event in their arrays have the same Event ID
-        ArrayList<BandsInTownEventResult> dbEvents = db.getEventsAllByArtist(true, false, false, nmp.getArtistName(), nmp.getMbid(), true);
-        Integer dbLastEventId = 0;
-        Integer freshLastEventId = 0;
-        if(dbEvents!=null && dbEvents.size()>0 && dbEvents.get(dbEvents.size()-1).getId() != null){
-            dbLastEventId = dbEvents.get(dbEvents.size()-1).getId();
+        if(!locationFiltered) {
+            ArrayList<BandsInTownEventResult> dbEvents = db.getEventsAllByArtist(true, false, false, nmp.getArtistName(), nmp.getMbid(), true);
+            Integer dbLastEventId = 0;
+            Integer freshLastEventId = 0;
+            if (dbEvents != null && dbEvents.size() > 0 && dbEvents.get(dbEvents.size() - 1).getId() != null) {
+                dbLastEventId = dbEvents.get(dbEvents.size() - 1).getId();
+            }
+            if (freshEvents != null && freshEvents.size() > 0 && freshEvents.get(freshEvents.size() - 1).getId() != null) {
+                freshLastEventId = freshEvents.get(freshEvents.size() - 1).getId();
+            }
+
+            //THIS NEEDS TO BEGIN ACCOUNTING FOR LOCATION TABLE
+            if (dbEvents.size() == freshEvents.size() || freshLastEventId == dbLastEventId) {
+                //Match was found. Delete all db events and add the new.
+                db.deleteEventsAllByArtist(nmp.getArtistName(), nmp.getMbid());
+                db.insertEventsAll(freshEvents);
+            } else if (dbEvents.size() < freshEvents.size()) {
+                //More events found in the REST response
+                //We will assume that this indicates new events have been announced
+                numAdded = freshEvents.size() - dbEvents.size();
+                int numAddedLocal = 0;
+                NotifyNewEventsForArtist ne = new NotifyNewEventsForArtist(nmp.getArtistName(), nmp.getMbid(), numAdded);
+                db.deleteEventsAllByArtist(nmp.getArtistName(), nmp.getMbid());
+                db.insertEventsAll(freshEvents);
+                return ne;
+            } else {
+                //db events is greater.
+                //Not quite sure what the explaination would be, but for now
+                //get rid of old events from db and replace with the new
+                db.deleteEventsAllByArtist(nmp.getArtistName(), nmp.getMbid());
+                db.insertEventsAll(freshEvents);
+            }
         }
-        if(freshEvents!=null && freshEvents.size()>0 && freshEvents.get(freshEvents.size()-1).getId() != null){
-            freshLastEventId = freshEvents.get(freshEvents.size()-1).getId();
+        else{
+            if(freshEvents.size()>0){
+                numAdded = freshEvents.size();
+                NotifyNewEventsForArtist ne = new NotifyNewEventsForArtist(nmp.getArtistName(), nmp.getMbid(), numAdded);
+                db.deleteEventsLocalByArtist(nmp.getMbid(), nmp.getArtistName());
+                db.insertEventsLocal(freshEvents);
+                return ne;
+            }
+            else{
+                db.deleteEventsLocalByArtist(nmp.getMbid(), nmp.getArtistName());
+            }
         }
 
-        if (dbEvents.size() == freshEvents.size() || freshLastEventId == dbLastEventId) {
-            //Match was found. Delete all db events and add the new.
-            db.deleteEventsAllByArtist(nmp.getArtistName(), nmp.getMbid());
-            db.insertEventsAll(freshEvents);
-        } else if (dbEvents.size() < freshEvents.size()) {
-            //More events found in the REST response
-            //We will assume that this indicates new events have been announced
-            numAdded = freshEvents.size() - dbEvents.size();
-            int numAddedLocal = 0;
-            NotifyNewEventsForArtist ne = new NotifyNewEventsForArtist(nmp.getArtistName(), nmp.getMbid(),numAdded);
-            db.deleteEventsAllByArtist(nmp.getArtistName(), nmp.getMbid());
-            db.insertEventsAll(freshEvents);
-            return ne;
-        } else {
-            //db events is greater.
-            //Not quite sure what the explaination would be, but for now
-            //get rid of old events from db and replace with the new
-            db.deleteEventsAllByArtist(nmp.getArtistName(), nmp.getMbid());
-            db.insertEventsAll(freshEvents);
-        }
         return null;
 
     }

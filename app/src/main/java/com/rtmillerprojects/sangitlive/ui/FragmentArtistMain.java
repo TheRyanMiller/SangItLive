@@ -31,6 +31,7 @@ import com.rtmillerprojects.sangitlive.model.EventCalls.UpcomingEventQuery;
 import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
 import com.rtmillerprojects.sangitlive.util.EventManagerService;
+import com.rtmillerprojects.sangitlive.util.SharedPreferencesHelper;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -172,7 +173,10 @@ public class FragmentArtistMain extends BaseFragment{
 
                     ems = EventManagerService.getInstance(ACA);
                     ems.getSingleArtistEventsAll(new NameMbidPair(ad.getName(),ad.getMbid()));
-                    ems.getSingleArtistEventsLocal(new NameMbidPair(ad.getName(),ad.getMbid()));
+                    if(SharedPreferencesHelper.isUserLocationSet()){
+                        ems.getSingleArtistEventsLocal(new NameMbidPair(ad.getName(),ad.getMbid()));
+                    }
+
 
                     pd.cancel();
                 }

@@ -1,7 +1,9 @@
 package com.rtmillerprojects.sangitlive.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,7 +28,7 @@ import java.util.List;
 /**
  * Created by Ryan on 9/3/2016.
  */
-public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedArtistsAdapter.HomeTrackedArtistViewHolder> {
+public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedArtistsAdapter.HomeTrackedArtistViewHolder> implements Callback {
 
     private ArrayList<ArtistDetails> artists;
     private Context context;
@@ -44,7 +46,7 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
     @Override
     public HomeTrackedArtistViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.artist_list_item, parent, false);
-        HomeTrackedArtistViewHolder vh = new HomeTrackedArtistViewHolder(v,context);
+        HomeTrackedArtistViewHolder vh = new HomeTrackedArtistViewHolder(v,context,this);
 
         return vh;
     }
@@ -80,11 +82,18 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
         return artists.size();
     }
 
+    @Override
+    public ArtistDetails update(int position) {
+        return artists.get(position);
+
+    }
+
 
     public static class HomeTrackedArtistViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ArtistDetails artistDetails;
         TextView artistName;
         public String artistMbid;
+        public String artistNameString;
         int position;
         int resultNumber;
         public ImageView imgView;
@@ -92,7 +101,7 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
         AppCompatActivity ACA;
         View view;
 
-        public HomeTrackedArtistViewHolder(View v, Context context) {
+        public HomeTrackedArtistViewHolder(View v, final Context context, final Callback callback) {
             super(v);
             artistName = (TextView) v.findViewById(R.id.artist_name);
             imgView = (ImageView) v.findViewById(R.id.artist_img);
@@ -102,6 +111,29 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
             v.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
+                    final ArtistDetails adc = callback.update(position);
+                    new AlertDialog.Builder(ACA)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("Confirm selection")
+                            .setMessage("Remove this artist?")
+                            .setPositiveButton("Remove", new DialogInterface.OnClickListener() {
+
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    DatabaseHelper db = DatabaseHelper.getInstance(context);
+                                    db.deleteArtist(artistMbid);
+                                    db.deleteEventsAllByArtist(adc.getMbid(), adc.getName());
+                                    db.deleteEventsLocalByArtist(adc.getMbid(), adc.getName());
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .show();
                     return false;
                 }
             });
@@ -116,5 +148,6 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
             intent.putExtra("artistName",artistName.getText().toString());
             ACA.startActivity(intent);
         }
+
     }
 }

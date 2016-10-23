@@ -90,8 +90,8 @@ public class ServiceUpcomingEvents {
                 Call<ArrayList<BandsInTownEventResult>> call = eventsApi.searchEventsByMbid(mbid, "json", "2.0", "ConcertCompanion");
                 //Build the call based on
                 if (event.isLocalEvents()){
-                    String city = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_city),"Charleston");
-                    String stateAbbr = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_location_state_abr),"SC");
+                    String city = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_city),"");
+                    String stateAbbr = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_location_state_abr),"");
                     call = eventsApi.searchLocationalEventsByMbid(mbid, "json", city+" , "+stateAbbr, "2.0", "ConcertCompanion");
                 }
                 //asynchronous call
@@ -183,8 +183,8 @@ public class ServiceUpcomingEvents {
         Call<ArrayList<BandsInTownEventResult>> call = eventsApi.searchEventsByArtistName(fesbn.getPair().getArtistName(), "json", "2.0", "ConcertCompanion");
         //Build the call based on
         if (fesbn.isLocationFiltered()){
-            String city = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_city),"Charleston");
-            String stateAbbr = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_location_state_abr),"SC");
+            String city = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_city),"");
+            String stateAbbr = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_location_state_abr),"");
             call = eventsApi.searchLocationalEventsByArtistName(mbid, "json", city+" , "+stateAbbr, "2.0", "ConcertCompanion");
         }
         //asynchronous call
@@ -286,7 +286,8 @@ public class ServiceUpcomingEvents {
                                 if (errorMsg.contains("Unknown Artist")) {
                                     for(NameMbidPair p : pairs){
                                         if(p.getMbid().contains(retMbid)){
-                                            eventMgrPair = new EventMgrNameMbidPair(p,event.isFilteredByLocation);
+                                            //TRY AGAIN VIA NEW SEARCH
+                                            eventMgrPair = new EventMgrNameMbidPair(p,event.isForcedRefresh(),event.isFilteredByLocation);
                                             Log.d("RYAN TEST",  p.getArtistName()+ " EVENT SEARCH BY MBID FAILED");
                                             EventBus.post(eventMgrPair);
                                             break;
@@ -377,8 +378,7 @@ public class ServiceUpcomingEvents {
                         String errorMsg = response.errorBody().string();
                         if (errorMsg.contains("Unknown Artist")) {
                             Log.d("RYAN TEST", artistName+" Results show that this is an unknown Artist AGAIN");
-                            //Force Refresh is set true
-                            EventBus.post(new BITResultPackageEventMgr(null,nmp,true, eventMgrPair.isFilteredByLocation));
+                            EventBus.post(new BITResultPackageEventMgr(null,nmp,emPair.isForceRefresh, eventMgrPair.isFilteredByLocation));
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -409,8 +409,7 @@ public class ServiceUpcomingEvents {
                     if(emPair.isFilteredByLocation){responseCounterLocal++;}
                     else{responseCounterAll++;}
 
-                    //forceRefresh is set to true
-                    EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,nmp,true, eventMgrPair.isFilteredByLocation));
+                    EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,nmp,emPair.isForceRefresh, eventMgrPair.isFilteredByLocation));
                 }
             }
 
@@ -418,7 +417,7 @@ public class ServiceUpcomingEvents {
             public void onFailure(Call<ArrayList<BandsInTownEventResult>> call, Throwable t) {
                 Log.d("RYAN TEST", artistName+" EVENT SEARCH RESPONSE FAILED");
                 //force refresh is set true
-                EventBus.post(new BITResultPackageEventMgr(null,nmp, true,emPair.isFilteredByLocation));
+                EventBus.post(new BITResultPackageEventMgr(null,nmp, emPair.isForceRefresh,emPair.isFilteredByLocation));
                 //Log.e(t.getMessage());
             }
         });
