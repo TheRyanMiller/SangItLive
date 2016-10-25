@@ -1,4 +1,4 @@
-package com.rtmillerprojects.sangitlive.adapter;
+package com.rtmillerprojects.sangitlive.listener;
 
 import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 

@@ -15,8 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rtmillerprojects.sangitlive.R;
+import com.rtmillerprojects.sangitlive.listener.Callback;
 import com.rtmillerprojects.sangitlive.model.ArtistDetails;
-import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
 import com.rtmillerprojects.sangitlive.ui.ActivityArtistDetail;
 import com.rtmillerprojects.sangitlive.util.CircleTransform;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
@@ -33,21 +33,24 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
     private ArrayList<ArtistDetails> artists;
     private Context context;
     private List<Long> trackedArtists;
+    private Callback callback;
 
     //Constructor
+    public HomeTrackedArtistsAdapter(ArrayList<ArtistDetails> artists, Context context, Callback callback){
+        this.artists = artists;
+        this.context = context;
+        this.callback = callback;
+    }
+
     public HomeTrackedArtistsAdapter(ArrayList<ArtistDetails> artists, Context context){
         this.artists = artists;
         this.context = context;
-        DatabaseHelper db = DatabaseHelper.getInstance(context);
-        //trackedArtists = db.getAllArtistIds();
-
-    };
+    }
 
     @Override
     public HomeTrackedArtistViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.artist_list_item, parent, false);
-        HomeTrackedArtistViewHolder vh = new HomeTrackedArtistViewHolder(v,context,this);
-
+        HomeTrackedArtistViewHolder vh = new HomeTrackedArtistViewHolder(v,context,this,callback);
         return vh;
     }
 
@@ -72,7 +75,6 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
         catch (IndexOutOfBoundsException e) {
             Log.e(e.getClass().getName(),e.getMessage());
         }
-        //holder.imgView = imageview;
 
 
     }
@@ -101,7 +103,7 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
         AppCompatActivity ACA;
         View view;
 
-        public HomeTrackedArtistViewHolder(View v, final Context context, final Callback callback) {
+        public HomeTrackedArtistViewHolder(View v, final Context context, final Callback callback, final Callback refreshfrag) {
             super(v);
             artistName = (TextView) v.findViewById(R.id.artist_name);
             imgView = (ImageView) v.findViewById(R.id.artist_img);
@@ -115,16 +117,17 @@ public class HomeTrackedArtistsAdapter extends RecyclerView.Adapter<HomeTrackedA
                     new AlertDialog.Builder(ACA)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setTitle("Confirm selection")
-                            .setMessage("Remove this artist?")
+                            .setMessage("Remove "+adc.getName()+"?")
                             .setPositiveButton("Remove", new DialogInterface.OnClickListener() {
 
 
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     DatabaseHelper db = DatabaseHelper.getInstance(context);
-                                    db.deleteArtist(artistMbid);
-                                    db.deleteEventsAllByArtist(adc.getMbid(), adc.getName());
-                                    db.deleteEventsLocalByArtist(adc.getMbid(), adc.getName());
+                                    db.deleteArtist(adc.getName(),adc.getMbid());
+                                    db.deleteEventsAllByArtist(adc.getName(),adc.getMbid());
+                                    db.deleteEventsLocalByArtist(adc.getMbid(),adc.getName());
+                                    refreshfrag.update(1);
                                 }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener(){

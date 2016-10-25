@@ -36,6 +36,9 @@
             android:layout_marginTop="10dp"
             android:elevation="5dp"
             android:gravity="center"
+            android:focusable="true"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:background="@color/material_gray_050"
             xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -67,6 +70,9 @@
             android:elevation="5dp"
             android:gravity="center"
             android:background="@color/material_gray_050"
+            android:focusable="true"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             xmlns:android="http://schemas.android.com/apk/res/android">
 
             <TextView
@@ -153,6 +159,9 @@
             android:layout_below="@id/refresh_frequency_layout"
             android:layout_marginTop="20dp"
             android:elevation="5dp"
+            android:focusable="true"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:background="@color/material_gray_050"
             xmlns:android="http://schemas.android.com/apk/res/android">

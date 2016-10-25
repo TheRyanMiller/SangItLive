@@ -226,7 +226,7 @@ public class ActivitySettings extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             //use the query to search your data somehow
-            Toast.makeText(this,query,Toast.LENGTH_SHORT).show();
+
         }
     }
 
@@ -271,9 +271,10 @@ public class ActivitySettings extends AppCompatActivity {
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
                 String oldLocation = SharedPreferencesHelper.getStringPreference(getString(R.string.user_location_zip),"default");
-                boolean hasLocationChanged = oldLocation != location.getZip();
 
                 location = Parcels.unwrap(data.getParcelableExtra("result"));
+                boolean hasLocationChanged = !oldLocation.equals(location.getZip());
+                boolean validLocation = true;//location.city != null && location.stateAbv != null;
                 textViewLocation.setText(location.formattedAddress);
                 //Put user location data into Shared Preferences
                 SharedPreferencesHelper.putStringPreference(getString(R.string.user_location_state_abr), location.getStateAbv());
@@ -282,7 +283,6 @@ public class ActivitySettings extends AppCompatActivity {
                 SharedPreferencesHelper.putStringPreference(getString(R.string.user_location_country), location.getCountry());
                 SharedPreferencesHelper.putStringPreference(getString(R.string.user_location_zip), location.getZip());
                 SharedPreferencesHelper.putStringPreference(getString(R.string.user_city), location.city);
-                boolean validLocation = location.city != null && location.stateAbv != null;
 
                 if(hasLocationChanged && validLocation){
                     locationChangeProgressDialog = new ProgressDialog(this);

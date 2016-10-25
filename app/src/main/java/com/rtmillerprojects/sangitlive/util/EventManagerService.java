@@ -84,7 +84,7 @@ public class EventManagerService {
                     db.insertEventsLocal(result.events);
                 }
                 else{
-                    db.deleteEventsAllByArtist(result.pair.getMbid(), result.pair.getArtistName());
+                    db.deleteEventsAllByArtist(result.pair.getArtistName(),result.pair.getMbid());
                     db.insertEventsAll(result.events);
                 }
                 //Insert into DB

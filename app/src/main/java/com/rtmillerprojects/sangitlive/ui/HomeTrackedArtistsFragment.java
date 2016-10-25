@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.HomeTrackedArtistsAdapter;
+import com.rtmillerprojects.sangitlive.listener.Callback;
 import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.ArtistsThumbnailRequest;
 import com.rtmillerprojects.sangitlive.model.lastfmartistsearch.ArtistLastFm;
@@ -27,7 +28,7 @@ import java.util.List;
 /**
  * Created by Ryan on 9/7/2016.
  */
-public class HomeTrackedArtistsFragment extends BaseFragment{
+public class HomeTrackedArtistsFragment extends BaseFragment implements Callback {
 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
@@ -70,7 +71,7 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
         db = DatabaseHelper.getInstance(ACA);
         artists = db.getAllArtists();
         context = getContext();
-        trackedArtistAdapter = new HomeTrackedArtistsAdapter(artists,ACA);
+        trackedArtistAdapter = new HomeTrackedArtistsAdapter(artists,ACA,this);
         recyclerView.setAdapter(trackedArtistAdapter);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -115,7 +116,7 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
         });
         returnCounter++;
         if(returnCounter == sizeOfArtists) {
-            trackedArtistAdapter = new HomeTrackedArtistsAdapter(artists, ACA);
+            trackedArtistAdapter = new HomeTrackedArtistsAdapter(artists, ACA,this);
             recyclerView.setAdapter(trackedArtistAdapter);
             recyclerView.setLayoutManager(layoutManager);
             trackedArtistSwipeRefresh.setRefreshing(false);
@@ -136,7 +137,6 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
             }
             sizeOfArtists = artists.size();
             artists = new ArrayList<ArtistDetails>();
-            //recyclerView.setAdapter(new HomeTrackedArtistsAdapter(artists,ACA));
             EventBus.post(new ArtistsThumbnailRequest(mbids));
         }
         else{
@@ -144,5 +144,11 @@ public class HomeTrackedArtistsFragment extends BaseFragment{
             emptyView.setVisibility(View.VISIBLE);
         }
         trackedArtistSwipeRefresh.setRefreshing(false);
+    }
+
+    @Override
+    public ArtistDetails update(int position) {
+        refreshItems();
+        return null;
     }
 }

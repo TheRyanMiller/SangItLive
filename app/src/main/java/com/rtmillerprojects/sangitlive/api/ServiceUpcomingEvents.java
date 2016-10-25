@@ -136,6 +136,10 @@ public class ServiceUpcomingEvents {
                             favoritedShows = db.getFavoritedEventIds();
                             for (BandsInTownEventResult e : bandsInTownEvents) {
                                 e.setAttending(false);
+                                if(e.getArtists().get(0) != null && e.getArtists().get(0).getImageUrl()!=null){
+                                    //Set event level image
+                                    e.setImage_url(e.getArtists().get(0).getImageUrl());
+                                }
                                 for (int i = 0; i < favoritedShows.size(); i++) {
                                     if (e.getId() == favoritedShows.get(i).intValue()) {
                                         e.setAttending(true);
@@ -213,9 +217,16 @@ public class ServiceUpcomingEvents {
                     DatabaseHelper db = DatabaseHelper.getInstance(context);
                     favoritedShows = db.getFavoritedEventIds();
                     for (BandsInTownEventResult e : bandsInTownEvents) {
-                        if(e.getArtists().get(0).getMbid()==null){
-                            e.getArtists().get(0).setMbid(artistMbid);
-                        };
+                        if(e.getArtists().get(0)!=null){
+                            if(e.getArtists().get(0).getImageUrl()!=null){
+                                //Set event level image
+                                e.setImage_url(e.getArtists().get(0).getImageUrl());
+                            }
+                            if(e.getArtists().get(0).getMbid()==null){
+                                e.getArtists().get(0).setMbid(artistMbid);
+                            }
+                        }
+
                         e.setAttending(false);
                         for (int i = 0; i < favoritedShows.size(); i++) {
                             if (e.getId() == favoritedShows.get(i).intValue()) {
@@ -315,6 +326,10 @@ public class ServiceUpcomingEvents {
                             favoritedShows = db.getFavoritedEventIds();
                             for (BandsInTownEventResult e : bandsInTownEvents) {
                                 //check if attending
+                                if(e.getArtists().get(0) != null && e.getArtists().get(0).getImageUrl()!=null){
+                                    //Set event level image
+                                    e.setImage_url(e.getArtists().get(0).getImageUrl());
+                                }
                                 e.setAttending(false);
                                 for (int i = 0; i < favoritedShows.size(); i++) {
                                     if (e.getId() == favoritedShows.get(i).intValue()) {
@@ -346,7 +361,7 @@ public class ServiceUpcomingEvents {
     }
 
     @Subscribe
-    public void newEventMgrAttempt(final EventMgrNameMbidPair emPair){
+    public void failedEventMgrAttempt(final EventMgrNameMbidPair emPair){
         final NameMbidPair nmp = emPair.pair;
         Gson gson = new GsonBuilder()
                 //.registerTypeAdapterFactory(new SetlistTypeAdapterFactory())
@@ -378,7 +393,7 @@ public class ServiceUpcomingEvents {
                         String errorMsg = response.errorBody().string();
                         if (errorMsg.contains("Unknown Artist")) {
                             Log.d("RYAN TEST", artistName+" Results show that this is an unknown Artist AGAIN");
-                            EventBus.post(new BITResultPackageEventMgr(null,nmp,emPair.isForceRefresh, eventMgrPair.isFilteredByLocation));
+                            EventBus.post(new BITResultPackageEventMgr(null,nmp,emPair.isForceRefresh, emPair.isFilteredByLocation));
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -394,8 +409,12 @@ public class ServiceUpcomingEvents {
                     favoritedShows = db.getFavoritedEventIds();
                     for (BandsInTownEventResult e : bandsInTownEvents) {
                         e.setAttending(false);
-                        if(e.getArtists().get(0).getMbid()==null){
+                        if(e.getArtists().get(0) != null && e.getArtists().get(0).getMbid()==null){
                             e.getArtists().get(0).setMbid(artistMbid);
+                        }
+                        if(e.getArtists().get(0) != null && e.getArtists().get(0).getImageUrl() != null){
+                            //Set event level image
+                            e.setImage_url(e.getArtists().get(0).getImageUrl());
                         }
                         for (int i = 0; i < favoritedShows.size(); i++) {
                             if (e.getId() == favoritedShows.get(i).intValue()) {
@@ -409,7 +428,7 @@ public class ServiceUpcomingEvents {
                     if(emPair.isFilteredByLocation){responseCounterLocal++;}
                     else{responseCounterAll++;}
 
-                    EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,nmp,emPair.isForceRefresh, eventMgrPair.isFilteredByLocation));
+                    EventBus.post(new BITResultPackageEventMgr(scrubbedEventList,nmp,emPair.isForceRefresh, emPair.isFilteredByLocation));
                 }
             }
 

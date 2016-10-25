@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.R;
@@ -142,14 +143,14 @@ public class FragmentArtistMain extends BaseFragment{
                     new AlertDialog.Builder(ACA)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setTitle("Confirm selection")
-                            .setMessage("Remove this event?")
-                            .setPositiveButton("Remove", new DialogInterface.OnClickListener() {
+                            .setMessage("Unfollowing this artist will remove their events from your feed.")
+                            .setPositiveButton("Unfollow", new DialogInterface.OnClickListener() {
 
 
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    db.deleteArtist(ad.getMbid());
-                                    db.deleteEventsAllByArtist(ad.getMbid(), ad.getName());
+                                    db.deleteArtist(ad.getName(),ad.getMbid());
+                                    db.deleteEventsAllByArtist(ad.getName(),ad.getMbid());
                                     db.deleteEventsLocalByArtist(ad.getMbid(), ad.getName());
                                 }
                             })
@@ -176,9 +177,8 @@ public class FragmentArtistMain extends BaseFragment{
                     if(SharedPreferencesHelper.isUserLocationSet()){
                         ems.getSingleArtistEventsLocal(new NameMbidPair(ad.getName(),ad.getMbid()));
                     }
-
-
                     pd.cancel();
+                    Toast.makeText(ACA,"You are now following "+ad.getName(),Toast.LENGTH_SHORT).show();
                 }
 
             }

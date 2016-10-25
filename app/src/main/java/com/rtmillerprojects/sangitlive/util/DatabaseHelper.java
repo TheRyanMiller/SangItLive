@@ -62,6 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String EVENT_VENUE_NAME = "venue_name";
     private static final String EVENT_DATE = "date";
     private static final String EVENT_IS_PAST = "is_past";
+    private static final String EVENT_IMG_URL = "img_url";
     private static final String EVENT_TICKET_URL = "ticket_url";
     private static final String EVENT_DESCRIPTION = "description";
     private static final String EVENT_IS_ATTENDING = "is_attending";
@@ -91,6 +92,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             EVENT_VENUE_REGION + " TEXT," +
             EVENT_VENUE_PLACE + " TEXT," +
             EVENT_VENUE_NAME + " TEXT," +
+            EVENT_IMG_URL + " TEXT," +
             EVENT_TICKET_URL + " TEXT," +
             EVENT_IS_PAST + " INTEGER," +
             EVENT_IS_ATTENDING + " INTEGER," +
@@ -110,6 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             EVENT_VENUE_REGION + " TEXT," +
             EVENT_VENUE_PLACE + " TEXT," +
             EVENT_VENUE_NAME + " TEXT," +
+            EVENT_IMG_URL + " TEXT," +
             EVENT_TICKET_URL + " TEXT," +
             EVENT_IS_PAST + " INTEGER," +
             EVENT_IS_ATTENDING + " INTEGER," +
@@ -129,6 +132,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             EVENT_VENUE_REGION + " TEXT," +
             EVENT_VENUE_PLACE + " TEXT," +
             EVENT_VENUE_NAME + " TEXT," +
+            EVENT_IMG_URL + " TEXT," +
             EVENT_TICKET_URL + " TEXT," +
             EVENT_IS_PAST + " INTEGER," +
             EVENT_IS_ATTENDING + " INTEGER," +
@@ -162,10 +166,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // on upgrade drop older tables
+
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT_ATTENDING);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT_ALL);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT_LOCAL);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ARTIST);
+
         // create new tables
         onCreate(db);
     }
@@ -182,7 +188,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(event.getArtists().get(0).getMbid()!=null){values.put(ARTIST_MBID,event.getArtists().get(0).getMbid());}
         if(event.getArtists().get(0).getName()!=null){values.put(ARTIST_NAME,event.getArtists().get(0).getName());}
         if(event.getDatetime()!=null){values.put(EVENT_DATE, convertToDBDate(event.getDatetime()));}
-        if(event.getTicketUrl()!=null){values.put(EVENT_TICKET_URL, event.getTicketUrl().toString());}
+        if(event.getTicketUrl()!=null){values.put(EVENT_TICKET_URL, event.getTicketUrl());}
+        if(event.getImage_url()!=null){values.put(EVENT_IMG_URL, event.getImage_url());}
         if(event.getFormattedLocation()!=null){values.put(EVENT_FORMATTED_LOC, event.getFormattedLocation());}
         if(event.getVenue()!=null && event.getVenue().getCity()!=null){values.put(EVENT_VENUE_CITY, event.getVenue().getCity());}
         if(event.getVenue()!=null && event.getVenue().getRegion()!=null){values.put(EVENT_VENUE_REGION, event.getVenue().getRegion());}
@@ -217,7 +224,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(event.getArtists().get(0).getMbid()!=null){values.put(ARTIST_MBID,event.getArtists().get(0).getMbid());}
         if(event.getArtists().get(0).getName()!=null){values.put(ARTIST_NAME,event.getArtists().get(0).getName());}
         if(event.getDatetime()!=null){values.put(EVENT_DATE, convertToDBDate(event.getDatetime()));}
-        if(event.getTicketUrl()!=null){values.put(EVENT_TICKET_URL, event.getTicketUrl().toString());}
+        if(event.getTicketUrl()!=null){values.put(EVENT_TICKET_URL, event.getTicketUrl());}
+        if(event.getImage_url()!=null){values.put(EVENT_IMG_URL, event.getImage_url());}
         if(event.getFormattedLocation()!=null){values.put(EVENT_FORMATTED_LOC, event.getFormattedLocation());}
         if(event.getVenue()!=null && event.getVenue().getCity()!=null){values.put(EVENT_VENUE_CITY, event.getVenue().getCity());}
         if(event.getVenue()!=null && event.getVenue().getRegion()!=null){values.put(EVENT_VENUE_REGION, event.getVenue().getRegion());}
@@ -252,7 +260,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(event.getArtists().get(0).getMbid()!=null){values.put(ARTIST_MBID,event.getArtists().get(0).getMbid());}
         if(event.getArtists().get(0).getName()!=null){values.put(ARTIST_NAME,event.getArtists().get(0).getName());}
         if(event.getDatetime()!=null){values.put(EVENT_DATE, convertToDBDate(event.getDatetime()));}
-        if(event.getTicketUrl()!=null){values.put(EVENT_TICKET_URL, event.getTicketUrl().toString());}
+        if(event.getTicketUrl()!=null){values.put(EVENT_TICKET_URL, event.getTicketUrl());}
+        if(event.getImage_url()!=null){values.put(EVENT_IMG_URL, event.getImage_url());}
         if(event.getFormattedLocation()!=null){values.put(EVENT_FORMATTED_LOC, event.getFormattedLocation());}
         if(event.getVenue()!=null && event.getVenue().getCity()!=null){values.put(EVENT_VENUE_CITY, event.getVenue().getCity());}
         if(event.getVenue()!=null && event.getVenue().getRegion()!=null){values.put(EVENT_VENUE_REGION, event.getVenue().getRegion());}
@@ -690,12 +699,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete(TABLE_EVENT_ATTENDING,EVENT_ID+"="+eventId,null);
     }
 
-    public void deleteArtist(String artistMbid){
+    public void deleteArtist(String artistName, String artistMbid){
         SQLiteDatabase db = this.getReadableDatabase();
         db.delete(TABLE_ARTIST,ARTIST_MBID+"='"+artistMbid+"'",null);
+        db.delete(TABLE_ARTIST,ARTIST_NAME+"='"+artistName+"'",null);
     }
 
-    public void deleteEventsAttendingByArtist(String mbid, String artistName){
+    public void deleteEventsAttendingByArtist(String artistName,String mbid){
         SQLiteDatabase db = this.getReadableDatabase();
         if(mbid!=null & mbid!=""){
             db.delete(TABLE_EVENT_ATTENDING,ARTIST_MBID+"='"+mbid+"'",null);
@@ -715,7 +725,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void deleteEventsAllByArtist(String artistName, String mbid){
+    public void deleteEventsAllByArtist(String artistName,String mbid){
         SQLiteDatabase db = this.getReadableDatabase();
         if(mbid!=null){
             db.delete(TABLE_EVENT_ALL,ARTIST_MBID+"='"+mbid+"'",null);

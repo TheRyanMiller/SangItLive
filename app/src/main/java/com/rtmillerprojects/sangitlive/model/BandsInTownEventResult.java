@@ -15,6 +15,9 @@ public class BandsInTownEventResult {
     @SerializedName("id")
     @Expose
     Integer id;
+    @SerializedName("image_url")
+    @Expose
+    String image_url;
     @SerializedName("title")
     @Expose
     String title;
@@ -293,6 +296,14 @@ public class BandsInTownEventResult {
 
     public void setAttending(boolean attending) {
         this.attending = attending;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 
 }
