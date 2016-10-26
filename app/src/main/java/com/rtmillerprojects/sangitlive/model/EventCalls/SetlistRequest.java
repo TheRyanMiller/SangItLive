@@ -4,12 +4,14 @@ package com.rtmillerprojects.sangitlive.model.EventCalls;
  * Created by Ryan on 9/20/2016.
  */
 public class SetlistRequest {
-    public String getMbid() {
-        return mbid;
-    }
 
-    public void setMbid(String mbid) {
-        this.mbid = mbid;
+    private int page;
+    public NameMbidPair nmp;
+
+
+    public SetlistRequest(NameMbidPair nmp, int page) {
+        this.nmp = nmp;
+        this.page = page;
     }
 
     public int getPage() {
@@ -20,11 +22,13 @@ public class SetlistRequest {
         this.page = page;
     }
 
-    public SetlistRequest(String mbid, int page) {
-        this.mbid = mbid;
-        this.page = page;
+    public NameMbidPair getNmp() {
+        return nmp;
     }
 
-    private String mbid;
-    private int page;
+    public void setNmp(NameMbidPair nmp) {
+        this.nmp = nmp;
+    }
+
+
 }

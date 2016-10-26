@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rtmillerprojects.sangitlive.R;
@@ -31,7 +32,8 @@ public class HomeHistoryFragment extends BaseFragment{
     private ArrayList<BandsInTownEventResult> events = new ArrayList<>();
     private SwipeRefreshLayout historySwipeRefresh;
     private String emptyViewMsg;
-    private TextView emptyView;
+    private RelativeLayout emptyView;
+    private TextView emptyViewText;
 
 
     public static HomeHistoryFragment newInstance() {
@@ -55,7 +57,8 @@ public class HomeHistoryFragment extends BaseFragment{
         View rootView = inflater.inflate(R.layout.home_rsvp_fragment, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.rsvpd_events);
         historySwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.rsvpSwipeRefresh);
-        emptyView = (TextView) rootView.findViewById(R.id.empty_view);
+        emptyView = (RelativeLayout) rootView.findViewById(R.id.empty_view);
+        emptyViewText = (TextView) rootView.findViewById(R.id.empty_view_text);
 
         layoutManager = new LinearLayoutManager(ACA);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -75,7 +78,7 @@ public class HomeHistoryFragment extends BaseFragment{
             emptyViewMsg = "Cannot find any shows you've attended. \n (This section will display any past shows you've starred.)";
         }
 
-        emptyView.setText(emptyViewMsg);
+        emptyViewText.setText(emptyViewMsg);
         context = getContext();
 
 

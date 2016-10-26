@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.HomeRsvpdAdapter;
@@ -28,6 +30,8 @@ public class HomeRsvpFragment extends BaseFragment{
     private List<Long> favoritedEvents;
     private Context context;
     private HomeUpcomingAdapter rsvpAdapter;
+    private RelativeLayout emptyView;
+    private TextView emptyViewText;
     private ArrayList<BandsInTownEventResult> events = new ArrayList<>();
     private SwipeRefreshLayout rsvpSwipeRefresh;
 
@@ -53,6 +57,8 @@ public class HomeRsvpFragment extends BaseFragment{
         View rootView = inflater.inflate(R.layout.home_rsvp_fragment, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.rsvpd_events);
         rsvpSwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.rsvpSwipeRefresh);
+        emptyView = (RelativeLayout) rootView.findViewById(R.id.empty_view);
+        emptyViewText = (TextView) rootView.findViewById(R.id.empty_view_text);
 
         layoutManager = new LinearLayoutManager(ACA);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -94,9 +100,17 @@ public class HomeRsvpFragment extends BaseFragment{
         rsvpAdapter = null;
         db = DatabaseHelper.getInstance(ACA);
         events = db.getEventsAttending(true);
-        rsvpAdapter = new HomeUpcomingAdapter(events,ACA);
-        recyclerView.setAdapter(rsvpAdapter);
-        recyclerView.setLayoutManager(layoutManager);
-        rsvpSwipeRefresh.setRefreshing(false);
+        if(events != null && events.size()>0){
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+            rsvpAdapter = new HomeUpcomingAdapter(events,ACA);
+            recyclerView.setAdapter(rsvpAdapter);
+            recyclerView.setLayoutManager(layoutManager);
+            rsvpSwipeRefresh.setRefreshing(false);
+        }
+        else{
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
     }
 }

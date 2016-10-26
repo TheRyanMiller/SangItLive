@@ -17,6 +17,7 @@ import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.adapter.SetAdapter;
 import com.rtmillerprojects.sangitlive.api.SetlistTypeAdapterFactory;
 import com.rtmillerprojects.sangitlive.listener.GetMbid;
+import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
 import com.rtmillerprojects.sangitlive.model.EventCalls.SetlistRequest;
 import com.rtmillerprojects.sangitlive.model.LoadSetlistsEvent;
 import com.rtmillerprojects.sangitlive.model.SetInfo;
@@ -72,7 +73,7 @@ public class FragmentArtistSetlists extends BaseFragment {
         emptyView = (TextView) rootView.findViewById(R.id.empty_view);
         recyclerView.setLayoutManager(layoutManager);
 
-        sr = new SetlistRequest(listener.getMbid(), 1);
+        sr = new SetlistRequest(new NameMbidPair(listener.getArtistName(),listener.getMbid()), 1);
         EventBus.post(sr);
 
         GsonBuilder gsonBuilder = new GsonBuilder()

@@ -17,7 +17,7 @@
     <string name="artist_search">Artist Search</string>
     <string name="filter_feed">Apply Location Filter</string>
     <string name="settings">Settings</string>
-    <string name="feedback">feedback</string>
+    <string name="feedback">Feedback</string>
     <string name="user_city">user_city</string>
     <string name="user_location_state_abr">user_location_state_abr</string>
     <string name="user_location_state">user_location_state</string>
@@ -30,4 +30,11 @@
     <string name="error_preferences_illegal_state">error_preferences_illegal_state</string>
     <string name="is_Filtered">is_Filtered</string>
     <string name="rsvp_to_this_event">RSVP to this event</string>
+    <string name="follow_this_artist">Follow this artist</string>
+    <string name="location">Location</string>
+    <string name="unknown">Unknown</string>
+    <string name="refresh_frequency">Refresh Frequency</string>
+    <string name="last_refresh">Last Refresh:</string>
+    <string name="next_refresh">Next Refresh:</string>
+    <string name="force_refresh">Force Refresh</string>
 </resources>

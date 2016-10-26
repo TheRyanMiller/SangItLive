@@ -126,6 +126,14 @@ public class MainActivity extends AppCompatActivity
         if(id == R.id.nav_artist_search){
             startActivity(new Intent(this, ActivityArtistSearch.class));
         }
+        if(id == R.id.nav_feedback){
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("plain/text");
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "rmiller07@gmail.com" });
+            intent.putExtra(Intent.EXTRA_SUBJECT, "[Feedback] Concert Companion");
+            intent.putExtra(Intent.EXTRA_TEXT, "");
+            startActivity(Intent.createChooser(intent, ""));
+        }
         //implement click handlers here
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

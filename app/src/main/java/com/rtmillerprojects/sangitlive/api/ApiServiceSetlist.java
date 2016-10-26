@@ -18,9 +18,13 @@ public interface ApiServiceSetlist {
     final static String SETLISTSENDPOINT = "/rest/0.1/search/setlists.json";
     final static String ARTISTENDPOINT = "/rest/0.1/search/artists.json";
 
-    // Setlists
+    // Setlists by MBID
     @GET(SETLISTSENDPOINT)
     Call<SetlistsByArtists> getSetlists(@Query("artistMbid") String artistKey, @Query("p") int page);
+
+    // Setlists by Artist Name
+    @GET(SETLISTSENDPOINT)
+    Call<SetlistsByArtists> getSetlistsByArtistName(@Query("artistName") String artistName, @Query("p") int page);
 
     // Artists
     @GET(ARTISTENDPOINT)

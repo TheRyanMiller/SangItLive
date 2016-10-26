@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,9 +50,8 @@ public class FragmentArtistMain extends BaseFragment{
     FloatingActionButton fab;
     String mbid;
     GetMbid mbidListener;
-    CheckBox starArtist;
+    AppCompatCheckBox starArtist;
     DatabaseHelper db;
-    boolean isFavorite;
     String artistName;
     ArtistDetails adr;
     EventManagerService ems;
@@ -81,7 +81,7 @@ public class FragmentArtistMain extends BaseFragment{
         viewPager = (ViewPager) rootView.findViewById(R.id.view_pager);
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
-        starArtist = (CheckBox) rootView.findViewById(R.id.save_artist_star);
+        starArtist = (AppCompatCheckBox) rootView.findViewById(R.id.save_artist_star);
         mbid = mbidListener.getMbid();
         artistName = mbidListener.getArtistName();
         final ArtistDetails ad = new ArtistDetails();

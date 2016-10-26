@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder;
 import com.rtmillerprojects.sangitlive.ArtistTypeAdapterFactory;
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.model.ArtistResults;
+import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
 import com.rtmillerprojects.sangitlive.model.EventCalls.SetlistRequest;
 import com.rtmillerprojects.sangitlive.model.LoadArtistEvent;
 import com.rtmillerprojects.sangitlive.model.LoadSetlistsEvent;
@@ -32,6 +33,7 @@ public class ServiceSetlist {
     private ArtistResults artistResults;
     private Context context;
     private String mbid;
+    private String artistName;
     private int page;
 
     public ServiceSetlist(Application context){
@@ -52,8 +54,9 @@ public class ServiceSetlist {
 
 
     @Subscribe
-    public void getSetlists(SetlistRequest sr){
-        mbid = sr.getMbid();
+    public void getSetlists(final SetlistRequest sr){
+        mbid = sr.getNmp().getMbid();
+        artistName = sr.getNmp().getArtistName();
         page = sr.getPage();
         Gson gson = new GsonBuilder()
                 .registerTypeAdapterFactory(new SetlistTypeAdapterFactory())
@@ -76,62 +79,51 @@ public class ServiceSetlist {
                 if(setlistsByArtists!=null) {
                     EventBus.post(new LoadSetlistsEvent(setlistsByArtists));
                 }
+                else{
+                    if(response.errorBody()!=null){
+                        retryByArtistName(sr.getNmp(), page);
+                    }
+                }
             }
 
             @Override
             public void onFailure(Call<SetlistsByArtists> call, Throwable t) {
+                retryByArtistName(sr.getNmp(), page);
                 //EventBus.post(new APIErrorEvent(RetrofitError.unexpectedError(response.getUrl(), new HttpException("Empty Body")), event.getCallNumber()));
             }
         });
     }
 
-    private void getArtists(String artistSearchString, int page){
-        try {
-            artistSearchString = URLEncoder.encode(artistSearchString,"UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+    private void retryByArtistName(NameMbidPair nmp, int page){
+        artistName = nmp.getArtistName();
         Gson gson = new GsonBuilder()
-                .registerTypeAdapterFactory(new ArtistTypeAdapterFactory())
+                .registerTypeAdapterFactory(new SetlistTypeAdapterFactory())
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiServiceSetlist.BASEURL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-
-
+        // prepare call in Retrofit 2.0
         ApiServiceSetlist setlistApi = retrofit.create(ApiServiceSetlist.class);
-        Call<ArtistResults> call = setlistApi.getArtists(artistSearchString, page);
+        //String radioheadKey = "a74b1b7f-71a5-4011-9441-d0b5e4122711";
+        Call<SetlistsByArtists> call = setlistApi.getSetlistsByArtistName(artistName, page);
         //asynchronous call
-        call.enqueue(new Callback<ArtistResults>() {
+        call.enqueue(new Callback<SetlistsByArtists>() {
             @Override
-            public void onResponse(Call<ArtistResults> call, Response<ArtistResults> response) {
-                artistResults = response.body();
-                Log.d("RYAN TEST","ARTISTS RESPONSE SUCCESS");
-                EventBus.post(new LoadArtistEvent(artistResults));
+            public void onResponse(Call<SetlistsByArtists> call, Response<SetlistsByArtists> response) {
+                setlistsByArtists = response.body();
+                Log.d("RYAN TEST","SETLIST RESPONSE SUCCESS");
+                if(setlistsByArtists!=null) {
+                    EventBus.post(new LoadSetlistsEvent(setlistsByArtists));
+                }
             }
 
             @Override
-            public void onFailure(Call<ArtistResults> call, Throwable t) {
-                Log.d("RYAN TEST","ARTISTS RESPONSE FAILED");
-                //EventBus.post(new APIError)
+            public void onFailure(Call<SetlistsByArtists> call, Throwable t) {
+
                 //EventBus.post(new APIErrorEvent(RetrofitError.unexpectedError(response.getUrl(), new HttpException("Empty Body")), event.getCallNumber()));
             }
         });
     }
 }
-
-/* FROM FILE
-public SetlistsByArtists getJsonFromFile(String mbid, int page) {
-
-        GsonBuilder gsonBuilder = new GsonBuilder()
-                .registerTypeAdapterFactory(new SetlistTypeAdapterFactory());
-        Gson gson = gsonBuilder.create();
-        InputStream is = this.getResources().openRawResource(R.raw.samplesetlistjson);
-        Reader reader = new InputStreamReader(is);
-        SetlistsByArtists localSetlistsByArtists = gson.fromJson(reader, SetlistsByArtists.class);
-
-        return localSetlistsByArtists;
-    }
- */

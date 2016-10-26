@@ -57,14 +57,16 @@
         app:layout_anchor="@id/view_pager"
         app:layout_anchorGravity="bottom">
 
-        <CheckBox
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/save_artist_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="?android:attr/starStyle"
-            android:text="Favorite"
+            app:theme="@style/AppTheme.Gold"
+            android:text="@string/follow_this_artist"
             android:paddingRight="10dp"
             android:layout_alignParentRight="true"
-            android:id="@+id/save_artist_star" />
+            />
 
     </RelativeLayout>
 

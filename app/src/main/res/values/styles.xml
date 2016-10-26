@@ -52,4 +52,22 @@
         <item name="colorAccent">@color/material_green_a700</item>
     </style>
 
+    <!-- Gold App Theme -->
+    <style name="AppTheme.Gold" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <!-- AppCompat Attributes -->
+        <item name="colorPrimary">@color/gold</item>
+        <item name="colorPrimaryDark">@color/gold</item>
+        <item name="colorAccent">@color/gold</item>
+
+        <!-- AppCompat Control Attributes -->
+        <!--<item name="colorButtonNormal">@color/gold</item>-->
+        <!--<item name="colorControlNormal">@color/gold</item>-->
+        <item name="colorControlActivated">@color/gold</item>
+        <item name="colorControlHighlight">@color/gold</item>
+
+    </style>
+
 </resources>

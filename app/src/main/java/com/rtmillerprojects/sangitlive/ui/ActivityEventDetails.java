@@ -105,7 +105,7 @@ public class ActivityEventDetails extends AppCompatActivity {
 
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    attending.setText(""); //not attending
+                                    attending.setText(getString(R.string.rsvp_to_this_event)); //not attending
                                     //Delete from db
                                     DatabaseHelper db = DatabaseHelper.getInstance(context);
                                     db.deleteEventAttending(event.getId());
