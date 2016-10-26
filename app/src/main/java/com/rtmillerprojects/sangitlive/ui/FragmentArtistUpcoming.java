@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rtmillerprojects.sangitlive.EventBus;
@@ -55,7 +56,8 @@ public class FragmentArtistUpcoming extends BaseFragment {
     private ProgressBar mProgressBar;
     private int mTotalEvents;
     private GetMbid listener;
-    private TextView emptyView;
+    private RelativeLayout emptyView;
+    private TextView emptyViewText;
     private String artistName;
     private ArrayList<NameMbidPair> nameMbidPairs = new ArrayList<>();
 
@@ -98,7 +100,8 @@ public class FragmentArtistUpcoming extends BaseFragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_home_upcoming);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
-        emptyView = (TextView) rootView.findViewById(R.id.empty_view);
+        emptyView = (RelativeLayout) rootView.findViewById(R.id.empty_view);
+        emptyViewText = (TextView) rootView.findViewById(R.id.empty_view_text);
 
         layoutManager = new LinearLayoutManager(ACA);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);

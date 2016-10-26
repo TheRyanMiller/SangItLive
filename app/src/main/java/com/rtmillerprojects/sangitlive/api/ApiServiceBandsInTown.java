@@ -33,11 +33,11 @@ public interface ApiServiceBandsInTown {
 
     // Events By Location (artist name)
     @GET(SEARCHBYLOCATIONENDPOINT)
-    Call<ArrayList<BandsInTownEventResult>> searchLocationalEventsByArtistName (@Path("artistName") String artistName, @Query("format") String format, @Query("location") String location, @Query("api_version") String apiVersion, @Query("app_id") String appId);
+    Call<ArrayList<BandsInTownEventResult>> searchLocationalEventsByArtistName (@Path("artistName") String artistName, @Query("format") String format, @Query("location") String location, @Query("api_version") String apiVersion, @Query("app_id") String appId, @Query("radius") String radius);
 
     // Events By Location (mbid)
     @GET(SEARCHBYMBIDLOCATIONENDPOINT)
-    Call<ArrayList<BandsInTownEventResult>> searchLocationalEventsByMbid (@Path("mbid") String mbid, @Query("format") String format, @Query("location") String location, @Query("api_version") String apiVersion, @Query("app_id") String appId);
+    Call<ArrayList<BandsInTownEventResult>> searchLocationalEventsByMbid (@Path("mbid") String mbid, @Query("format") String format, @Query("location") String location, @Query("api_version") String apiVersion, @Query("app_id") String appId, @Query("radius") String radius);
 
 
 

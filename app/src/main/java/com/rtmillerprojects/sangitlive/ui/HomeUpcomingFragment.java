@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rtmillerprojects.sangitlive.EventBus;
@@ -55,7 +56,8 @@ public class HomeUpcomingFragment extends BaseFragment {
     private ArrayList<BandsInTownEventResult> events = new ArrayList<>();
     private ProgressBar mProgressBar;
     private int mTotalEvents;
-    private TextView emptyView;
+    private RelativeLayout emptyView;
+    private TextView emptyViewText;
     private DatabaseHelper db;
     private ArrayList<NameMbidPair> nameMbidPairs = new ArrayList<>();
     private String emptyViewMsg;
@@ -85,7 +87,8 @@ public class HomeUpcomingFragment extends BaseFragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_home_upcoming);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
-        emptyView = (TextView) rootView.findViewById(R.id.empty_view);
+        emptyView = (RelativeLayout) rootView.findViewById(R.id.empty_view);
+        emptyViewText = (TextView) rootView.findViewById(R.id.empty_view_text);
 
         layoutManager = new LinearLayoutManager(ACA);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -93,8 +96,8 @@ public class HomeUpcomingFragment extends BaseFragment {
         //Test Data
         db = DatabaseHelper.getInstance(ACA);
         mbids = (ArrayList<String>) db.getFavoritedArtistMbids();
-        emptyViewMsg = "There are no upcoming events to display. You are currently tracking "+mbids.size()+ " artist(s).";
-        emptyView.setText(emptyViewMsg);
+        emptyViewMsg = "There are no upcoming events to display. \n You are currently tracking "+mbids.size()+ " artist(s).";
+        emptyViewText.setText(emptyViewMsg);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             @Override
@@ -133,8 +136,8 @@ public class HomeUpcomingFragment extends BaseFragment {
         db = DatabaseHelper.getInstance(ACA);
         filterActivated=SharedPreferencesHelper.getBoolean(getString(R.string.is_Filtered),false);
         mbids = (ArrayList<String>) db.getFavoritedArtistMbids();
-        emptyViewMsg = "There are no upcoming events to display. You are currently tracking "+mbids.size()+ " artist(s).";
-        emptyView.setText(emptyViewMsg);
+        emptyViewMsg = "There are no upcoming events to display.\nYou are currently tracking "+mbids.size()+ " artist(s).";
+        emptyViewText.setText(emptyViewMsg);
         nameMbidPairs = (ArrayList<NameMbidPair>) db.getFavoritedNameMbidPairs();
         //EventBus.post(new UpcomingEventQuery(nameMbidPairs,1,false));
         if(filterActivated){

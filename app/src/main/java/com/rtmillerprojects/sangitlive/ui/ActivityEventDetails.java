@@ -6,10 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rtmillerprojects.sangitlive.EventBus;
@@ -17,10 +20,13 @@ import com.rtmillerprojects.sangitlive.R;
 import com.rtmillerprojects.sangitlive.model.ArtistDetails;
 import com.rtmillerprojects.sangitlive.model.BandsInTownEventResult;
 import com.rtmillerprojects.sangitlive.model.EventCalls.BITResultPackage;
+import com.rtmillerprojects.sangitlive.model.EventCalls.EventManagerRequest;
 import com.rtmillerprojects.sangitlive.model.EventCalls.NameMbidPair;
 import com.rtmillerprojects.sangitlive.model.EventCalls.UpcomingEventQuery;
+import com.rtmillerprojects.sangitlive.util.CircleTransform;
 import com.rtmillerprojects.sangitlive.util.DatabaseHelper;
 import com.squareup.otto.Subscribe;
+import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
@@ -38,7 +44,8 @@ public class ActivityEventDetails extends AppCompatActivity {
     TextView city;
     TextView ticketLink;
     TextView title;
-    CheckBox attending;
+    AppCompatCheckBox attending;
+    ImageView eventImage;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +67,15 @@ public class ActivityEventDetails extends AppCompatActivity {
         venue.setText(event.getVenue().getPlace().toString());
         city = (TextView) findViewById(R.id.city);
         city.setText(event.getVenue().getCity().toString());
+        eventImage = (ImageView) findViewById(R.id.event_image);
+        try {
+            Picasso.with(context).load(event.getImage_url())
+                    .placeholder(R.drawable.ic_event_accepted_gray)
+                    .into(eventImage);
+        }
+        catch (IndexOutOfBoundsException e) {
+            Log.e(e.getClass().getName(),e.getMessage());
+        }
 
         ticketLink = (TextView) findViewById(R.id.ticket_link);
         String ticketStatus;
@@ -72,7 +88,7 @@ public class ActivityEventDetails extends AppCompatActivity {
         }
         String hyperlink = ticketStatus+" <a href='"+event.getTicketUrl()+"'>Click Here!</a>";
         ticketLink.setText(Html.fromHtml(hyperlink));
-        attending = (CheckBox) findViewById(R.id.starBox);
+        attending = (AppCompatCheckBox) findViewById(R.id.starBox);
         attending.setChecked(event.isAttending());
 
         attending.setOnClickListener(new View.OnClickListener() {
@@ -121,8 +137,13 @@ public class ActivityEventDetails extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         ArrayList<NameMbidPair> pairs = new ArrayList<NameMbidPair>();
                                         pairs.add(new NameMbidPair(ad.getName(),ad.getMbid()));
-                                        EventBus.post(new UpcomingEventQuery(pairs,true,false));
-                                        EventBus.post(new UpcomingEventQuery(pairs,false,false));
+
+                                        //EventBus.post(new UpcomingEventQuery(pairs,true,false));
+                                        //EventBus.post(new UpcomingEventQuery(pairs,false,false));
+
+                                        EventBus.post(new EventManagerRequest(pairs,false,false,false));
+                                        EventBus.post(new EventManagerRequest(pairs,false,false,true));
+
                                         DatabaseHelper db = DatabaseHelper.getInstance(context);
                                         db.insertArtist(ad);
                                     }

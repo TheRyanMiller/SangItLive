@@ -168,7 +168,6 @@ public class ActivityZipSearch extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String zipString = intent.getStringExtra(SearchManager.QUERY);
             //use the zipString from the intent to search for zips
-            Toast.makeText(this,zipString,Toast.LENGTH_SHORT).show();
             if(zipString.equals("")){
                 Toast.makeText(this,"Please enter a search value",Toast.LENGTH_SHORT).show();
             }

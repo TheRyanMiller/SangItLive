@@ -1,8 +1,6 @@
 package com.rtmillerprojects.sangitlive;
 
 import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.StrictMode;
@@ -11,7 +9,6 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.rtmillerprojects.sangitlive.api.LastFmArtistService;
 import com.rtmillerprojects.sangitlive.api.ServiceArtistImage;
-import com.rtmillerprojects.sangitlive.api.ServiceInternetStatus;
 import com.rtmillerprojects.sangitlive.api.ServiceUpcomingEvents;
 import com.rtmillerprojects.sangitlive.util.EventManagerService;
 import com.rtmillerprojects.sangitlive.util.SharedPreferencesHelper;
@@ -36,6 +33,9 @@ public class ConcertCompanionApplication extends Application {
     public static String versionName;
     public static int versionCode;
 
+    Date lastRefresh;
+    Date nextRefresh;
+    Date today = new Date();
 
     public static ConcertCompanionApplication getInstance(){
         return singleton;
@@ -71,7 +71,14 @@ public class ConcertCompanionApplication extends Application {
         if(SharedPreferencesHelper.getLong(getString(R.string.user_last_refresh),0)==0){
             SharedPreferencesHelper.putLong(getString(R.string.user_last_refresh), calculateLastRefreshDate());
             SharedPreferencesHelper.putLong(getString(R.string.user_next_refresh), calculateNextRefreshDate(0));
+        }
+        else{
+            lastRefresh = new Date(SharedPreferencesHelper.getLong(getString(R.string.user_last_refresh),0));
+            nextRefresh = new Date(SharedPreferencesHelper.getLong(getString(R.string.user_next_refresh),0));
+            today = new Date();
+            if(nextRefresh.before(today)){
 
+            }
         }
 
         /* Initialize our Database Helper */

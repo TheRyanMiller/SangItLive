@@ -92,7 +92,7 @@ public class ServiceUpcomingEvents {
                 if (event.isLocalEvents()){
                     String city = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_city),"");
                     String stateAbbr = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_location_state_abr),"");
-                    call = eventsApi.searchLocationalEventsByMbid(mbid, "json", city+" , "+stateAbbr, "2.0", "ConcertCompanion");
+                    call = eventsApi.searchLocationalEventsByMbid(mbid, "json", city+" , "+stateAbbr, "2.0", "ConcertCompanion","150");
                 }
                 //asynchronous call
                 call.enqueue(new Callback<ArrayList<BandsInTownEventResult>>() {
@@ -189,7 +189,7 @@ public class ServiceUpcomingEvents {
         if (fesbn.isLocationFiltered()){
             String city = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_city),"");
             String stateAbbr = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_location_state_abr),"");
-            call = eventsApi.searchLocationalEventsByArtistName(mbid, "json", city+" , "+stateAbbr, "2.0", "ConcertCompanion");
+            call = eventsApi.searchLocationalEventsByArtistName(mbid, "json", city+" , "+stateAbbr, "2.0", "ConcertCompanion","150");
         }
         //asynchronous call
         call.enqueue(new Callback<ArrayList<BandsInTownEventResult>>() {
@@ -282,7 +282,7 @@ public class ServiceUpcomingEvents {
                 if (event.isFilteredByLocation){
                     String city = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_city),"");
                     String stateAbbr = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_location_state_abr),"");
-                    call = eventsApi.searchLocationalEventsByMbid(mbid, "json", city+" , "+stateAbbr, "2.0", "ConcertCompanion");
+                    call = eventsApi.searchLocationalEventsByMbid(mbid, "json", city+" , "+stateAbbr, "2.0", "ConcertCompanion","150");
                 }
                 //asynchronous call
                 call.enqueue(new Callback<ArrayList<BandsInTownEventResult>>() {
@@ -379,7 +379,7 @@ public class ServiceUpcomingEvents {
         if (emPair.isFilteredByLocation){
             String city = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_city),"Charleston");
             String stateAbbr = SharedPreferencesHelper.getStringPreference(context.getString(R.string.user_location_state_abr),"SC");
-            call = eventsApi.searchLocationalEventsByArtistName(artistName, "json", city+" , "+stateAbbr, "2.0", "ConcertCompanion");
+            call = eventsApi.searchLocationalEventsByArtistName(artistName, "json", city+" , "+stateAbbr, "2.0", "ConcertCompanion","150");
         }
         //asynchronous call
         call.enqueue(new Callback<ArrayList<BandsInTownEventResult>>() {

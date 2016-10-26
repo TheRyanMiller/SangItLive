@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_gravity="center"
     android:layout_height="match_parent">
 
@@ -12,11 +13,13 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:background="@drawable/bordergrayfill">
-        <CheckBox
+        <android.support.v7.widget.AppCompatCheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="?android:attr/starStyle"
-            android:text=""
+            android:buttonTint="@color/gold"
+            tin
+            android:text="@string/rsvp_to_this_event"
             android:id="@+id/starBox" />
         <TextView
             android:id="@+id/title"
@@ -76,7 +79,22 @@
             android:textColor="#000000" />
 
     </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:foregroundGravity="center">
 
+        <ImageView
+            android:id="@+id/event_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:foregroundGravity="center">
 
+        </ImageView>
+
+    </RelativeLayout>
 
 </LinearLayout>

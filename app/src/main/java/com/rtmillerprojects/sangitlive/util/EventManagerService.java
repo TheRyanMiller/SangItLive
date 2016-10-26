@@ -1,6 +1,8 @@
 package com.rtmillerprojects.sangitlive.util;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.rtmillerprojects.sangitlive.EventBus;
 import com.rtmillerprojects.sangitlive.model.EventCalls.BITResultPackageEventMgr;
@@ -97,13 +99,18 @@ public class EventManagerService {
     }
 
     public void forceRefreshCalls(boolean locationedOnly) {
+        //Check network status
+        ConnectivityManager cm =
+                (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
         ArrayList<NameMbidPair> pairs = new ArrayList<>();
         NameMbidPair nmPair;
         db = DatabaseHelper.getInstance(context);
         ArrayList<ArtistDetails> artistList = db.getAllArtists();
-        if(artistList!=null && artistList.size()>0) {
-
-
+        if(artistList!=null && artistList.size()>0 && isConnected) {
             for (ArtistDetails a : artistList) {
                 nmPair = new NameMbidPair(a.getName(), a.getMbid());
                 pairs.add(nmPair);
@@ -137,7 +144,6 @@ public class EventManagerService {
         for (BITResultPackageEventMgr r : eventsList) {
             if(r.events != null && r.pair != null) {
                 results.add(identifyIfNewDatesExist(r.events, r.pair, locationFiltered));
-
             }
         }
         //Reconcile process is complete
@@ -146,6 +152,8 @@ public class EventManagerService {
         CompletedForceRefresh complete = new CompletedForceRefresh(true, false);
         complete.setNewEventsList(results);
         EventBus.post(complete);
+        //Empty out the event list for future refreshes
+        this.eventsList = new ArrayList<>();
     }
 
     private NotifyNewEventsForArtist identifyIfNewDatesExist(ArrayList<BandsInTownEventResult> freshEvents, NameMbidPair nmp, boolean locationFiltered) {

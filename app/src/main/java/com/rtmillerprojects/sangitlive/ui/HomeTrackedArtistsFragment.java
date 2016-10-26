@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rtmillerprojects.sangitlive.EventBus;
@@ -39,7 +40,8 @@ public class HomeTrackedArtistsFragment extends BaseFragment implements Callback
     private SwipeRefreshLayout trackedArtistSwipeRefresh;
     private int returnCounter;
     private int sizeOfArtists;
-    private TextView emptyView;
+    private RelativeLayout emptyView;
+    private TextView emptyViewText;
 
 
     public static HomeTrackedArtistsFragment newInstance() {
@@ -63,7 +65,8 @@ public class HomeTrackedArtistsFragment extends BaseFragment implements Callback
         View rootView = inflater.inflate(R.layout.home_tracked_artists_fragment, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.tracked_artists);
         trackedArtistSwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.rsvpSwipeRefresh);
-        emptyView = (TextView) rootView.findViewById(R.id.empty_view);
+        emptyView = (RelativeLayout) rootView.findViewById(R.id.empty_view);
+        emptyViewText = (TextView) rootView.findViewById(R.id.empty_view_text);
 
         layoutManager = new LinearLayoutManager(ACA);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);

@@ -64,6 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String EVENT_IS_PAST = "is_past";
     private static final String EVENT_IMG_URL = "img_url";
     private static final String EVENT_TICKET_URL = "ticket_url";
+    private static final String EVENT_TICKET_STATUS = "ticket_status";
     private static final String EVENT_DESCRIPTION = "description";
     private static final String EVENT_IS_ATTENDING = "is_attending";
 
@@ -80,7 +81,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_EVENT_ATTENDING = "CREATE TABLE " + TABLE_EVENT_ATTENDING + "(" +
             KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            EVENT_ID + " TEXT UNIQUE," +
+            EVENT_ID + " TEXT," +
             EVENT_DESCRIPTION + " TEXT," +
             ARTIST_MBID + " TEXT," +
             ARTIST_NAME + " TEXT," +
@@ -94,13 +95,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             EVENT_VENUE_NAME + " TEXT," +
             EVENT_IMG_URL + " TEXT," +
             EVENT_TICKET_URL + " TEXT," +
+            EVENT_TICKET_STATUS + " TEXT," +
             EVENT_IS_PAST + " INTEGER," +
             EVENT_IS_ATTENDING + " INTEGER," +
             KEY_CREATED_AT + " DATETIME" + ")";
 
     private static final String CREATE_TABLE_EVENT_LOCAL = "CREATE TABLE " + TABLE_EVENT_LOCAL + "(" +
             KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            EVENT_ID + " TEXT UNIQUE," +
+            EVENT_ID + " TEXT," +
             EVENT_DESCRIPTION + " TEXT," +
             ARTIST_MBID + " TEXT," +
             ARTIST_NAME + " TEXT," +
@@ -114,13 +116,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             EVENT_VENUE_NAME + " TEXT," +
             EVENT_IMG_URL + " TEXT," +
             EVENT_TICKET_URL + " TEXT," +
+            EVENT_TICKET_STATUS + " TEXT," +
             EVENT_IS_PAST + " INTEGER," +
             EVENT_IS_ATTENDING + " INTEGER," +
             KEY_CREATED_AT + " DATETIME" + ")";
 
     private static final String CREATE_TABLE_EVENT_ALL = "CREATE TABLE " + TABLE_EVENT_ALL + "(" +
             KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            EVENT_ID + " TEXT UNIQUE," +
+            EVENT_ID + " TEXT," +
             EVENT_DESCRIPTION + " TEXT," +
             ARTIST_MBID + " TEXT," +
             ARTIST_NAME + " TEXT," +
@@ -134,6 +137,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             EVENT_VENUE_NAME + " TEXT," +
             EVENT_IMG_URL + " TEXT," +
             EVENT_TICKET_URL + " TEXT," +
+            EVENT_TICKET_STATUS + " TEXT," +
             EVENT_IS_PAST + " INTEGER," +
             EVENT_IS_ATTENDING + " INTEGER," +
             KEY_CREATED_AT + " DATETIME" + ")";
@@ -361,6 +365,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 event.setArtists(artistList);
                 event.setFormattedLocation(c.getString(c.getColumnIndex(EVENT_FORMATTED_LOC)));
                 event.setAttending(true);
+                event.setImage_url(c.getString(c.getColumnIndex(EVENT_IMG_URL)));
+                event.setTicketUrl(c.getString(c.getColumnIndex(EVENT_TICKET_URL)));
+                event.setTicketStatus(c.getString(c.getColumnIndex(EVENT_TICKET_STATUS)));
                 Venue v = new Venue();
                 v.setCity(c.getString(c.getColumnIndex(EVENT_VENUE_CITY)));
                 v.setName(c.getString(c.getColumnIndex(EVENT_VENUE_NAME)));
@@ -414,6 +421,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 event.setArtists(artistList);
                 event.setFormattedLocation(c.getString(c.getColumnIndex(EVENT_FORMATTED_LOC)));
                 event.setAttending(false);
+                event.setImage_url(c.getString(c.getColumnIndex(EVENT_IMG_URL)));
+                event.setTicketUrl(c.getString(c.getColumnIndex(EVENT_TICKET_URL)));
+                event.setTicketStatus(c.getString(c.getColumnIndex(EVENT_TICKET_STATUS)));
                 Venue v = new Venue();
                 v.setCity(c.getString(c.getColumnIndex(EVENT_VENUE_CITY)));
                 v.setName(c.getString(c.getColumnIndex(EVENT_VENUE_NAME)));
@@ -462,6 +472,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 event.setArtists(artistList);
                 event.setFormattedLocation(c.getString(c.getColumnIndex(EVENT_FORMATTED_LOC)));
                 event.setAttending(false);
+                event.setImage_url(c.getString(c.getColumnIndex(EVENT_IMG_URL)));
+                event.setTicketUrl(c.getString(c.getColumnIndex(EVENT_TICKET_URL)));
+                event.setTicketStatus(c.getString(c.getColumnIndex(EVENT_TICKET_STATUS)));
                 Venue v = new Venue();
                 v.setCity(c.getString(c.getColumnIndex(EVENT_VENUE_CITY)));
                 v.setName(c.getString(c.getColumnIndex(EVENT_VENUE_NAME)));
@@ -530,6 +543,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 event.setArtists(artistList);
                 event.setFormattedLocation(c.getString(c.getColumnIndex(EVENT_FORMATTED_LOC)));
                 event.setAttending(false);
+                event.setImage_url(c.getString(c.getColumnIndex(EVENT_IMG_URL)));
+                event.setTicketUrl(c.getString(c.getColumnIndex(EVENT_TICKET_URL)));
+                event.setTicketStatus(c.getString(c.getColumnIndex(EVENT_TICKET_STATUS)));
                 Venue v = new Venue();
                 v.setCity(c.getString(c.getColumnIndex(EVENT_VENUE_CITY)));
                 v.setName(c.getString(c.getColumnIndex(EVENT_VENUE_NAME)));
@@ -596,6 +612,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             artistList.add(artist);
             artist.setMbid(c.getString(c.getColumnIndex(ARTIST_MBID)));
             event.setArtists(artistList);
+            event.setImage_url(c.getString(c.getColumnIndex(EVENT_IMG_URL)));
+            event.setTicketUrl(c.getString(c.getColumnIndex(EVENT_TICKET_URL)));
+            event.setTicketStatus(c.getString(c.getColumnIndex(EVENT_TICKET_STATUS)));
             Venue v = new Venue();
             v.setCity(c.getString(c.getColumnIndex(EVENT_VENUE_CITY)));
             v.setName(c.getString(c.getColumnIndex(EVENT_TITLE)));

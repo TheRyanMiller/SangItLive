@@ -1,4 +1,4 @@
-package com.rtmillerprojects.sangitlive.api;
+package com.rtmillerprojects.sangitlive.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
