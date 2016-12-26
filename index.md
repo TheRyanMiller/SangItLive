@@ -1,37 +1,11 @@
-## Welcome to GitHub Pages
+## Concert Companion
 
-You can use the [editor on GitHub](https://github.com/TheRyanMiller/SangItLive/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+Concert Companion is an Android app that allows you to find, and track tour dates for your favorite musical artist. The app leverages data from several freely available APIs (Last.FM, BandsInTown, MusicBrainz, and Setlist.FM) to make sure you're aware of all upcoming tour dates. With the addition of the Setlist.FM API, you can also see what songs the band has been playing on their current tour.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/TheRyanMiller/SangItLive/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+### Download or contribute to the project
+[Download this app] (https://play.google.com/store/apps/details?id=com.rtmillerprojects.sangitlive) from the Google Play Store.
+[Contribute to this project] (github.com/theryanmiller/sangitlive) on GitHub. 
 
 ### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+You may contact me, Ryan Miller, via email.
