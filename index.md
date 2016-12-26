@@ -4,7 +4,7 @@ Concert Companion is an Android app that allows you to find, and track tour date
 
 ### Download or contribute to the project
 [Download this app](https://play.google.com/store/apps/details?id=com.rtmillerprojects.sangitlive) from the Google Play Store.
-[Contribute to this project](github.com/theryanmiller/sangitlive) on GitHub. 
+[Contribute to this project](https://github.com/TheRyanMiller/SangItLive) on GitHub. 
 
 ### Support or Contact
 
